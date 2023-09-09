@@ -460,6 +460,7 @@ class multimediaManager{
             addMediaItemToList()
         case "8":
                 removeMedia()
+                exit()
         default:
             print("\tОшибка, попробуйте еще раз\n")
             multimediaManagerMenu()
