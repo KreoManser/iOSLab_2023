@@ -1,22 +1,22 @@
-protocol MediaItem{
-    var creator : String { get set }
+protocol MediaItem {
+    var creator: String { get set }
     var conditionalContentUnit: Int { get set }
 }
 
-class Movie : MediaItem{
+class Movie: MediaItem {
 
     var creator: String
     var conditionalContentUnit: Int
     var title: String
-    var feedbacks : [Feedback] = []
+    var feedbacks: [Feedback] = []
 
-    init(){g
+    init() {
         creator = "Creator 1"
         conditionalContentUnit = 1
         title = "title 1"
     }
 
-    init(creator: String, conditionalContentUnit : Int, title: String){
+    init(creator: String, conditionalContentUnit: Int, title: String) {
         self.creator = creator
         self.conditionalContentUnit = conditionalContentUnit
         self.title = title
@@ -37,21 +37,21 @@ class Movie : MediaItem{
 }
 
 
-class Music: MediaItem{
+class Music: MediaItem {
 
     var creator: String
     var conditionalContentUnit: Int
     var title: String
-    var feedbacks : [Feedback] = []
+    var feedbacks: [Feedback] = []
 
 
-    init(){
+    init() {
         creator = "Creator 2"
         conditionalContentUnit = 2
         title = "title 2"
     }
 
-    init(creator: String, conditionalContentUnit : Int, title : String){
+    init(creator: String, conditionalContentUnit: Int, title: String) {
         self.creator = creator
         self.conditionalContentUnit = conditionalContentUnit
         self.title = title
@@ -72,19 +72,19 @@ class Music: MediaItem{
 
 }
 
-class Book: MediaItem{
+class Book: MediaItem {
 
     var creator: String
     var conditionalContentUnit: Int
-    var title : String
-    var feedbacks : [Feedback] = []
+    var title: String
+    var feedbacks: [Feedback] = []
 
-    init(){
+    init() {
         creator = "Creator 3"
         conditionalContentUnit = 3
         title = "title 3"
     }
-    init(creator: String, conditionalContentUnit : Int, title : String){
+    init(creator: String, conditionalContentUnit: Int, title: String) {
         self.creator = creator
         self.conditionalContentUnit = conditionalContentUnit
         self.title = title
@@ -105,7 +105,7 @@ class Book: MediaItem{
 }
 
 
-class Feedback{
+class Feedback {
     var estimation: Int = 1
     var feedbackDescription: String
     var titleFeedback: String
@@ -123,7 +123,7 @@ class Feedback{
 
 
 //MANAGER
-class MediaManager{
+class MediaManager {
 
     var arrayMedia = Array<Any>()
     init() {
@@ -136,80 +136,85 @@ class MediaManager{
     }
     // прежде чем получить объект с высшей оценкой нужно добавить отзывы на объекты
     func getHighestRatedWorks() -> [Any] {
-        var sum : Int = 0
-        var cnt : Int = 0
+        var sum: Int = 0
+        var cnt: Int = 0
         var aboveAverage: [Any] = []
-        for item in arrayMedia{
-            if let itemBook = item as? Book{
-                for feedback in itemBook.feedbacks{
+        for item in arrayMedia {
+            if let itemBook = item as? Book {
+                for feedback in itemBook.feedbacks {
                     sum += feedback.estimation
                     cnt += 1
                 }
             }
         }
-        for item in arrayMedia{
-            if let itemMusic = item as? Music{
-                for feedback in itemMusic.feedbacks{
+        for item in arrayMedia {
+            if let itemMusic = item as? Music {
+                for feedback in itemMusic.feedbacks {
                     sum += feedback.estimation
-                    cnt+=1
+                    cnt += 1
                 }
             }
         }
-        for item in arrayMedia{
-            if let itemMovie = item as? Movie{
-                for feedback in itemMovie.feedbacks{
+        for item in arrayMedia {
+            if let itemMovie = item as? Movie {
+                for feedback in itemMovie.feedbacks {
                     sum += feedback.estimation
                     cnt += 1
                 }
             }
         }
         
-        var averageValue: Double = Double(sum) / Double(cnt)
+        let averageValue: Double = Double(sum) / Double(cnt)
         
-        for obj in arrayMedia{
-            if let bookObj = obj as? Book{
-                for feedback in bookObj.feedbacks{
-                    if Double(feedback.estimation) > averageValue{
+        for obj in arrayMedia {
+            if let bookObj = obj as? Book {
+                for feedback in bookObj.feedbacks {
+                    if Double(feedback.estimation) > averageValue {
                         aboveAverage.append(bookObj)
                     }
                 }
-                
             }
-            else if let movieObj = obj as? Movie{
-                for feedback in movieObj.feedbacks{
-                    if Double(feedback.estimation) > averageValue{
+            else if let movieObj = obj as? Movie {
+                for feedback in movieObj.feedbacks {
+                    if Double(feedback.estimation) > averageValue {
                         aboveAverage.append(movieObj)
                     }
                 }
             }
-            else if let musicObj = obj as? Music{
-                for feedback in musicObj.feedbacks{
-                    if Double(feedback.estimation) > averageValue{
+            else if let musicObj = obj as? Music {
+                for feedback in musicObj.feedbacks {
+                    if Double(feedback.estimation) > averageValue {
                         aboveAverage.append(musicObj)
                     }
                 }
             }
-           
         }
-        
         return aboveAverage
     }
 
-    func addNewObject(element: Any) -> Void {
-        arrayMedia.append(element)
+    func addNewObject(mediaItem: Any) -> Void {
+        if let media = mediaItem as? Book {
+            arrayMedia.append(media)
+        }
+        if let media = mediaItem as? Music {
+            arrayMedia.append(media)
+        }
+        if let media = mediaItem as? Movie {
+            arrayMedia.append(media)
+        }
     }
 
 
-    func deleteObj(creatorDelete : String, titleDelete : String) -> Void {
+    func deleteObj(creatorDelete: String, titleDelete: String) -> Void {
 
-        var filteredArray = arrayMedia.filter { item in
+        let filteredArray = arrayMedia.filter { item in
             if let mediaItem = item as? Book {
                 return mediaItem.title != titleDelete && mediaItem.creator != creatorDelete
             }
-            else if let mediaItem = item as? Music{
+            else if let mediaItem = item as? Music {
                 return mediaItem.title != titleDelete && mediaItem.creator != creatorDelete
             }
-            else if let mediaItem = item as? Movie{
+            else if let mediaItem = item as? Movie {
                 return mediaItem.title != titleDelete && mediaItem.creator != creatorDelete
             }
             return true
@@ -218,20 +223,20 @@ class MediaManager{
 
     }
 
-    func searchObj(creatorSearch: String, titleSearch : String) -> Any?{
+    func searchObj(creatorSearch: String, titleSearch: String) -> Any? {
         for item in arrayMedia{
             if let mediaItem = item as? Book {
-                if mediaItem.title == titleSearch && mediaItem.creator == creatorSearch{
+                if mediaItem.title == titleSearch && mediaItem.creator == creatorSearch {
                     return mediaItem
                 }
             }
-            else if let mediaItem = item as? Music{
-                if mediaItem.title == titleSearch && mediaItem.creator == creatorSearch{
+            else if let mediaItem = item as? Music {
+                if mediaItem.title == titleSearch && mediaItem.creator == creatorSearch {
                     return mediaItem
                 }
             }
-            else if let mediaItem = item as? Movie{
-                if mediaItem.title == titleSearch && mediaItem.creator == creatorSearch{
+            else if let mediaItem = item as? Movie {
+                if mediaItem.title == titleSearch && mediaItem.creator == creatorSearch {
                     return mediaItem
                 }
             }
@@ -247,7 +252,7 @@ let test1 = MediaManager()
 
 var exit = true
 
-while(exit){
+while(exit) {
     print("ENTER A NUMBER FROM ONE TO FIVE")
     print(###"1) Add new Movie\###n2) Add new Book\###n3) Add new Music\###n4) Deleting by the amount of content\###n5) Search by creator and name \###n6) Show the entire list\###n7) Add a review (to do this, enter the 1)title 2)creator 3)estimation 4)title 5)description)\###n8) Show works with the highest rating\###n9) Exit "###)
 
@@ -256,39 +261,39 @@ while(exit){
         case 1 :
             print("enter the creator, title, and content unit in order")
             let creatorOptional = readLine()
-            let contentUnitOptional = readLine()
             let titleOptional = readLine()
-            if let creator = creatorOptional, let contentUnitString = contentUnitOptional, let title = titleOptional{
+            let contentUnitOptional = readLine()
+            if let creator = creatorOptional, let contentUnitString = contentUnitOptional, let title = titleOptional {
                 if let contentUnitInt = Int(contentUnitString){
-                    test1.addNewObject(element: Movie(creator: creator, conditionalContentUnit: contentUnitInt, title: title))
+                    test1.addNewObject(mediaItem: Movie(creator: creator, conditionalContentUnit: contentUnitInt, title: title))
                 }
             }
         case 2 :
             print("enter the creator, title, and content unit in order")
             let creatorOptional = readLine()
-            let contentUnitOptional = readLine()
             let titleOptional = readLine()
-            if let creator = creatorOptional, let contentUnitString = contentUnitOptional, let title = titleOptional{
+            let contentUnitOptional = readLine()
+            if let creator = creatorOptional, let contentUnitString = contentUnitOptional, let title = titleOptional {
                 if let contentUnitInt = Int(contentUnitString){
-                    test1.addNewObject(element: Book(creator: creator, conditionalContentUnit: contentUnitInt, title: title))
+                    test1.addNewObject(mediaItem: Book(creator: creator, conditionalContentUnit: contentUnitInt, title: title))
                 }
             }
 
         case 3 :
             print("enter the creator, title, and content unit in order")
             let creatorOptional = readLine()
-            let contentUnitOptional = readLine()
             let titleOptional = readLine()
-            if let creator = creatorOptional, let contentUnitString = contentUnitOptional, let title = titleOptional{
+            let contentUnitOptional = readLine()
+            if let creator = creatorOptional, let contentUnitString = contentUnitOptional, let title = titleOptional {
                 if let contentUnitInt = Int(contentUnitString){
-                    test1.addNewObject(element: Music(creator: creator, conditionalContentUnit: contentUnitInt, title: title))
+                    test1.addNewObject(mediaItem: Music(creator: creator, conditionalContentUnit: contentUnitInt, title: title))
                 }
             }
         case 4 :
             print("enter the title of the work and the creator to delete")
             let titleDelOpt = readLine()
             let creatorDelOpt = readLine()
-            if let titleDel = titleDelOpt, let creatorDel = creatorDelOpt{
+            if let titleDel = titleDelOpt, let creatorDel = creatorDelOpt {
                 test1.deleteObj(creatorDelete: creatorDel, titleDelete: titleDel)
             }
 
@@ -296,15 +301,15 @@ while(exit){
             print("enter the title and creator in order to search for")
             let titleSearchOpt = readLine()
             let creatorSearchOpt = readLine()
-            if let titleSrch = titleSearchOpt, let creatorSrch = creatorSearchOpt{
+            if let titleSrch = titleSearchOpt, let creatorSrch = creatorSearchOpt {
                 let obj = test1.searchObj(creatorSearch: creatorSrch, titleSearch: titleSrch)
-                if let bookObj = obj as? Book{
+                if let bookObj = obj as? Book {
                     print(bookObj.description)
                 }
-                else if let movieObj = obj as? Movie{
+                else if let movieObj = obj as? Movie {
                     print(movieObj.description)
                 }
-                else if let musicObj = obj as? Music{
+                else if let musicObj = obj as? Music {
                     print(musicObj.description)
                 }
                 else{
@@ -328,25 +333,25 @@ while(exit){
             let estimationOpt = readLine()
             let titleFeedbackOpt = readLine()
             let descriptionOpt = readLine()
-            if let estimationString = estimationOpt, let titleFeedback = titleFeedbackOpt, let description = descriptionOpt{
-                if let estimationInt = Int(estimationString){
-                    var newFeedback = Feedback(estimation: estimationInt, descriptionText: description, titleFeedback: titleFeedback)
-                    if let titleSrch = titleSearchOpt, let creatorSrch = creatorSearchOpt{
+            if let estimationString = estimationOpt, let titleFeedback = titleFeedbackOpt, let description = descriptionOpt {
+                if let estimationInt = Int(estimationString) {
+                    let newFeedback = Feedback(estimation: estimationInt, descriptionText: description, titleFeedback: titleFeedback)
+                    if let titleSrch = titleSearchOpt, let creatorSrch = creatorSearchOpt {
                         let obj = test1.searchObj(creatorSearch: creatorSrch, titleSearch: titleSrch)
-                        if let bookObj = obj as? Book{
+                        if let bookObj = obj as? Book {
                             bookObj.addNewFeedback(feedback: newFeedback)
                         }
-                        else if let movieObj = obj as? Movie{
+                        else if let movieObj = obj as? Movie {
                             movieObj.addNewFeedback(feedback: newFeedback)
                         }
-                        else if let musicObj = obj as? Music{
+                        else if let musicObj = obj as? Music {
                             musicObj.addNewFeedback(feedback: newFeedback)
                         }
                     }
                 }
             }
         case 8:
-            var aboveAverge = test1.getHighestRatedWorks()
+            let aboveAverge = test1.getHighestRatedWorks()
             for item in aboveAverge {
                 if let movieValue = item as? Movie {
                     print("\(movieValue.description)")
