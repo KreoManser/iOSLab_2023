@@ -11,7 +11,7 @@ let mediaManager = MediaManager()
 firstTime()
 
 private func firstTime () {
-    print("Главное меню \nЧто вы хотите сделать? Введите нужную цифру \n1) Найти какой-то объект в библиотеке \n2) Добавить какой-то объект в библиотеку \n3) Удалить какой-то объект из библиотеки \n4) Оценить какой-то объект \n(Цифру нужно вводить без каких-либо знаков, после ввода цифры необходимо нажать 'enter')")
+    print("Главное меню \nЧто вы хотите сделать? Введите нужную цифру \n1) Найти какой-то объект в библиотеке \n2) Добавить какой-то объект в библиотеку \n3) Удалить какой-то объект из библиотеки \n4) Оценить какой-то объект \n5) Посмотреть популярные объекты \n(Цифру нужно вводить без каких-либо знаков, после ввода цифры необходимо нажать 'enter')")
     choiceFromMainMenu()
 }
 
@@ -32,6 +32,9 @@ private func choiceFromMainMenu () {
     case 4:
         print("\nМеню оценивания объектов \nЧто вы хотите оценить? Выберите нужную цифру \n1) Песню \n2) Фильм \n3) Книжку \n4) Вернуться в главное меню \n(Цифру нужно вводить без каких-либо знаков, после ввода цифры необходимо нажать 'enter')")
         choiceFromEstimateItem()
+    case 5:
+        print("\nМеню просмотра популярных объектов \nКакой раздел вы хотите посмотреть? Выберите нужную цифру \n1) Песни \n2) Фильмы \n3) Книжки \n4) Посмотреть все \n5) Вернуться в главное меню \n(Цифру нужно вводить без каких-либо знаков, после ввода цифры необходимо нажать 'enter')")
+        сhoiceFromLookPopularItems()
     default:
         print("\nК сожалению, вы ввели что-то неверно, повторите попытку")
         choiceFromMainMenu()
@@ -46,27 +49,27 @@ private func choiceFromFindItem () {
     switch findItemChoice {
     case 1:
         print("\nВот весь список песен из библиотеки:")
-        let result = mediaManager.findItemByMediaType(type: typeOfMedia.music)
+        let _ = mediaManager.findItemByMediaType(type: typeOfMedia.music)
         wantToPreviousMenu(numberOfPrevious: 1)
     case 2:
         print("\nВот весь список фильмов из библиотеки:")
-        let result = mediaManager.findItemByMediaType(type: typeOfMedia.movie)
+        let _ = mediaManager.findItemByMediaType(type: typeOfMedia.movie)
         wantToPreviousMenu(numberOfPrevious: 1)
     case 3:
         print("\nВот весь список книг из библиотеки:")
-        let result = mediaManager.findItemByMediaType(type: typeOfMedia.book)
+        let _ = mediaManager.findItemByMediaType(type: typeOfMedia.book)
         wantToPreviousMenu(numberOfPrevious: 1)
     case 4:
         print("\nВведите автора:")
         let author = readString()
         print("\nВот весь список работ этого автора из библиотеки:")
-        let result = mediaManager.findItemByAuthor(author: author)
+        let _ = mediaManager.findItemByAuthor(author: author)
         wantToPreviousMenu(numberOfPrevious: 1)
     case 5:
         print("\nВведите название:")
         let name = readString()
         print("\nВот весь список работ по этому названию из библиотеки: \n")
-        let result = mediaManager.findItemByName(name: name)
+        let _ = mediaManager.findItemByName(name: name)
         wantToPreviousMenu(numberOfPrevious: 1)
 
     case 6:
@@ -115,7 +118,6 @@ private func choiceFromAddItem () {
 /// считывает действия из меню удаления объектов
 private func choiceFromDeleteItem () {
     let deleteItemChoice = readInt()
-    let typeOfMedia = TypeOfMedia.self
     
     switch deleteItemChoice {
     case 1, 2, 3:
@@ -131,13 +133,37 @@ private func choiceFromDeleteItem () {
 /// считывает действия из меню оценивания объектов
 private func choiceFromEstimateItem () {
     let estimateItemChoice = readInt()
-    let typeOfMedia = TypeOfMedia.self
     
     switch estimateItemChoice {
     case 1, 2, 3:
         estimateItem()
         wantToPreviousMenu(numberOfPrevious: 2)
     case 4:
+        firstTime()
+    default:
+        print("\nК сожалению, вы ввели что-то неверно, повторите попытку")
+        choiceFromAddItem()
+    }
+}
+
+/// считывает действия из меню вывода популярных объектов
+private func сhoiceFromLookPopularItems () {
+    let LookPopularItemsChoice = readInt()
+    
+    switch LookPopularItemsChoice {
+    case 1:
+        mediaManager.givePopularItems(type: TypeOfMedia.music)
+        wantToPreviousMenu(numberOfPrevious: 5)
+    case 2:
+        mediaManager.givePopularItems(type: TypeOfMedia.movie)
+        wantToPreviousMenu(numberOfPrevious: 5)
+    case 3:
+        mediaManager.givePopularItems(type: TypeOfMedia.book)
+        wantToPreviousMenu(numberOfPrevious: 5)
+    case 4:
+        mediaManager.givePopularItems(type: nil)
+        wantToPreviousMenu(numberOfPrevious: 5)
+    case 5:
         firstTime()
     default:
         print("\nК сожалению, вы ввели что-то неверно, повторите попытку")
@@ -158,7 +184,7 @@ private func estimateItem () {
         let number = readInt()
         print("Этот элемент хотите оценить? Если да, то напишите оценку от 1 до 10")
         let mark = readDouble()
-        mediaManager.estimateItem(item: items[0], rating: mark)
+        mediaManager.estimateItem(item: items[number - 1], rating: mark)
     }
     else {
         print("Что-то пошло не так")

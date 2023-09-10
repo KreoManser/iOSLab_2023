@@ -93,7 +93,7 @@ extension MediaManager: MediaRatingProtocol {
         print("Ваш рейтинг был учтён, текущий рейтинг: \(item.rating)")
     }
     
-    /// считает рейтинг по всем медиа или конкретному типу
+    /// выводит рейтинг по всем медиа или конкретному типу
     func givePopularItems(type: TypeOfMedia?) {
         let rating = countMiddleRating()
         var popularItems: [MediaItem] = []
@@ -107,9 +107,11 @@ extension MediaManager: MediaRatingProtocol {
                 }
             }
         }
-        for item in listOfMedia[type!] ?? []{
-            if item.rating > rating {
-                popularItems.append(item)
+        else {
+            for item in listOfMedia[type ?? TypeOfMedia.book] ?? []{
+                if item.rating > rating {
+                    popularItems.append(item)
+                }
             }
         }
         
