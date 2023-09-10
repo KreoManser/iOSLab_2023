@@ -10,7 +10,7 @@ class Movie : MediaItem{
     var title: String
     var feedbacks : [Feedback] = []
 
-    init(){
+    init(){g
         creator = "Creator 1"
         conditionalContentUnit = 1
         title = "title 1"
