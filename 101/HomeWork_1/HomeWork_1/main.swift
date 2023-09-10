@@ -7,15 +7,15 @@
 
 import Foundation
 
-//Rating protocol
-protocol rating {
+///Rating protocol
+protocol Rating {
     var averageRating: Decimal { get }
     var ratingList: [Int] { get }
     func addScore(score: Int)
 }
 
-//Media item class
-class mediaItem: rating {
+///Media item class
+class MediaItem: Rating {
     
     let name: String
     let author: String
@@ -58,8 +58,8 @@ class mediaItem: rating {
     }
 }
 
-//Movie class
-class movie: mediaItem {
+///Movie class
+class Movie: MediaItem {
     let duration:Int
     
     init(name: String, author: String, duration:Int) {
@@ -68,7 +68,7 @@ class movie: mediaItem {
     }
 }
 
-enum musicGenres: String {
+enum MusicGenres: String {
     case hipHop = "1"
     case hyperpop = "2"
     case rock = "3"
@@ -77,18 +77,18 @@ enum musicGenres: String {
     case notStated = "-1"
 }
 
-//Music class
-class music: mediaItem {
-    let genre: musicGenres
+///Music class
+class Music: MediaItem {
+    let genre: MusicGenres
     let duration: Int
-    init(name: String, author: String, duration: Int, genre: musicGenres) {
+    init(name: String, author: String, duration: Int, genre: MusicGenres) {
         self.genre = genre
         self.duration = duration
         super.init(name: name, author: author)
     }
 }
 
-enum bookGenres: String {
+enum BookGenres: String {
     case detective = "1"
     case novel = "2"
     case adventure = "3"
@@ -97,48 +97,48 @@ enum bookGenres: String {
     
 }
 
-//Book class
-class book: mediaItem {
-    let genre: bookGenres
+///Book class
+class Book: MediaItem {
+    let genre: BookGenres
     let pageCount: Int
     
-    init(name: String, author: String, bookGenre:bookGenres, pageCount: Int) {
+    init(name: String, author: String, bookGenre:BookGenres, pageCount: Int) {
         self.genre = bookGenre
         self.pageCount = pageCount
         super.init(name: name, author: author)
     }
 }
 
-enum mediaTypes: String {
+enum MediaTypes: String {
     case music = "1"
     case book = "2"
     case movie = "3"
 }
 
-enum searchTypes {
+enum SearchTypes {
     case author
     case name
 }
 
-//Mutimedia manager class
-class multimediaManager {
-    var movieList: [movie] = []
-    var musicList: [music] = []
-    var bookList: [book] = []
+///Mutimedia manager class
+class MultimediaManager {
+    var movieList: [Movie] = []
+    var musicList: [Music] = []
+    var bookList: [Book] = []
     
-    func movieInfoToString(currentMovie: movie) -> String {
+    func movieInfoToString(currentMovie: Movie) -> String {
         return "Name: \(currentMovie.name) | Author: \(currentMovie.author) \n\tduration: \(currentMovie.duration) minutes | Rating: \(currentMovie.averageRating)*\n"
     }
     
-    func bookInfoToString(currentBook: book) -> String {
+    func bookInfoToString(currentBook: Book) -> String {
         return "Name: \(currentBook.name) | Author: \(currentBook.author) \n\tGenre: \(currentBook.genre) | Page count: \(currentBook.pageCount) | Rating: \(currentBook.averageRating)*\n"
     }
     
-    func musicInfoToString(currentMusic: music) -> String {
+    func musicInfoToString(currentMusic: Music) -> String {
         return "Name: \(currentMusic.name) | Author: \(currentMusic.author) \n\tGenre: \(currentMusic.genre) | Duration: \(currentMusic.duration) second | Rating: \(currentMusic.averageRating)*\n"
     }
     
-    func mediaSearch(searchText: String, mediaType: mediaTypes, searchType: searchTypes) {
+    func mediaSearch(searchText: String, mediaType: MediaTypes, searchType: SearchTypes) {
         if searchType == .author {
             switch mediaType {
             case .movie:
@@ -252,7 +252,7 @@ class multimediaManager {
             print("5: Rap")
             
             musicGenre = readLine() ?? ""
-            musicList.append(music(name: name, author: author, duration: duration, genre: musicGenres(rawValue: musicGenre) ?? .notStated))
+            musicList.append(Music(name: name, author: author, duration: duration, genre: MusicGenres(rawValue: musicGenre) ?? .notStated))
             print("\tДобавлено!")
             exit()
             
@@ -272,7 +272,7 @@ class multimediaManager {
             print("4: Fantacy")
             
             bookGenre = readLine() ?? ""
-            bookList.append(book(name: name, author: author, bookGenre: bookGenres(rawValue: bookGenre) ?? .notStated, pageCount: duration))
+            bookList.append(Book(name: name, author: author, bookGenre: BookGenres(rawValue: bookGenre) ?? .notStated, pageCount: duration))
             
             print("\tДобавлено!")
             exit()
@@ -286,7 +286,7 @@ class multimediaManager {
             durationTemp = readLine() ?? ""
             duration = Int(durationTemp) ?? 0
             
-            movieList.append(movie(name: name, author: author, duration: duration))
+            movieList.append(Movie(name: name, author: author, duration: duration))
             print("\tДобавлено!")
             exit()
             
@@ -296,7 +296,7 @@ class multimediaManager {
         }
     }
     
-    func getPopular(mediaType: mediaTypes) {
+    func getPopular(mediaType: MediaTypes) {
         switch mediaType {
         case .movie:
             let sortedMovieList = movieList.sorted{ $0.averageRating > $1.averageRating }
@@ -413,7 +413,7 @@ class multimediaManager {
             print("Видео: введите 3")
             let temp = readLine()
             if checkSelection(input: temp ?? "-1") {
-                getPopular(mediaType: mediaTypes(rawValue: temp!)!)
+                getPopular(mediaType: MediaTypes(rawValue: temp!)!)
                 exit()
             }
             else {
@@ -431,7 +431,7 @@ class multimediaManager {
                 print("Введите имя автора")
                 let authorName = readLine()
                 searchNilChecker(input: authorName)
-                mediaSearch(searchText: authorName!, mediaType: mediaTypes(rawValue: temp!)!, searchType: .author)
+                mediaSearch(searchText: authorName!, mediaType: MediaTypes(rawValue: temp!)!, searchType: .author)
                 exit()
             }
             else {
@@ -449,7 +449,7 @@ class multimediaManager {
                 print("Введите имя автора")
                 let authorName = readLine()
                 searchNilChecker(input: authorName)
-                mediaSearch(searchText: authorName!, mediaType: mediaTypes(rawValue: temp!)!, searchType: .name)
+                mediaSearch(searchText: authorName!, mediaType: MediaTypes(rawValue: temp!)!, searchType: .name)
                 exit()
             }
             else {
@@ -471,40 +471,40 @@ class multimediaManager {
     }
 }
 
-let manager = multimediaManager()
+let manager = MultimediaManager()
 
-func addRandomScore(item: mediaItem) {
+func addRandomScore(item: MediaItem) {
     for _ in 1...40 {
         item.addScore(score: Int.random(in: 0...10))
     }
 }
 
-//Movies
-let theShawshankRedemption = movie(name: "The Shawshank Redemption", author: "Frank Darabont", duration: 144)
-let theGodfather = movie(name: "The Godfather", author: "Francis Ford Coppola", duration: 175)
-let theDarkKnight = movie(name: "The Dark Knight", author: "Christopher Nolan", duration: 152 )
-let schindlersList = movie(name: "Schindler's List", author: "Steven Spielberg", duration: 195 )
+///Movies
+let theShawshankRedemption = Movie(name: "The Shawshank Redemption", author: "Frank Darabont", duration: 144)
+let theGodfather = Movie(name: "The Godfather", author: "Francis Ford Coppola", duration: 175)
+let theDarkKnight = Movie(name: "The Dark Knight", author: "Christopher Nolan", duration: 152 )
+let schindlersList = Movie(name: "Schindler's List", author: "Steven Spielberg", duration: 195 )
 
 manager.movieList.append(theShawshankRedemption)
 manager.movieList.append(theGodfather)
 manager.movieList.append(theDarkKnight)
 manager.movieList.append(schindlersList)
 
-//Book
-let iFeelBadAboutMyNeck = book(name: "I Feel Bad About My Neck", author: "Nora Ephron", bookGenre: .adventure , pageCount: 54)
-let brokenGlass = book(name: "Broken Glass", author: "Alain Mabanckou ", bookGenre: .novel , pageCount: 101)
-let aLittleLife = book(name: "A Little Life", author: "Hanya Yanagihara", bookGenre: .fantasy , pageCount: 59)
+///Book
+let iFeelBadAboutMyNeck = Book(name: "I Feel Bad About My Neck", author: "Nora Ephron", bookGenre: .adventure , pageCount: 54)
+let brokenGlass = Book(name: "Broken Glass", author: "Alain Mabanckou ", bookGenre: .novel , pageCount: 101)
+let aLittleLife = Book(name: "A Little Life", author: "Hanya Yanagihara", bookGenre: .fantasy , pageCount: 59)
 
 manager.bookList.append(iFeelBadAboutMyNeck)
 manager.bookList.append(brokenGlass)
 manager.bookList.append(aLittleLife)
 
-//Music
-let paintTheTownRed = music(name: "Paint The Town Red", author: "Doja Cat", duration: 134, genre: .hipHop)
-let itGoesLikeNananaEdit = music(name: "(It Goes Like) Nanana (Edit)", author: "Peggy Gou", duration: 133, genre: .hipHop)
-let strangers = music(name: "Strangers", author: "Kenya Grace", duration: 150, genre: .rap)
-let tattoo = music(name: "Tattoo", author: "Loreen", duration: 151, genre: .classic)
-let vampire = music(name: "Vampire", author: "Olivia Rodrigo", duration: 113, genre: .classic)
+///Music
+let paintTheTownRed = Music(name: "Paint The Town Red", author: "Doja Cat", duration: 134, genre: .hipHop)
+let itGoesLikeNananaEdit = Music(name: "(It Goes Like) Nanana (Edit)", author: "Peggy Gou", duration: 133, genre: .hipHop)
+let strangers = Music(name: "Strangers", author: "Kenya Grace", duration: 150, genre: .rap)
+let tattoo = Music(name: "Tattoo", author: "Loreen", duration: 151, genre: .classic)
+let vampire = Music(name: "Vampire", author: "Olivia Rodrigo", duration: 113, genre: .classic)
 
 manager.musicList.append(paintTheTownRed)
 manager.musicList.append(itGoesLikeNananaEdit)
