@@ -81,7 +81,7 @@ class MultimediaManager: MultimediaFunctions {
         print("Book    Movie    Music")
         
         let mediaItemName = readLine()
-
+        
         switch mediaItemName {
             
         case "Book":
@@ -110,7 +110,7 @@ class MultimediaManager: MultimediaFunctions {
         print("Book    Movie    Music")
         
         let mediaItemName = readLine()
-
+        
         switch mediaItemName {
             
         case "Book":
@@ -361,7 +361,7 @@ private func goToMain() {
     print("3. delete some media item")
     print("4. print all items from any group")
     print("5. reset online library")
-
+    
 }
 
 private func addMovie() -> Movie{
@@ -398,7 +398,7 @@ private func addBook() -> Book{
     
     print("Enter book's number of pages: ")
     let numberOfPages = Int(readLine() ?? "") ?? 0
-
+    
     
     return Book(numberOfPages: numberOfPages, name: name, author: author, bookGenre: BookGenre(rawValue: genre) ?? .fatal)
     
@@ -448,7 +448,7 @@ enum MovieGenre: String {
     case comedy = "Comedy"
     case drama = "Drama"
     case fatal = "fatal"
-
+    
 }
 
 enum BookGenre: String {
