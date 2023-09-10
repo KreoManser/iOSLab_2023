@@ -8,45 +8,45 @@
 import Foundation
 
 //Rating protocol
-protocol rating{
-    var averageRating: Decimal{get }
-    var ratingList:[Int]{get }
+protocol rating {
+    var averageRating: Decimal { get }
+    var ratingList: [Int] { get }
     func addScore(score: Int)
 }
 
 //Media item class
-class mediaItem: rating{
+class mediaItem: rating {
     
     let name: String
     let author: String
     
-    private var privateRatingList:[Int] = []
-    var ratingList:[Int]{
-        get{
+    private var privateRatingList: [Int] = []
+    var ratingList: [Int] {
+        get {
             return privateRatingList
         }
     }
     
-    var averageRating: Decimal{
-        get{
+    var averageRating: Decimal {
+        get {
             if ratingList.isEmpty{
                 return 0
             }
             var ratingSum: Decimal = 0
-            for number in ratingList{
+            for number in ratingList {
                 ratingSum += Decimal(number)
             }
             return ratingSum / Decimal(ratingList.count)
         }
     }
     
-    init(name:String, author:String) {
+    init(name: String, author: String) {
         self.name = name
         self.author = author
         addRandomScore(item: self)
     }
     
-    func addScore(score: Int){
+    func addScore(score: Int) {
         switch score{
         case ..<0:
             print("Score error, score must be >= 0")
@@ -59,7 +59,7 @@ class mediaItem: rating{
 }
 
 //Movie class
-class movie: mediaItem{
+class movie: mediaItem {
     let duration:Int
     
     init(name: String, author: String, duration:Int) {
@@ -68,7 +68,7 @@ class movie: mediaItem{
     }
 }
 
-enum musicGenres: String{
+enum musicGenres: String {
     case hipHop = "1"
     case hyperpop = "2"
     case rock = "3"
@@ -78,7 +78,7 @@ enum musicGenres: String{
 }
 
 //Music class
-class music: mediaItem{
+class music: mediaItem {
     let genre: musicGenres
     let duration: Int
     init(name: String, author: String, duration: Int, genre: musicGenres) {
@@ -88,7 +88,7 @@ class music: mediaItem{
     }
 }
 
-enum bookGenres: String{
+enum bookGenres: String {
     case detective = "1"
     case novel = "2"
     case adventure = "3"
@@ -98,7 +98,7 @@ enum bookGenres: String{
 }
 
 //Book class
-class book: mediaItem{
+class book: mediaItem {
     let genre: bookGenres
     let pageCount: Int
     
@@ -109,103 +109,103 @@ class book: mediaItem{
     }
 }
 
-enum mediaTypes: String{
+enum mediaTypes: String {
     case music = "1"
     case book = "2"
     case movie = "3"
 }
 
-enum searchTypes{
+enum searchTypes {
     case author
     case name
 }
 
 //Mutimedia manager class
-class multimediaManager{
-    var movieList:[movie] = []
-    var musicList:[music] = []
-    var bookList:[book] = []
+class multimediaManager {
+    var movieList: [movie] = []
+    var musicList: [music] = []
+    var bookList: [book] = []
     
-    func movieInfoToString(currentMovie: movie) -> String{
+    func movieInfoToString(currentMovie: movie) -> String {
         return "Name: \(currentMovie.name) | Author: \(currentMovie.author) \n\tduration: \(currentMovie.duration) minutes | Rating: \(currentMovie.averageRating)*\n"
     }
     
-    func bookInfoToString(currentBook: book) -> String{
+    func bookInfoToString(currentBook: book) -> String {
         return "Name: \(currentBook.name) | Author: \(currentBook.author) \n\tGenre: \(currentBook.genre) | Page count: \(currentBook.pageCount) | Rating: \(currentBook.averageRating)*\n"
     }
     
-    func musicInfoToString(currentMusic: music) -> String{
+    func musicInfoToString(currentMusic: music) -> String {
         return "Name: \(currentMusic.name) | Author: \(currentMusic.author) \n\tGenre: \(currentMusic.genre) | Duration: \(currentMusic.duration) second | Rating: \(currentMusic.averageRating)*\n"
     }
     
-    func mediaSearch(searchText: String, mediaType: mediaTypes, searchType: searchTypes){
-        if searchType == .author{
-            switch mediaType{
+    func mediaSearch(searchText: String, mediaType: mediaTypes, searchType: searchTypes) {
+        if searchType == .author {
+            switch mediaType {
             case .movie:
-                let result = movieList.filter{movie in movie.author == searchText}
-                if result.isEmpty{
+                let result = movieList.filter{ movie in movie.author == searchText }
+                if result.isEmpty {
                     print("Not found")
                 }
-                else{
-                    for movie in result{
+                else {
+                    for movie in result {
                         print(movieInfoToString(currentMovie: movie))
                     }
                 }
                 
             case .music:
-                let result = musicList.filter{music in music.author == searchText}
-                if result.isEmpty{
+                let result = musicList.filter{ music in music.author == searchText }
+                if result.isEmpty {
                     print("Not found")
                 }
-                else{
-                    for music in result{
+                else {
+                    for music in result {
                         print(musicInfoToString(currentMusic: music))
                     }
                 }
                 
             case .book:
-                let result = bookList.filter{book in book.author == searchText}
-                if result.isEmpty{
+                let result = bookList.filter{ book in book.author == searchText }
+                if result.isEmpty {
                     print("Not found")
                 }
-                else{
-                    for book in result{
+                else {
+                    for book in result {
                         print(bookInfoToString(currentBook: book))
                     }
                 }
             }
         }
-        else{
-            switch mediaType{
+        else {
+            switch mediaType {
             case .movie:
-                let result = movieList.filter{movie in movie.name == searchText}
-                if result.isEmpty{
+                let result = movieList.filter{ movie in movie.name == searchText }
+                if result.isEmpty {
                     print("Not found")
                 }
-                else{
-                    for movie in result{
+                else {
+                    for movie in result {
                         print(movieInfoToString(currentMovie: movie))
                     }
                 }
                 
             case .music:
-                let result = musicList.filter{music in music.name == searchText}
-                if result.isEmpty{
+                let result = musicList.filter{ music in music.name == searchText }
+                if result.isEmpty {
                     print("Not found")
                 }
-                else{
-                    for music in result{
+                else {
+                    for music in result {
                         print(musicInfoToString(currentMusic: music))
                     }
                 }
                 
             case .book:
-                let result = bookList.filter{book in book.name == searchText}
-                if result.isEmpty{
+                let result = bookList.filter{ book in book.name == searchText }
+                if result.isEmpty {
                     print("Not found")
                 }
-                else{
-                    for book in result{
+                else {
+                    for book in result {
                         print(bookInfoToString(currentBook: book))
                     }
                 }
@@ -213,15 +213,14 @@ class multimediaManager{
         }
     }
     
-    func searchNilChecker(input:String?){
-        if(input) == nil{
+    func searchNilChecker(input:String?) {
+        if(input) == nil {
             print("Ошибка поиска")
             multimediaManagerMenu()
         }
     }
     
-    func addMediaItemToList()
-    {
+    func addMediaItemToList() {
         var name: String
         var author: String
         var duration: Int
@@ -235,7 +234,7 @@ class multimediaManager{
         print("Видео: введите 3")
         
         let temp = readLine() ?? ""
-        switch temp{
+        switch temp {
         case "1":
             print("\tВведите название")
             name = readLine() ?? ""
@@ -297,24 +296,24 @@ class multimediaManager{
         }
     }
     
-    func getPopular(mediaType: mediaTypes){
-        switch mediaType{
+    func getPopular(mediaType: mediaTypes) {
+        switch mediaType {
         case .movie:
             let sortedMovieList = movieList.sorted{ $0.averageRating > $1.averageRating }
             print("\t Popular movies:\n")
-            for i in 0..<sortedMovieList.count{
+            for i in 0..<sortedMovieList.count {
                 print("\(i+1). \(movieInfoToString(currentMovie: sortedMovieList[i]))")
             }
             
         case .book:
-           let sortedBookList =  bookList.sorted{$0.averageRating > $1.averageRating}
+           let sortedBookList =  bookList.sorted{ $0.averageRating > $1.averageRating }
             print("\t Popular books:\n")
-            for i in 0..<sortedBookList.count{
+            for i in 0..<sortedBookList.count {
                 print("\(i+1). \(bookInfoToString(currentBook: sortedBookList[i]))")
             }
             
         case .music:
-            let sortedMusicList = musicList.sorted{$0.averageRating > $1.averageRating}
+            let sortedMusicList = musicList.sorted{ $0.averageRating > $1.averageRating }
             print("\t Popular Music:\n")
             for i in 0..<sortedMusicList.count{
                 print("\(i+1). \(musicInfoToString(currentMusic: sortedMusicList[i]))")
@@ -322,60 +321,60 @@ class multimediaManager{
         }
     }
     
-    func exit(){
+    func exit() {
         print("для выхода введите 0")
         let input = readLine()
-        if input == "0"{
+        if input == "0" {
             multimediaManagerMenu()
         }
-        else{
+        else {
             print("Ошибка, попробуйте еще раз\n")
             exit()
         }
     }
-    func checkSelection(input: String) -> Bool{
-        if "123".contains(input) && input != "123" && input != "12" && input != "23"{
+    func checkSelection(input: String) -> Bool {
+        if "123".contains(input) && input != "123" && input != "12" && input != "23" {
             return true
         }
-        else{
+        else {
             return false
         }
     }
-    func removeMedia(){
+    func removeMedia() {
         print("Музыка: введите 1")
         print("Книги: введите 2")
         print("Видео: введите 3")
         let input = readLine()
         var nameToRemove: String
-        if checkSelection(input: input ?? "-1"){
-            switch input{
+        if checkSelection(input: input ?? "-1") {
+            switch input {
             case "1":
                 print("Введите название:")
                 nameToRemove = readLine() ?? ""
-                musicList.removeAll(where: {$0.name == nameToRemove})
-            case "2":
+                musicList.removeAll(where: { $0.name == nameToRemove })
                 
+            case "2":
                 print("Введите название:")
                 nameToRemove = readLine() ?? ""
-                bookList.removeAll(where: {$0.name == nameToRemove})
+                bookList.removeAll(where: { $0.name == nameToRemove })
                 
             case "3":
                 print("Введите название:")
                 nameToRemove = readLine() ?? ""
-                movieList.removeAll(where: {$0.name == nameToRemove})
+                movieList.removeAll(where: { $0.name == nameToRemove })
                 
             default:
                 print("\tОшибка, попробуйте еще раз\n")
                 multimediaManagerMenu()
             }
-            
         }
-        else{
+        else {
             print("\tОшибка, попробуйте еще раз\n")
             multimediaManagerMenu()
         }
     }
-    func multimediaManagerMenu(){
+    
+    func multimediaManagerMenu() {
         print("\tОткрыть списки:")
         print("Музыка: введите 1")
         print("Книги: введите 2")
@@ -387,7 +386,8 @@ class multimediaManager{
         print("Добавить мультимедию: Введите 7")
         print("Удалить мультимедию: Введите 8")
         let input = readLine()
-        switch input{
+        
+        switch input {
         case "1":
             for music in musicList {
                 print(musicInfoToString(currentMusic: music))
@@ -395,32 +395,31 @@ class multimediaManager{
             exit()
             
         case "2":
-            for book in bookList{
+            for book in bookList {
                 print(bookInfoToString(currentBook: book))
                 
             }
             exit()
             
         case "3":
-            for movie in movieList{
+            for movie in movieList {
                 print(movieInfoToString(currentMovie: movie))
             }
             exit()
+            
         case "4":
             print("Музыка: введите 1")
             print("Книги: введите 2")
             print("Видео: введите 3")
             let temp = readLine()
-            if checkSelection(input: temp ?? "-1"){
+            if checkSelection(input: temp ?? "-1") {
                 getPopular(mediaType: mediaTypes(rawValue: temp!)!)
                 exit()
-                exit()
             }
-            else{
+            else {
                 print("\tОшибка, попробуйте еще раз\n")
                 multimediaManagerMenu()
             }
-            
             
         case "5":
             print("\tЧто будем искать?")
@@ -428,36 +427,39 @@ class multimediaManager{
             print("Книги: введите 2")
             print("Видео: введите 3")
             let temp = readLine()
-            if checkSelection(input: temp ?? "-1"){
+            if checkSelection(input: temp ?? "-1") {
                 print("Введите имя автора")
                 let authorName = readLine()
                 searchNilChecker(input: authorName)
                 mediaSearch(searchText: authorName!, mediaType: mediaTypes(rawValue: temp!)!, searchType: .author)
                 exit()
             }
-            else{
+            else {
                 print("\tОшибка, попробуйте еще раз\n")
                 multimediaManagerMenu()
             }
+            
         case "6":
             print("\tЧто будем искать?")
             print("Музыка: введите 1")
             print("Книги: введите 2")
             print("Видео: введите 3")
             let temp = readLine()
-            if checkSelection(input: temp ?? "-1"){
+            if checkSelection(input: temp ?? "-1") {
                 print("Введите имя автора")
                 let authorName = readLine()
                 searchNilChecker(input: authorName)
                 mediaSearch(searchText: authorName!, mediaType: mediaTypes(rawValue: temp!)!, searchType: .name)
                 exit()
             }
-            else{
+            else {
                 print("\tОшибка, попробуйте еще раз\n")
                 multimediaManagerMenu()
             }
+            
         case "7":
             addMediaItemToList()
+            
         case "8":
                 removeMedia()
                 exit()
@@ -471,8 +473,8 @@ class multimediaManager{
 
 let manager = multimediaManager()
 
-func addRandomScore(item: mediaItem){
-    for _ in 1...40{
+func addRandomScore(item: mediaItem) {
+    for _ in 1...40 {
         item.addScore(score: Int.random(in: 0...10))
     }
 }
