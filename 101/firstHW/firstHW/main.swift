@@ -5,15 +5,16 @@ import Foundation
 class MediaItem {
     let name: String
     let author: String
-    
+    var rating: Double = getRandomRating()
     init(name: String, author: String) {
         self.name = name
         self.author = author
     }
     
     func toString() -> String {
-        return "Name: \(name), author: \(author)\n"
+        return "Name: \(name), author: \(author)\n, rating: \(rating)"
     }
+    
 }
 
 class Movie: MediaItem {
@@ -29,7 +30,7 @@ class Movie: MediaItem {
     }
     
     override func toString() -> String {
-        return "Name: \(name), author: \(author), genre: \(movieGenre), duration: \(duration), realese country: \(realeseCountry)\n"
+        return "Name: \(name), author: \(author), rating: \(rating), genre: \(movieGenre), duration: \(duration), realese country: \(realeseCountry)\n"
     }
 }
 
@@ -46,7 +47,7 @@ class Music: MediaItem {
     }
     
     override func toString() -> String {
-        return "Name: \(name), author: \(author), genre: \(musicGenre), number of plays: \(numberOfPlays), have translation: \(isHaveTranslation)\n"
+        return "Name: \(name), author: \(author), rating: \(rating), genre: \(musicGenre), number of plays: \(numberOfPlays), have translation: \(isHaveTranslation)\n"
     }
 }
 
@@ -61,7 +62,7 @@ class Book: MediaItem {
     }
     
     override func toString() -> String {
-        return "Name: \(name), author: \(author), genre: \(bookGenre), number of pages: \(numberOfPages)\n"
+        return "Name: \(name), author: \(author), rating: \(rating), genre: \(bookGenre), number of pages: \(numberOfPages)\n"
     }
 }
 
@@ -77,6 +78,8 @@ class MultimediaManager: MultimediaFunctions {
     private var musicsList: [Music] = []
     
     func addMediaItem() {
+        
+        var flag = true
         print("Choose media item")
         print("Book    Movie    Music")
         
@@ -95,17 +98,19 @@ class MultimediaManager: MultimediaFunctions {
             
         default:
             if inputError() == "Yes" {
+                flag = false
                 addMediaItem()
             }
         }
-        
-        print("It's done!")
-        print()
+        if flag {
+            print("It's done!")
+            print()
+        }
     }
     
     func deleteMediaItem() {
         var flag = false
-        
+        var flag1 = true
         print("Choose media item")
         print("Book    Movie    Music")
         
@@ -151,6 +156,7 @@ class MultimediaManager: MultimediaFunctions {
             
         default:
             if inputError() == "Yes"{
+                flag1 = false
                 deleteMediaItem()
             }
         }
@@ -158,13 +164,17 @@ class MultimediaManager: MultimediaFunctions {
             print("It's done!")
             print()
         } else {
-            if inputError() == "Yes"{
-                deleteMediaItem()
+            if flag1{
+                if inputError() == "Yes" {
+                    deleteMediaItem()
+                }
             }
         }
     }
     
     func searchMediaItem() {
+        
+        var flag = true
         print("Enter searcing string: ")
         let searchingString = readLine() ?? ""
         
@@ -201,6 +211,7 @@ class MultimediaManager: MultimediaFunctions {
                 
             default:
                 if inputError() == "Yes" {
+                    flag = false
                     searchMediaItem()
                 }
             }
@@ -232,6 +243,7 @@ class MultimediaManager: MultimediaFunctions {
                 
             default:
                 if inputError() == "Yes" {
+                    flag = false
                     searchMediaItem()
                 }
             }
@@ -263,29 +275,39 @@ class MultimediaManager: MultimediaFunctions {
                 
             default:
                 if inputError() == "Yes" {
+                    flag = false
                     searchMediaItem()
                 }
             }
             
         default:
             if inputError() == "Yes" {
+                flag = false
                 searchMediaItem()
             }
         }
         
         if searchingResult.isEmpty {
-            if inputError() == "Yes" {
-                searchMediaItem()
+            if flag{
+                if inputError() == "Yes" {
+                    flag = false
+                    searchMediaItem()
+                }
             }
         } else {
+            flag = true
             for item in searchingResult {
                 print(item)
             }
         }
-        print()
+        if flag {
+            print()
+        }
     }
     
     func printAllMediaItem() {
+        
+        var flag = true
         print("Choose media item name: ")
         print("Book    Movie    Music")
         
@@ -293,25 +315,30 @@ class MultimediaManager: MultimediaFunctions {
         
         switch name {
         case "Book":
-            for item in booksList {
+            let sortedBookList = booksList.sorted{$0.rating > $1.rating}
+            for item in sortedBookList {
                 print(item.toString())
             }
         case "Movie":
-            for item in moviesList {
+            let sortedMovieList = moviesList.sorted{$0.rating > $1.rating}
+            for item in sortedMovieList {
                 print(item.toString())
             }
         case "Music":
-            for item in musicsList {
+            let sortedMusicList = musicsList.sorted{$0.rating > $1.rating}
+            for item in sortedMusicList {
                 print(item.toString())
             }
         default:
             if inputError() == "Yes" {
+                flag = false
                 printAllMediaItem()
             }
         }
-        print()
+        if flag {
+            print()
+        }
     }
-    
 }
 
 func multiLibrary(multimediaManager: MultimediaManager) {
@@ -347,6 +374,31 @@ func multiLibrary(multimediaManager: MultimediaManager) {
 
 // -----List of private functions and protocols-----
 
+private func getRandomRating() -> Double {
+    var rating = 1
+    var ans = 0
+    for _ in 0 ... 3 {
+        rating += Int.random(in: 0...1)
+        rating += 2 * Int.random(in: 0...1)
+        
+        switch rating {
+        case 3:
+            ans += Int.random(in: 200...280)
+        case 5:
+            ans += Int.random(in: 181...260)
+        case 1:
+            ans += Int.random(in: 261...340)
+        case 2:
+            ans += Int.random(in: 341...420)
+        case 4:
+            ans += Int.random(in: 421...500)
+        default: break
+        }
+    }
+    
+    return Double(ans) / 400
+}
+
 private func inputError() -> String {
     print("Oops...It seems that you entered incorrect information, do you want to continue?\n")
     
@@ -359,7 +411,7 @@ private func goToMain() {
     print("1. search some media item by different params")
     print("2. add some media item")
     print("3. delete some media item")
-    print("4. print all items from any group")
+    print("4. print all items from any group sorted by rating")
     print("5. reset online library")
     
 }
