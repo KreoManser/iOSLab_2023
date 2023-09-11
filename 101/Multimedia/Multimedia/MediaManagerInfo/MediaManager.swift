@@ -7,10 +7,10 @@
 
 import Foundation
 
-class MediaManager: MediaManagerProtocol{
+class MediaManager: MediaManagerProtocol {
     var listOfMedia: [TypeOfMedia : [MediaItem]] = [TypeOfMedia.book: [], TypeOfMedia.movie: [], TypeOfMedia.music: []]
     
-    func findItemByName(name: String) -> [MediaItem]{
+    func findItemByName(name: String) -> [MediaItem] {
         findSomething(criteria: name)
     }
     
@@ -39,12 +39,12 @@ class MediaManager: MediaManagerProtocol{
     }
     
     /// функция поиска по какому-то критерию
-    private func findSomething (criteria: String) -> [MediaItem]{
+    private func findSomething (criteria: String) -> [MediaItem] {
         var foundItems: [MediaItem] = []
         
         for (type, mediaItems) in listOfMedia {
             if type.rawValue == criteria {
-                for item in mediaItems{
+                for item in mediaItems {
                     foundItems.append(item)
                 }
                 break
@@ -108,7 +108,7 @@ extension MediaManager: MediaRatingProtocol {
             }
         }
         else {
-            for item in listOfMedia[type ?? TypeOfMedia.book] ?? []{
+            for item in listOfMedia[type ?? TypeOfMedia.book] ?? [] {
                 if item.rating > rating {
                     popularItems.append(item)
                 }
@@ -138,7 +138,7 @@ extension MediaManager: MediaRatingProtocol {
             sumOfRatings += mark
         }
         
-        if ratings.isEmpty || sumOfRatings == 0{
+        if ratings.isEmpty || sumOfRatings == 0 {
             print("К сожалению, сейчас нет оценок, нельзя посчитать рейтинг")
             return 0
         }

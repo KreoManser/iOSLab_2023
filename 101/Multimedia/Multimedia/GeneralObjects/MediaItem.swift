@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MediaItem: Equatable{
+class MediaItem: Equatable {
     static func == (lhs: MediaItem, rhs: MediaItem) -> Bool {
         return
             lhs.typeOfmedia == lhs.typeOfmedia &&
