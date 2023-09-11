@@ -29,7 +29,7 @@ func search(){
     let result = manager.search(name:name!)
     let index = result?.0
     let rating = result?.1.rating
-    print("Your file has been found. Index number \(String(index!)). Rating - \(rating!)\n")
+    print("Your file has been found.\nIndex number \(String(index!)). Rating - \(rating!)\n")
 }
 
 func add(){
