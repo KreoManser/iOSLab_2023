@@ -14,7 +14,6 @@ class MediaItem {
     func toString() -> String {
         return "Name: \(name), author: \(author)\n, rating: \(rating)"
     }
-    
 }
 
 class Movie: MediaItem {
@@ -66,19 +65,14 @@ class Book: MediaItem {
     }
 }
 
-
-
-
 // -----Multimedia logic realization-----
 
 class MultimediaManager: MultimediaFunctions {
-    
     private var booksList: [Book] = []
     private var moviesList: [Movie] = []
     private var musicsList: [Music] = []
     
     func addMediaItem() {
-        
         var flag = true
         print("Choose media item")
         print("Book    Movie    Music")
@@ -86,16 +80,12 @@ class MultimediaManager: MultimediaFunctions {
         let mediaItemName = readLine()
         
         switch mediaItemName {
-            
         case "Book":
             booksList.append(addBook())
-            
         case "Movie":
             moviesList.append(addMovie())
-            
         case "Music":
             musicsList.append(addMusic())
-            
         default:
             if inputError() == "Yes" {
                 flag = false
@@ -117,7 +107,6 @@ class MultimediaManager: MultimediaFunctions {
         let mediaItemName = readLine()
         
         switch mediaItemName {
-            
         case "Book":
             print("Enter book's name: ")
             let name = readLine() ?? ""
@@ -129,7 +118,6 @@ class MultimediaManager: MultimediaFunctions {
                     break
                 }
             }
-            
         case "Movie":
             print("Enter movie's name: ")
             let name = readLine() ?? ""
@@ -141,7 +129,6 @@ class MultimediaManager: MultimediaFunctions {
                     break
                 }
             }
-            
         case "Music":
             print("Enter music's name: ")
             let name = readLine() ?? ""
@@ -153,7 +140,6 @@ class MultimediaManager: MultimediaFunctions {
                     break
                 }
             }
-            
         default:
             if inputError() == "Yes"{
                 flag1 = false
@@ -173,7 +159,6 @@ class MultimediaManager: MultimediaFunctions {
     }
     
     func searchMediaItem() {
-        
         var flag = true
         print("Enter searcing string: ")
         let searchingString = readLine() ?? ""
@@ -191,31 +176,29 @@ class MultimediaManager: MultimediaFunctions {
             
             switch param {
             case "Name":
-                for item in booksList{
+                for item in booksList {
                     if item.name == searchingString {
                         searchingResult.append(item.toString())
                     }
                 }
             case "Author":
-                for item in booksList{
+                for item in booksList {
                     if item.author == searchingString {
                         searchingResult.append(item.toString())
                     }
                 }
             case "Genre":
-                for item in booksList{
+                for item in booksList {
                     if item.bookGenre.rawValue == searchingString {
                         searchingResult.append(item.toString())
                     }
                 }
-                
             default:
                 if inputError() == "Yes" {
                     flag = false
                     searchMediaItem()
                 }
             }
-            
         case "Movie":
             print("Select search param: ")
             print("Name    Author    Genre")
@@ -223,31 +206,29 @@ class MultimediaManager: MultimediaFunctions {
             
             switch param {
             case "Name":
-                for item in moviesList{
+                for item in moviesList {
                     if item.name == searchingString {
                         searchingResult.append(item.toString())
                     }
                 }
             case "Author":
-                for item in moviesList{
+                for item in moviesList {
                     if item.author == searchingString {
                         searchingResult.append(item.toString())
                     }
                 }
             case "Genre":
-                for item in moviesList{
+                for item in moviesList {
                     if item.movieGenre.rawValue == searchingString {
                         searchingResult.append(item.toString())
                     }
                 }
-                
             default:
                 if inputError() == "Yes" {
                     flag = false
                     searchMediaItem()
                 }
             }
-            
         case "Music":
             print("Select search param: ")
             print("Name    Author    Genre")
@@ -255,31 +236,29 @@ class MultimediaManager: MultimediaFunctions {
             
             switch param {
             case "Name":
-                for item in musicsList{
+                for item in musicsList {
                     if item.name == searchingString {
                         searchingResult.append(item.toString())
                     }
                 }
             case "Author":
-                for item in musicsList{
+                for item in musicsList {
                     if item.author == searchingString {
                         searchingResult.append(item.toString())
                     }
                 }
             case "Genre":
-                for item in musicsList{
+                for item in musicsList {
                     if item.musicGenre.rawValue == searchingString {
                         searchingResult.append(item.toString())
                     }
                 }
-                
             default:
                 if inputError() == "Yes" {
                     flag = false
                     searchMediaItem()
                 }
             }
-            
         default:
             if inputError() == "Yes" {
                 flag = false
@@ -306,7 +285,6 @@ class MultimediaManager: MultimediaFunctions {
     }
     
     func printAllMediaItem() {
-        
         var flag = true
         print("Choose media item name: ")
         print("Book    Movie    Music")
@@ -342,8 +320,6 @@ class MultimediaManager: MultimediaFunctions {
 }
 
 func multiLibrary(multimediaManager: MultimediaManager) {
-    
-    
     while (true){
         goToMain()
         
@@ -366,11 +342,9 @@ func multiLibrary(multimediaManager: MultimediaManager) {
                 print("Goodbye!")
                 exit(0)
             }
-            
         }
     }
 }
-
 
 // -----List of private functions and protocols-----
 
@@ -395,7 +369,6 @@ private func getRandomRating() -> Double {
         default: break
         }
     }
-    
     return Double(ans) / 400
 }
 
@@ -413,7 +386,6 @@ private func goToMain() {
     print("3. delete some media item")
     print("4. print all items from any group sorted by rating")
     print("5. reset online library")
-    
 }
 
 private func addMovie() -> Movie{
@@ -434,7 +406,6 @@ private func addMovie() -> Movie{
     let realeseCountry = readLine() ?? ""
     
     return Movie(name: name, author: author, movieGenre: MovieGenre(rawValue: genre) ?? .fatal, duration: duration, realeseCountry: realeseCountry)
-    
 }
 
 private func addBook() -> Book{
@@ -451,9 +422,7 @@ private func addBook() -> Book{
     print("Enter book's number of pages: ")
     let numberOfPages = Int(readLine() ?? "") ?? 0
     
-    
     return Book(numberOfPages: numberOfPages, name: name, author: author, bookGenre: BookGenre(rawValue: genre) ?? .fatal)
-    
 }
 
 private func addMusic() -> Music{
@@ -481,16 +450,13 @@ private func addMusic() -> Music{
     }
     
     return Music(numberOfPlays: numberOfPlays, isHaveTranslation: isHaveTranslate, name: name, author: author, musicGenre: MusicGenre(rawValue: genre) ?? .fatal)
-    
 }
 
 protocol MultimediaFunctions {
-    
     func addMediaItem()
     func deleteMediaItem()
     func searchMediaItem ()
 }
-
 
 // ----List of enums----
 
@@ -500,7 +466,6 @@ enum MovieGenre: String {
     case comedy = "Comedy"
     case drama = "Drama"
     case fatal = "fatal"
-    
 }
 
 enum BookGenre: String {
@@ -519,12 +484,7 @@ enum MusicGenre: String {
     case fatal = "fatal"
 }
 
-
-
-
 // -----main part-----
 
-
 let multimediaManager = MultimediaManager()
-
 multiLibrary(multimediaManager: multimediaManager)
