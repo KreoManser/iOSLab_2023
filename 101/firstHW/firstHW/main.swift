@@ -294,18 +294,18 @@ class MultimediaManager: MultimediaFunctions {
         switch name {
         case "Book":
             let sortedBookList = booksList.sorted{$0.rating > $1.rating}
-            for item in sortedBookList {
-                print(item.toString())
+            for i in 1...sortedBookList.count {
+                print("\(i). " + sortedBookList[i-1].toString())
             }
         case "Movie":
             let sortedMovieList = moviesList.sorted{$0.rating > $1.rating}
-            for item in sortedMovieList {
-                print(item.toString())
+            for i in 1...sortedMovieList.count {
+                print("\(i). " + sortedMovieList[i-1].toString())
             }
         case "Music":
             let sortedMusicList = musicsList.sorted{$0.rating > $1.rating}
-            for item in sortedMusicList {
-                print(item.toString())
+            for i in 1...sortedMusicList.count {
+                print("\(i). " + sortedMusicList[i-1].toString())
             }
         default:
             if inputError() == "Yes" {
