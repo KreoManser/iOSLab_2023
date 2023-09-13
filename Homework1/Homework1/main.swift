@@ -1,14 +1,12 @@
 import Foundation
 
 protocol MediaItem {
-    
     var title: String { get }
     var author: String { get }
     var rating: Int? {get set}
 }
 
 struct Movie: MediaItem {
-    
     let title: String
     let author: String
     let releaseYear: Int
@@ -17,7 +15,6 @@ struct Movie: MediaItem {
 }
 
 struct Music: MediaItem {
-    
     let title: String
     let author: String
     let genre: String
@@ -26,7 +23,6 @@ struct Music: MediaItem {
 }
 
 struct Book: MediaItem {
-    
     let title: String
     let author: String
     let genre: String
@@ -86,9 +82,7 @@ func displayMenu() {
     print("Выберите опцию (1-8):", terminator: " ")
 }
 
-func getUserInput() -> String {
-    return readLine() ?? ""
-}
+func getUserInput() -> String { readLine() ?? "" }
 
 let mediaManager = MultiMediaManager()
 
@@ -205,4 +199,3 @@ while true{
         print("Неверный выбор. Выберите 1 - 8")
     }
 }
-

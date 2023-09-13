@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 //Доп Задания
 //1
@@ -14,7 +14,7 @@ print(longWordsFilter(words: words))
 
 //2
 func EvenNumbersFilter(numbers: [Int]) -> [Int] {
-    return numbers.filter {$0 % 2 == 0}
+    return numbers.filter { $0 % 2 == 0 }
 }
 
 let numbers = [1,2,4,5,9,8,6,11]
