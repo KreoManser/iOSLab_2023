@@ -1,12 +1,12 @@
 import Foundation
 
 protocol Raiting{
-    var raitingList: [Int] {get}
-    var averageRating: Decimal {get}
+    var raitingList: [Int] { get }
+    var averageRating: Decimal { get }
     func addRaiting(raiting: Int)
 }
 
-class MediaItem: Raiting{
+class MediaItem: Raiting {
     private var privateRaitingList: [Int] = []
     var raitingList: [Int]{
         get{
@@ -15,7 +15,7 @@ class MediaItem: Raiting{
     }
     
     var averageRating: Decimal{
-        get{
+        get {
             if raitingList.isEmpty{
                 return 0
             }
@@ -25,7 +25,6 @@ class MediaItem: Raiting{
             }
             return sum / Decimal(raitingList.count)
         }
-        
     }
     
     func addRaiting(raiting: Int) {
@@ -123,16 +122,25 @@ class MediaManager{
                 for i in 0..<musics.count{
                     print("Название: \(musics[i].name), автор: \(musics[i].author), длительность: \(musics[i].trackDurationInMinutes), рейтинг: \(musics[i].averageRating), Жанр: \(musics[i].musicGenre)")
                 }
+                print("Вот все, что я нашел. Введите любой символ для возвращения в главное меню.")
+                let input = readLine()
+                mediaManagerMenu()
                 
             case "2":
                 for i in 0..<films.count{
                     print("Название: \(films[i].name), автор: \(films[i].author), длительность: \(films[i].filmDurationInMinutes), рейтинг: \(films[i].averageRating), Жанр: \(films[i].filmGenre)")
                 }
+                print("Вот все, что я нашел. Введите любой символ для возвращения в главное меню.")
+                let input = readLine()
+                mediaManagerMenu()
                 
             case "3":
                 for i in 0..<books.count{
                     print("Название: \(books[i].name), автор: \(books[i].author), кол-во страниц: \(books[i].countSheets), рейтинг: \(books[i].averageRating), Жанр: \(books[i].bookGenre)")
                 }
+                print("Вот все, что я нашел. Введите любой символ для возвращения в главное меню.")
+                let input = readLine()
+                mediaManagerMenu()
                 
             case "4":
                 mediaAdd()
@@ -162,6 +170,7 @@ class MediaManager{
         }
     }
     
+    
     func popularMedia(){
         print("Выберите тип медиа:")
         print("1. Музыку")
@@ -177,7 +186,18 @@ class MediaManager{
             for i in 0..<sortedList.count{
                 print("Название: \(musics[i].name), автор: \(musics[i].author), длительность: \(musics[i].trackDurationInMinutes), рейтинг: \(musics[i].averageRating), Жанр: \(musics[i].musicGenre)")
             }
-            mediaManagerMenu()
+            print("Вот вся музыка, сортированная по полярности")
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                popularMedia()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
         case "2":
             let sortedList = films.sorted{$0.averageRating > $1.averageRating}
@@ -185,7 +205,18 @@ class MediaManager{
             for i in 0..<sortedList.count{
                 print("Название: \(films[i].name), автор: \(films[i].author), длительность: \(films[i].filmDurationInMinutes), рейтинг: \(films[i].averageRating), Жанр: \(films[i].filmGenre)")
             }
-            mediaManagerMenu()
+            print("Вот все фильмы, сортированные по полярности")
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                popularMedia()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
         case "3":
             let sortedList = books.sorted{$0.averageRating > $1.averageRating}
@@ -193,7 +224,18 @@ class MediaManager{
             for i in 0..<sortedList.count{
                 print("Название: \(books[i].name), автор: \(books[i].author), кол-во страниц: \(books[i].countSheets), рейтинг: \(books[i].averageRating), Жанр: \(books[i].bookGenre)")
             }
-            mediaManagerMenu()
+            print("Вот все книги, сортированные по полярности")
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                popularMedia()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
         default:
             print("Простите, я вас не понял. Давайте попробуем еще?")
@@ -217,20 +259,53 @@ class MediaManager{
             print("Введите название трека")
             name = readLine() ?? ""
             musics.removeAll(where: {$0.name == name})
-            mediaManagerMenu()
+            print("Трек успешно удален!")
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                removeMedia()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
             
         case "2":
             print("Введите название фильма")
             name = readLine() ?? ""
             films.removeAll(where: {$0.name == name})
-            mediaManagerMenu()
+            print("Фильм успешно удален!")
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                removeMedia()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
         case "3":
             print("Введите название книги")
             name = readLine() ?? ""
             books.removeAll(where: {$0.name == name})
-            mediaManagerMenu()
+            print("Книга успешно удалена!")
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                removeMedia()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
         default:
             print("Простите, я вас не понял. Давайте попробуем еще?")
@@ -255,20 +330,66 @@ class MediaManager{
                     print("Введите вашу оценку")
                     let raiting = readLine() ?? ""
                     musics[i].addRaiting(raiting: Int(raiting) ?? 0)
+                    print("Оценка успшно добавлена")
+                    print("Если хотите повторить, нажмите 0")
+                    print("Если хотите вернуться, нажмите любую кнопку")
+                    
+                    let input = readLine()
+                    
+                    if input == "0" {
+                        addRaiting()
+                    }
+                    else{
+                        mediaManagerMenu()
+                    }
+                    
                 }
             }
             print("Увы, я ничего тне нашел")
-            mediaManagerMenu()
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                addRaiting()
+            }
+            else{
+                mediaManagerMenu()
+            }
+            
         case "2":
             for i in 0..<films.count{
                 if films[i].name == name{
                     print("Введите вашу оценку")
                     let raiting = readLine() ?? ""
                     films[i].addRaiting(raiting: Int(raiting) ?? 0)
+                    print("Оценка успшно добавлена")
+                    print("Если хотите повторить, нажмите 0")
+                    print("Если хотите вернуться, нажмите любую кнопку")
+                    
+                    let input = readLine()
+                    
+                    if input == "0" {
+                        addRaiting()
+                    }
+                    else{
+                        mediaManagerMenu()
+                    }
                 }
             }
             print("Увы, я ничего тне нашел")
-            mediaManagerMenu()
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                addRaiting()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
         case "3":
             for i in 0..<books.count{
@@ -276,11 +397,32 @@ class MediaManager{
                     print("Введите вашу оценку")
                     let raiting = readLine() ?? ""
                     books[i].addRaiting(raiting: Int(raiting) ?? 0)
-                    break
+                    print("Оценка успшно добавлена")
+                    print("Если хотите повторить, нажмите 0")
+                    print("Если хотите вернуться, нажмите любую кнопку")
+                    
+                    let input = readLine()
+                    
+                    if input == "0" {
+                        addRaiting()
+                    }
+                    else{
+                        mediaManagerMenu()
+                    }
                 }
             }
             print("Увы, я ничего тне нашел")
-            mediaManagerMenu()
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                addRaiting()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
         default:
             print("Простите, я вас не понял. Давайте попробуем еще?")
@@ -329,8 +471,18 @@ class MediaManager{
             musics.append(Music(author: author, name: name, raiting: raiting, trackDurationInMinutes: trackDurationInMinutes,
                                 musicGenre: MusicGenre(rawValue: musicGenre ) ?? .uncertain))
             
-            print("Вы добавили фильм")
-            mediaManagerMenu()
+            print("Вы добавили музыку")
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                mediaAdd()
+            }
+            else{
+                mediaManagerMenu()
+            }
         
         case "2":
             print("Введите название фильма:")
@@ -353,7 +505,17 @@ class MediaManager{
                                 filmGenre: FilmAndBookGenre(rawValue: filmGenre ) ?? .uncertain))
             
             print("Вы добавили фильм")
-            mediaManagerMenu()
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                mediaAdd()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
         case "3":
             print("Введите название книги:")
@@ -375,8 +537,18 @@ class MediaManager{
             books.append(Book(author: author, name: name, raiting: raiting, countSheets: countSheets,
                                 bookGenre: FilmAndBookGenre(rawValue: bookGenre ) ?? .uncertain))
             
-            print("Вы добавили фильм")
-            mediaManagerMenu()
+            print("Вы добавили книгу")
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                mediaAdd()
+            }
+            else{
+                mediaManagerMenu()
+            }
             
         default:
             print("Простите, я вас не понял. Давайте попробуем еще?")
@@ -396,50 +568,63 @@ class MediaManager{
         print("3. Книги")
         
         let input = readLine() ?? " "
-        var counter = 0
         
         switch input{
         case "1":
+            print("Вот что я нашел:")
             for i in 0..<musics.count{
                 if(musics[i].name == name){
-                    print("Вот что я нашел: Название: \(musics[i].name), автор: \(musics[0].author), длительность: \(musics[i].trackDurationInMinutes), рейтинг: \(musics[i].averageRating), Жанр: \(musics[i].musicGenre)")
-                    counter += 1
-                }
-                if counter > 0{
-                    mediaManagerMenu()
-                }
-                else{
-                    print("Увы, я ничего ненашел :(")
-                    mediaManagerMenu()
+                    print("Название: \(musics[i].name), автор: \(musics[0].author), длительность: \(musics[i].trackDurationInMinutes), рейтинг: \(musics[i].averageRating), Жанр: \(musics[i].musicGenre)")
                 }
             }
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                searchByName()
+            }
+            else{
+                mediaManagerMenu()
+            }
+            
         case "2":
+            print("Вот что я нашел:")
             for i in 0..<films.count{
                 if(films[i].name == name){
                     print("Название: \(films[i].name), автор: \(films[i].author), длительность: \(films[i].filmDurationInMinutes), рейтинг: \(films[i].averageRating), Жанр: \(films[i].filmGenre)")
-                    counter += 1
-                }
-                if counter > 0{
-                    mediaManagerMenu()
-                }
-                else{
-                    print("Увы, я ничего ненашел :(")
-                    mediaManagerMenu()
                 }
             }
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                searchByName()
+            }
+            else{
+                mediaManagerMenu()
+            }
+            
         case "3":
+            print("Вот что я нашел:")
             for i in 0..<books.count{
                 if(books[i].name == name){
                     print("Название: \(books[i].name), автор: \(books[i].author), кол-во страниц: \(books[i].countSheets), рейтинг: \(books[i].averageRating), Жанр: \(books[i].bookGenre)")
-                    counter += 1
                 }
-                if counter > 0{
-                    mediaManagerMenu()
-                }
-                else{
-                    print("Увы, я ничего ненашел :(")
-                    mediaManagerMenu()
-                }
+            }
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                searchByName()
+            }
+            else{
+                mediaManagerMenu()
             }
             
         default:
@@ -464,48 +649,61 @@ class MediaManager{
         
         switch input{
         case "1":
+            print("Вот что я нашел:")
             for i in 0..<musics.count{
                 if(musics[i].author == author){
-                    print("Вот что я нашел: Название: \(musics[i].name), автор: \(musics[0].author), длительность: \(musics[i].trackDurationInMinutes), рейтинг: \(musics[i].averageRating), Жанр: \(musics[i].musicGenre)")
+                    print("Название: \(musics[i].name), автор: \(musics[0].author), длительность: \(musics[i].trackDurationInMinutes), рейтинг: \(musics[i].averageRating), Жанр: \(musics[i].musicGenre)")
                     counter += 1
                 }
-                if counter > 0{
-                    mediaManagerMenu()
-                }
-                else{
-                    print("Увы, я ничего ненашел :(")
-                    mediaManagerMenu()
-                }
+            }
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                searchByAuthor()
+            }
+            else{
+                mediaManagerMenu()
             }
             
         case "2":
+            print("Вот что я нашел:")
             for i in 0..<films.count{
                 if(films[i].author == author){
                     print("Название: \(films[i].name), автор: \(films[i].author), длительность: \(films[i].filmDurationInMinutes), рейтинг: \(films[i].averageRating), Жанр: \(films[i].filmGenre)")
-                    counter += 1
                 }
-                if counter > 0{
-                    mediaManagerMenu()
-                }
-                else{
-                    print("Увы, я ничего ненашел :(")
-                    mediaManagerMenu()
-                }
+            }
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                searchByAuthor()
+            }
+            else{
+                mediaManagerMenu()
             }
             
         case "3":
+            print("Вот что я нашел:")
             for i in 0..<books.count{
                 if(books[i].author == author){
                     print("Название: \(books[i].name), автор: \(books[i].author), кол-во страниц: \(books[i].countSheets), рейтинг: \(books[i].averageRating), Жанр: \(books[i].bookGenre)")
-                    counter += 1
                 }
-                if counter > 0{
-                    mediaManagerMenu()
-                }
-                else{
-                    print("Увы, я ничего ненашел :(")
-                    mediaManagerMenu()
-                }
+            }
+            print("Если хотите повторить, нажмите 0")
+            print("Если хотите вернуться, нажмите любую кнопку")
+            
+            let input = readLine()
+            
+            if input == "0" {
+                searchByAuthor()
+            }
+            else{
+                mediaManagerMenu()
             }
             
         default:
