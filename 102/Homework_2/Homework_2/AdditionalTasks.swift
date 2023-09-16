@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 func firstEvenNumber(numbers: [Int]) -> Int? {
-    return numbers.first {$0 % 2 == 0}
+    return numbers.first { $0 % 2 == 0 }
 }
 
 func firstStringStartingWith(strings: [String], firstCharacter: Character) -> String? {

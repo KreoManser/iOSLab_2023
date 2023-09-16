@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,16 +16,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appLogo" translatesAutoresizingMaskIntoConstraints="NO" id="jhH-kX-6uG">
-                                <rect key="frame" x="30" y="50" width="260" height="218"/>
+                                <rect key="frame" x="30" y="170" width="260" height="248"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.9882352941176471" green="0.9882352941176471" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jhH-kX-6uG" secondAttribute="bottom" constant="300" id="KRo-ZK-EEE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jhH-kX-6uG" secondAttribute="bottom" constant="150" id="KRo-ZK-EEE"/>
                             <constraint firstItem="jhH-kX-6uG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="Mfv-kC-Apf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jhH-kX-6uG" secondAttribute="trailing" constant="30" id="Tg3-FT-k5x"/>
-                            <constraint firstItem="jhH-kX-6uG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="uco-fd-5hy"/>
+                            <constraint firstItem="jhH-kX-6uG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="uco-fd-5hy"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,8 +36,5 @@
     </scenes>
     <resources>
         <image name="appLogo" width="960" height="1280"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
