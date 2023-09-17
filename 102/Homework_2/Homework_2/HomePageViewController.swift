@@ -22,7 +22,11 @@ class HomePageViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func shoppingBasketButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "showShoppingBasketPage", sender: nil)
+        performSegue(withIdentifier: "showBasketPageViewFromHomePage", sender: nil)
+    }
+    
+    @IBAction func shopButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "showShopPageViewFromHomePage", sender: nil)
     }
     
     @IBAction func exitToHomeViewController(_ segue: UIStoryboardSegue) { }
@@ -31,10 +35,11 @@ class HomePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ///Делаю imageView круглым
+        /// Скругление imageView
         userImageView.layer.masksToBounds = true
         userImageView.layer.cornerRadius = userImageView.frame.width / 2
         
+        /// Присвоение IBOutlet's
         userImageView.image = userImage
         userNameLabel.text = userName
         userPhoneNumberLabel.text = userPhoneNumber

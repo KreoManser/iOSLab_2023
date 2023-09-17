@@ -9,6 +9,10 @@ import UIKit
 
 class ShoppingBasketPageViewController: UIViewController {
     
+    // MARK: - IBActions
+    
+    @IBAction func exitToShoppingBacketViewController(_ segue: UIStoryboardSegue) { }
+    
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()

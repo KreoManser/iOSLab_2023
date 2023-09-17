@@ -29,7 +29,7 @@ class LoginPageViewController: UIViewController, UITextFieldDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         loginPageView.addGestureRecognizer(tapGesture)
         
-        /// Установил placeholder'ы через атрибуты чтобы цвет не менялся на светлой/темной темах
+        /// Установка placeholder'ов через атрибуты чтобы цвет не менялся на светлой/темной темах
         let loginPlaceholderText = NSAttributedString(string: "Логин", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         let passwordPlaceholderText = NSAttributedString(string: "Пароль", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         
