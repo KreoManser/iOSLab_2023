@@ -15,6 +15,11 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         profileImageView.layer.cornerRadius = 100
         basketButton.layer.cornerRadius = 8
+        navigationItem.leftBarButtonItem = UIBarButtonItem (
+            title: "",
+            style: .plain,
+            target: self, action: nil
+        )
     }
     
     @IBAction func backToLoginViewController(_ sender: UIButton) {
