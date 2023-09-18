@@ -18,5 +18,4 @@ class ShoppingBasketViewController: UIViewController {
         totalLabel.layer.cornerRadius = 5.0
         totalLabel.clipsToBounds = true
     }
-
 }

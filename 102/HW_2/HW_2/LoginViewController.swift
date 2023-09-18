@@ -8,13 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
-
-    @IBOutlet weak var loginTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    
     let name = "Тимур Хайруллин"
     let phoneNumber = "8 800 555 3535"
     let profileImage = UIImage(named: "profile")
+
+    @IBOutlet weak var loginTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
