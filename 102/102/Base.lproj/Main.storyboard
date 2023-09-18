@@ -34,8 +34,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e0J-qo-laM">
                                 <rect key="frame" x="34" y="59" width="327" height="449"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="449" id="ElW-IS-9rf"/>
-                                    <constraint firstAttribute="height" constant="449" id="YfV-Ux-mM4"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="327" id="3yS-8J-ugr"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="449" id="RyZ-Rn-SNy"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Логин" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Egf-Hq-9YS">
@@ -68,6 +68,10 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mm3-in-vzP">
                                 <rect key="frame" x="85" y="732" width="225" height="28.333333333333371"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="225" id="9xU-jY-0IU"/>
+                                    <constraint firstAttribute="height" constant="28.329999999999998" id="u1O-sJ-53b"/>
+                                </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Войти">
@@ -87,19 +91,20 @@
                             <constraint firstItem="NSN-h5-tc3" firstAttribute="top" secondItem="Egf-Hq-9YS" secondAttribute="bottom" constant="8" symbolic="YES" id="GBE-Df-ZbQ"/>
                             <constraint firstItem="e0J-qo-laM" firstAttribute="trailing" secondItem="Egf-Hq-9YS" secondAttribute="trailing" id="HPm-9h-Hrp"/>
                             <constraint firstItem="9WH-4b-fAS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="Is4-gu-1eB"/>
-                            <constraint firstItem="9WH-4b-fAS" firstAttribute="top" secondItem="e0J-qo-laM" secondAttribute="bottom" constant="60" id="Pql-46-4Oy"/>
+                            <constraint firstItem="9WH-4b-fAS" firstAttribute="top" relation="lessThanOrEqual" secondItem="e0J-qo-laM" secondAttribute="bottom" constant="60" id="Pql-46-4Oy"/>
                             <constraint firstItem="e0J-qo-laM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="Rrw-zn-DTR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="e0J-qo-laM" secondAttribute="trailing" constant="32" id="S3b-Yg-Jp1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9WH-4b-fAS" secondAttribute="trailing" symbolic="YES" id="biu-4G-ERb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lrb-LI-jad" secondAttribute="trailing" constant="32" id="dAH-IE-0xb"/>
                             <constraint firstItem="NSN-h5-tc3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="33" id="dFc-Tt-JCR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Egf-Hq-9YS" secondAttribute="trailing" constant="32" id="eid-c6-3p4"/>
+                            <constraint firstItem="Mm3-in-vzP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="85" id="nYW-Gs-x4y"/>
+                            <constraint firstItem="Mm3-in-vzP" firstAttribute="top" secondItem="lrb-LI-jad" secondAttribute="bottom" constant="52" id="nmi-j3-YHF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NSN-h5-tc3" secondAttribute="trailing" symbolic="YES" id="rPm-5c-tEf"/>
-                            <constraint firstItem="e0J-qo-laM" firstAttribute="centerX" secondItem="Mm3-in-vzP" secondAttribute="centerX" id="rgO-dN-Vl5"/>
                             <constraint firstItem="Egf-Hq-9YS" firstAttribute="top" secondItem="9WH-4b-fAS" secondAttribute="bottom" constant="3" id="t0y-DX-ONP"/>
                             <constraint firstItem="lrb-LI-jad" firstAttribute="top" secondItem="NSN-h5-tc3" secondAttribute="bottom" constant="3" id="veX-23-TH3"/>
                             <constraint firstItem="e0J-qo-laM" firstAttribute="centerX" secondItem="Egf-Hq-9YS" secondAttribute="centerX" id="vkz-OO-WjT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Mm3-in-vzP" secondAttribute="trailing" constant="83" id="vua-8t-BW2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mm3-in-vzP" secondAttribute="trailing" id="vua-8t-BW2"/>
                             <constraint firstItem="e0J-qo-laM" firstAttribute="centerX" secondItem="lrb-LI-jad" secondAttribute="centerX" id="yfK-PL-hy6"/>
                         </constraints>
                     </view>
