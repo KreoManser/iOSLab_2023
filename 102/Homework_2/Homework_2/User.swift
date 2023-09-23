@@ -13,7 +13,7 @@ class User {
     let login: String
     let password: String
     let phoneNumber: String
-    let image: UIImage
+    let image: UIImage?
     
     init(name: String, login: String, password: String, phoneNumber: String, image: UIImage) {
         self.name = name
