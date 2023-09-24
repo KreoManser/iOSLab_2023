@@ -96,8 +96,6 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
