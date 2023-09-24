@@ -11,7 +11,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - UI elements
     
-    // MARK: - Images
+    // MARK: - Image
     lazy var appLogoImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "appLogo"))
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    // MARK: - Buttons
+    // MARK: - Button
     lazy var loginButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false

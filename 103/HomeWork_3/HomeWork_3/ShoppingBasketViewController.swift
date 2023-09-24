@@ -36,7 +36,17 @@ class ShoppingBasketViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.configuration = .filled()
         button.configuration?.baseBackgroundColor = .darkGray
-        button.setTitle("Выйти", for: .normal)
+        button.setTitle("Вернуться", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
+    lazy var payButton: UIButton = {
+        let button =  UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.configuration = .filled()
+        button.configuration?.baseBackgroundColor = .darkGray
+        button.setTitle("Оплатить", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
@@ -51,9 +61,14 @@ class ShoppingBasketViewController: UIViewController {
     // MARK: - Setup layot func
     private func setupLayout() {
         view.backgroundColor = UIColor(displayP3Red: 111/255, green: 111/255, blue: 111/255, alpha: 1.0)
+        
+        let buttonsStackView = UIStackView(arrangedSubviews: [payButton, exitButton])
+        buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsStackView.spacing = 25
+        
         view.addSubview(titleLabel)
         view.addSubview(basketStatusLabel)
-        view.addSubview(exitButton)
+        view.addSubview(buttonsStackView)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -10),
@@ -62,10 +77,14 @@ class ShoppingBasketViewController: UIViewController {
             basketStatusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             basketStatusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            exitButton.widthAnchor.constraint(equalToConstant: 223),
+            exitButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3),
             exitButton.heightAnchor.constraint(equalToConstant: 35),
-            exitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            exitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            
+            payButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3),
+            payButton.heightAnchor.constraint(equalToConstant: 35),
+            
+            buttonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
     

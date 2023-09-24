@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
 
     // MARK: - UI elements
     
-    // MARK: - Images
+    // MARK: - Image
     lazy var avatarImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "adminImage"))
         image.translatesAutoresizingMaskIntoConstraints = false
