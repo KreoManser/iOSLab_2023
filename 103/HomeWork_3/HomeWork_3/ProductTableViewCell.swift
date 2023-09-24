@@ -11,34 +11,35 @@ class ProductTableViewCell: UITableViewCell {
     // MARK: - UI elements
     
     // MARK: - Image
-    lazy var productImage: UIImageView = {
+    private lazy var productImage: UIImageView = {
         let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.frame = CGRectMake(image.frame.origin.x, image.frame.origin.y, 50, 50)
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFit
-        image.frame = CGRectMake(0, 0, 50, 50)
         return image
     }()
     
     // MARK: - Labels
-    lazy var productNameLabel: UILabel = {
+    private lazy var productNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         return label
     }()
     
-    lazy var productPriceLabel: UILabel = {
+    private lazy var productPriceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         return label
     }()
     
-    lazy var productDecriptionLabel: UILabel = {
+    private lazy var productDecriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = label.font.withSize(10)
         label.textColor = .black
+        label.numberOfLines = 0
         return label
     }()
     
@@ -63,7 +64,7 @@ class ProductTableViewCell: UITableViewCell {
         
         productImage.image = product.image
         productNameLabel.text = product.name
-        productPriceLabel.text = product.price
+        productPriceLabel.text = "Цена: " + product.price + " руб"
         productDecriptionLabel.text = product.description
     }
     
@@ -72,16 +73,23 @@ class ProductTableViewCell: UITableViewCell {
         contentView.backgroundColor = UIColor(displayP3Red: 111/255, green: 111/255, blue: 111/255, alpha: 1.0)
         
         contentView.addSubview(productImage)
-//        contentView.addSubview(productNameLabel)
-//        contentView.addSubview(productPriceLabel)
-//        contentView.addSubview(productDecriptionLabel)
+        contentView.addSubview(productNameLabel)
+        contentView.addSubview(productPriceLabel)
+        contentView.addSubview(productDecriptionLabel)
         
         
         NSLayoutConstraint.activate([
             productImage.heightAnchor.constraint(equalToConstant: 50),
-            productImage.heightAnchor.constraint(equalToConstant: 50),
+            productImage.widthAnchor.constraint(equalToConstant: 50),
             productImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            productImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5)
+            productImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            productNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            productNameLabel.leadingAnchor.constraint(equalTo: productImage.trailingAnchor, constant: 10),
+            productPriceLabel.topAnchor.constraint(equalTo: productNameLabel.bottomAnchor, constant: 5),
+            productPriceLabel.leadingAnchor.constraint(equalTo: productImage.trailingAnchor, constant: 5),
+            productDecriptionLabel.leadingAnchor.constraint(equalTo: productNameLabel.trailingAnchor, constant: 10),
+            productDecriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
+            
         ])
     }
 }

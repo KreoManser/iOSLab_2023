@@ -50,8 +50,7 @@ class ShopViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 150
-        tableView.estimatedRowHeight = 120
+        tableView.estimatedRowHeight = 200
         tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: ProductTableViewCell.reuseIdentifier)
         return tableView
     }()
