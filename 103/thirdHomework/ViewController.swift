@@ -86,11 +86,11 @@ class ViewController: UIViewController {
         
     }()
     
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
+//    private lazy var scrollView: UIScrollView = {
+//        let scrollView = UIScrollView()
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//        return scrollView
+//    }()
     
     @objc private func login(){
         guard  loginTextFieldView.text == "Admin", passwordTextFieldView.text == "123" else {return}
@@ -104,53 +104,53 @@ class ViewController: UIViewController {
     }
     
     private func setupUI() {
-//        view.addSubview(imageView)
+        view.addSubview(imageView)
         loginStackView.addArrangedSubview(loginLabelView)
         loginStackView.addArrangedSubview(loginTextFieldView)
-//        view.addSubview(loginStackView)
+        view.addSubview(loginStackView)
 //        
         passwordStackView.addArrangedSubview(passwordLabelView)
         passwordStackView.addArrangedSubview(passwordTextFieldView)
-//        view.addSubview(passwordStackView)
-//        
-//        view.addSubview(buttonView)
+        view.addSubview(passwordStackView)
         
-        scrollView.addSubview(imageView)
-        scrollView.addSubview(loginStackView)
-        scrollView.addSubview(passwordStackView)
-        scrollView.addSubview(buttonView)
-        view.addSubview(scrollView)
+        view.addSubview(buttonView)
+        
+//        scrollView.addSubview(imageView)
+//        scrollView.addSubview(loginStackView)
+//        scrollView.addSubview(passwordStackView)
+//        scrollView.addSubview(buttonView)
+//        view.addSubview(scrollView)
 
         NSLayoutConstraint.activate([
             
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             //            stackView login
-            imageView.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor, constant: 0),
-            imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 31),
-            imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -31),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             // stackView login
-            loginStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 13),
+            loginStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
             //            loginStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 31.0),
             //            loginStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -31.0),
-            loginStackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            loginStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginStackView.widthAnchor.constraint(equalToConstant: 328),
             
             // stackView password
-            passwordStackView.topAnchor.constraint(equalTo: loginStackView.bottomAnchor, constant: 13),
-            passwordStackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            passwordStackView.topAnchor.constraint(equalTo: loginStackView.bottomAnchor, constant: 5),
+            passwordStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordStackView.widthAnchor.constraint(equalToConstant: 328),
             
             // buttonView
             //            buttonView.topAnchor.constraint(equalTo: passwordStackView.bottomAnchor, constant: 16.0),
             //            buttonView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 31.0),
             //            buttonView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -31.0),
-            buttonView.topAnchor.constraint(equalTo: passwordStackView.bottomAnchor, constant: 20),
-            buttonView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            buttonView.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -30),
+            buttonView.topAnchor.constraint(equalTo: passwordStackView.bottomAnchor, constant: 5),
+            buttonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
             buttonView.widthAnchor.constraint(equalToConstant: 223),
         ])
     }

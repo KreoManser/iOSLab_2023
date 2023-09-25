@@ -148,8 +148,8 @@ class ProfileViewController: UIViewController {
             storeButtonView.widthAnchor.constraint(equalToConstant: 223),
             storeButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            
-            exitButtonView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10),
+//            exitButtonView.topAnchor.constraint(equalTo: storeButtonView.bottomAnchor),
+            exitButtonView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             exitButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             exitButtonView.widthAnchor.constraint(equalToConstant: 223),
         ])
