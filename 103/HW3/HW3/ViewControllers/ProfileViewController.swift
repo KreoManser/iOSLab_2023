@@ -16,16 +16,6 @@ class ProfileViewController: UIViewController {
         return imageView
     }()
     
-//    lazy var profileUIImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.image = UIImage(named: "profile")
-//        imageView.contentMode = .scaleAspectFill
-
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        return imageView
-//    }()
-
     lazy var nameUILabel: UILabel = {
         let label = UILabel()
         label.text = name
@@ -136,7 +126,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupLayout()
     }
     
@@ -159,7 +149,7 @@ class ProfileViewController: UIViewController {
             profileUIImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             profileUIImageView.heightAnchor.constraint(equalToConstant: profileImagesize),
             profileUIImageView.widthAnchor.constraint(equalToConstant: profileImagesize),
-
+            
             nameUILabel.topAnchor.constraint(equalTo: profileUIImageView.bottomAnchor, constant: 10),
             nameUILabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nameUILabel.heightAnchor.constraint(equalToConstant: 30),

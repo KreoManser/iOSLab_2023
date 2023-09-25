@@ -15,6 +15,8 @@
 		CEBB83E02AC0C19400FD6B70 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB83DF2AC0C19400FD6B70 /* ProfileViewController.swift */; };
 		CEBB83E32AC1317000FD6B70 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB83E22AC1317000FD6B70 /* BasketViewController.swift */; };
 		CEBB83E52AC1317D00FD6B70 /* MarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB83E42AC1317D00FD6B70 /* MarketViewController.swift */; };
+		CEBB83E72AC156E700FD6B70 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB83E62AC156E700FD6B70 /* Product.swift */; };
+		CEBB83E92AC1576B00FD6B70 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB83E82AC1576B00FD6B70 /* ProductTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		CEBB83DF2AC0C19400FD6B70 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CEBB83E22AC1317000FD6B70 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
 		CEBB83E42AC1317D00FD6B70 /* MarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewController.swift; sourceTree = "<group>"; };
+		CEBB83E62AC156E700FD6B70 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		CEBB83E82AC1576B00FD6B70 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,8 @@
 			children = (
 				CEBB83CB2AC0B67800FD6B70 /* AppDelegate.swift */,
 				CEBB83CD2AC0B67800FD6B70 /* SceneDelegate.swift */,
+				CEBB83E62AC156E700FD6B70 /* Product.swift */,
+				CEBB83E82AC1576B00FD6B70 /* ProductTableViewCell.swift */,
 				CEBB83E12AC1314600FD6B70 /* ViewControllers */,
 				CEBB83D42AC0B67900FD6B70 /* Assets.xcassets */,
 				CEBB83D62AC0B67900FD6B70 /* LaunchScreen.storyboard */,
@@ -152,11 +158,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEBB83E32AC1317000FD6B70 /* BasketViewController.swift in Sources */,
+				CEBB83E92AC1576B00FD6B70 /* ProductTableViewCell.swift in Sources */,
 				CEBB83D02AC0B67800FD6B70 /* LoginViewController.swift in Sources */,
 				CEBB83CC2AC0B67800FD6B70 /* AppDelegate.swift in Sources */,
 				CEBB83E02AC0C19400FD6B70 /* ProfileViewController.swift in Sources */,
 				CEBB83E52AC1317D00FD6B70 /* MarketViewController.swift in Sources */,
 				CEBB83CE2AC0B67800FD6B70 /* SceneDelegate.swift in Sources */,
+				CEBB83E72AC156E700FD6B70 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
