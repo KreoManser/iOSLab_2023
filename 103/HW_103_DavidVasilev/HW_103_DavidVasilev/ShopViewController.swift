@@ -14,7 +14,7 @@ class ShopViewController: UIViewController, UITableViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        let pattern = Product(name: "Honey",price: 455.90,productImage:UIImage(named:"honey")!, addInBusketButton: UIButton())
+        let pattern = Product(name: "Honey",price: 455.90,productImage:UIImage(named:"honey") ?? UIImage(), addInBusketButton: UIButton())
         dataSource = Array(repeating: pattern,count: 30)
         view.addSubview(tableView)
         NSLayoutConstraint.activate([

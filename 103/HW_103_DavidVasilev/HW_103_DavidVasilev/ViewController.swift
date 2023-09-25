@@ -1,6 +1,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+
     lazy var logInImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -8,12 +10,26 @@ class ViewController: UIViewController {
         image.image = UIImage(named: "welcome")
         return image
     }()
+    lazy var logInLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.contentMode = .scaleAspectFit
+        label.text = "Логин"
+        return label
+    }()
     lazy var loginTextView: UITextField = {
         let login = UITextField()
         login.translatesAutoresizingMaskIntoConstraints = false
         login.backgroundColor = .systemGray4
         login.layer.cornerRadius = 8
         return login
+    }()
+    lazy var passwordLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.contentMode = .scaleAspectFit
+        label.text = "Пароль"
+        return label
     }()
     lazy var passwordTextView: UITextField = {
         let password = UITextField()
@@ -23,6 +39,7 @@ class ViewController: UIViewController {
         password.layer.cornerRadius = 8
         return password
     }()
+
     lazy var logInButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -49,9 +66,12 @@ class ViewController: UIViewController {
     }
     private func addAllSubViews(){
         view.addSubview(logInImageView)
+        view.addSubview(logInLabel)
         view.addSubview(loginTextView)
+        view.addSubview(passwordLabel)
         view.addSubview(passwordTextView)
         view.addSubview(logInButton)
+        
     }
     private func allConstraints(){
         NSLayoutConstraint.activate([
@@ -60,12 +80,23 @@ class ViewController: UIViewController {
             logInImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6),
             logInImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            loginTextView.topAnchor.constraint(equalTo: logInImageView.bottomAnchor, constant: 60),
+            
+            logInLabel.topAnchor.constraint(equalTo: logInImageView.bottomAnchor),
+            logInLabel.widthAnchor.constraint(equalTo: logInImageView.widthAnchor, multiplier: 0.2),
+            logInLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.02),
+            logInLabel.leftAnchor.constraint(equalTo: logInImageView.leftAnchor),
+            
+            loginTextView.topAnchor.constraint(equalTo: logInLabel.bottomAnchor, constant: 10),
             loginTextView.widthAnchor.constraint(equalTo: logInImageView.widthAnchor),
             loginTextView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.04),
             loginTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            passwordLabel.topAnchor.constraint(equalTo: loginTextView.bottomAnchor, constant: 20),
+            passwordLabel.widthAnchor.constraint(equalTo: logInImageView.widthAnchor, multiplier: 0.2),
+            passwordLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.02),
+            passwordLabel.leftAnchor.constraint(equalTo: logInImageView.leftAnchor),
             
-            passwordTextView.topAnchor.constraint(equalTo: loginTextView.bottomAnchor, constant: 20),
+            passwordTextView.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 10),
             passwordTextView.widthAnchor.constraint(equalTo: loginTextView.widthAnchor),
             passwordTextView.heightAnchor.constraint(equalTo: loginTextView.heightAnchor),
             passwordTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),

@@ -1,14 +1,6 @@
-//
-//  BusketViewController.swift
-//  HW_103_DavidVasilev
-//
-//  Created by Давид Васильев on 24.09.2023.
-//
-
 import UIKit
 
 class BusketViewController: UIViewController, UITableViewDelegate {
-    
     var dataSource: [Product ] = []
     lazy var tableView: UITableView = {
         let table = UITableView()
@@ -19,11 +11,10 @@ class BusketViewController: UIViewController, UITableViewDelegate {
         table.register( ProductInBusketTableViewCell.self, forCellReuseIdentifier: ProductInBusketTableViewCell.reuseIdentifier)
         return table
     }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        let pattern = Product(name: "Honey",price: 560.5,productImage:UIImage(named:"honey2")!, addInBusketButton: UIButton())
+        let pattern = Product(name: "Honey",price: 560.5,productImage:UIImage(named:"honey2") ?? UIImage() , addInBusketButton: UIButton())
         dataSource = Array(repeating: pattern,count: 30)
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
