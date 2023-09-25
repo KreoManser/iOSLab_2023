@@ -6,7 +6,7 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.reuseIdentifier, for: indexPath) as! ProductTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell", for: indexPath) as! ProductTableViewCell
         let product = dataSource[indexPath.row]
         cell.configureCell(product: product)
         
@@ -27,7 +27,7 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
         table.dataSource = self
         table.delegate = self
         table.separatorStyle = .none
-        table.register(ProductTableViewCell.self, forCellReuseIdentifier: ProductTableViewCell.reuseIdentifier)
+        table.register(ProductTableViewCell.self, forCellReuseIdentifier: "ProductTableViewCell")
         
         return table
     }()
@@ -46,8 +46,6 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
     }()
     
     var dataSource: [Product] = []
-    
-    var tableBottomConstraint: NSLayoutConstraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()

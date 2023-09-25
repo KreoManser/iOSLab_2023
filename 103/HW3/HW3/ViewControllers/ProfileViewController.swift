@@ -4,10 +4,10 @@ class ProfileViewController: UIViewController {
     private let name = "Тимур Хайруллин"
     private let phoneNumber = "8 800 555 3535"
     private let profileImagesize = 170.0
+    
     lazy var profileUIImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "profile")
-        print(imageView.frame.width)
         imageView.layer.cornerRadius = profileImagesize/2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill

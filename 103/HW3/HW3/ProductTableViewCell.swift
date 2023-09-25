@@ -83,9 +83,3 @@ class ProductTableViewCell: UITableViewCell {
         ])
     }
 }
-
-extension UITableViewCell {
-    static var reuseIdentifier: String {
-        return String(describing: self)
-    }
-}
