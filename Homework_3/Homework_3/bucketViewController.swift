@@ -5,6 +5,7 @@ class BucketViewController: UIViewController {
     lazy var basketStatusLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         label.text = "Корзина пуста"
         label.font = UIFont.systemFont(ofSize: 30)
         return label
@@ -13,6 +14,7 @@ class BucketViewController: UIViewController {
     lazy var payButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
+        
         button.backgroundColor = .systemMint
         button.layer.cornerRadius = 5
         button.setTitleColor(.darkText, for: .normal)
@@ -30,17 +32,12 @@ class BucketViewController: UIViewController {
     }
 
     private func setupLayout() {
-
-        
         view.addSubview(basketStatusLabel)
         view.addSubview(payButton)
 
         NSLayoutConstraint.activate([
-           
-
             basketStatusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             basketStatusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
            
             payButton.heightAnchor.constraint(equalToConstant: 35),
             payButton.widthAnchor.constraint(equalToConstant: 222),

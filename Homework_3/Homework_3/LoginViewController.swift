@@ -46,6 +46,7 @@ class AuthorisationViewController: UIViewController {
     lazy var passwordTextArea: UITextField = {
         var password = UITextField()
         password.translatesAutoresizingMaskIntoConstraints = false
+        password.isSecureTextEntry = true
         
         password.font = UIFont.systemFont(ofSize: 12)
         password.backgroundColor = .systemGray4
@@ -80,7 +81,6 @@ class AuthorisationViewController: UIViewController {
         else {
             showAlert(title: "Ошибка", message: "Неверный логин или пароль")
         }
-
     }
     
     func isValidLogin(_ login: String, password: String) -> Bool {
@@ -96,7 +96,6 @@ class AuthorisationViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            
         }
 
     override func viewDidLoad() {
@@ -109,7 +108,6 @@ class AuthorisationViewController: UIViewController {
     }
 
     private func setupLayouts() {
-
         let authorisationStackView = UIStackView(arrangedSubviews: [loginLabel, loginTextArea, passwordLabel, passwordTextArea])
         authorisationStackView.translatesAutoresizingMaskIntoConstraints = false
         authorisationStackView.spacing = 5
@@ -118,30 +116,32 @@ class AuthorisationViewController: UIViewController {
         view.addSubview(authorisationImageView)
         view.addSubview(authorisationStackView)
         view.addSubview(logInButton)
+        
+        let screenHeight = UIScreen.main.bounds.height
+        let imageHeight = screenHeight * 0.55
 
         NSLayoutConstraint.activate([
-            
-            authorisationImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 445),
+            authorisationImageView.heightAnchor.constraint(equalToConstant: imageHeight),
             authorisationImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             authorisationImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 31),
             authorisationImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -31),
             
-            authorisationStackView.widthAnchor.constraint(equalTo: authorisationImageView.widthAnchor),
-            authorisationStackView.leadingAnchor.constraint(equalTo: authorisationImageView.leadingAnchor),
-            authorisationStackView.trailingAnchor.constraint(equalTo: authorisationImageView.trailingAnchor),
-            authorisationStackView.topAnchor.constraint(equalTo: authorisationImageView.bottomAnchor, constant: 10),
-            
             loginLabel.topAnchor.constraint(equalTo: authorisationImageView.bottomAnchor, constant: 20),
             
             loginTextArea.bottomAnchor.constraint(equalTo: passwordLabel.topAnchor, constant: -10),
-
             loginTextArea.heightAnchor.constraint(equalToConstant: 34),
+            
             passwordTextArea.heightAnchor.constraint(equalToConstant: 34),
 
             logInButton.widthAnchor.constraint(equalToConstant: 222),
             logInButton.heightAnchor.constraint(equalToConstant: 34),
             logInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logInButton.topAnchor.constraint(equalTo: passwordTextArea.bottomAnchor, constant: 20)
+            logInButton.topAnchor.constraint(equalTo: passwordTextArea.bottomAnchor, constant: 20),
+            
+            authorisationStackView.widthAnchor.constraint(equalTo: authorisationImageView.widthAnchor),
+            authorisationStackView.leadingAnchor.constraint(equalTo: authorisationImageView.leadingAnchor),
+            authorisationStackView.trailingAnchor.constraint(equalTo: authorisationImageView.trailingAnchor),
+            authorisationStackView.topAnchor.constraint(equalTo: authorisationImageView.bottomAnchor, constant: 10)
         ])
     }
 }

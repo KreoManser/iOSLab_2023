@@ -154,7 +154,6 @@ class AccountViewController: UIViewController {
             profileImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 200),
             profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
 
             nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 10),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -166,22 +165,23 @@ class AccountViewController: UIViewController {
             bucketButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bucketButton.widthAnchor.constraint(equalToConstant: 223),
             bucketButton.heightAnchor.constraint(equalToConstant: 34),
-
-            horizontalButtonsStackView.topAnchor.constraint(equalTo: bucketButton.bottomAnchor, constant: 10),
-            horizontalButtonsStackView.heightAnchor.constraint(equalToConstant: 27),
-            horizontalButtonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
             somethingFirstButton.widthAnchor.constraint(equalToConstant: 100),
             somethingSecondButton.widthAnchor.constraint(equalToConstant: 100),
-
-            verticalButtonsStackView.topAnchor.constraint(equalTo: horizontalButtonsStackView.bottomAnchor, constant: 10),
-            verticalButtonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             somethingThirdButton.widthAnchor.constraint(equalToConstant: 100),
             somethingFourthButton.widthAnchor.constraint(equalToConstant: 100),
 
             logOutButton.widthAnchor.constraint(equalToConstant: 222),
             logOutButton.heightAnchor.constraint(equalToConstant: 34),
             logOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logOutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            logOutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+
+            horizontalButtonsStackView.topAnchor.constraint(equalTo: bucketButton.bottomAnchor, constant: 10),
+            horizontalButtonsStackView.heightAnchor.constraint(equalToConstant: 27),
+            horizontalButtonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            verticalButtonsStackView.topAnchor.constraint(equalTo: horizontalButtonsStackView.bottomAnchor, constant: 10),
+            verticalButtonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 }
