@@ -1,11 +1,4 @@
-//
-//  Fruit.swift
-//  homework_3
-//
-//  Created by Данил on 24.09.2023.
-//
-
-import UIKit
+import Foundation
 
 internal class Fruit {
     let image: UIImage?
