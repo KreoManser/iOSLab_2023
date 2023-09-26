@@ -12,7 +12,7 @@ class ShopViewController: UIViewController {
     // MARK: - UI elements
     
     // MARK: - Label
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Магазин"
@@ -22,38 +22,56 @@ class ShopViewController: UIViewController {
     }()
     
     // MARK: - Buttons
-    lazy var exitButton: UIButton = {
-        let button = UIButton()
+    private lazy var exitButton: UIButton = {
+        let action = UIAction { [weak self] _ in
+            self?.dismiss(animated: true)
+        }
+        
+        let button = UIButton(configuration: .filled(), primaryAction: action)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.configuration = .filled()
         button.configuration?.baseBackgroundColor = .darkGray
         button.setTitle("Вернуться", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
     
-    lazy var shoppingBasketButton: UIButton = {
-        let button = UIButton()
+    private lazy var shoppingBasketButton: UIButton = {
+        let action = UIAction { [weak self] _ in
+            let shoppingBasketViewController = ShoppingBasketViewController()
+            shoppingBasketViewController.modalPresentationStyle = .fullScreen
+            self?.present(shoppingBasketViewController, animated: true)
+        }
+        
+        let button = UIButton(configuration: .filled(), primaryAction: action)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.configuration = .filled()
         button.configuration?.baseBackgroundColor = .darkGray
         button.setTitle("Корзина", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
     
-    // MARK: - TsbleView
-    lazy var ProductTableView: UITableView = {
+    // MARK: - TableView
+    private lazy var productTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = UIColor(displayP3Red: 111/255, green: 111/255, blue: 111/255, alpha: 1.0)
+        
+        tableView.estimatedRowHeight = 120
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 200
         tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: ProductTableViewCell.reuseIdentifier)
         return tableView
     }()
+    
+    // MARK: - StackView
+    private lazy var buttonsStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [shoppingBasketButton, exitButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 25
+        return stackView
+    }()
+    
     // MARK: - Data array for TableView
     let dataSource: [Product] = [
         Product(image: UIImage(named: "mac"), name: "Мак 2025", price: "99000", description: "Новый мак, революция от апле"),
@@ -69,61 +87,14 @@ class ShopViewController: UIViewController {
     // MARK: - Lise cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLayout()
-        setupButtonstrigger()
-    }
-    
-    // MARK: - Setup layot func
-    private func setupLayout() {
-        view.backgroundColor = UIColor(displayP3Red: 111/255, green: 111/255, blue: 111/255, alpha: 1.0)
         
-        let buttonsStackView = UIStackView(arrangedSubviews: [shoppingBasketButton, exitButton])
-        buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
-        buttonsStackView.spacing = 25
+        AddSubviews(titleLabel, productTableView, buttonsStackView)
         
-        view.addSubview(titleLabel)
-        view.addSubview(ProductTableView)
-        view.addSubview(buttonsStackView)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -10),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            ProductTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            ProductTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            ProductTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            ProductTableView.bottomAnchor.constraint(equalTo: buttonsStackView.topAnchor, constant: -10),
-            
-            shoppingBasketButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3),
-            shoppingBasketButton.heightAnchor.constraint(equalToConstant: 35),
-        
-            exitButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3),
-            exitButton.heightAnchor.constraint(equalToConstant: 35),
-            
-            buttonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
-        ])
-    }
-    
-    // MARK: - Setup buttons Trigger func
-    private func setupButtonstrigger() {
-        exitButton.addTarget(self, action: #selector(exitButtonPressed), for: .touchUpInside)
-        shoppingBasketButton.addTarget(self, action: #selector(shoppingBasketButtonPressed), for: .touchUpInside)
-    }
-    
-    // MARK: - Buttons logic funcs
-    
-    @objc private func exitButtonPressed() {
-        dismiss(animated: true)
-    }
-    
-    @objc private func shoppingBasketButtonPressed() {
-        let shoppingBasketViewController = ShoppingBasketViewController()
-        shoppingBasketViewController.modalPresentationStyle = .fullScreen
-        present(shoppingBasketViewController, animated: true)
+        configureUI()
     }
 }
 
+// MARK: - Exrencion ShopVC
 // MARK: - UITabBarDelegate,UITableViewCell implementation
 extension ShopViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,5 +106,33 @@ extension ShopViewController: UITableViewDelegate, UITableViewDataSource {
         let product = dataSource[indexPath.row]
         cell.configureCell(with: product)
         return cell
+    }
+    
+    private func AddSubviews(_ subviews: UIView...) {
+        subviews.forEach { view.addSubview($0) }
+    }
+    
+    // MARK: - configureUI func
+    private func configureUI() {
+        view.backgroundColor = UIColor(displayP3Red: 111/255, green: 111/255, blue: 111/255, alpha: 1.0)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -10),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            productTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            productTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            productTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            productTableView.bottomAnchor.constraint(equalTo: buttonsStackView.topAnchor, constant: -10),
+            
+            shoppingBasketButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3),
+            shoppingBasketButton.heightAnchor.constraint(equalToConstant: 35),
+        
+            exitButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3),
+            exitButton.heightAnchor.constraint(equalToConstant: 35),
+            
+            buttonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+        ])
     }
 }
