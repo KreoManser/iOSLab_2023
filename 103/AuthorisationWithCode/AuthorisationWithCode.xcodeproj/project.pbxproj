@@ -14,6 +14,13 @@
 		045E45942AC00A4800C4204A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045E45922AC00A4800C4204A /* LaunchScreen.storyboard */; };
 		045E459C2AC03DD600C4204A /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E459B2AC03DD600C4204A /* AccountViewController.swift */; };
 		04F7F1772AC0971500327D14 /* BucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7F1762AC0971500327D14 /* BucketViewController.swift */; };
+		04F7F1792AC1E57D00327D14 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7F1782AC1E57D00327D14 /* ShopViewController.swift */; };
+		04F7F17B2AC30E7100327D14 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7F17A2AC30E7100327D14 /* Label.swift */; };
+		04F7F17D2AC30E9000327D14 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7F17C2AC30E9000327D14 /* TextField.swift */; };
+		04F7F17F2AC30EC200327D14 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7F17E2AC30EC200327D14 /* Button.swift */; };
+		04F7F1812AC31C1000327D14 /* ShopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7F1802AC31C1000327D14 /* ShopTableViewCell.swift */; };
+		04F7F1832AC31E0000327D14 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7F1822AC31E0000327D14 /* Image.swift */; };
+		04F7F1852AC32C1100327D14 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7F1842AC32C1100327D14 /* Product.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +33,13 @@
 		045E45952AC00A4800C4204A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		045E459B2AC03DD600C4204A /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		04F7F1762AC0971500327D14 /* BucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketViewController.swift; sourceTree = "<group>"; };
+		04F7F1782AC1E57D00327D14 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		04F7F17A2AC30E7100327D14 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		04F7F17C2AC30E9000327D14 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		04F7F17E2AC30EC200327D14 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		04F7F1802AC31C1000327D14 /* ShopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTableViewCell.swift; sourceTree = "<group>"; };
+		04F7F1822AC31E0000327D14 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		04F7F1842AC32C1100327D14 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +72,63 @@
 		045E45862AC00A4600C4204A /* AuthorisationWithCode */ = {
 			isa = PBXGroup;
 			children = (
-				045E45872AC00A4600C4204A /* AppDelegate.swift */,
-				045E45892AC00A4600C4204A /* SceneDelegate.swift */,
+				045E45952AC00A4800C4204A /* Info.plist */,
+				04F7F1882AC365A200327D14 /* ViewControllers */,
+				04F7F18A2AC365EB00327D14 /* ViewCells */,
+				04F7F18C2AC3663800327D14 /* Others */,
+				04F7F18B2AC3660E00327D14 /* Structs */,
+				04F7F1892AC365CD00327D14 /* SupportExtentions */,
+			);
+			path = AuthorisationWithCode;
+			sourceTree = "<group>";
+		};
+		04F7F1882AC365A200327D14 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
 				045E458B2AC00A4600C4204A /* AuthorisationViewController.swift */,
 				045E459B2AC03DD600C4204A /* AccountViewController.swift */,
 				04F7F1762AC0971500327D14 /* BucketViewController.swift */,
-				045E45902AC00A4800C4204A /* Assets.xcassets */,
-				045E45922AC00A4800C4204A /* LaunchScreen.storyboard */,
-				045E45952AC00A4800C4204A /* Info.plist */,
+				04F7F1782AC1E57D00327D14 /* ShopViewController.swift */,
 			);
-			path = AuthorisationWithCode;
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		04F7F1892AC365CD00327D14 /* SupportExtentions */ = {
+			isa = PBXGroup;
+			children = (
+				04F7F17A2AC30E7100327D14 /* Label.swift */,
+				04F7F17C2AC30E9000327D14 /* TextField.swift */,
+				04F7F17E2AC30EC200327D14 /* Button.swift */,
+				04F7F1822AC31E0000327D14 /* Image.swift */,
+			);
+			path = SupportExtentions;
+			sourceTree = "<group>";
+		};
+		04F7F18A2AC365EB00327D14 /* ViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				04F7F1802AC31C1000327D14 /* ShopTableViewCell.swift */,
+			);
+			path = ViewCells;
+			sourceTree = "<group>";
+		};
+		04F7F18B2AC3660E00327D14 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				04F7F1842AC32C1100327D14 /* Product.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		04F7F18C2AC3663800327D14 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				045E45922AC00A4800C4204A /* LaunchScreen.storyboard */,
+				045E45902AC00A4800C4204A /* Assets.xcassets */,
+				045E45872AC00A4600C4204A /* AppDelegate.swift */,
+				045E45892AC00A4600C4204A /* SceneDelegate.swift */,
+			);
+			path = Others;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,8 +203,15 @@
 			files = (
 				045E458C2AC00A4600C4204A /* AuthorisationViewController.swift in Sources */,
 				045E45882AC00A4600C4204A /* AppDelegate.swift in Sources */,
+				04F7F1792AC1E57D00327D14 /* ShopViewController.swift in Sources */,
+				04F7F17D2AC30E9000327D14 /* TextField.swift in Sources */,
 				045E459C2AC03DD600C4204A /* AccountViewController.swift in Sources */,
+				04F7F1852AC32C1100327D14 /* Product.swift in Sources */,
+				04F7F1812AC31C1000327D14 /* ShopTableViewCell.swift in Sources */,
 				045E458A2AC00A4600C4204A /* SceneDelegate.swift in Sources */,
+				04F7F17B2AC30E7100327D14 /* Label.swift in Sources */,
+				04F7F17F2AC30EC200327D14 /* Button.swift in Sources */,
+				04F7F1832AC31E0000327D14 /* Image.swift in Sources */,
 				04F7F1772AC0971500327D14 /* BucketViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
