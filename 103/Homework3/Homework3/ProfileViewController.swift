@@ -8,121 +8,117 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    lazy var profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView(image:  UIImage(named: "profileImage"))
         imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 100
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    lazy var userNameLabel: UILabel = {
+    private lazy var userNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = label.font.withSize(30)
         label.text = "Сергей"
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    lazy var phoneNumberLabel: UILabel = {
+    private lazy var phoneNumberLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
         label.font = label.font.withSize(30)
         label.text = "8 800 555 3535"
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    lazy var basketButton: UIButton = {
+    private lazy var basketButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Корзина", for: .normal)
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
         button.frame = CGRect(x: 0, y: 0, width: 223, height: 33)
-        //button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-        //loginButton.translatesAutoresizingMaskIntoConstraints = false
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    lazy var leftButton: UIButton = {
+    private lazy var leftButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Что-то", for: .normal)
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    lazy var rightButton: UIButton = {
+    private lazy var rightButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Что-то", for: .normal)
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    lazy var bottomButton: UIButton = {
+    private lazy var bottomButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Что-то", for: .normal)
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    lazy var marketButton: UIButton = {
+    private lazy var marketButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Магазин", for: .normal)
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
         
-    lazy var exitButton: UIButton = {
+    private lazy var exitButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Выйти", for: .normal)
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
-        button.addTarget(self, action: #selector(logOutButtonTapped), for: .touchUpInside)
+        button.addAction(UIAction { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true) }, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        self.navigationItem.hidesBackButton = true
+        addSubviews(profileImageView, userNameLabel, phoneNumberLabel, basketButton, leftButton, rightButton, bottomButton, marketButton, exitButton)
         setLayout()
     }
-    
+}
+
+extension ProfileViewController {
+    private func addSubviews(_ subviews: UIView...) {
+        subviews.forEach { view.addSubview($0) }
+    }
+
     private func setLayout() {
-        view.addSubview(profileImageView)
-        view.addSubview(userNameLabel)
-        view.addSubview(phoneNumberLabel)
-        view.addSubview(basketButton)
-        view.addSubview(leftButton)
-        view.addSubview(rightButton)
-        view.addSubview(bottomButton)
-        view.addSubview(marketButton)
-        view.addSubview(exitButton)
-        
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        userNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        phoneNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        basketButton.translatesAutoresizingMaskIntoConstraints = false
-        leftButton.translatesAutoresizingMaskIntoConstraints = false
-        bottomButton.translatesAutoresizingMaskIntoConstraints = false
-        rightButton.translatesAutoresizingMaskIntoConstraints = false
-        marketButton.translatesAutoresizingMaskIntoConstraints = false
-        exitButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             profileImageView.widthAnchor.constraint(equalToConstant: 200),
             profileImageView.heightAnchor.constraint(equalToConstant: 200),
@@ -165,9 +161,5 @@ class ProfileViewController: UIViewController {
             exitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             exitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
-    }
-    
-    @objc func logOutButtonTapped() {
-        navigationController?.popViewController(animated: true)
     }
 }
