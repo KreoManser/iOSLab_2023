@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  103
-//
-//  Created by Dmitry on 24.09.2023.
-//
-
 import UIKit
 
 class BinViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -14,28 +7,37 @@ class BinViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         table.translatesAutoresizingMaskIntoConstraints = false
         table.dataSource = self
         table.delegate = self
-        table.separatorStyle = .none
         table.register(BinPageTableCell.self, forCellReuseIdentifier: BinPageTableCell.reuseIdentifire)
         return table
     }()
     
-    var dataSource = [User]()
+    var dataSource = [Product]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource = Array(repeating: User(name: "Big", surname: "Cock"), count: 30)
+        dataSource = [Product(image: UIImage(named: "milk") ?? UIImage.remove, name: "Молоко", cost: 2), Product(image: UIImage(named: "pashtet") ?? UIImage.remove, name: "Паштет", cost: 1)]
         
         view.backgroundColor = .white
-        title = "Удаленные контакты"
+        title = "Корзина"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
         view.addSubview(tableView)
         setUpTableViewConstraints()
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: BinPageTableCell.reuseIdentifire, for: indexPath) as! BinPageTableCell
+        let user = dataSource[indexPath.row]
+        cell.configureCell(with: user)
+        return cell
+    }
     
-    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        dataSource.count
+    }
+}
+
+extension BinViewController {
     func setUpTableViewConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -44,24 +46,6 @@ class BinViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: BinPageTableCell.reuseIdentifire, for: indexPath) as! BinPageTableCell
-        
-        let user = dataSource[indexPath.row]
-        
-        cell.configureCell(with: user)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSource.count
-    }
-
 }
 
-extension UITableViewCell {
-    static var reuseIdentifire: String {
-        return String(describing: self)
-    }
-}
+

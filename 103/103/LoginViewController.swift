@@ -12,14 +12,14 @@ class ViewController: UIViewController {
     lazy var loginTF: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.attributedPlaceholder = NSAttributedString(string: "Введите логин")
+        textField.placeholder = "Введите логин"
         return textField
     } ()
     
     lazy var passwordTF: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.attributedPlaceholder = NSAttributedString(string: "Введите пароль")
+        textField.placeholder = "Введите пароль"
         return textField
     }()
     
@@ -27,14 +27,14 @@ class ViewController: UIViewController {
     lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(named: "appleLogo")
+        image.image = UIImage(named: "abstract")
         image.clipsToBounds = true
         image.layer.cornerRadius = 20
         image.contentMode = .scaleAspectFill
         return image
     }()
     
-    lazy var firstPageStackView: UIStackView = {
+    lazy var loginPasswordStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [loginLabel, loginTF, passwordLabel, passwordTF])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .equalSpacing
@@ -68,17 +68,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        addSubviewsToMainView()
+        addSubviews()
         setUpConstraints()
     }
     
     @objc func openProfilePage() {
-        navigationController?.pushViewController(ProfileViewController(), animated: true)
+        if loginTF.text == "Admin" && passwordTF.text == "123" {
+            navigationController?.pushViewController(ProfileViewController(), animated: true)
+        }
     }
     
-    func addSubviewsToMainView() {
+    func addSubviews() {
         view.addSubview(imageView)
-        view.addSubview(firstPageStackView)
+        view.addSubview(loginPasswordStackView)
         view.addSubview(logInButton)
     }
     
@@ -90,28 +92,29 @@ class ViewController: UIViewController {
     
     func setUpImageViewConstraints() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: +70),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35)
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300)
+            
         ])
     }
     
     func setUpfirstPageStackViewConstraints() {
         NSLayoutConstraint.activate([
-            firstPageStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: +50),
-            firstPageStackView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            firstPageStackView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
-            firstPageStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120)
+            loginPasswordStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50),
+            loginPasswordStackView.widthAnchor.constraint(equalToConstant: 320),
+            loginPasswordStackView.heightAnchor.constraint(equalToConstant: 130),
+            loginPasswordStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
        
     func setUpLogInButtonConstraints() {
         NSLayoutConstraint.activate([
-            logInButton.topAnchor.constraint(equalTo: firstPageStackView.bottomAnchor, constant: +20),
-            logInButton.leadingAnchor.constraint(equalTo: firstPageStackView.leadingAnchor, constant: 40),
-            logInButton.trailingAnchor.constraint(equalTo: firstPageStackView.trailingAnchor, constant: -40),
-            logInButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
+            logInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logInButton.widthAnchor.constraint(equalToConstant: 220),
+            logInButton.heightAnchor.constraint(equalToConstant: 40),
+            logInButton.topAnchor.constraint(equalTo: loginPasswordStackView.bottomAnchor, constant: 20),
         ])
     }
 }

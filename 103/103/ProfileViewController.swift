@@ -5,14 +5,13 @@ class ProfileViewController: UIViewController {
     lazy var avatarImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(named: "appleLogo")
-        image.contentMode = .scaleAspectFill
+        image.image = UIImage(named: "dog")
         return image
     }()
     
     lazy var nicknameLabel: UILabel = {
         let label = UILabel()
-        label.text = "NICK NAME"
+        label.text = "dant tnad"
         label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
@@ -48,9 +47,10 @@ class ProfileViewController: UIViewController {
     lazy var firstUselessButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 7
-        button.setTitle("Что-то", for: .normal)
+        button.setTitle("Магазин", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .systemGray4
+        button.addTarget(self, action: #selector(openStore), for: .touchUpInside)
         return button
     }()
     
@@ -111,11 +111,11 @@ class ProfileViewController: UIViewController {
     }()
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(true)
-            avatarImageView.image =  UIImage(named: "appleLogo")
-            self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2
-            self.avatarImageView.clipsToBounds = true
-                }
+        super.viewWillAppear(animated)
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+        avatarImageView.clipsToBounds = true
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,23 +127,14 @@ class ProfileViewController: UIViewController {
         setUpConstraints()
     }
     
-    func setUpConstraints() {
-        setUpAvatarConstraints()
-        setUpNameAndNumberSVConstraints()
-        setUpBinButtonConstraints()
-        setUpHorizontalUselessButtonsSVConstraints()
-        setUpVericalUselessButtonsSVConstraints()
-        setUpLogOutButtonConstraints()
-    }
-    
-    func addSubViews() {
-        view.addSubview(avatarImageView)
-        view.addSubview(nameAndNumberSV)
-        view.addSubview(binButton)
-        view.addSubview(twoUselessHorizontalButtonsSV)
-        view.addSubview(twoUselessVerticalButtonsSV)
-        view.addSubview(logOutButton)
-    }
+        func addSubViews() {
+            view.addSubview(avatarImageView)
+            view.addSubview(nameAndNumberSV)
+            view.addSubview(binButton)
+            view.addSubview(twoUselessHorizontalButtonsSV)
+            view.addSubview(twoUselessVerticalButtonsSV)
+            view.addSubview(logOutButton)
+  }
     
     @objc func returnBackToLogInScreen() {
         navigationController?.popViewController(animated: true)
@@ -153,57 +144,75 @@ class ProfileViewController: UIViewController {
         navigationController?.pushViewController(BinViewController(), animated: true)
     }
     
+    @objc func openStore() {
+        navigationController?.pushViewController(StoreViewController(), animated: true)
+    }
+    
+
+}
+
+extension ProfileViewController {
+    
+    func setUpConstraints() {
+        setUpAvatarConstraints()
+        setUpNameAndNumberSVConstraints()
+        setUpBinButtonConstraints()
+        setUpHorizontalUselessButtonsSVConstraints()
+        setUpVerticalUselessButtonsSVConstraints()
+        setUpLogOutButtonConstraints()
+    }
+    
     func setUpAvatarConstraints() {
         NSLayoutConstraint.activate([
+            avatarImageView.heightAnchor.constraint(equalToConstant: 150),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 150),
+            avatarImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             avatarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
-            avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90),
-            avatarImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -90),
-            avatarImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -550)
         ])
     }
     
     func setUpNameAndNumberSVConstraints() {
         NSLayoutConstraint.activate([
-            nameAndNumberSV.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 30),
-            nameAndNumberSV.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            nameAndNumberSV.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            nameAndNumberSV.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -470)
+            nameAndNumberSV.widthAnchor.constraint(equalToConstant: 200),
+            nameAndNumberSV.heightAnchor.constraint(equalToConstant: 60),
+            nameAndNumberSV.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nameAndNumberSV.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 20),
         ])
     }
     
     func setUpBinButtonConstraints() {
         NSLayoutConstraint.activate([
-            binButton.topAnchor.constraint(equalTo: nameAndNumberSV.bottomAnchor, constant: 30),
-            binButton.leadingAnchor.constraint(equalTo: nameAndNumberSV.leadingAnchor),
-            binButton.trailingAnchor.constraint(equalTo: nameAndNumberSV.trailingAnchor),
-            binButton.bottomAnchor.constraint(equalTo: nameAndNumberSV.bottomAnchor, constant: 70)
+            binButton.topAnchor.constraint(equalTo: nameAndNumberSV.bottomAnchor, constant: 20),
+            binButton.widthAnchor.constraint(equalToConstant: 220),
+            binButton.heightAnchor.constraint(equalToConstant: 40),
+            binButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
     
     func setUpHorizontalUselessButtonsSVConstraints() {
         NSLayoutConstraint.activate([
             twoUselessHorizontalButtonsSV.topAnchor.constraint(equalTo: binButton.bottomAnchor, constant: 20),
-            twoUselessHorizontalButtonsSV.leadingAnchor.constraint(equalTo: binButton.leadingAnchor),
-            twoUselessHorizontalButtonsSV.trailingAnchor.constraint(equalTo: binButton.trailingAnchor),
-            twoUselessHorizontalButtonsSV.bottomAnchor.constraint(equalTo: binButton.bottomAnchor, constant: 60)
+            twoUselessHorizontalButtonsSV.widthAnchor.constraint(equalToConstant: 220),
+            twoUselessHorizontalButtonsSV.heightAnchor.constraint(equalToConstant: 40),
+            twoUselessHorizontalButtonsSV.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
-    func setUpVericalUselessButtonsSVConstraints() {
+    func setUpVerticalUselessButtonsSVConstraints() {
         NSLayoutConstraint.activate([
             twoUselessVerticalButtonsSV.topAnchor.constraint(equalTo: twoUselessHorizontalButtonsSV.bottomAnchor, constant: 20),
-            twoUselessVerticalButtonsSV.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 110),
-            twoUselessVerticalButtonsSV.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -110),
-            twoUselessVerticalButtonsSV.bottomAnchor.constraint(equalTo: twoUselessHorizontalButtonsSV.bottomAnchor, constant: 110)
+            twoUselessVerticalButtonsSV.widthAnchor.constraint(equalToConstant: 120),
+            twoUselessVerticalButtonsSV.heightAnchor.constraint(equalToConstant: 90),
+            twoUselessVerticalButtonsSV.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
     
     func setUpLogOutButtonConstraints() {
         NSLayoutConstraint.activate([
-            logOutButton.topAnchor.constraint(equalTo: twoUselessVerticalButtonsSV.bottomAnchor, constant: 130),
-            logOutButton.leadingAnchor.constraint(equalTo: twoUselessHorizontalButtonsSV.leadingAnchor),
-            logOutButton.trailingAnchor.constraint(equalTo: twoUselessHorizontalButtonsSV.trailingAnchor),
-            logOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60)
+            logOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logOutButton.widthAnchor.constraint(equalToConstant: 220),
+            logOutButton.heightAnchor.constraint(equalToConstant: 40),
+            logOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
         ])
     }
 }

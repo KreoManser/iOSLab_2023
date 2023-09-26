@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  103
 //
-//  Created by Dmitry on 20.09.2023.
+//  Created by Dmitry on 27.09.2023.
 //
 
 import UIKit
