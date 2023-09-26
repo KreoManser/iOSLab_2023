@@ -11,8 +11,11 @@ class LoginViewController: UIViewController {
     
     lazy var MonaLisaImageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "MonaLisa")
+        image.image = UIImage(named: "ReStore")
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
+        image.layer.cornerRadius = 10.0
+        image.clipsToBounds = true
         return image
     }()
     
@@ -50,7 +53,9 @@ class LoginViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Войти", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.buttonTapped()
+        }), for: .touchUpInside)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
         return button
     }()
@@ -59,11 +64,21 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
         setupLayout()
         
         
     }
+    
+    @objc func buttonTapped() {
+        if loginTextField.text == "Admin" && passwordTextField.text == "123" {
+            let profileViewController = ProfileViewController()
+            navigationController?.pushViewController(profileViewController, animated: true)
+        }
+    }
+    
+}
+   
+extension LoginViewController {
     
     func setupLayout() {
 
@@ -81,8 +96,10 @@ class LoginViewController: UIViewController {
         view.addSubview(joinButton)
         
         NSLayoutConstraint.activate([
-            MonaLisaImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            MonaLisaImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            MonaLisaImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            MonaLisaImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 300),
+            MonaLisaImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            MonaLisaImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
 
             loginStackView.topAnchor.constraint(equalTo: MonaLisaImageView.bottomAnchor, constant: 50),
             loginStackView.leadingAnchor.constraint(equalTo: MonaLisaImageView.leadingAnchor),
@@ -96,13 +113,4 @@ class LoginViewController: UIViewController {
             joinButton.topAnchor.constraint(equalTo: passwordStackView.bottomAnchor, constant: 30)
         ])
     }
-    
-    @objc func buttonTapped() {
-        //if loginTextField.text == "Admin" && //passwordTextField.text == "123" {
-        performSegue(withIdentifier: "LoginSegue", sender: nil)
-        //}
-    }
-    
 }
-
-
