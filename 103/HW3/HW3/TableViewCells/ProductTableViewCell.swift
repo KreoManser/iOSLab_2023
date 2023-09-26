@@ -1,7 +1,7 @@
 import UIKit
 
 class ProductTableViewCell: UITableViewCell {
-    lazy var productImageView: UIImageView = {
+    private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -9,7 +9,7 @@ class ProductTableViewCell: UITableViewCell {
         return imageView
     }()
 
-    lazy var productNameLabel: UILabel = {
+    private lazy var productNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -17,14 +17,14 @@ class ProductTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var productPriceLabel: UILabel = {
+    private lazy var productPriceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
-    lazy var productCountLabel: UILabel = {
+    private lazy var productCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         

@@ -5,7 +5,7 @@ class ProfileViewController: UIViewController {
     private let phoneNumber = "8 800 555 3535"
     private let profileImagesize = 170.0
     
-    lazy var profileUIImageView: UIImageView = {
+    private lazy var profileUIImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "profile")
         imageView.layer.cornerRadius = profileImagesize/2
@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
         return imageView
     }()
     
-    lazy var nameUILabel: UILabel = {
+    private lazy var nameUILabel: UILabel = {
         let label = UILabel()
         label.text = name
         label.font = .systemFont(ofSize: 24, weight: .medium)
@@ -26,7 +26,7 @@ class ProfileViewController: UIViewController {
         return label
     }()
     
-    lazy var phoneUILabel: UILabel = {
+    private lazy var phoneUILabel: UILabel = {
         let label = UILabel()
         label.text = phoneNumber
         label.font = .systemFont(ofSize: 20, weight: .medium)
@@ -37,7 +37,7 @@ class ProfileViewController: UIViewController {
         return label
     }()
     
-    lazy var exitButton: UIButton = {
+    private lazy var exitButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Exit", for: .normal)
         button.backgroundColor = .darkGray
@@ -50,7 +50,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    lazy var marketButton: UIButton = {
+    private lazy var marketButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Market", for: .normal)
         button.backgroundColor = .darkGray
@@ -63,7 +63,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    lazy var basketButton: UIButton = {
+    private lazy var basketButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Basket", for: .normal)
         button.backgroundColor = .darkGray
@@ -76,7 +76,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    lazy var firstButton: UIButton = {
+    private lazy var firstButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("-----", for: .normal)
         button.backgroundColor = .darkGray
@@ -88,7 +88,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    lazy var secondButton: UIButton = {
+    private lazy var secondButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("-----", for: .normal)
         button.backgroundColor = .darkGray
@@ -100,7 +100,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    lazy var thirdButton: UIButton = {
+    private lazy var thirdButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("|", for: .normal)
         button.backgroundColor = .darkGray
@@ -112,7 +112,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    lazy var fourthButton: UIButton = {
+    private lazy var fourthButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("|", for: .normal)
         button.backgroundColor = .darkGray

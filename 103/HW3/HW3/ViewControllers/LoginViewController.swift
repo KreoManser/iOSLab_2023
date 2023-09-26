@@ -1,7 +1,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {    
-    lazy var loginUIImageView: UIImageView = {
+    private lazy var loginUIImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "login")
         imageView.contentMode = .scaleAspectFill
@@ -9,8 +9,8 @@ class LoginViewController: UIViewController {
         
         return imageView
     }()
-
-    lazy var loginUILabel: UILabel = {
+    
+    private lazy var loginUILabel: UILabel = {
         let label = UILabel()
         label.text = "Login"
         label.font = .systemFont(ofSize: 20)
@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    lazy var passwordUILabel: UILabel = {
+    private lazy var passwordUILabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
         label.font = .systemFont(ofSize: 20)
@@ -28,7 +28,7 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    lazy var loginTextField: UITextField = {
+    private lazy var loginTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Login"
         textField.layer.cornerRadius = 5
@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
         return textField
     }()
     
-    lazy var passwordTextField: UITextField = {
+    private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Password"
         textField.layer.cornerRadius = 5
@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
         return textField
     }()
     
-    lazy var loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Login", for: .normal)
         button.backgroundColor = .darkGray
@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
         
         setupLayout()
     }
-
+    
     func setupLayout() {
         view.backgroundColor = .white
         

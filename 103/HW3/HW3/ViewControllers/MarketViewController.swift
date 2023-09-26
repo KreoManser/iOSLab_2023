@@ -1,29 +1,7 @@
-//
-//  MarketViewController.swift
-//  HW3
-//
-//  Created by Тимур Хайруллин on 25.09.2023.
-//
-
 import UIKit
 
-class MarketViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSource.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath) as! CategoryTableViewCell
-        let category = dataSource[indexPath.row]
-        cell.configureCell(category: category)
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        180
-    }
-    lazy var tableView: UITableView = {
+class MarketViewController: UIViewController {
+    private lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.dataSource = self
@@ -34,7 +12,7 @@ class MarketViewController: UIViewController, UITableViewDataSource, UITableView
         return table
     }()
     
-    lazy var exitButton: UIButton = {
+    private lazy var exitButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Exit", for: .normal)
         button.backgroundColor = .darkGray
@@ -48,10 +26,10 @@ class MarketViewController: UIViewController, UITableViewDataSource, UITableView
     }()
     
     var dataSource: [Category] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         dataSource = [Category(name: "Молочная продукция", image: UIImage(named: "molochka")!), Category(name: "Выпечка", image: UIImage(named: "bakers")!), Category(name: "Фрукты", image: UIImage(named: "fruits")!), Category(name: "Овощи", image: UIImage(named: "vegetables")!)]
         
         setupLayout()
@@ -78,5 +56,23 @@ class MarketViewController: UIViewController, UITableViewDataSource, UITableView
     
     @objc func handleExit() {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension MarketViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        dataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath) as! CategoryTableViewCell
+        let category = dataSource[indexPath.row]
+        cell.configureCell(category: category)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        180
     }
 }

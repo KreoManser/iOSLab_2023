@@ -1,27 +1,7 @@
 import UIKit
 
-class BasketViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSource.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell", for: indexPath) as! ProductTableViewCell
-        let product = dataSource[indexPath.row]
-        cell.configureCell(product: product)
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        104
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Your basket"
-    }
-    
-    lazy var tableView: UITableView = {
+class BasketViewController: UIViewController {
+    private lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.dataSource = self
@@ -32,7 +12,7 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
         return table
     }()
     
-    lazy var exitButton: UIButton = {
+    private lazy var exitButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Exit", for: .normal)
         button.backgroundColor = .darkGray
@@ -46,10 +26,10 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
     }()
     
     var dataSource: [Product] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         dataSource = [Product(image: UIImage(named: "milk")!, name: "Молоко 'Сернурское'", price: "67₽", count: "1шт."), Product(image: UIImage(named: "bananas")!, name: "Бананы", price: "124₽", count: "3шт."), Product(image: UIImage(named: "bread")!, name: "Хлеб 'Витебский'", price: "56₽", count: "1шт.")]
         
         setupLayout()
@@ -76,5 +56,27 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
     
     @objc func handleExit() {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension BasketViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        dataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell", for: indexPath) as! ProductTableViewCell
+        let product = dataSource[indexPath.row]
+        cell.configureCell(product: product)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        104
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        "Your basket"
     }
 }

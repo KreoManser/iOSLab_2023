@@ -1,7 +1,7 @@
 import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
-    lazy var categoryImageView: UIImageView = {
+    private lazy var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -9,7 +9,7 @@ class CategoryTableViewCell: UITableViewCell {
         return imageView
     }()
 
-    lazy var categoryNameLabel: UILabel = {
+    private lazy var categoryNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
