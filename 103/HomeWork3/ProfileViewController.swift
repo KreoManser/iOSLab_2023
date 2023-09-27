@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
         let mySecondImageView: UIImageView
         mySecondImageView = UIImageView()
         mySecondImageView.contentMode = .scaleAspectFit
-        mySecondImageView.image = UIImage(named: "cart2.jpeg")
+        mySecondImageView.image = UIImage(named: "mycart.jpeg")
         mySecondImageView.translatesAutoresizingMaskIntoConstraints = false
         return mySecondImageView
     }()
@@ -93,7 +93,7 @@ extension  ProfileViewController {
             imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
             imageView.heightAnchor.constraint(equalToConstant: 200),
             imageView.widthAnchor.constraint(equalToConstant: 200),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 5),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             mynameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 15),
             mynameLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30),
