@@ -63,7 +63,6 @@ class LoginViewController: UIViewController {
         return button
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -72,16 +71,15 @@ class LoginViewController: UIViewController {
     }
     
     @objc func logInButtonTapped() {
-            let profileViewController = ProfileViewController()
-            
-            if checkData() {
-                navigationController?.pushViewController(profileViewController, animated: true)
-            }
-            else {
-                userNameTextField.text = "Неверный логин или пароль"
-                passwordTextField.text = ""
-            }
+        let profileViewController = ProfileViewController()
+        if checkData() {
+            navigationController?.pushViewController(profileViewController, animated: true)
         }
+        else {
+            userNameTextField.text = "Неверный логин или пароль"
+            passwordTextField.text = ""
+        }
+    }
 
     private func checkData () -> Bool {
         if let loginText = userNameTextField.text, !loginText.isEmpty, loginText == "Admin", let passwordText = passwordTextField.text, !passwordText.isEmpty, passwordText == "123" {

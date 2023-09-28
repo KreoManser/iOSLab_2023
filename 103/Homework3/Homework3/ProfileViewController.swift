@@ -42,7 +42,7 @@ class ProfileViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
-        button.frame = CGRect(x: 0, y: 0, width: 223, height: 33)
+        button.addTarget(self, action: #selector(basketButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -53,7 +53,6 @@ class ProfileViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
-        button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -64,7 +63,6 @@ class ProfileViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
-        button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -75,7 +73,6 @@ class ProfileViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
-        button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -86,7 +83,7 @@ class ProfileViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
-        button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
+        button.addTarget(self, action: #selector(marketButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -97,7 +94,6 @@ class ProfileViewController: UIViewController {
         button.tintColor = .black
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray3
-        button.frame = CGRect(x: 0, y: 0, width: 100, height: 27)
         button.addAction(UIAction { [weak self] _ in
             self?.navigationController?.popViewController(animated: true) }, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -110,6 +106,16 @@ class ProfileViewController: UIViewController {
         self.navigationItem.hidesBackButton = true
         addSubviews(profileImageView, userNameLabel, phoneNumberLabel, basketButton, leftButton, rightButton, bottomButton, marketButton, exitButton)
         setLayout()
+    }
+    
+    @objc func basketButtonTapped() {
+        let basketViewController = BasketViewController()
+        navigationController?.pushViewController(basketViewController, animated: true)
+    }
+    
+    @objc func marketButtonTapped() {
+        let marketViewController = MarketViewController()
+        navigationController?.pushViewController(marketViewController, animated: true)
     }
 }
 

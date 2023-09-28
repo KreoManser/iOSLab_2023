@@ -13,6 +13,10 @@
 		BA12A0ED2ABE3AB3003E034C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA12A0EB2ABE3AB3003E034C /* LaunchScreen.storyboard */; };
 		BA2069DB2ABF2BFC00019B82 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2069DA2ABF2BFC00019B82 /* LoginViewController.swift */; };
 		BA2069DD2AC0414800019B82 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2069DC2AC0414800019B82 /* ProfileViewController.swift */; };
+		BA7A8FBB2AC5C5B7006F3046 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7A8FBA2AC5C5B7006F3046 /* BasketViewController.swift */; };
+		BA7A8FBD2AC5C5C4006F3046 /* MarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7A8FBC2AC5C5C4006F3046 /* MarketViewController.swift */; };
+		BA7A8FBF2AC5D8D8006F3046 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7A8FBE2AC5D8D8006F3046 /* Product.swift */; };
+		BA7A8FC12AC5F533006F3046 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7A8FC02AC5F533006F3046 /* ProductTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		BA12A0EE2ABE3AB3003E034C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA2069DA2ABF2BFC00019B82 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BA2069DC2AC0414800019B82 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		BA7A8FBA2AC5C5B7006F3046 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
+		BA7A8FBC2AC5C5C4006F3046 /* MarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewController.swift; sourceTree = "<group>"; };
+		BA7A8FBE2AC5D8D8006F3046 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		BA7A8FC02AC5F533006F3046 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,10 @@
 				BA12A0EE2ABE3AB3003E034C /* Info.plist */,
 				BA2069DA2ABF2BFC00019B82 /* LoginViewController.swift */,
 				BA2069DC2AC0414800019B82 /* ProfileViewController.swift */,
+				BA7A8FBA2AC5C5B7006F3046 /* BasketViewController.swift */,
+				BA7A8FBC2AC5C5C4006F3046 /* MarketViewController.swift */,
+				BA7A8FBE2AC5D8D8006F3046 /* Product.swift */,
+				BA7A8FC02AC5F533006F3046 /* ProductTableViewCell.swift */,
 			);
 			path = Homework3;
 			sourceTree = "<group>";
@@ -137,10 +149,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA7A8FBB2AC5C5B7006F3046 /* BasketViewController.swift in Sources */,
+				BA7A8FC12AC5F533006F3046 /* ProductTableViewCell.swift in Sources */,
 				BA2069DB2ABF2BFC00019B82 /* LoginViewController.swift in Sources */,
 				BA2069DD2AC0414800019B82 /* ProfileViewController.swift in Sources */,
 				BA12A0E12ABE3AB3003E034C /* AppDelegate.swift in Sources */,
+				BA7A8FBD2AC5C5C4006F3046 /* MarketViewController.swift in Sources */,
 				BA12A0E32ABE3AB3003E034C /* SceneDelegate.swift in Sources */,
+				BA7A8FBF2AC5D8D8006F3046 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
