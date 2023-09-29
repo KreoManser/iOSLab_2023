@@ -69,7 +69,6 @@ class AccountViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Ваш аккаунт"
         view.backgroundColor = .white
         view.addSubview(profilePic)
         view.addSubview(username)
@@ -80,6 +79,8 @@ class AccountViewController: UIViewController{
         view.addSubview(fourthButton)
         view.addSubview(exitButton)
         view.addSubview(cartButton)
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.isNavigationBarHidden = true
         setupLayout()
         setupButtons()
     }

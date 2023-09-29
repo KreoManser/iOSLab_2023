@@ -22,6 +22,8 @@ class CartViewController: UIViewController{
         self.navigationItem.title = "Корзина"
         view.backgroundColor = .white
         view.addSubview(emptyLabel)
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.topItem?.title = ""
         emptyLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         emptyLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
