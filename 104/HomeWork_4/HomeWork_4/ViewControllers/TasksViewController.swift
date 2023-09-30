@@ -41,8 +41,11 @@ class TasksViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         for _ in 0 ..< 5 {
-            tasks.append(ToDoTask(name: "sfsdf qeqewqesdfssdfsdfssfsdfsdfsdfTask", description: "pohuiadlaldladapdlaldaldafkjnskfnkjskjnkasn"))
+            tasks.append(ToDoTask(name: "sfsdf qeqewqesdfssdfsdfssfsdfsdfsdfTask", description: "pohdlaldladapdlaldaldafkjnskfnkjskjnkasn"))
         }
+        var t = ToDoTask(name: "med", description: " ")
+        t.priority = .medium
+        tasks.append(t)
         
         addSubViews(tasksTableView)
         configureUI()
@@ -82,7 +85,11 @@ extension TasksViewController {
         
         let addAction = UIAction { _ in
             self.navigationController?.pushViewController(NewTaskViewController(), animated: true)
-            self.tasks.append(ToDoTask(name: "new Task", description: "dad"))
+            self.customBarButtonItem.select(<#T##sender: Any?##Any?#>)
+            var n = ToDoTask(name: "new Task", description: "dad")
+            n.priority = .high
+            n.isCompleted = true
+            self.tasks.append(n)
             self.updateData(with: self.tasks)
         }
         
@@ -93,28 +100,70 @@ extension TasksViewController {
     
     // MARK: - Func setup filter button
     private func setupFilterButton() {
-        let creationTimeFilterActionClosure = { (action: UIAction) in
-            print(action.title)
+        /// сортирует по дате создания (сначала ранние)
+        let creationTimeEarlyFilterActionClosure = { (action: UIAction) in
+            self.tasks.sort { $0.creationDate < $1.creationDate }
+            self.updateData(with: self.tasks)
         }
         
-        let endTimeFilterActionClosure = { (action: UIAction) in
-            print(action.title)
+        /// сортирует по дате создания (сначала поздние)
+        let creationTimeLateFilterActionClosure = { (action: UIAction) in
+            self.tasks.sort { $0.creationDate > $1.creationDate }
+            self.updateData(with: self.tasks)
+        } 
+        
+        /// сортирует по выполению (сначала выполненные)
+        let firstIsCompletedActionClosure = { (action: UIAction) in
+            self.tasks.sort { (task1: ToDoTask, task2: ToDoTask) in
+                if task1.isCompleted && !task2.isCompleted {
+                    return true
+                } 
+                else if !task1.isCompleted && task2.isCompleted {
+                    return false
+                }
+                else {
+                    return false
+                }
+            }
+            self.updateData(with: self.tasks)
         }
         
+        /// сортирует по выполению (сначала не выполненные)
+        let firstIsNotCompletedActionClosure = { (action: UIAction) in
+            self.tasks.sort { (task1: ToDoTask, task2: ToDoTask) in
+                if !task1.isCompleted && task2.isCompleted {
+                    return true
+                }
+                else if task1.isCompleted && !task2.isCompleted {
+                    return false
+                }
+                else {
+                    return false
+                }
+            }
+            self.updateData(with: self.tasks)
+        }
+        
+        /// сортирует по приоритету (по убыванию)
         let descendingPriorityFilterActionClosure = { (action: UIAction) in
-            print(action.title)
+            self.tasks.sort { $0.priority.rawValue > $1.priority.rawValue }
+            self.updateData(with: self.tasks)
         }
         
+        /// сортирует по приоритету (по возрастанию)
         let ascendingPriorityFilterActionClosure = { (action: UIAction) in
-            print(action.title)
+            self.tasks.sort { $0.priority.rawValue < $1.priority.rawValue }
+            self.updateData(with: self.tasks)
         }
         
         
         customBarButtonItem.menu = UIMenu(title: "Сортировка".uppercased(), children: [
-            UIAction(title: "По дате создания", state: .on, handler: creationTimeFilterActionClosure),
-            UIAction(title: "По дате выполнения", handler: endTimeFilterActionClosure),
-            UIAction(title: "По приоритету max", handler: ascendingPriorityFilterActionClosure),
-            UIAction(title: "По приоритету min", handler: descendingPriorityFilterActionClosure)
+            UIAction(title: "По дате создания: ранние", state: .on, handler: creationTimeEarlyFilterActionClosure),
+            UIAction(title: "По дате создания: поздние", handler: creationTimeLateFilterActionClosure),
+            UIAction(title: "сначала выполненные", handler: firstIsCompletedActionClosure),
+            UIAction(title: "сначала не выполненные", handler: firstIsNotCompletedActionClosure),
+            UIAction(title: "По приоритету max", handler: descendingPriorityFilterActionClosure),
+            UIAction(title: "По приоритету min", handler: ascendingPriorityFilterActionClosure)
         ])
         
         customBarButtonItem.showsMenuAsPrimaryAction = true

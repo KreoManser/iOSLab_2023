@@ -87,7 +87,7 @@ extension TaskTableViewCell {
             taskNameLabel.leadingAnchor.constraint(equalTo: isDoneImage.trailingAnchor, constant: 15),
             taskNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             
-            priorityLabel.topAnchor.constraint(equalTo: taskNameLabel.bottomAnchor, constant: 5),
+            priorityLabel.topAnchor.constraint(equalTo: taskNameLabel.bottomAnchor, constant: 20),
             priorityLabel.leadingAnchor.constraint(equalTo: isDoneImage.trailingAnchor, constant: 15),
             priorityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
