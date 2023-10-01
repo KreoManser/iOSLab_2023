@@ -13,7 +13,7 @@ class TasksViewController: UIViewController {
     enum TableViewSections {
         case main
     }
-    // MARK: - UI elements
+    // MARK: - UITableViews
     private lazy var tasksTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +23,7 @@ class TasksViewController: UIViewController {
         return tableView
     }()
     
+    // MARK: - UIButtons
     private lazy var customBarButtonItem: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -34,23 +35,15 @@ class TasksViewController: UIViewController {
     // MARK: - TableView data
     var tasks: [ToDoTask] = []
     var dataSource: UITableViewDiffableDataSource<TableViewSections, ToDoTask>?
-    var snapshot = NSDiffableDataSourceSnapshot<TableViewSections, ToDoTask>()
+    
     // MARK: - Lifecycle
-   
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        self.dataSource?.apply(snapshot)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        for _ in 0 ..< 2{
-            tasks.append(ToDoTask(name: "low task", description: "pohdlaldladapdlaldaldafkjnskfnkjskjnkasn", priority: .low))
-        }
         
-        for _ in 0 ..< 3 {
-            tasks.append(ToDoTask(name: "med task", description: "pohdlaldladapdlaldaldafkjnskfnkjskjnkasn", priority: .medium))
-        }
+        tasks.append(ToDoTask(name: "дедлайн ios", description: "Дофиксить баг", priority: .high))
+        tasks.append(ToDoTask(name: "не проспать пары", description: "(по возможности)", priority: .low))
+        
         addSubViews(tasksTableView)
         configureUI()
         setupNavigationBar()
@@ -102,14 +95,14 @@ extension TasksViewController {
         /// сортирует по дате создания (сначала ранние)
         let creationTimeEarlyFilterActionClosure = { (action: UIAction) in
             self.tasks.sort { $0.creationDate < $1.creationDate }
-            self.updateData(with: self.tasks)
+            self.updateData(with: self.tasks, animate: true)
         }
         
         /// сортирует по дате создания (сначала поздние)
         let creationTimeLateFilterActionClosure = { (action: UIAction) in
             self.tasks.sort { $0.creationDate > $1.creationDate }
-            self.updateData(with: self.tasks)
-        } 
+            self.updateData(with: self.tasks, animate: true)
+        }
         
         /// сортирует по выполению (сначала выполненные)
         let firstIsCompletedActionClosure = { (action: UIAction) in
@@ -124,7 +117,7 @@ extension TasksViewController {
                     return false
                 }
             }
-            self.updateData(with: self.tasks)
+            self.updateData(with: self.tasks, animate: true)
         }
         
         /// сортирует по выполению (сначала не выполненные)
@@ -140,22 +133,22 @@ extension TasksViewController {
                     return false
                 }
             }
-            self.updateData(with: self.tasks)
+            self.updateData(with: self.tasks, animate: true)
         }
         
         /// сортирует по приоритету (по убыванию)
         let descendingPriorityFilterActionClosure = { (action: UIAction) in
             self.tasks.sort { $0.priority.rawValue > $1.priority.rawValue }
-            self.updateData(with: self.tasks)
+            self.updateData(with: self.tasks, animate: true)
         }
         
         /// сортирует по приоритету (по возрастанию)
         let ascendingPriorityFilterActionClosure = { (action: UIAction) in
             self.tasks.sort { $0.priority.rawValue < $1.priority.rawValue }
-            self.updateData(with: self.tasks)
+            self.updateData(with: self.tasks, animate: true)
         }
         
-        
+        // MARK: - UIMenu for customBarButtonItem
         customBarButtonItem.menu = UIMenu(title: "Сортировка".uppercased(), children: [
             UIAction(title: "Сначала старые", state: .on, handler: creationTimeEarlyFilterActionClosure),
             UIAction(title: "Сначала новые", handler: creationTimeLateFilterActionClosure),
@@ -179,6 +172,7 @@ extension TasksViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
+    
     // MARK: - setup Data Sourve
     private func setupDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tasksTableView, cellProvider: { tableView, indexPath, task in
@@ -186,14 +180,15 @@ extension TasksViewController: UITableViewDelegate {
             cell.configureCell(with: task)
             return cell
         })
-        self.updateData(with: self.tasks)
+        self.updateData(with: self.tasks, animate: false)
     }
     
-    private func updateData(with tasks: [ToDoTask]) {
-        
+    // MARK: - updateData
+    private func updateData(with tasks: [ToDoTask], animate: Bool) {
+        var snapshot = NSDiffableDataSourceSnapshot<TableViewSections, ToDoTask>()
         snapshot.appendSections([.main])
         snapshot.appendItems(tasks)
-        dataSource?.apply(snapshot)
+        dataSource?.apply(snapshot, animatingDifferences: animate)
     }
 }
 
@@ -205,11 +200,13 @@ extension TasksViewController: NewTaskDelegate {
         if task.name == "" {
             task.name = "Новая задача"
         }
-        snapshot.appendItems([task])
+        tasks.append(task)
+        updateData(with: tasks, animate: false)
         navigationController?.popViewController(animated: true)
     }
 }
 
+// MARK: - TaskUpdatesDelegate implementation
 extension TasksViewController: TaskUpdatesDelegate {
     func updateTask(task: ToDoTask) {
        
@@ -220,19 +217,21 @@ extension TasksViewController: TaskUpdatesDelegate {
         else {
             currentTask.IsCompletedImageName = "RadioButtonEmpty"
         }
-        currentTask.id = UUID()
-        print("pass")
-        //snapshot.insertItems([currentTask], afterItem: task)
-        snapshot.deleteItems([task])
-        print("pas1")
-        snapshot.appendItems([currentTask])
-        print("pas2")
+        
+        if let indexToUpdate = tasks.firstIndex(where: { $0.id == task.id }) {
+            tasks.remove(at: indexToUpdate)
+            tasks.insert(contentsOf: [currentTask], at: indexToUpdate)
+        }
+        updateData(with: tasks, animate: false)
         navigationController?.popViewController(animated: true)
     }
     
     func removeTask(task: ToDoTask) {
+        if let indexToRemove = tasks.firstIndex(where: { $0.id == task.id }) {
+            tasks.remove(at: indexToRemove)
+        }
+        updateData(with: tasks, animate: false)
         navigationController?.popViewController(animated: true)
-        snapshot.deleteItems([task])
     }
 }
 

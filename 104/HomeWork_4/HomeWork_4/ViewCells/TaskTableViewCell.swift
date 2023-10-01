@@ -9,7 +9,7 @@ import UIKit
 
 class TaskTableViewCell: UITableViewCell {
     
-    // MARK: - UI elements
+    // MARK: - UIImageViews
     private lazy var isCompletedImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -17,6 +17,7 @@ class TaskTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    // MARK: - UILabels
     private lazy var taskNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,10 +42,10 @@ class TaskTableViewCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - variables
     private let dateFormatter = DateFormatter()
 
     // MARK: - init
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
@@ -57,6 +58,7 @@ class TaskTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - func configureCell
     func configureCell(with task: ToDoTask) {
         isCompletedImage.image = UIImage(named: task.IsCompletedImageName)
         taskNameLabel.text = task.name
@@ -75,6 +77,7 @@ extension TaskTableViewCell {
         subviews.forEach { contentView.addSubview($0) }
     }
     
+    // MARK: - func configureUI
     private func configureUI() {
         NSLayoutConstraint.activate([
             isCompletedImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

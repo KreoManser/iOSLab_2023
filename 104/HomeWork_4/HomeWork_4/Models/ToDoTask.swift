@@ -14,7 +14,7 @@ enum TaskPriority: Int {
 }
 
 struct ToDoTask: Hashable, Identifiable {
-    var id: UUID
+    let id: UUID
     var IsCompletedImageName: String
     var name: String = ""
     var description: String = ""

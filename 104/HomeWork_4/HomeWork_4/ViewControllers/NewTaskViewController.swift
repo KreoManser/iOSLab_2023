@@ -14,8 +14,7 @@ protocol NewTaskDelegate: AnyObject {
 
 class NewTaskViewController: UIViewController {
     
-    // MARK: - UI element
-    
+    // MARK: - UITextFields
     private lazy var taskNameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -28,6 +27,7 @@ class NewTaskViewController: UIViewController {
         return textField
     }()
     
+    // MARK: - UITextViews
     private lazy var taskDescriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,6 +40,7 @@ class NewTaskViewController: UIViewController {
         return textView
     }()
     
+    // MARK: - UILabels
     private lazy var priorityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +50,16 @@ class NewTaskViewController: UIViewController {
         return label
     }()
     
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .systemBlue
+        label.text = "Описание"
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
+    
+    // MARK: - UIButtons
     private lazy var saveButton: UIButton = {
         let action = UIAction { [weak self] _ in
             var newTask = ToDoTask(name: self?.taskNameTextField.text ?? "", description: self?.taskDescriptionTextView.text ?? "", priority: self?.taskPriority ?? .low)
@@ -67,18 +78,8 @@ class NewTaskViewController: UIViewController {
         return button
     }()
     
-    private lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .systemBlue
-        label.text = "Описание"
-        label.font = UIFont.systemFont(ofSize: 16)
-        return label
-    }()
-    
     // MARK: - Variables
     var taskPriority: TaskPriority = .low
-    
     private weak var delegate: NewTaskDelegate?
     
     // MARK: - life cycle
@@ -86,6 +87,7 @@ class NewTaskViewController: UIViewController {
         super.viewDidLoad()
         self.title = "New task"
         view.backgroundColor = .white
+        
         addSubViews(subviews: saveButton, taskNameTextField, taskDescriptionTextView, setTaskPriorityButton, priorityLabel, descriptionLabel)
         
         setupTextField()

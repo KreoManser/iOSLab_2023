@@ -12,7 +12,7 @@ protocol TaskUpdatesDelegate: AnyObject {
 }
 class TaskDetailViewController: UIViewController {
     
-    // MARK: - UI elements
+    // MARK: - UITextFields
     private lazy var taskNameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -25,6 +25,7 @@ class TaskDetailViewController: UIViewController {
         return textField
     }()
     
+    // MARK: - UITextViews
     private lazy var taskDescriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +38,7 @@ class TaskDetailViewController: UIViewController {
         return textView
     }()
     
+    // MARK: - UILabels
     private lazy var priorityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +48,16 @@ class TaskDetailViewController: UIViewController {
         return label
     }()
     
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .systemBlue
+        label.text = "Описание"
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
+    
+    // MARK: - UIButtons
     private lazy var setTaskPriorityButton: UIButton = {
         let button = UIButton(configuration: .filled())
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -56,15 +68,6 @@ class TaskDetailViewController: UIViewController {
         let button = UIButton(configuration: .filled())
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
-    }()
-    
-    private lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .systemBlue
-        label.text = "Описание"
-        label.font = UIFont.systemFont(ofSize: 16)
-        return label
     }()
     
     private lazy var deleteButton: UIButton = {
@@ -274,12 +277,12 @@ extension TaskDetailViewController {
         case false:
             return UIMenu(title: "Статус задачи".uppercased(), children: [
                 UIAction(title: "Не выполнена", state: .on, handler: setTaskIsNotCompletedActionClosure),
-                UIAction(title: "Выполнена", handler: setTaskIsCompletedActionClosure),
+                UIAction(title: "Выполнена", handler: setTaskIsCompletedActionClosure)
             ])
         case true:
             return UIMenu(title: "Статус задачи".uppercased(), children: [
                 UIAction(title: "Не выполнена", handler: setTaskIsNotCompletedActionClosure),
-                UIAction(title: "Выполнена", state: .on, handler: setTaskIsCompletedActionClosure),
+                UIAction(title: "Выполнена", state: .on, handler: setTaskIsCompletedActionClosure)
             ])
         }
     }
