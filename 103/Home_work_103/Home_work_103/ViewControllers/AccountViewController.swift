@@ -129,7 +129,7 @@ class AccountViewController: UIViewController {
             accountImageView.widthAnchor.constraint(equalToConstant: 200),
             accountImageView.heightAnchor.constraint(equalToConstant: 200),
             
-            nameLabel.topAnchor.constraint(equalTo: accountImageView.bottomAnchor, constant: 23),
+            nameLabel.topAnchor.constraint(equalTo: accountImageView.bottomAnchor, constant: 10),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             numberLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),

@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = UIColor(displayP3Red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
-        textField.textColor = UIColor(displayP3Red: 0/255, green: 0/255, blue: 0/255, alpha: 0.41)
+        textField.textColor = UIColor(displayP3Red: 1/255, green: 1/255, blue: 1/255, alpha: 0.41)
         return textField
     }()
     
@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isSecureTextEntry = true
         textField.backgroundColor = UIColor(displayP3Red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
-        textField.textColor = UIColor(displayP3Red: 0/255, green: 0/255, blue: 0/255, alpha: 0.41)
+        textField.textColor = UIColor(displayP3Red: 1/255, green: 1/255, blue: 1/255, alpha: 0.41)
         return textField
     }()
 

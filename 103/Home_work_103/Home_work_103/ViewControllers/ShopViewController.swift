@@ -1,10 +1,3 @@
-//
-//  ShopViewController.swift
-//  Home_work_103
-//
-//  Created by Артур Миннушин on 25.09.2023.
-//
-
 import UIKit
 
 class ShopViewController: UIViewController {
