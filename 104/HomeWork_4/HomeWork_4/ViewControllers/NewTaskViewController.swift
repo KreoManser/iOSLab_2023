@@ -7,13 +7,9 @@
 
 import UIKit
 
-// MARK: - NewTaskDelegate
-protocol NewTaskDelegate: AnyObject {
-    func addNewTask(with newTask: ToDoTask)
-}
 
 class NewTaskViewController: UIViewController {
-    
+
     // MARK: - UI element
     
     private lazy var taskNameTextField: UITextField = {
@@ -26,7 +22,7 @@ class NewTaskViewController: UIViewController {
         textField.layer.cornerRadius = 5
         textField.delegate = self
         return textField
-    }()
+    }() 
     
     private lazy var taskDescriptionTextView: UITextView = {
         let textView = UITextView()
@@ -51,10 +47,8 @@ class NewTaskViewController: UIViewController {
     
     private lazy var saveButton: UIButton = {
         let action = UIAction { [weak self] _ in
-            var newTask = ToDoTask(name: self?.taskNameTextField.text ?? "", description: self?.taskDescriptionTextView.text ?? "", priority: self?.taskPriority ?? .low)
-            self?.delegate?.addNewTask(with: newTask)
+            
         }
-        
         let button = UIButton(configuration: .filled(), primaryAction: action)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Сохранить", for: .normal)
@@ -71,15 +65,10 @@ class NewTaskViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .systemBlue
-        label.text = "Описание"
+        label.text = "Описание:"
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
-    
-    // MARK: - Variables
-    var taskPriority: TaskPriority = .low
-    
-    private weak var delegate: NewTaskDelegate?
     
     // MARK: - life cycle
     override func viewDidLoad() {
@@ -93,18 +82,9 @@ class NewTaskViewController: UIViewController {
         configureUI()
         hideKeyboardWhenTappedAround()
     }
-    
-    init( delegate: NewTaskDelegate? = nil) {
-        super.init(nibName: nil, bundle: nil)
-        self.delegate = delegate
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
-extension NewTaskViewController {
+extension NewTaskViewController: UITextFieldDelegate {
     // MARK: - add subviews
     private func addSubViews(subviews: UIView...) {
         subviews.forEach { view.addSubview($0) }
@@ -145,26 +125,24 @@ extension NewTaskViewController {
             
         ])
     }
+    
     // MARK: - setup priority button
     private func setupPriorityButton() {
         
         let setLowPriorityActionClosure = { (action: UIAction) in
-            self.taskPriority = .low
             print(action.title)
         }
         
         let setMediumPriorityActionClosure = { (action: UIAction) in
-                self.taskPriority = .medium
             print(action.title)
         }
         
         let setHighPriorityActionClosure = { (action: UIAction) in
-            self.taskPriority = .high
             print(action.title)
         }
         
         setTaskPriorityButton.menu = UIMenu(title: "Приоритет задачи".uppercased(), children: [
-            UIAction(title: "Низкий", handler: setLowPriorityActionClosure),
+            UIAction(title: "Низкий", state: .on, handler: setLowPriorityActionClosure),
             UIAction(title: "Средний", handler: setMediumPriorityActionClosure),
             UIAction(title: "Высокий", handler: setHighPriorityActionClosure)
         ])
@@ -174,7 +152,7 @@ extension NewTaskViewController {
     }
 }
 
-extension NewTaskViewController: UITextFieldDelegate{
+extension NewTaskViewController {
     // MARK: - textFieldShouldReturn
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         taskNameTextField.resignFirstResponder()

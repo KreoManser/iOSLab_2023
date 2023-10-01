@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2704115F2AC894DE00001DFB /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2704115E2AC894DE00001DFB /* TaskDetailViewController.swift */; };
+		2704115F2AC894DE00001DFB /* TaskDeteilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2704115E2AC894DE00001DFB /* TaskDeteilViewController.swift */; };
 		270411612AC8950000001DFB /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270411602AC8950000001DFB /* NewTaskViewController.swift */; };
 		271BC1A02AC726C000F4BE87 /* ToDoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271BC19F2AC726C000F4BE87 /* ToDoTask.swift */; };
 		271BC1A22AC7294600F4BE87 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271BC1A12AC7294600F4BE87 /* TasksViewController.swift */; };
@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2704115E2AC894DE00001DFB /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		2704115E2AC894DE00001DFB /* TaskDeteilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDeteilViewController.swift; sourceTree = "<group>"; };
 		270411602AC8950000001DFB /* NewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
 		271BC19F2AC726C000F4BE87 /* ToDoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTask.swift; sourceTree = "<group>"; };
 		271BC1A12AC7294600F4BE87 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				271BC1A12AC7294600F4BE87 /* TasksViewController.swift */,
-				2704115E2AC894DE00001DFB /* TaskDetailViewController.swift */,
+				2704115E2AC894DE00001DFB /* TaskDeteilViewController.swift */,
 				270411602AC8950000001DFB /* NewTaskViewController.swift */,
 			);
 			path = ViewControllers;
@@ -183,7 +183,7 @@
 				271BC1A22AC7294600F4BE87 /* TasksViewController.swift in Sources */,
 				271BC1A42AC72B9800F4BE87 /* TaskTableViewCell.swift in Sources */,
 				271BC1A02AC726C000F4BE87 /* ToDoTask.swift in Sources */,
-				2704115F2AC894DE00001DFB /* TaskDetailViewController.swift in Sources */,
+				2704115F2AC894DE00001DFB /* TaskDeteilViewController.swift in Sources */,
 				277AD45E2AC41913004196D0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
