@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AA4019702AC9E8990076F614 /* TaskTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA40196F2AC9E8990076F614 /* TaskTableCell.swift */; };
 		AAC8920A2ACA187800DC048A /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC892092ACA187800DC048A /* TaskDetailViewController.swift */; };
-		AAC8920C2ACA2F2D00DC048A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAC8920B2ACA2F2D00DC048A /* Storyboard.storyboard */; };
 		AADF70482AC757DD004313A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF70472AC757DD004313A7 /* AppDelegate.swift */; };
 		AADF704A2AC757DD004313A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF70492AC757DD004313A7 /* SceneDelegate.swift */; };
 		AADF704C2AC757DD004313A7 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF704B2AC757DD004313A7 /* TaskListViewController.swift */; };
@@ -21,7 +20,6 @@
 /* Begin PBXFileReference section */
 		AA40196F2AC9E8990076F614 /* TaskTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableCell.swift; sourceTree = "<group>"; };
 		AAC892092ACA187800DC048A /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
-		AAC8920B2ACA2F2D00DC048A /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		AADF70442AC757DD004313A7 /* 104.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 104.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADF70472AC757DD004313A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AADF70492AC757DD004313A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,7 +44,6 @@
 		AADF703B2AC757DD004313A7 = {
 			isa = PBXGroup;
 			children = (
-				AAC8920B2ACA2F2D00DC048A /* Storyboard.storyboard */,
 				AADF70462AC757DD004313A7 /* 104 */,
 				AADF70452AC757DD004313A7 /* Products */,
 			);
@@ -136,7 +133,6 @@
 			files = (
 				AADF70542AC757DE004313A7 /* LaunchScreen.storyboard in Resources */,
 				AADF70512AC757DE004313A7 /* Assets.xcassets in Resources */,
-				AAC8920C2ACA2F2D00DC048A /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
