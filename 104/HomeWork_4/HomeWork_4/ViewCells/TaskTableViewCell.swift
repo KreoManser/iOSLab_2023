@@ -10,11 +10,10 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
     
     // MARK: - UI elements
-    private lazy var isDoneImage: UIImageView = {
+    private lazy var isCompletedImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "RadioButtonEmpty")
         return imageView
     }()
     
@@ -50,7 +49,7 @@ class TaskTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
         contentView.backgroundColor = .white
-        addSubviews(subviews: isDoneImage, taskNameLabel, priorityLabel, creationDateLabel)
+        addSubviews(subviews: isCompletedImage, taskNameLabel, priorityLabel, creationDateLabel)
         configureUI()
     }
     
@@ -59,7 +58,7 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     func configureCell(with task: ToDoTask) {
-        
+        isCompletedImage.image = UIImage(named: task.IsCompletedImageName)
         taskNameLabel.text = task.name
         creationDateLabel.text = self.dateFormatter.string(from: task.creationDate)
         priorityLabel.text = "Приоритет: \(task.priority)"
@@ -78,19 +77,20 @@ extension TaskTableViewCell {
     
     private func configureUI() {
         NSLayoutConstraint.activate([
-            isDoneImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            isDoneImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            isDoneImage.widthAnchor.constraint(equalToConstant: 25),
-            isDoneImage.heightAnchor.constraint(equalToConstant: 25),
+            isCompletedImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            isCompletedImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            isCompletedImage.widthAnchor.constraint(equalToConstant: 25),
+            isCompletedImage.heightAnchor.constraint(equalToConstant: 25),
             
             taskNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            taskNameLabel.leadingAnchor.constraint(equalTo: isDoneImage.trailingAnchor, constant: 15),
+            taskNameLabel.leadingAnchor.constraint(equalTo: isCompletedImage.trailingAnchor, constant: 15),
             taskNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             
             priorityLabel.topAnchor.constraint(equalTo: taskNameLabel.bottomAnchor, constant: 20),
-            priorityLabel.leadingAnchor.constraint(equalTo: isDoneImage.trailingAnchor, constant: 15),
+            priorityLabel.leadingAnchor.constraint(equalTo: isCompletedImage.trailingAnchor, constant: 15),
             priorityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
+            creationDateLabel.topAnchor.constraint(equalTo: taskNameLabel.bottomAnchor, constant: 20),
             creationDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             creationDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
