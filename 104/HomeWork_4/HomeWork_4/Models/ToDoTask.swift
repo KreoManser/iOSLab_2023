@@ -14,7 +14,8 @@ enum TaskPriority: Int {
 }
 
 struct ToDoTask: Hashable, Identifiable {
-    let id: UUID
+    var id: UUID
+    var IsCompletedImageName: String
     var name: String = ""
     var description: String = ""
     var creationDate: Date
@@ -22,19 +23,13 @@ struct ToDoTask: Hashable, Identifiable {
     var isCompleted: Bool
     var endDate: Date?
     
-    init(name: String, description: String) {
+    init(name: String, description: String, priority: TaskPriority) {
         self.id = UUID()
         self.name = name
         self.description = description
         self.creationDate = Date()
-        self.priority = .low
-        self.isCompleted = false
-    }
-    
-    init() {
-        self.creationDate = Date()
-        self.id = UUID()
-        self.priority = .low
+        self.priority = priority
+        IsCompletedImageName = "RadioButtonEmpty"
         self.isCompleted = false
     }
 }

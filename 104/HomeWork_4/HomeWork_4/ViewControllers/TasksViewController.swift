@@ -19,7 +19,6 @@ class TasksViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.backgroundColor = .white
-        tableView.estimatedRowHeight = 120
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
         return tableView
     }()
@@ -35,18 +34,23 @@ class TasksViewController: UIViewController {
     // MARK: - TableView data
     var tasks: [ToDoTask] = []
     var dataSource: UITableViewDiffableDataSource<TableViewSections, ToDoTask>?
-    
+    var snapshot = NSDiffableDataSourceSnapshot<TableViewSections, ToDoTask>()
     // MARK: - Lifecycle
+   
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.dataSource?.apply(snapshot)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        for _ in 0 ..< 5 {
-            tasks.append(ToDoTask(name: "sfsdf qeqewqesdfssdfsdfssfsdfsdfsdfTask", description: "pohdlaldladapdlaldaldafkjnskfnkjskjnkasn"))
+        for _ in 0 ..< 2{
+            tasks.append(ToDoTask(name: "low task", description: "pohdlaldladapdlaldaldafkjnskfnkjskjnkasn", priority: .low))
         }
-        var t = ToDoTask(name: "med", description: " ")
-        t.priority = .medium
-        tasks.append(t)
         
+        for _ in 0 ..< 3 {
+            tasks.append(ToDoTask(name: "med task", description: "pohdlaldladapdlaldaldafkjnskfnkjskjnkasn", priority: .medium))
+        }
         addSubViews(tasksTableView)
         configureUI()
         setupNavigationBar()
@@ -68,7 +72,7 @@ extension TasksViewController {
             tasksTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             tasksTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
             tasksTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            tasksTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0)
+            tasksTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -1)
         ])
     }
 }
@@ -84,13 +88,8 @@ extension TasksViewController {
         cusmotButton.customView?.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         let addAction = UIAction { _ in
-            self.navigationController?.pushViewController(NewTaskViewController(), animated: true)
-            self.customBarButtonItem.select(<#T##sender: Any?##Any?#>)
-            var n = ToDoTask(name: "new Task", description: "dad")
-            n.priority = .high
-            n.isCompleted = true
-            self.tasks.append(n)
-            self.updateData(with: self.tasks)
+            self.navigationController?.pushViewController(NewTaskViewController(delegate: self), animated: true)
+            
         }
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction)
@@ -158,10 +157,10 @@ extension TasksViewController {
         
         
         customBarButtonItem.menu = UIMenu(title: "Сортировка".uppercased(), children: [
-            UIAction(title: "По дате создания: ранние", state: .on, handler: creationTimeEarlyFilterActionClosure),
-            UIAction(title: "По дате создания: поздние", handler: creationTimeLateFilterActionClosure),
-            UIAction(title: "сначала выполненные", handler: firstIsCompletedActionClosure),
-            UIAction(title: "сначала не выполненные", handler: firstIsNotCompletedActionClosure),
+            UIAction(title: "Сначала старые", state: .on, handler: creationTimeEarlyFilterActionClosure),
+            UIAction(title: "Сначала новые", handler: creationTimeLateFilterActionClosure),
+            UIAction(title: "Сначала выполненные", handler: firstIsCompletedActionClosure),
+            UIAction(title: "Сначала не выполненные", handler: firstIsNotCompletedActionClosure),
             UIAction(title: "По приоритету max", handler: descendingPriorityFilterActionClosure),
             UIAction(title: "По приоритету min", handler: ascendingPriorityFilterActionClosure)
         ])
@@ -173,7 +172,13 @@ extension TasksViewController {
 
 // MARK: - TableView implementation
 extension TasksViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let task = dataSource?.itemIdentifier(for: indexPath) {
+            let taskDetailViewController = TaskDetailViewController(task: task, delegate: self)
+            navigationController?.pushViewController(taskDetailViewController, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
     // MARK: - setup Data Sourve
     private func setupDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tasksTableView, cellProvider: { tableView, indexPath, task in
@@ -185,9 +190,50 @@ extension TasksViewController: UITableViewDelegate {
     }
     
     private func updateData(with tasks: [ToDoTask]) {
-        var snapshot = NSDiffableDataSourceSnapshot<TableViewSections, ToDoTask>()
+        
         snapshot.appendSections([.main])
         snapshot.appendItems(tasks)
         dataSource?.apply(snapshot)
     }
 }
+
+// MARK: - NewTaskDelegate emplementation
+extension TasksViewController: NewTaskDelegate {
+    func addNewTask(with newTask: ToDoTask) {
+        
+        var task = newTask
+        if task.name == "" {
+            task.name = "Новая задача"
+        }
+        snapshot.appendItems([task])
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension TasksViewController: TaskUpdatesDelegate {
+    func updateTask(task: ToDoTask) {
+       
+        var currentTask = task
+        if currentTask.isCompleted {
+            currentTask.IsCompletedImageName = "RadioButtonFill"
+        }
+        else {
+            currentTask.IsCompletedImageName = "RadioButtonEmpty"
+        }
+        currentTask.id = UUID()
+        print("pass")
+        //snapshot.insertItems([currentTask], afterItem: task)
+        snapshot.deleteItems([task])
+        print("pas1")
+        snapshot.appendItems([currentTask])
+        print("pas2")
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func removeTask(task: ToDoTask) {
+        navigationController?.popViewController(animated: true)
+        snapshot.deleteItems([task])
+    }
+}
+
+
