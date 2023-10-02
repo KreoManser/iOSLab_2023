@@ -66,6 +66,8 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        
         view.addSubview(accountPhoto)
         view.addSubview(nameLabel)
         view.addSubview(telephoneNumberLabel)
@@ -83,6 +85,12 @@ class AccountViewController: UIViewController {
         setupLayout()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        accountPhoto.layer.cornerRadius = accountPhoto.frame.width / 2
+        accountPhoto.clipsToBounds = true
+    }
+
     @objc func buttonTappedForExit() {
         navigationController?.popViewController(animated: true)
     }
