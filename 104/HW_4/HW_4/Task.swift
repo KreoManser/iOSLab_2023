@@ -1,6 +1,6 @@
 import Foundation
 
-struct Task: Hashable {
+struct Task: Hashable, Identifiable {
     let id: UUID
     var name: String
     let description: String

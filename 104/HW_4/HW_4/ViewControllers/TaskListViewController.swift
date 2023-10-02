@@ -32,7 +32,6 @@ class TaskListViewController: UIViewController {
     }
     
     func setupDataSource() {
-        
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, task in
             
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.reuseIdentifier, for: indexPath) as! TaskTableViewCell
@@ -108,15 +107,11 @@ extension TaskListViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
+
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
-    
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if let task = dataSource?.itemIdentifier(for: indexPath) {
