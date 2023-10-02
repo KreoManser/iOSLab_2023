@@ -2,7 +2,8 @@
 import Foundation
 import UIKit
 
-struct Store {
+struct Store: Hashable, Identifiable {
+    let id: UUID = UUID()
     let image: UIImage?
     let title: String
     let subTitle: String

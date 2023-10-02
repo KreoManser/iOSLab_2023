@@ -93,7 +93,7 @@ class ViewController: UIViewController {
 //    }()
     
     @objc private func login(){
-        guard  loginTextFieldView.text == "Admin", passwordTextFieldView.text == "123" else {return}
+//        guard  loginTextFieldView.text == "Admin", passwordTextFieldView.text == "123" else {return}
         let profileController = ProfileViewController()
         self.navigationController?.pushViewController(profileController, animated: true)
     }
