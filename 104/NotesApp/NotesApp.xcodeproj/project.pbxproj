@@ -15,6 +15,10 @@
 		04BCAE5B2AC9B25A00DE2808 /* NotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAE5A2AC9B25A00DE2808 /* NotesTableViewCell.swift */; };
 		04BCAE5D2AC9B27300DE2808 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAE5C2AC9B27300DE2808 /* EditNoteViewController.swift */; };
 		04BCAE5F2AC9B29000DE2808 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAE5E2AC9B29000DE2808 /* Note.swift */; };
+		04BCAE662ACAA9DF00DE2808 /* TableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAE652ACAA9DF00DE2808 /* TableSection.swift */; };
+		04BCAE682ACAAA0C00DE2808 /* LevelOfPrority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAE672ACAAA0C00DE2808 /* LevelOfPrority.swift */; };
+		04BCAE6B2ACAAA7E00DE2808 /* EditNoteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAE6A2ACAAA7E00DE2808 /* EditNoteDelegate.swift */; };
+		04BCAE6D2ACACA1700DE2808 /* NotesTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCAE6C2ACACA1700DE2808 /* NotesTableViewCellDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		04BCAE5A2AC9B25A00DE2808 /* NotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewCell.swift; sourceTree = "<group>"; };
 		04BCAE5C2AC9B27300DE2808 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
 		04BCAE5E2AC9B29000DE2808 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		04BCAE652ACAA9DF00DE2808 /* TableSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSection.swift; sourceTree = "<group>"; };
+		04BCAE672ACAAA0C00DE2808 /* LevelOfPrority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelOfPrority.swift; sourceTree = "<group>"; };
+		04BCAE6A2ACAAA7E00DE2808 /* EditNoteDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteDelegate.swift; sourceTree = "<group>"; };
+		04BCAE6C2ACACA1700DE2808 /* NotesTableViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewCellDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,11 +68,13 @@
 		04BCAE432AC9AF8700DE2808 /* NotesApp */ = {
 			isa = PBXGroup;
 			children = (
-				04BCAE522AC9AF8900DE2808 /* Info.plist */,
 				04BCAE602AC9BC9300DE2808 /* ViewControllers */,
 				04BCAE612AC9BCAD00DE2808 /* TableViewCell */,
+				04BCAE692ACAAA7100DE2808 /* Delegate */,
+				04BCAE642ACAA9AC00DE2808 /* Enums */,
 				04BCAE622AC9BCC500DE2808 /* Struct */,
 				04BCAE632AC9BCD800DE2808 /* Other */,
+				04BCAE522AC9AF8900DE2808 /* Info.plist */,
 			);
 			path = NotesApp;
 			sourceTree = "<group>";
@@ -103,6 +113,24 @@
 				04BCAE4F2AC9AF8900DE2808 /* LaunchScreen.storyboard */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		04BCAE642ACAA9AC00DE2808 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				04BCAE652ACAA9DF00DE2808 /* TableSection.swift */,
+				04BCAE672ACAAA0C00DE2808 /* LevelOfPrority.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		04BCAE692ACAAA7100DE2808 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				04BCAE6A2ACAAA7E00DE2808 /* EditNoteDelegate.swift */,
+				04BCAE6C2ACACA1700DE2808 /* NotesTableViewCellDelegate.swift */,
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,11 +203,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04BCAE662ACAA9DF00DE2808 /* TableSection.swift in Sources */,
 				04BCAE592AC9B15600DE2808 /* NotesViewController.swift in Sources */,
 				04BCAE5F2AC9B29000DE2808 /* Note.swift in Sources */,
 				04BCAE5B2AC9B25A00DE2808 /* NotesTableViewCell.swift in Sources */,
+				04BCAE6B2ACAAA7E00DE2808 /* EditNoteDelegate.swift in Sources */,
 				04BCAE452AC9AF8700DE2808 /* AppDelegate.swift in Sources */,
+				04BCAE682ACAAA0C00DE2808 /* LevelOfPrority.swift in Sources */,
 				04BCAE5D2AC9B27300DE2808 /* EditNoteViewController.swift in Sources */,
+				04BCAE6D2ACACA1700DE2808 /* NotesTableViewCellDelegate.swift in Sources */,
 				04BCAE472AC9AF8700DE2808 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

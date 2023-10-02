@@ -15,7 +15,7 @@ struct Note: Hashable, Identifiable {
     let startDate: Date
     let endDate: Date
     var levelOfPriority: LevelOfPrority
-    var isDone: Bool
+    var isDone: Bool = false
 
     init(title: String, describtion: String, iconName: String, endDate: Date, levelOfPriority: LevelOfPrority, isDone: Bool) {
         self.title = title
@@ -25,22 +25,5 @@ struct Note: Hashable, Identifiable {
         self.endDate = endDate
         self.levelOfPriority = levelOfPriority
         self.isDone = isDone
-    }
-}
-
-enum LevelOfPrority: Int, CustomStringConvertible {
-    case high = 3
-    case middle = 2
-    case low = 1
-    
-    var description: String {
-        switch self {
-        case .high:
-            return "High priority"
-        case .middle:
-            return "Middle priority"
-        case .low:
-            return "Low priority"
-        }
     }
 }

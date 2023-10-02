@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol EditNoteDelegate {
-    func changeNote(with newNote: Note)
-}
-
 class EditNoteViewController: UIViewController {
     // MARK: - Declaration objects
     private lazy var nameTextField: UITextField = {
@@ -147,6 +143,7 @@ extension EditNoteViewController {
     private func setupNavigationBar() {
         let addNoteAction = UIAction { _ in
             self.delegate?.changeNote(with: self.editedNote)
+            self.navigationController?.popViewController(animated: true)
         }
         navigationItem.title = "Add Note"
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: addNoteAction, menu: nil)

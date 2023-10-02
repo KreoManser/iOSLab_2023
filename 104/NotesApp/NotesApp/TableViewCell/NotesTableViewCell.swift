@@ -44,16 +44,16 @@ class NotesTableViewCell: UITableViewCell {
         return date
     }()
     
-    private var isDone = false
     lazy var isDoneNoteButton: UIButton = {
         let button = UIButton(type: .close)
         let changeStatusAction = UIAction { _ in
-            if self.isDone {
+            guard var note = self.currentNote else { return }
+            if note.isDone {
+                self.delegate?.changeStatusOfNote(note: note, isDone: !note.isDone)
                 button.setImage(UIImage(named: "unfilled"), for: .normal)
-                self.isDone = false
             } else {
+                self.delegate?.changeStatusOfNote(note: note, isDone: !note.isDone)
                 button.setImage(UIImage(named: "filled"), for: .normal)
-                self.isDone = true
             }
         }
         button.addAction(changeStatusAction, for: .touchUpInside)
@@ -61,6 +61,9 @@ class NotesTableViewCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    var delegate: NotesTableViewCellDelegate?
+    var currentNote: Note?
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -127,5 +130,6 @@ extension NotesTableViewCell {
         noteDescriptionLable.text = note.describtion
         noteLevelOfPriorityLable.text = note.levelOfPriority.description
         noteEndDateLable.text = dateFormater.string(from: note.endDate)
+        self.currentNote = note
     }
 }
