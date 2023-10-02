@@ -63,7 +63,7 @@ extension ShopTableViewCell {
 
 // MARK: - ViewCell settings
 extension ShopTableViewCell {
-    static var reuseIdentifier: String {
+    static var r: String {
         return String(describing: self)
     }
     
