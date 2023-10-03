@@ -65,24 +65,20 @@ class TaskListViewController: UIViewController {
     
     func setupNavigationBar() {
         let editAction = UIAction { _ in
-            self.tableView.isEditing.toggle()
-            if !self.tableView.isEditing {
-                self.tableView.reloadData()
-            }
+            
         }
         
         let addAction = UIAction { _ in
             guard var snapshot = self.dataSource?.snapshot() else { return }
             
             let task = Task(id: UUID(), name: "New Task", description: "dufgdubdudvbdvdvd djfvdjfvdjd", dateOfAdd: Date())
-            
             snapshot.appendItems([task], toSection: .main)
             self.tasks.append(task)
             self.dataSource?.apply(snapshot)
         }
         
         navigationItem.title = "Tasks List"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .edit, primaryAction: editAction, menu: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .compose, primaryAction: editAction, menu: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction, menu: nil)
     }
 }
@@ -108,16 +104,21 @@ extension TaskListViewController: UITableViewDelegate {
         }
     }
 
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let moveToTrash = UIContextualAction(style: .normal, title: "") { [weak self] _, _, comletionHandler in
+            self?.handleMoveToTrash(indexPath: indexPath)
+            comletionHandler(false)
+        }
+        moveToTrash.image = UIImage (systemName: "trash.fill")
+        moveToTrash.backgroundColor = .systemRed
+        
+        return UISwipeActionsConfiguration(actions: [moveToTrash])
     }
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if let task = dataSource?.itemIdentifier(for: indexPath) {
-                tasks.removeAll(where: { $0.id == task.id })
-                updateDataSource(with: tasks, animate: true)
-            }
+    
+    func handleMoveToTrash(indexPath: IndexPath) {
+        if let task = dataSource?.itemIdentifier(for: indexPath) {
+            tasks.removeAll(where: { $0.id == task.id })
+            updateDataSource(with: tasks, animate: true)
         }
     }
 }

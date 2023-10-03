@@ -46,7 +46,7 @@ class TaskTableViewCell: UITableViewCell {
     
     func configureCell(task: Task) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
         
         taskNameLabel.text = task.name
         taskDescriptionLabel.text = task.description
@@ -57,8 +57,8 @@ class TaskTableViewCell: UITableViewCell {
         contentView.backgroundColor = .white
         
         contentView.addSubview(taskNameLabel)
-        contentView.addSubview(taskDescriptionLabel)
         contentView.addSubview(taskDateOfAddLabel)
+        contentView.addSubview(taskDescriptionLabel)
         
         NSLayoutConstraint.activate([
             taskNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),

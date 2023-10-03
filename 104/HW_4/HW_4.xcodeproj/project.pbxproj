@@ -62,8 +62,8 @@
 			children = (
 				CE7D78742ACA029000448E4A /* AppDelegate.swift */,
 				CE7D78762ACA029000448E4A /* SceneDelegate.swift */,
-				CEF486952ACA530F00D49725 /* Task.swift */,
-				CEF486972ACA535700D49725 /* TaskTableViewCell.swift */,
+				CEFF0C432ACC3241004C00E8 /* Models */,
+				CEFF0C442ACC324E004C00E8 /* TableViewCells */,
 				CEF486942ACA508600D49725 /* ViewControllers */,
 				CE7D787D2ACA029100448E4A /* Assets.xcassets */,
 				CE7D787F2ACA029100448E4A /* LaunchScreen.storyboard */,
@@ -79,6 +79,22 @@
 				CE7D78782ACA029000448E4A /* TaskListViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CEFF0C432ACC3241004C00E8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CEF486952ACA530F00D49725 /* Task.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CEFF0C442ACC324E004C00E8 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				CEF486972ACA535700D49725 /* TaskTableViewCell.swift */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
