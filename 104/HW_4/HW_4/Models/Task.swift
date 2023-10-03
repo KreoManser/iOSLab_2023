@@ -1,9 +1,9 @@
 import Foundation
 
-enum Priority: String {
-    case low = "Low priority"
-    case medium = "Medium priority"
-    case high = "High priority"
+enum Priority: Int {
+    case low = 0
+    case medium = 1
+    case high = 2
 }
 
 struct Task: Hashable, Identifiable {

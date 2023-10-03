@@ -43,7 +43,7 @@ class TaskDetailViewController: UIViewController {
     
     init(with task: Task, delegate: TaskDetailControllerDelegate?) {
         super.init(nibName: nil, bundle: nil)
-    
+        
         self.currentTask = task
         self.delegate = delegate
         
@@ -77,7 +77,7 @@ class TaskDetailViewController: UIViewController {
             descriptionTextView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             descriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             descriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-
+            
             editButtom.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             editButtom.widthAnchor.constraint(equalToConstant: 70),
             editButtom.heightAnchor.constraint(equalToConstant: 35),
@@ -86,9 +86,18 @@ class TaskDetailViewController: UIViewController {
     }
     
     func setupMenu() -> UIMenu {
-        let lowPriority = UIAction(title: "Low") { _ in self.currentTask.priority = .low }
-        let mediumPriority = UIAction(title: "Medium") { _ in self.currentTask.priority = .medium }
-        let highPriority = UIAction(title: "High") { _ in self.currentTask.priority = .high }
+        let lowPriority = UIAction(title: "Low") { _ in
+            self.currentTask.priority = .low
+            self.setupNavigationBar()
+        }
+        let mediumPriority = UIAction(title: "Medium") { _ in
+            self.currentTask.priority = .medium
+            self.setupNavigationBar()
+        }
+        let highPriority = UIAction(title: "High") { _ in
+            self.currentTask.priority = .high
+            self.setupNavigationBar()
+        }
         
         switch currentTask.priority {
         case .low:

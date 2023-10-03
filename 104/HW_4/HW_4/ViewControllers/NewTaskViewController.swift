@@ -43,7 +43,7 @@ class NewTaskViewController: UIViewController {
     
     init(delegate: NewTaskControllerDelegate?) {
         super.init(nibName: nil, bundle: nil)
-    
+        
         self.delegate = delegate
     }
     
@@ -53,7 +53,7 @@ class NewTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavigationBar()
         setupLayout()
     }
@@ -73,7 +73,7 @@ class NewTaskViewController: UIViewController {
             descriptionTextView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             descriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             descriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-
+            
             editButtom.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             editButtom.widthAnchor.constraint(equalToConstant: 70),
             editButtom.heightAnchor.constraint(equalToConstant: 35),
@@ -82,9 +82,18 @@ class NewTaskViewController: UIViewController {
     }
     
     func setupMenu() -> UIMenu {
-        let lowPriority = UIAction(title: "Low") { _ in self.taskPriority = .low }
-        let mediumPriority = UIAction(title: "Medium") { _ in self.taskPriority = .medium }
-        let highPriority = UIAction(title: "High") { _ in self.taskPriority = .high }
+        let lowPriority = UIAction(title: "Low") { _ in
+            self.taskPriority = .low
+            self.setupNavigationBar()
+        }
+        let mediumPriority = UIAction(title: "Medium") { _ in
+            self.taskPriority = .medium
+            self.setupNavigationBar()
+        }
+        let highPriority = UIAction(title: "High") { _ in
+            self.taskPriority = .high
+            self.setupNavigationBar()
+        }
         
         switch self.taskPriority {
         case .low:

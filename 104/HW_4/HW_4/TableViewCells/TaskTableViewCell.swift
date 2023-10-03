@@ -7,7 +7,7 @@ class TaskTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var taskDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
@@ -54,7 +54,15 @@ class TaskTableViewCell: UITableViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
         
-        taskPriorityLabel.text = task.priority.rawValue
+        switch task.priority {
+        case .low:
+            taskPriorityLabel.text = "Low "
+        case .medium:
+            taskPriorityLabel.text = "Medium "
+        case .high:
+            taskPriorityLabel.text = "High "
+        }
+        taskPriorityLabel.text! += "priority"
         taskNameLabel.text = task.name
         taskDescriptionLabel.text = task.description
         taskDateOfAddLabel.text = dateFormatter.string(from: task.dateOfAdd)
@@ -70,12 +78,12 @@ class TaskTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             taskPriorityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            taskPriorityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-
+            taskPriorityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            
             taskNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             taskNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             taskNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-
+            
             taskDateOfAddLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
             taskDateOfAddLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             

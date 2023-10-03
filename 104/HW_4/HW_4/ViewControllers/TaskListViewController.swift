@@ -4,7 +4,7 @@ class TaskListViewController: UIViewController {
     enum TableSection {
         case main
     }
-
+    
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -64,17 +64,38 @@ class TaskListViewController: UIViewController {
     }
     
     func setupNavigationBar() {
-        let sortAction = UIAction { _ in
-            
-        }
-        
         let addAction = UIAction { _ in
             self.navigationController?.pushViewController(NewTaskViewController(delegate: self), animated: true)
         }
         
         navigationItem.title = "Tasks List"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .compose, primaryAction: sortAction, menu: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .compose, menu: setupSortingButtom())
+        navigationItem.leftBarButtonItem?.changesSelectionAsPrimaryAction = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction, menu: nil)
+    }
+    
+    func setupSortingButtom() -> UIMenu {
+        let sortingByEarlierTasks = UIAction(title: "Earlier task") { _ in
+            self.tasks.sort { $0.dateOfAdd < $1.dateOfAdd }
+            self.updateDataSource(with: self.tasks, animate: true)
+        }
+        
+        let sortingByLaterTasks = UIAction(title: "Later task") { _ in
+            self.tasks.sort { $0.dateOfAdd > $1.dateOfAdd }
+            self.updateDataSource(with: self.tasks, animate: true)
+        }
+        
+        let sortingByLowerPriority = UIAction(title: "Lower priority task") { _ in
+            self.tasks.sort { $0.priority.rawValue < $1.priority.rawValue }
+            self.updateDataSource(with: self.tasks, animate: true)
+        }
+        
+        let sortingByHigherPriority = UIAction(title: "Higher priority task") { _ in
+            self.tasks.sort { $0.priority.rawValue > $1.priority.rawValue }
+            self.updateDataSource(with: self.tasks, animate: true)
+        }
+        
+        return UIMenu(title: "Sort by", children: [sortingByEarlierTasks, sortingByLaterTasks, sortingByLowerPriority, sortingByHigherPriority])
     }
 }
 
@@ -107,13 +128,12 @@ extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let task = dataSource?.itemIdentifier(for: indexPath) {
             let taskDetailController = TaskDetailViewController(with: task, delegate: self)
-
+            
             navigationController?.pushViewController(taskDetailController, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
-            print(task.priority)
         }
     }
-
+    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let moveToTrash = UIContextualAction(style: .normal, title: "") { [weak self] _, _, comletionHandler in
             self?.handleMoveToTrash(indexPath: indexPath)
