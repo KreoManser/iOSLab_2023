@@ -69,12 +69,7 @@ class TaskListViewController: UIViewController {
         }
         
         let addAction = UIAction { _ in
-            guard var snapshot = self.dataSource?.snapshot() else { return }
-            
-            let task = Task(id: UUID(), name: "New Task", description: "dufgdubdudvbdvdvd djfvdjfvdjd", dateOfAdd: Date())
-            snapshot.appendItems([task], toSection: .main)
-            self.tasks.append(task)
-            self.dataSource?.apply(snapshot)
+            self.navigationController?.pushViewController(NewTaskViewController(delegate: self), animated: true)
         }
         
         navigationItem.title = "Tasks List"
@@ -91,6 +86,20 @@ extension TaskListViewController: TaskDetailControllerDelegate {
             tasks.insert(task, at: objectIndex)
             updateDataSource(with: tasks, animate: false)
         }
+    }
+}
+
+extension TaskListViewController: NewTaskControllerDelegate {
+    func addTask(for task: Task) {
+        guard (dataSource?.snapshot()) != nil else { return }
+        
+        var newTask = task
+        if newTask.name == "" {
+            newTask.name = "New task"
+        }
+        
+        tasks.append(newTask)
+        updateDataSource(with: tasks, animate: false)
     }
 }
 

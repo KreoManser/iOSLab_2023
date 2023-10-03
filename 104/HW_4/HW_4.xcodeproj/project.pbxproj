@@ -15,6 +15,7 @@
 		CE7D78892ACA049000448E4A /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D78882ACA049000448E4A /* TaskDetailViewController.swift */; };
 		CEF486962ACA530F00D49725 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF486952ACA530F00D49725 /* Task.swift */; };
 		CEF486982ACA535700D49725 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF486972ACA535700D49725 /* TaskTableViewCell.swift */; };
+		CEFF0C462ACC5808004C00E8 /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C452ACC5808004C00E8 /* NewTaskViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		CE7D78882ACA049000448E4A /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		CEF486952ACA530F00D49725 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		CEF486972ACA535700D49725 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		CEFF0C452ACC5808004C00E8 /* NewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				CE7D78882ACA049000448E4A /* TaskDetailViewController.swift */,
 				CE7D78782ACA029000448E4A /* TaskListViewController.swift */,
+				CEFF0C452ACC5808004C00E8 /* NewTaskViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7D78792ACA029000448E4A /* TaskListViewController.swift in Sources */,
+				CEFF0C462ACC5808004C00E8 /* NewTaskViewController.swift in Sources */,
 				CE7D78892ACA049000448E4A /* TaskDetailViewController.swift in Sources */,
 				CEF486982ACA535700D49725 /* TaskTableViewCell.swift in Sources */,
 				CEF486962ACA530F00D49725 /* Task.swift in Sources */,

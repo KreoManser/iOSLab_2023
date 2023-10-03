@@ -11,7 +11,7 @@ class TaskTableViewCell: UITableViewCell {
 
     private lazy var taskDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -20,7 +20,7 @@ class TaskTableViewCell: UITableViewCell {
     
     private lazy var taskDateOfAddLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

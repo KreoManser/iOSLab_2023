@@ -1,10 +1,18 @@
 import UIKit
 
-protocol TaskDetailControllerDelegate: AnyObject {
-    func dataUpdated(for task: Task)
+protocol NewTaskControllerDelegate: AnyObject {
+    func addTask(for task: Task)
 }
 
-class TaskDetailViewController: UIViewController {
+class NewTaskViewController: UIViewController {
+    private lazy var nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = .systemFont(ofSize: 30, weight: .bold)
+        textField.attributedPlaceholder = .init(string: "Task name")
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 20, weight: .regular)
@@ -13,22 +21,15 @@ class TaskDetailViewController: UIViewController {
         return textView
     }()
     
-    private lazy var nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.font = .systemFont(ofSize: 30, weight: .bold)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
-    
     private lazy var editButtom: UIButton = {
         let action = UIAction { _ in
-            let updatedTask = Task(id: self.currentTask.id, name: self.nameTextField.text ?? "", description: self.descriptionTextView.text ?? "", dateOfAdd: Date())
-            self.delegate?.dataUpdated(for: updatedTask)
+            let newTask = Task(id: UUID(), name: self.nameTextField.text ?? "", description: self.descriptionTextView.text ?? "", dateOfAdd: Date())
+            self.delegate?.addTask(for: newTask)
             self.navigationController?.popViewController(animated: true)
         }
         
         let button = UIButton(type: .system, primaryAction: action)
-        button.setTitle("Edit", for: .normal)
+        button.setTitle("Done", for: .normal)
         button.backgroundColor = .darkGray
         button.tintColor = .white
         button.titleLabel?.font = UIFont.systemFont(ofSize: 19, weight: .regular)
@@ -37,17 +38,12 @@ class TaskDetailViewController: UIViewController {
         return button
     }()
     
-    private weak var delegate: TaskDetailControllerDelegate?
-    private var currentTask: Task!
+    private weak var delegate: NewTaskControllerDelegate?
     
-    init(with task: Task, delegate: TaskDetailControllerDelegate?) {
+    init(delegate: NewTaskControllerDelegate?) {
         super.init(nibName: nil, bundle: nil)
     
-        self.currentTask = task
         self.delegate = delegate
-        
-        descriptionTextView.text = currentTask.description
-        nameTextField.text = currentTask.name
     }
     
     required init?(coder: NSCoder) {
@@ -56,7 +52,7 @@ class TaskDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupLayout()
     }
     
