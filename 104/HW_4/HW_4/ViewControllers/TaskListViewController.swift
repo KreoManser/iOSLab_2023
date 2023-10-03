@@ -23,7 +23,7 @@ class TaskListViewController: UIViewController {
         super.viewDidLoad()
         
         for i in 1 ..< 10 {
-            tasks.append(Task(id: UUID(), name: "Task \(i)", description: "iIYDEEVDEUVUDV DVUEVEDVUUE DVEDEYTVDEYDEYDVYEEVD", dateOfAdd: Date()))
+            tasks.append(Task(name: "Task \(i)", description: "iIYDEEVDEUVUDV DVUEVEDVUUE DVEDEYTVDEYDEYDVYEEVD", dateOfAdd: Date(), priority: .medium))
         }
         
         setupLayout()
@@ -64,7 +64,7 @@ class TaskListViewController: UIViewController {
     }
     
     func setupNavigationBar() {
-        let editAction = UIAction { _ in
+        let sortAction = UIAction { _ in
             
         }
         
@@ -73,7 +73,7 @@ class TaskListViewController: UIViewController {
         }
         
         navigationItem.title = "Tasks List"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .compose, primaryAction: editAction, menu: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .compose, primaryAction: sortAction, menu: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction, menu: nil)
     }
 }
@@ -110,6 +110,7 @@ extension TaskListViewController: UITableViewDelegate {
 
             navigationController?.pushViewController(taskDetailController, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
+            print(task.priority)
         }
     }
 

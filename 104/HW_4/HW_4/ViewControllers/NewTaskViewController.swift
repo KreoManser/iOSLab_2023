@@ -23,7 +23,7 @@ class NewTaskViewController: UIViewController {
     
     private lazy var editButtom: UIButton = {
         let action = UIAction { _ in
-            let newTask = Task(id: UUID(), name: self.nameTextField.text ?? "", description: self.descriptionTextView.text ?? "", dateOfAdd: Date())
+            let newTask = Task(name: self.nameTextField.text ?? "", description: self.descriptionTextView.text ?? "", dateOfAdd: Date(), priority: self.taskPriority)
             self.delegate?.addTask(for: newTask)
             self.navigationController?.popViewController(animated: true)
         }
@@ -39,6 +39,7 @@ class NewTaskViewController: UIViewController {
     }()
     
     private weak var delegate: NewTaskControllerDelegate?
+    private var taskPriority: Priority = .low
     
     init(delegate: NewTaskControllerDelegate?) {
         super.init(nibName: nil, bundle: nil)
@@ -53,6 +54,7 @@ class NewTaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupNavigationBar()
         setupLayout()
     }
     
@@ -77,5 +79,26 @@ class NewTaskViewController: UIViewController {
             editButtom.heightAnchor.constraint(equalToConstant: 35),
             editButtom.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+    }
+    
+    func setupMenu() -> UIMenu {
+        let lowPriority = UIAction(title: "Low") { _ in self.taskPriority = .low }
+        let mediumPriority = UIAction(title: "Medium") { _ in self.taskPriority = .medium }
+        let highPriority = UIAction(title: "High") { _ in self.taskPriority = .high }
+        
+        switch self.taskPriority {
+        case .low:
+            lowPriority.state = .on
+        case .medium:
+            mediumPriority.state = .on
+        case .high:
+            highPriority.state = .on
+        }
+        
+        return UIMenu(title: "Priority", children: [lowPriority, mediumPriority, highPriority])
+    }
+    
+    func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), menu: setupMenu())
     }
 }

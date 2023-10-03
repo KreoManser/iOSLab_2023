@@ -22,7 +22,8 @@ class TaskDetailViewController: UIViewController {
     
     private lazy var editButtom: UIButton = {
         let action = UIAction { _ in
-            let updatedTask = Task(id: self.currentTask.id, name: self.nameTextField.text ?? "", description: self.descriptionTextView.text ?? "", dateOfAdd: Date())
+            var updatedTask = Task(name: self.nameTextField.text ?? "", description: self.descriptionTextView.text ?? "", dateOfAdd: Date(), priority: self.currentTask.priority)
+            updatedTask.id = self.currentTask.id
             self.delegate?.dataUpdated(for: updatedTask)
             self.navigationController?.popViewController(animated: true)
         }
@@ -58,6 +59,7 @@ class TaskDetailViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayout()
+        setupNavigationBar()
     }
     
     func setupLayout() {
@@ -81,5 +83,26 @@ class TaskDetailViewController: UIViewController {
             editButtom.heightAnchor.constraint(equalToConstant: 35),
             editButtom.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+    }
+    
+    func setupMenu() -> UIMenu {
+        let lowPriority = UIAction(title: "Low") { _ in self.currentTask.priority = .low }
+        let mediumPriority = UIAction(title: "Medium") { _ in self.currentTask.priority = .medium }
+        let highPriority = UIAction(title: "High") { _ in self.currentTask.priority = .high }
+        
+        switch currentTask.priority {
+        case .low:
+            lowPriority.state = .on
+        case .medium:
+            mediumPriority.state = .on
+        case .high:
+            highPriority.state = .on
+        }
+        
+        return UIMenu(title: "Priority", children: [lowPriority, mediumPriority, highPriority])
+    }
+    
+    func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), menu: setupMenu())
     }
 }

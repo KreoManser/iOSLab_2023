@@ -62,8 +62,7 @@
 		CE7D78732ACA029000448E4A /* HW_4 */ = {
 			isa = PBXGroup;
 			children = (
-				CE7D78742ACA029000448E4A /* AppDelegate.swift */,
-				CE7D78762ACA029000448E4A /* SceneDelegate.swift */,
+				CEFF0C472ACC6846004C00E8 /* AppLife */,
 				CEFF0C432ACC3241004C00E8 /* Models */,
 				CEFF0C442ACC324E004C00E8 /* TableViewCells */,
 				CEF486942ACA508600D49725 /* ViewControllers */,
@@ -98,6 +97,15 @@
 				CEF486972ACA535700D49725 /* TaskTableViewCell.swift */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		CEFF0C472ACC6846004C00E8 /* AppLife */ = {
+			isa = PBXGroup;
+			children = (
+				CE7D78742ACA029000448E4A /* AppDelegate.swift */,
+				CE7D78762ACA029000448E4A /* SceneDelegate.swift */,
+			);
+			path = AppLife;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
