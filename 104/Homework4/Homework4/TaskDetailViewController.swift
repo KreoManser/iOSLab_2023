@@ -1,19 +1,19 @@
 //
-//  NewTaskViewController.swift
+//  TaskDetailViewController.swift
 //  Homework4
 //
-//  Created by kerik on 01.10.2023.
+//  Created by kerik on 03.10.2023.
 //
 
 import UIKit
-
-protocol NewTaskDelegate: AnyObject {
-    func addNewTask(with newTask: Task)
+protocol TaskUpdatesDelegate: AnyObject {
+    func updateTask(task: Task)
+    func removeTask(task: Task)
 }
 
-class NewTaskViewController: UIViewController {
-    var taskPriority: Priority = .low
-    private weak var delegate: NewTaskDelegate?
+class TaskDetailViewController: UIViewController {
+    private weak var delegate: TaskUpdatesDelegate?
+    private var currentTask: Task!
     
     private lazy var taskTitleLabel: UILabel = {
         let label = UILabel()
@@ -68,29 +68,47 @@ class NewTaskViewController: UIViewController {
         return textView
     }()
     
-    private lazy var saveButton: UIButton = {
-        let action = UIAction { [weak self] _ in
-            var newTask = Task(title: self?.taskNameTextField.text ?? "", description: self?.descriptionTextView.text ?? "", priority: self?.taskPriority ?? .low)
-            self?.delegate?.addNewTask(with: newTask)
+    
+    private lazy var deleteButton: UIButton = {
+        let action = UIAction { _ in
+            self.delegate?.removeTask(task: self.currentTask)
         }
+            
         let button = UIButton(configuration: .filled(), primaryAction: action)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Добавить", for: .normal)
+        button.setTitleColor(.systemRed, for: .normal)
+        button.tintColor = .systemGray6
+        button.setTitle("Удалить", for: .normal)
         return button
     }()
+    
+    private lazy var saveButton: UIButton = {
+        let action = UIAction { _ in
+            self.currentTask.title = self.taskNameTextField.text ?? ""
+            self.currentTask.description = self.descriptionTextView.text ?? ""
+            self.delegate?.updateTask(task: self.currentTask)
+        }
+            
+        let button = UIButton(configuration: .filled(), primaryAction: action)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Сохранить", for: .normal)
+        return button
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Новая задача"
         view.backgroundColor = .white
-        addSubViews(subviews: taskTitleLabel, taskNameTextField, priorityLabel, prioritySegmentedControl, descriptionLabel, descriptionTextView, saveButton)
+        addSubViews(subviews: taskTitleLabel, taskNameTextField, priorityLabel, prioritySegmentedControl, descriptionLabel, descriptionTextView, saveButton, deleteButton)
         setupPriorityButton()
         setLayout()
     }
     
-    init( delegate: NewTaskDelegate? = nil) {
-        super.init(nibName: nil, bundle: nil)
+    init(task: Task, delegate: TaskUpdatesDelegate) {
         self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+        currentTask = task
+        setFields()
     }
         
     required init?(coder: NSCoder) {
@@ -98,62 +116,74 @@ class NewTaskViewController: UIViewController {
     }
 }
 
-extension NewTaskViewController {
+extension TaskDetailViewController {
     private func addSubViews(subviews: UIView...) {
         subviews.forEach { view.addSubview($0) }
     }
     
-    private func setupPriorityButton() {
-        let setLowPriorityActionClosure = { (action: UIAction) in
-            self.taskPriority = .low
-        }
-        
-        let setMediumPriorityActionClosure = { (action: UIAction) in
-            self.taskPriority = .medium
-        }
-            
-        let setHighPriorityActionClosure = { (action: UIAction) in
-            self.taskPriority = .high
-        }
-        
-        prioritySegmentedControl.insertSegment(action: UIAction(title: "low", handler: setLowPriorityActionClosure), at: 0, animated: false)
-        prioritySegmentedControl.insertSegment(action: UIAction(title: "medium", handler: setMediumPriorityActionClosure), at: 1, animated: false)
-        prioritySegmentedControl.insertSegment(action: UIAction(title: "high", handler: setHighPriorityActionClosure), at: 2, animated: false)
+    private func setFields() {
+        self.taskNameTextField.text = currentTask.title
+        self.descriptionTextView.text = currentTask.description
     }
     
     private func setLayout() {
         NSLayoutConstraint.activate([
             taskTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            taskTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            taskTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             
             taskNameTextField.topAnchor.constraint(equalTo: taskTitleLabel.bottomAnchor, constant: 5),
             taskNameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             taskNameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             
-            priorityLabel.topAnchor.constraint(equalTo: taskNameTextField.bottomAnchor, constant: 20),
             priorityLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            priorityLabel.topAnchor.constraint(equalTo: taskNameTextField.bottomAnchor, constant: 20),
             
             prioritySegmentedControl.topAnchor.constraint(equalTo: priorityLabel.bottomAnchor, constant: 5),
             prioritySegmentedControl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             prioritySegmentedControl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             
-            descriptionLabel.topAnchor.constraint(equalTo: prioritySegmentedControl.bottomAnchor, constant: 20),
-            descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                        
-            descriptionTextView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 5),
-            descriptionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            descriptionTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            descriptionTextView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -20),
+            deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            deleteButton.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -10),
+            deleteButton.widthAnchor.constraint(equalToConstant: 200),
             
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5)
+            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
+            saveButton.widthAnchor.constraint(equalToConstant: 200),
+            
+            descriptionTextView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 5),
+            descriptionTextView.bottomAnchor.constraint(equalTo: deleteButton.topAnchor, constant: -10),
+            descriptionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            descriptionTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            
+            descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            descriptionLabel.topAnchor.constraint(equalTo: prioritySegmentedControl.bottomAnchor, constant: 20)
         ])
     }
 }
 
-extension NewTaskViewController: UITextFieldDelegate{
+extension TaskDetailViewController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         taskNameTextField.resignFirstResponder()
         return true
+    }
+}
+
+extension TaskDetailViewController {
+    private func setupPriorityButton() {
+        let setLowPriorityActionClosure = { (action: UIAction) in
+            self.currentTask.priority = .low
+        }
+        
+        let setMediumPriorityActionClosure = { (action: UIAction) in
+            self.currentTask.priority = .medium
+        }
+            
+        let setHighPriorityActionClosure = { (action: UIAction) in
+            self.currentTask.priority = .high
+        }
+        
+        prioritySegmentedControl.insertSegment(action: UIAction(title: "low", handler: setLowPriorityActionClosure), at: 0, animated: false)
+        prioritySegmentedControl.insertSegment(action: UIAction(title: "medium", handler: setMediumPriorityActionClosure), at: 1, animated: false)
+        prioritySegmentedControl.insertSegment(action: UIAction(title: "high", handler: setHighPriorityActionClosure), at: 2, animated: false)
     }
 }

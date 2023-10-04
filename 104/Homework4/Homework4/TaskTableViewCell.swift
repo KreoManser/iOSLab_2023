@@ -8,44 +8,46 @@
 import UIKit
 
 class TaskTableViewCell: UITableViewCell {
-    private lazy var isCompletedImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
+    private let dateFormatter = DateFormatter()
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = .systemFont(ofSize: 20)
+        label.font = .systemFont(ofSize: 22)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGray
+        label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 15)
+        label.textColor = .darkGray
+        label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var priorityLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 15)
+        label.textColor = .darkGray
+        label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let dateFormatter = DateFormatter()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
-            dateFormatter.dateFormat = "MM-dd-yyyy"
+            dateFormatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
             contentView.backgroundColor = .white
-            addSubviews(titleLabel, priorityLabel, dateLabel)
+            addSubviews(descriptionLabel
+                        ,titleLabel, priorityLabel, dateLabel)
             setLayout()
         }
         
@@ -54,7 +56,8 @@ class TaskTableViewCell: UITableViewCell {
         }
         
         func configureCell(with task: Task) {
-            isCompletedImage.image = UIImage(named: task.IsCompletedImageName)
+            //isCompletedImage.image = UIImage(named: task.IsCompletedImageName)
+            descriptionLabel.text = task.description
             titleLabel.text = task.title
             dateLabel.text = self.dateFormatter.string(from: task.creationDate)
             priorityLabel.text = "Приоритет: \(task.priority)"
@@ -72,22 +75,19 @@ extension TaskTableViewCell {
 
     private func setLayout() {
         NSLayoutConstraint.activate([
-            isCompletedImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            isCompletedImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-//            isCompletedImage.widthAnchor.constraint(equalToConstant: 25),
-//            isCompletedImage.heightAnchor.constraint(equalToConstant: 25),
-                        
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: isCompletedImage.trailingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-                        
-            priorityLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            priorityLabel.leadingAnchor.constraint(equalTo: isCompletedImage.trailingAnchor, constant: 15),
-            priorityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            titleLabel.widthAnchor.constraint(equalToConstant: 200),
             
-            dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            descriptionLabel.widthAnchor.constraint(equalToConstant: 200),
+            
+            priorityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            priorityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
     }
 }

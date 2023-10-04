@@ -4,7 +4,6 @@
 //
 //  Created by kerik on 01.10.2023.
 //
-
 import Foundation
 
 struct Task: Hashable, Identifiable {
@@ -13,9 +12,6 @@ struct Task: Hashable, Identifiable {
     var description: String
     var priority: Priority
     var creationDate: Date
-    var IsCompletedImageName: String
-    //var status: Status
-    var isCompleted: Bool
     
     init(title: String, description: String, priority: Priority) {
         self.id = UUID()
@@ -23,16 +19,8 @@ struct Task: Hashable, Identifiable {
         self.description = description
         self.priority = priority
         self.creationDate = Date()
-        //self.status = .unfinished
-        self.isCompleted = false
-        IsCompletedImageName = "icon1"
     }
 }
-
-//enum Status: String {
-//    case finished
-//    case unfinished
-//}
 
 enum Priority: Int {
     case low = 1
