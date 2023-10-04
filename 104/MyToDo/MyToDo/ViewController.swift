@@ -56,30 +56,60 @@ class ViewController: UIViewController {
             contactName: "Список задач"
         )
         
-        var menuItems: [UIAction] {
-            return [
-                UIAction(title: "Отсортировать по дате", handler: { (_) in
-                }),
-                UIAction(title: "Отсортировать по всему остальному", attributes: .disabled, handler: { (_) in
-                }),
-                UIAction(title: "Очистить", image: UIImage(systemName: "trash"), attributes: .destructive, handler: { (_) in
-                    self.tasks.removeAll()
-                    self.updateData(with: self.tasks)
-                })
-            ]
+        let creationTimeEarlyFilterActionClosure = { (action: UIAction) in
+            self.tasks.sort { $0.creationDate < $1.creationDate }
+            self.updateData(with: self.tasks, animated: true)
         }
         
-        var demoMenu: UIMenu {
-            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
+        let creationTimeLateFilterActionClosure = { (action: UIAction) in
+            self.tasks.sort { $0.creationDate > $1.creationDate }
+            self.updateData(with: self.tasks, animated: true)
         }
         
-        let audioRightButton = UIBarButtonItem(title: "Menu", image: nil, primaryAction: nil, menu: demoMenu)
+        let descendingPriorityFilterActionClosure = { (action: UIAction) in
+            self.tasks.sort { (task1: MyTask, task2: MyTask) in
+                if task1.priority > task2.priority {
+                    return true
+                }
+                else if task1.priority < task2.priority {
+                    return false
+                }
+                else {
+                    return false
+                }
+            }
+            self.updateData(with: self.tasks, animated: true)
+        }
+        
+        let ascendingPriorityFilterActionClosure = { (action: UIAction) in
+            self.tasks.sort { (task1: MyTask, task2: MyTask) in
+                if task1.priority < task2.priority {
+                    return true
+                }
+                else if task1.priority > task2.priority {
+                    return false
+                }
+                else {
+                    return false
+                }
+            }
+            self.updateData(with: self.tasks, animated: true)
+        }
+
+        let sortMenu = UIMenu(title: "СОРТИРОВКА", children: [
+            UIAction(title: "Сначала старые", handler: creationTimeEarlyFilterActionClosure),
+            UIAction(title: "Сначала новые", handler: creationTimeLateFilterActionClosure),
+            UIAction(title: "По возрастанию приоритета", handler: descendingPriorityFilterActionClosure),
+            UIAction(title: "По убыванию приоритета", handler: ascendingPriorityFilterActionClosure)
+        ])
+        
+        let audioRightButton = UIBarButtonItem(title: "Menu", image: nil, primaryAction: nil, menu: sortMenu)
         audioRightButton.tintColor = .orange
         
         navigationItem.rightBarButtonItem = audioRightButton
         let addAction = UIAction { _ in
-            self.tasks.append(MyTask(title: "задание", description: "", priority: 1))
-            self.updateData(with: self.tasks)
+            self.tasks.append(MyTask(title: "задание", description: "ыыыы", priority: 1))
+            self.updateData(with: self.tasks, animated: false)
             
         }
         navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction)
@@ -99,9 +129,17 @@ class ViewController: UIViewController {
             tasksTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0)
         ])
     }
-    
-    @objc private func audioRightButtonTapped() {
-        print("audioRightButtonTapped")
+}
+
+extension ViewController: DetailViewDelegate{
+    func didPressSaveButton(task: MyTask) {
+        let currentTask = task
+        if let indexToUpdate = tasks.firstIndex(where: { $0.id == task.id }) {
+            tasks.remove(at: indexToUpdate)
+            tasks.insert(contentsOf: [currentTask], at: indexToUpdate)
+        }
+        updateData(with: tasks, animated: false)
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -112,14 +150,21 @@ extension ViewController: UITableViewDelegate {
             cell.configureCell(with: task)
             return cell
         })
-        self.updateData(with: self.tasks)
+        self.updateData(with: self.tasks, animated: false)
     }
     
-    private func updateData(with tasks: [MyTask]) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let task = dataSource?.itemIdentifier(for: indexPath){
+            navigationController?.pushViewController(DetailViewController(with: task, delegate: self), animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    private func updateData(with tasks: [MyTask], animated: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<TableViewSections, MyTask>()
         snapshot.appendSections([.default1])
         snapshot.appendItems(tasks)
-        dataSource?.apply(snapshot)
+        dataSource?.apply(snapshot, animatingDifferences: animated)
     }
 }
 

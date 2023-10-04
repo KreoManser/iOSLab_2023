@@ -7,7 +7,7 @@
 import Foundation
 
 struct MyTask: Identifiable, Hashable {
-    let id: UUID
+    var id: UUID
     var title: String = ""
     var description: String = ""
     var creationDate: Date

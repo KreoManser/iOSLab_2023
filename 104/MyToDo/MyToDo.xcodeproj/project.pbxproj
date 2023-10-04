@@ -15,6 +15,7 @@
 		0A734BE22ACA26C60064B9C0 /* Extension UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A734BE12ACA26C60064B9C0 /* Extension UIViewController.swift */; };
 		0A734BE42ACA31BF0064B9C0 /* MyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A734BE32ACA31BE0064B9C0 /* MyTask.swift */; };
 		0A734BE62ACA373E0064B9C0 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A734BE52ACA373E0064B9C0 /* UserTableViewCell.swift */; };
+		0A734BE82ACDF2270064B9C0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A734BE72ACDF2270064B9C0 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		0A734BE12ACA26C60064B9C0 /* Extension UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension UIViewController.swift"; sourceTree = "<group>"; };
 		0A734BE32ACA31BE0064B9C0 /* MyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTask.swift; sourceTree = "<group>"; };
 		0A734BE52ACA373E0064B9C0 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		0A734BE72ACDF2270064B9C0 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				0A734BCD2ACA22F40064B9C0 /* AppDelegate.swift */,
 				0A734BCF2ACA22F40064B9C0 /* SceneDelegate.swift */,
 				0A734BD12ACA22F40064B9C0 /* ViewController.swift */,
+				0A734BE72ACDF2270064B9C0 /* DetailViewController.swift */,
 				0A734BE52ACA373E0064B9C0 /* UserTableViewCell.swift */,
 				0A734BE32ACA31BE0064B9C0 /* MyTask.swift */,
 				0A734BE12ACA26C60064B9C0 /* Extension UIViewController.swift */,
@@ -149,6 +152,7 @@
 				0A734BE22ACA26C60064B9C0 /* Extension UIViewController.swift in Sources */,
 				0A734BE62ACA373E0064B9C0 /* UserTableViewCell.swift in Sources */,
 				0A734BD02ACA22F40064B9C0 /* SceneDelegate.swift in Sources */,
+				0A734BE82ACDF2270064B9C0 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
