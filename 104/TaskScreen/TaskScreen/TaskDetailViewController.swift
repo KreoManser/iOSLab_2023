@@ -12,7 +12,7 @@ class TaskDetailViewController: UIViewController, UITextViewDelegate, UITextFiel
         text.textColor = .black
         text.font = .systemFont(ofSize: 30, weight: .bold)
         return text
-
+        
     }()
     lazy var descriptionTextView: UITextView = {
         let text = UITextView ()
@@ -24,7 +24,8 @@ class TaskDetailViewController: UIViewController, UITextViewDelegate, UITextFiel
     
     lazy var okButton: UIButton = {
         let action = UIAction { _ in
-            let updatedTask = Task(id: self.currentTask.id, title: self.titleTextField.text ?? "" , description: self.descriptionTextView.text ?? "")
+            let updatedTask = Task(id: self.currentTask.id, title: self.titleTextField.text ?? "" , description: self.descriptionTextView.text ?? "" , creationDate: self.currentTask.creationDate)
+            
             self.delegate?.saveData(task: updatedTask)
             self.navigationController?.popViewController(animated: true)
         }
@@ -40,13 +41,13 @@ class TaskDetailViewController: UIViewController, UITextViewDelegate, UITextFiel
     
     init(task: Task, delegate: TaskDetailDelegate?) {
         super.init(nibName: nil, bundle: nil)
-
+        
         self.currentTask = task
         self.delegate = delegate
         
         titleTextField.text = currentTask?.title
         descriptionTextView.text = currentTask?.description
-            }
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -62,13 +63,13 @@ class TaskDetailViewController: UIViewController, UITextViewDelegate, UITextFiel
         view.addSubview(descriptionTextView)
         view.addSubview(okButton)
         view.backgroundColor = .white
-
+        
         NSLayoutConstraint.activate([
             titleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             titleTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 10),
-
+            
             descriptionTextView.topAnchor.constraint(equalTo: titleTextField.topAnchor,constant: 40),
             descriptionTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             descriptionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
@@ -80,5 +81,5 @@ class TaskDetailViewController: UIViewController, UITextViewDelegate, UITextFiel
             okButton.heightAnchor.constraint(equalToConstant: 40.0)
         ])
     }
-
+    
 }
