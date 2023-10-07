@@ -25,11 +25,12 @@ class CalculatorViewController: UIViewController {
         
         if UIDevice.current.orientation.isLandscape {
             calculatorView.configureUIInLandscapeOrientation()
-            calculatorView.additionalButtons.forEach { $0.isHidden = false }
+            calculatorView.layoutIfNeeded()
         }
         else if UIDevice.current.orientation.isPortrait {
             calculatorView.configureUIInPortraitOrientation()
-            calculatorView.additionalButtons.forEach { $0.isHidden = true }
+            calculatorView.layoutIfNeeded()
         }
+
     }
 }

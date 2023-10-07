@@ -10,12 +10,6 @@ import UIKit
 
 extension CalculatorView {
     
-    /// Adds UI elements to the view
-    /// - Parameter subviews: UI elements
-    internal func addSubviews(subviews: UIView...) {
-        subviews.forEach { addSubview($0) }
-    }
-    
     /// Creates a buttons with the required parameters
     /// - Parameters:
     ///   - title: Button title
@@ -60,6 +54,10 @@ extension CalculatorView {
     }
     
     public func configureUIInPortraitOrientation() {
+        print("rotatare is port")
+        
+        additionalButtons.forEach { $0.isHidden = true }
+        
         calculatorLabel.font = UIFont.systemFont(ofSize: 90)
         
         zeroButtonsWidthConstraint?.constant = (viewFrame.width - 60) / 4 * 2 + 10
@@ -71,14 +69,17 @@ extension CalculatorView {
     }
 
     public func configureUIInLandscapeOrientation() {
+        print("rotatare is land")
+        
+        additionalButtons.forEach { $0.isHidden = false }
+        
         calculatorLabel.font = UIFont.systemFont(ofSize: 70)
         
-        zeroButtonsWidthConstraint?.constant = ((viewFrame.width - 60) / 5 * 2 + 10)
+        zeroButtonsWidthConstraint?.constant = ((viewFrame.width - 60) / 5 * 2)
         zeroButtonsHeightConstraint?.constant = (viewFrame.width - 60) / 7
         
         buttonsWidthConstraint?.constant = (viewFrame.width - 60) / 5
         buttonsHeightConstraint?.constant = (viewFrame.width - 60) / 7
         buttons.forEach { $0.layer.cornerRadius = buttonsHeightConstraint!.constant / 2 }
-        fifthRowButtonStackView.arrangedSubviews.forEach { print($0.bounds.width) }
     }
 }

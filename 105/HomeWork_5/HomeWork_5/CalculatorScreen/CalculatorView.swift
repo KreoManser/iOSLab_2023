@@ -82,7 +82,7 @@ class CalculatorView: UIView {
     }()
     
     private lazy var changeSignButtton: UIButton = {
-        let button = mainButtonTemplate(title: "+/_", titleColor: .black, backgroundColor: UIColor.calcLightGray)
+        let button = mainButtonTemplate(title: "+/-", titleColor: .black, backgroundColor: UIColor.calcLightGray)
         return button
     }()
     
@@ -348,7 +348,6 @@ class CalculatorView: UIView {
     
     private lazy var equalButtton: UIButton = {
         let button = mainButtonTemplate(title: "=", titleColor: .white, backgroundColor: UIColor.calcVividGamboge)
-                                    
         return button
     }()
     
@@ -377,8 +376,9 @@ class CalculatorView: UIView {
     
     // MARK: - Init
     init(viewWidth: CGRect) {
-       
-        self.viewFrame = viewWidth
+        
+        viewFrame = viewWidth
+        
         super.init(frame: .zero)
         backgroundColor = .black
         translatesAutoresizingMaskIntoConstraints = false
@@ -387,13 +387,19 @@ class CalculatorView: UIView {
         configureUI()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 extension CalculatorView {
+    
+    /// Adds UI elements to the view
+    /// - Parameter subviews: UI elements
+    internal func addSubviews(subviews: UIView...) {
+        subviews.forEach { addSubview($0) }
+    }
+    
     /// Configure UI layout
     private func configureUI() {
         
@@ -414,7 +420,10 @@ extension CalculatorView {
             
             calculatorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             calculatorLabel.bottomAnchor.constraint(equalTo: mainButtonStackView.topAnchor, constant: -10),
-                                                  
+                              
+            fifthRowButtonStackView.leadingAnchor.constraint(equalTo: mainButtonStackView.leadingAnchor),
+            fifthRowButtonStackView.trailingAnchor.constraint(equalTo: mainButtonStackView.trailingAnchor),
+            
             zeroButtonsWidthConstraint!,
             zeroButtonsHeightConstraint!,
             
