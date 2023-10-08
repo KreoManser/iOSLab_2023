@@ -55,6 +55,7 @@ extension CalculatorView {
     
     public func configureUIInPortraitOrientation() {
         print("rotatare is port")
+        currentOrietation = .portrait
         
         additionalButtons.forEach { $0.isHidden = true }
         
@@ -70,6 +71,7 @@ extension CalculatorView {
 
     public func configureUIInLandscapeOrientation() {
         print("rotatare is land")
+        currentOrietation = .landscape
         
         additionalButtons.forEach { $0.isHidden = false }
         
