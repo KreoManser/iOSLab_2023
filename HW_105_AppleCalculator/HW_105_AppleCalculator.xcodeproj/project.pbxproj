@@ -7,20 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		141610802AD2F79C003A5CFA /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416107F2AD2F79C003A5CFA /* CalculatorView.swift */; };
+		141610852AD36EED003A5CFA /* MafmaticOperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141610842AD36EED003A5CFA /* MafmaticOperationManager.swift */; };
 		14C376022AD1448B000E5F3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C376012AD1448B000E5F3B /* AppDelegate.swift */; };
 		14C376042AD1448B000E5F3B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C376032AD1448B000E5F3B /* SceneDelegate.swift */; };
-		14C376062AD1448B000E5F3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C376052AD1448B000E5F3B /* ViewController.swift */; };
-		14C376092AD1448B000E5F3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14C376072AD1448B000E5F3B /* Main.storyboard */; };
+		14C376062AD1448B000E5F3B /* CalculatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C376052AD1448B000E5F3B /* CalculatorController.swift */; };
 		14C3760B2AD1448C000E5F3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14C3760A2AD1448C000E5F3B /* Assets.xcassets */; };
 		14C3760E2AD1448C000E5F3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14C3760C2AD1448C000E5F3B /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1416107F2AD2F79C003A5CFA /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
+		141610842AD36EED003A5CFA /* MafmaticOperationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MafmaticOperationManager.swift; sourceTree = "<group>"; };
 		14C375FE2AD1448B000E5F3B /* HW_105_AppleCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HW_105_AppleCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14C376012AD1448B000E5F3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14C376032AD1448B000E5F3B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		14C376052AD1448B000E5F3B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		14C376082AD1448B000E5F3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		14C376052AD1448B000E5F3B /* CalculatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorController.swift; sourceTree = "<group>"; };
 		14C3760A2AD1448C000E5F3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14C3760D2AD1448C000E5F3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14C3760F2AD1448C000E5F3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +39,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1416107B2AD2F567003A5CFA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				14C3760A2AD1448C000E5F3B /* Assets.xcassets */,
+				14C3760C2AD1448C000E5F3B /* LaunchScreen.storyboard */,
+				14C3760F2AD1448C000E5F3B /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1416107C2AD2F5CA003A5CFA /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				14C376012AD1448B000E5F3B /* AppDelegate.swift */,
+				14C376032AD1448B000E5F3B /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		1416107D2AD2F737003A5CFA /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				141610832AD36EC1003A5CFA /* Manager */,
+				1416107E2AD2F75A003A5CFA /* CalculatorScreen */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		1416107E2AD2F75A003A5CFA /* CalculatorScreen */ = {
+			isa = PBXGroup;
+			children = (
+				141610822AD36EB3003A5CFA /* View */,
+				141610812AD36E9B003A5CFA /* Controller */,
+			);
+			path = CalculatorScreen;
+			sourceTree = "<group>";
+		};
+		141610812AD36E9B003A5CFA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				14C376052AD1448B000E5F3B /* CalculatorController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		141610822AD36EB3003A5CFA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1416107F2AD2F79C003A5CFA /* CalculatorView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		141610832AD36EC1003A5CFA /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				141610842AD36EED003A5CFA /* MafmaticOperationManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		14C375F52AD1448B000E5F3B = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +119,9 @@
 		14C376002AD1448B000E5F3B /* HW_105_AppleCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				14C376012AD1448B000E5F3B /* AppDelegate.swift */,
-				14C376032AD1448B000E5F3B /* SceneDelegate.swift */,
-				14C376052AD1448B000E5F3B /* ViewController.swift */,
-				14C376072AD1448B000E5F3B /* Main.storyboard */,
-				14C3760A2AD1448C000E5F3B /* Assets.xcassets */,
-				14C3760C2AD1448C000E5F3B /* LaunchScreen.storyboard */,
-				14C3760F2AD1448C000E5F3B /* Info.plist */,
+				1416107D2AD2F737003A5CFA /* Code */,
+				1416107C2AD2F5CA003A5CFA /* Application */,
+				1416107B2AD2F567003A5CFA /* Resources */,
 			);
 			path = HW_105_AppleCalculator;
 			sourceTree = "<group>";
@@ -127,7 +186,6 @@
 			files = (
 				14C3760E2AD1448C000E5F3B /* LaunchScreen.storyboard in Resources */,
 				14C3760B2AD1448C000E5F3B /* Assets.xcassets in Resources */,
-				14C376092AD1448B000E5F3B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +196,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14C376062AD1448B000E5F3B /* ViewController.swift in Sources */,
+				141610802AD2F79C003A5CFA /* CalculatorView.swift in Sources */,
+				14C376062AD1448B000E5F3B /* CalculatorController.swift in Sources */,
+				141610852AD36EED003A5CFA /* MafmaticOperationManager.swift in Sources */,
 				14C376022AD1448B000E5F3B /* AppDelegate.swift in Sources */,
 				14C376042AD1448B000E5F3B /* SceneDelegate.swift in Sources */,
 			);
@@ -147,14 +207,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		14C376072AD1448B000E5F3B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				14C376082AD1448B000E5F3B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		14C3760C2AD1448C000E5F3B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -293,10 +345,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HW_105_AppleCalculator/Info.plist;
+				INFOPLIST_FILE = HW_105_AppleCalculator/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,10 +371,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HW_105_AppleCalculator/Info.plist;
+				INFOPLIST_FILE = HW_105_AppleCalculator/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
