@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "strap_for_watch.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

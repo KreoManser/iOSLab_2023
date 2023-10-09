@@ -57,10 +57,10 @@ class DetailViewController: UIViewController {
     
     private lazy var saveButton: UIButton = {
         let action = UIAction { _ in
-            let updateUser = Task(id: self.currentTask.id,
+            let updateaTask = Task(id: self.currentTask.id,
                                   title: self.titleTextField.text ?? "",
                                   description: self.descriptionTextField.text ?? "")
-            self.delegate?.updateData(for: updateUser)
+            self.delegate?.updateData(for: updateaTask)
             self.navigationController?.popViewController(animated: true)
         }
         let button = UIButton(configuration: .filled(), primaryAction: action )

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "фото Сергея для дз.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
