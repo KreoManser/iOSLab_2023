@@ -15,7 +15,6 @@ enum Action {
     case diff
     case mult
     case div
-    case empty
 }
 
 class CalculatorView: UIView {
@@ -319,6 +318,8 @@ class CalculatorView: UIView {
             self.secondNumb = self.calcResultLabel.text!
             guard let firstNumb = self.firstNumb, let action = self.action, let secondNumb = self.secondNumb else { return }
             self.calcResultLabel.text = self.calculatorHandle?.calculate(action: action, firstNumb: firstNumb, secondNumb: secondNumb)
+            self.firstNumb = nil
+            self.secondNumb = nil
         }
         equalButton.addAction(equalButtonAction, for: .touchUpInside)
     }

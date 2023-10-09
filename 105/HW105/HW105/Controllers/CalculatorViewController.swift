@@ -24,12 +24,18 @@ extension CalculatorViewController {
 
 extension CalculatorViewController: CalculatorHandle {
     func calculate(action: Action, firstNumb: String, secondNumb: String) -> String {
-        let firstNumb = Decimal(string: firstNumb)
-        let secondNumb = Decimal(string: secondNumb)
+        let firstNumb = Decimal(string: firstNumb) ?? 0
+        let secondNumb = Decimal(string: secondNumb) ?? 0
         
         switch action {
         case .sum:
-            return calculatorModel.sumAction(
+            return calculatorModel.sumAction(firstNumb, secondNumb)
+        case .diff:
+            return calculatorModel.diffAction(firstNumb, secondNumb)
+        case .mult:
+            return calculatorModel.multAction(firstNumb, secondNumb)
+        case .div:
+            return calculatorModel.divAction(firstNumb, secondNumb)
         }
     }
 }
