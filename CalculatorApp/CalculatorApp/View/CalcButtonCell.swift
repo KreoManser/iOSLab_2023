@@ -15,7 +15,7 @@ class CalcButtonCell: UICollectionViewCell {
     private(set) var calculatorButton: CalculatorButton!
     
     /// the text on button
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 40, weight: .regular)
@@ -70,40 +70,6 @@ class CalcButtonCell: UICollectionViewCell {
             ])
         }
     }
-    
-    /// action when button pressed
-    func isPressed(){
-        switch(self.calculatorButton){
-        case .divide, .multiply, .subtract, .add:
-            UIView.animate(withDuration: 0.25){
-                self.backgroundColor = .white
-                self.titleLabel.textColor = .systemOrange
-            }
-        case .allClear, .plusMinus, .percentage, .equals:
-            UIView.animate(withDuration: 0.5){
-                self.backgroundColor = .white
-                self.backgroundColor = self.calculatorButton.color
-            }
-        default:
-            UIView.animate(withDuration: 0.5){
-                self.backgroundColor = .lightGray
-                self.backgroundColor = self.calculatorButton.color
-            }
-        }
-    }
-    
-    /// action when button is deselected
-    func isDeselected(){
-        switch(self.calculatorButton){
-        case .divide, .multiply, .subtract, .add:
-            UIView.animate(withDuration: 0.25){
-                self.backgroundColor = .systemOrange
-                self.titleLabel.textColor = .white
-            }
-        default:
-            print("button deselected")
-            }
-        }
     
     override func prepareForReuse() {
         super.prepareForReuse()
