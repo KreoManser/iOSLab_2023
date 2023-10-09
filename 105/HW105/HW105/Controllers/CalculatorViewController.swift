@@ -23,6 +23,12 @@ extension CalculatorViewController {
 }
 
 extension CalculatorViewController: CalculatorHandle {
+    /// Logic of calculate function from CalculatorHandle protocol
+    /// - Parameters:
+    ///   - action: one of Action enum action
+    ///   - firstNumb: first entered number
+    ///   - secondNumb: second entered number
+    /// - Returns: returns calculated result
     func calculate(action: Action, firstNumb: String, secondNumb: String) -> String {
         let firstNumb = Decimal(string: firstNumb) ?? 0
         let secondNumb = Decimal(string: secondNumb) ?? 0

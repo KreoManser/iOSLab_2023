@@ -61,8 +61,7 @@
 				CE140A7E2AD3930B00CB5EE9 /* Views */,
 				CE140A7D2AD392FB00CB5EE9 /* Models */,
 				CE140A7C2AD392DA00CB5EE9 /* Controllers */,
-				CE140A682AD391B900CB5EE9 /* AppDelegate.swift */,
-				CE140A6A2AD391B900CB5EE9 /* SceneDelegate.swift */,
+				CE140A832AD3E3C000CB5EE9 /* AppLife */,
 				CE140A712AD391BA00CB5EE9 /* Assets.xcassets */,
 				CE140A732AD391BA00CB5EE9 /* LaunchScreen.storyboard */,
 				CE140A762AD391BA00CB5EE9 /* Info.plist */,
@@ -92,6 +91,15 @@
 				CE140A7F2AD3934F00CB5EE9 /* CalculatorView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CE140A832AD3E3C000CB5EE9 /* AppLife */ = {
+			isa = PBXGroup;
+			children = (
+				CE140A682AD391B900CB5EE9 /* AppDelegate.swift */,
+				CE140A6A2AD391B900CB5EE9 /* SceneDelegate.swift */,
+			);
+			path = AppLife;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -25,6 +25,9 @@ class CalculatorView: UIView {
         label.textColor = .white
         label.textAlignment = .right
         label.isUserInteractionEnabled = true
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.6
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,7 +45,7 @@ class CalculatorView: UIView {
         stack.axis = .horizontal
         return stack
     }()
-
+    
     private lazy var sevenButton: UIButton = mainButtonBuilder("7", backgroundColor: .calcDarkGrayColor, textColor: .white)
     private lazy var eightButton: UIButton = mainButtonBuilder("8", backgroundColor: .calcDarkGrayColor, textColor: .white)
     private lazy var nineButton: UIButton = mainButtonBuilder("9", backgroundColor: .calcDarkGrayColor, textColor: .white)
@@ -70,7 +73,7 @@ class CalculatorView: UIView {
         stack.axis = .horizontal
         return stack
     }()
-
+    
     private lazy var oneButton: UIButton = mainButtonBuilder("1", backgroundColor: .calcDarkGrayColor, textColor: .white)
     private lazy var twoButton: UIButton = mainButtonBuilder("2", backgroundColor: .calcDarkGrayColor, textColor: .white)
     private lazy var threeButton: UIButton = mainButtonBuilder("3", backgroundColor: .calcDarkGrayColor, textColor: .white)
@@ -136,10 +139,10 @@ class CalculatorView: UIView {
             
             zeroButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
             zeroButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-
+            
             pointButton.leadingAnchor.constraint(equalTo: zeroButton.trailingAnchor, constant: 15),
             pointButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
-
+            
             equalButton.leadingAnchor.constraint(equalTo: pointButton.trailingAnchor, constant: 15),
             equalButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
             
@@ -204,7 +207,7 @@ class CalculatorView: UIView {
                 self.calcResultLabel.text = "9"
             }
             else {
-                self.calcResultLabel.text! += ""
+                self.calcResultLabel.text! += "9"
             }
         }
         nineButton.addAction(nineButtonAction, for: .touchUpInside)
