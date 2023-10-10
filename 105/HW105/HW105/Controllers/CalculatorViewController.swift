@@ -9,6 +9,16 @@ class CalculatorViewController: UIViewController {
         
         setupCalculatorView()
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if size.width < size.height {
+            calculatorView.verticalButtonsConfig()
+        } else {
+            calculatorView.horizontalButtonsConfig()
+        }
+    }
 }
 
 extension CalculatorViewController {
