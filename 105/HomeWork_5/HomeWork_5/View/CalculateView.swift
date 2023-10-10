@@ -289,9 +289,4 @@ class CalculateView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func updateResultLabel(_ result: String) {
-        resultLabel.text = "\(result)"
-    }
-
 }
