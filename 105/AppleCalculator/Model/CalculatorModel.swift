@@ -32,7 +32,7 @@ class CalculatorModel {
     }
     
     
-    
+    ///Takes hold user's current input
     func inputNumber(_ number: Double) {
         
         if currentOperation == nil {
@@ -62,15 +62,9 @@ class CalculatorModel {
         
     }
     
-    
-    
+    ///Takes user's current operation.
     func inputOperator(_ operatorSign: String) {
-        if let first = currentResult, let second = secondNumber, let operation = currentOperation {
-            operationStack.append((first, operation, second))
-            undoStack.removeAll()
-        }
         self.currentOperation = operatorSign
-        
     }
     
     func performOperation( ) -> Double? {
@@ -94,16 +88,7 @@ class CalculatorModel {
         }
     }
     
-    
-    
-    
     func getResult() -> String {
-//        if let result = performOperation() {
-//            return String(format:"%.2f", result)
-//        } else {
-//            return "Error"
-//        }
-        
         if let result = performOperation() {
                 if result.truncatingRemainder(dividingBy: 1) == 0 {
                     return String(Int(result))
@@ -113,7 +98,6 @@ class CalculatorModel {
             } else {
                 return "Error"
             }
-        
     }
     
     func clear() {
@@ -124,14 +108,5 @@ class CalculatorModel {
         operationStack.removeAll()
         undoStack.removeAll()
     }
-    
-    
-    func repeatLastOperation() {
-        if let (first, operation, second) = operationStack.last {
-            currentResult = first
-            currentOperation = operation
-            secondNumber = second
-        }
-    }
-    
+
 }
