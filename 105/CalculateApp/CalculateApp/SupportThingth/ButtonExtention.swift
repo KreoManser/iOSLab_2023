@@ -2,7 +2,6 @@ import UIKit
 
 /// Create functions for default buttons
 extension UIButton {
-    
     /// Set properties for view of buttons with numbers
     /// - Parameter title: text that will show in button's label
     func setNumberButton(title: String) {
@@ -33,11 +32,14 @@ extension UIButton {
     func setOperationHorizontalButton(title: String) {
         var config = createBaseConfiguration(title: title)
         config.baseBackgroundColor = UIColor(red: 28/255.0, green: 28/255.0, blue: 28/255.0, alpha: 1)
-        self.configuration = configuration
+        self.configuration = config
     }
     
+    /// Create Default configuration for button
+    /// - Parameter title: title of button
+    /// - Returns: configuration of button
     private func createBaseConfiguration(title: String) -> Configuration {
-        let (size, _) = calculateSizeOfButton()
+        let size = calculateSizeOfButton()
         var configuration = UIButton.Configuration.filled()
         configuration.baseForegroundColor = .white
         configuration.title = title
@@ -45,18 +47,13 @@ extension UIButton {
         return configuration
     }
     
-    private func setSize(button: UIButton) {
-        let (size, _) = calculateSizeOfButton()
-        button.widthAnchor.constraint(equalToConstant: CGFloat(size)).isActive = true
-        button.heightAnchor.constraint(equalToConstant: CGFloat(size)).isActive = true
-    }
-    
-    private func calculateSizeOfButton() -> (size: Double, sizeOfText: Double) {
+    /// Support func to calculate size of button
+    /// - Returns: size of button
+    private func calculateSizeOfButton() -> Double {
         let width = UIScreen.main.bounds.size.width + 44
         var size = Double(width) / 4.0
         let sizeViaButtons = (size * 11) / 100.0
         size -= sizeViaButtons * 2
-        let sizeOfText = size / 2.0
-        return (size, sizeOfText)
+        return size
     }
 }
