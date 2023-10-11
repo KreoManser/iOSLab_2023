@@ -6,70 +6,49 @@
 //
 
 import Foundation
-
-class CalculatorModel {
-    enum Operations {
-        case noAction
-        case addition
-        case substraction
-        case multiplication
-        case division
+extension String {
+    static func DecimalToString(value: Decimal) -> String {
+        return String(describing: value).replacingOccurrences(of: ".", with: ",")
     }
+}
 
-    var currentNumber = "0"
-    var firstNumber = 0.0
-    var secondNumber = 0.0
-    var result = ""
-    var currentOperation = Operations.noAction
-    var displayView = ViewController()
+/// Maths operators
+enum Operators {
+    case plus
+    case minus
+    case multiply
+    case divide
+    case none
+}
 
-    init(displayView: ViewController) {
-        self.displayView = displayView
+struct CalculatorModel {
+    /// Сlosure that returns the sum of two numbers
+    let plusOperation: (Decimal, Decimal) -> String = { firstNumber,
+        secondNumber in
+        return String.DecimalToString(value: (firstNumber + secondNumber))
     }
-    func updateDisplay(text: String) {
-        print(text)
+    
+    /// Сlosure that returns the difference of two numbers
+    let minusOperation: (Decimal, Decimal) -> String = { firstNumber,
+        secondNumber in
+        return String.DecimalToString(value: (firstNumber - secondNumber))
     }
-
-    func makeCalculation(operation: Operations) {
-        if currentOperation != .noAction {
-            if currentNumber != "" {
-                secondNumber = Double(currentNumber) ?? 0.0
-                switch operation {
-                case .addition:
-                    result = String(firstNumber + secondNumber)
-                default:
-                    result = ""
-                }
-            }
-            
+    
+    /// Сlosure that returns the multiply of two numbers
+    let multiplyOperation: (Decimal, Decimal) -> String = { firstNumber,
+        secondNumber in
+        return String.DecimalToString(value: (firstNumber * secondNumber))
+    }
+    
+    
+    /// Сlosure that returns the divide of two numbers
+    let divideOperation: (Decimal, Decimal) -> String = { firstNumber,
+        secondNumber in
+        if secondNumber != 0 {
+            return String.DecimalToString(value: (firstNumber / secondNumber))
         }
         else {
-            firstNumber = Double(currentNumber) ?? 0.0
-            currentNumber = ""
-            updateDisplay(text: currentNumber)
-            currentOperation = operation
+            return "Ошибка"
         }
     }
-
-    func addition() {
-        makeCalculation(operation: .addition)
-    }
-    func substraction() {
-        makeCalculation(operation: .substraction)
-    }
-    func multiplication() {
-        makeCalculation(operation: .multiplication)
-    }
-    func division() {
-        makeCalculation(operation: .division)
-    }
-    func acAction() {
-        currentNumber = ""
-        firstNumber = 0.0
-        secondNumber = 0.0
-        result = ""
-        currentOperation = .noAction
-        updateDisplay(text: currentNumber)
-    }
-
 }

@@ -7,12 +7,25 @@
 
 import UIKit
 
+/// Protocol for view and model relationships
+protocol CalculatorHandler: AnyObject {
+    /// Сalculates the result with parametrs
+    /// - Parameters:
+    ///   - oprator: mathematical operator
+    ///   - firstNumber: first number form calculator
+    ///   - secondNumber: second number form calculator
+    /// - Returns: calculated result
+    func calculate(oprator: Operators, firstNumber: String, secondNumber: String) -> String
+}
+
 class CalculatorView: UIView {
     private lazy var calculatorLabel: UILabel = {
         let label = UILabel()
         label.text = "0"
         label.font = UIFont.systemFont(ofSize: 70)
         label.textColor = .white
+        label.textAlignment = .right
+        label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -21,27 +34,27 @@ class CalculatorView: UIView {
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             createHorizontalStackView(buttons: [
-                clearButtton,
+                clearButton,
                 signButton,
-                percentButtton,
-                divideButtton], distibution: .fillEqually),
+                percentButton,
+                divideButton], distibution: .fillEqually),
             createHorizontalStackView(buttons: [
-                sevenButtton,
-                eightButtton,
-                nineButtton,
-                multiplyButtton
+                sevenButton,
+                eightButton,
+                nineButton,
+                multiplyButton
             ], distibution: .fillEqually),
             createHorizontalStackView(buttons: [
-                fourButtton,
-                fiveButtton,
+                fourButton,
+                fiveButton,
                 sixButton,
-                minusButtton
+                minusButton
             ], distibution: .fillEqually),
             createHorizontalStackView(buttons: [
-                oneButtton,
-                twoButtton,
+                oneButton,
+                twoButton,
                 threeButton,
-                plusButtton
+                plusButton
             ], distibution: .fillEqually),
             fifthRowButtonStackView
         ])
@@ -52,11 +65,8 @@ class CalculatorView: UIView {
         return stackView
     }()
     
-    private lazy var clearButtton: UIButton = {
+    private lazy var clearButton: UIButton = {
         let button = createButton(title: "AC", titleColor: .black, buttonColor: .systemGray)
-        let clearButtonAction: UIAction = UIAction { [weak self] _ in
-            
-        }
         return button
     }()
     
@@ -65,43 +75,43 @@ class CalculatorView: UIView {
         return button
     }()
     
-    private lazy var percentButtton: UIButton = {
+    private lazy var percentButton: UIButton = {
         let button = createButton(title: "%", titleColor: .black, buttonColor: .systemGray)
         
         return button
     }()
     
-    private lazy var divideButtton: UIButton = {
+    private lazy var divideButton: UIButton = {
         let button = createButton(title: "÷", titleColor: .white , buttonColor: .systemOrange)
         return button
     }()
     
-    private lazy var sevenButtton: UIButton = {
+    private lazy var sevenButton: UIButton = {
         let button = createButton(title: "7", titleColor: .white, buttonColor: .darkGray)
         return button
     }()
     
-    private lazy var eightButtton: UIButton = {
+    private lazy var eightButton: UIButton = {
         let button = createButton(title: "8", titleColor: .white, buttonColor: .darkGray)
         return button
     }()
     
-    private lazy var nineButtton: UIButton = {
+    private lazy var nineButton: UIButton = {
         let button = createButton(title: "9", titleColor: .white, buttonColor: .darkGray)
         return button
     }()
     
-    private lazy var multiplyButtton: UIButton = {
+    private lazy var multiplyButton: UIButton = {
         let button = createButton(title: "×", titleColor: .white , buttonColor: UIColor.systemOrange)
         return button
     }()
     
-    private lazy var fourButtton: UIButton = {
+    private lazy var fourButton: UIButton = {
         let button = createButton(title: "4", titleColor: .white, buttonColor: .darkGray)
         return button
     }()
     
-    private lazy var fiveButtton: UIButton = {
+    private lazy var fiveButton: UIButton = {
         let button = createButton(title: "5", titleColor: .white, buttonColor: .darkGray)
         return button
     }()
@@ -111,17 +121,17 @@ class CalculatorView: UIView {
         return button
     }()
     
-    private lazy var minusButtton: UIButton = {
+    private lazy var minusButton: UIButton = {
         let button = createButton(title: "-", titleColor: .white , buttonColor: UIColor.systemOrange)
         return button
     }()
     
-    private lazy var oneButtton: UIButton = {
+    private lazy var oneButton: UIButton = {
         let button = createButton(title: "1", titleColor: .white, buttonColor: .darkGray)
         return button
     }()
     
-    private lazy var twoButtton: UIButton = {
+    private lazy var twoButton: UIButton = {
         let button = createButton(title: "2", titleColor: .white, buttonColor: .darkGray)
         return button
     }()
@@ -131,7 +141,7 @@ class CalculatorView: UIView {
         return button
     }()
     
-    private lazy var plusButtton: UIButton = {
+    private lazy var plusButton: UIButton = {
         let button = createButton(title: "+", titleColor: .white , buttonColor: UIColor.systemOrange)
         return button
     }()
@@ -168,11 +178,22 @@ class CalculatorView: UIView {
     private var zeroButtonsWidthConstraint: NSLayoutConstraint?
     private var zeroButtonsHeightConstraint: NSLayoutConstraint?
     
+    /// Protocol for calculate in controller
+    weak var calculatorHandler: CalculatorHandler?
+    
+    /// First number to calculate
+    private var firstNumber: String?
+    
+    /// Second number to calculate
+    private var secondNumber: String?
+    
+    /// Current operator sign
+    private var currentOperator: Operators?
+    
     private var viewFrame: CGRect
     var buttons: [UIButton] = []
     
     init(viewWidth: CGRect) {
-        
         viewFrame = viewWidth
         
         super.init(frame: .zero)
@@ -181,6 +202,7 @@ class CalculatorView: UIView {
         
         addSubviews(subviews: calculatorLabel ,buttonStackView)
         setLayout()
+        setActions()
     }
     
     required init?(coder: NSCoder) {
@@ -197,7 +219,15 @@ extension CalculatorView {
     ///   - buttonColor: button color
     /// - Returns: a button with the specified name and color
     private func createButton(title: String, titleColor: UIColor, buttonColor: UIColor) -> UIButton {
-        let button = UIButton(configuration: .filled())
+        var config = UIButton.Configuration.filled()
+        config.attributedTitle = AttributedString(
+            title,
+            attributes: AttributeContainer(
+                [NSAttributedString.Key.font:
+                    UIFont.systemFont(ofSize: 30, weight: .bold)]
+            )
+        )
+        let button = UIButton(configuration: config)
         button.setTitle(title , for: .normal)
         button.tintColor = buttonColor
         button.setTitleColor(titleColor, for: .normal)
@@ -244,6 +274,7 @@ extension CalculatorView {
         NSLayoutConstraint.activate([
             calculatorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             calculatorLabel.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -10),
+            calculatorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
             buttonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -5),
@@ -259,5 +290,147 @@ extension CalculatorView {
             buttonsHeightConstraint!,
             
         ])
+    }
+}
+extension CalculatorView {
+    /// Function to set actions for buttons
+    func setActions() {
+        /// Action for "clear button"
+        let clearButtonAction: UIAction = UIAction { [weak self] _ in
+            self?.calculatorLabel.text = ""
+            self?.currentOperator = Operators.none
+            self?.firstNumber = "0"
+            self?.secondNumber = "0"
+        }
+        clearButton.addAction(clearButtonAction, for: .touchUpInside)
+        
+        /// Action for "sign button"
+        let signButtonAction: UIAction = UIAction { [weak self] _ in
+            let numberIsLessThanZero = self?.calculatorLabel.text!.contains("-")
+            if !(numberIsLessThanZero!)
+                && self?.calculatorLabel.text != "0"
+                && self?.calculatorLabel.text != ""
+            {
+                self!.calculatorLabel.text!.insert("-", at: (self?.calculatorLabel.text!.startIndex)!)
+            }
+            
+            else if numberIsLessThanZero!
+                        && self?.calculatorLabel.text != "0"
+                        && self?.calculatorLabel.text != "" {
+                self?.calculatorLabel.text!.removeFirst()
+            }
+        }
+        signButton.addAction(signButtonAction, for: .touchUpInside)
+        
+        /// Action for "percent button"
+        let percentButtonAction: UIAction = UIAction { [weak self] _ in
+            if (self?.calculatorLabel.text != "0" && self?.calculatorLabel.text != "" ) {
+                self!.calculatorLabel.text! = String.DecimalToString(
+                    value: (
+                        Decimal.ConvertStringWithComma(string: self?.calculatorLabel.text!) / 100
+                    )
+                )
+            }
+        }
+        percentButton.addAction(percentButtonAction, for: .touchUpInside)
+        
+        /// Action for "divide button"
+        let divideButtonAction: UIAction = UIAction { [weak self] _ in
+            self?.firstNumber = self?.calculatorLabel.text
+            self?.currentOperator = Operators.divide
+            self?.calculatorLabel.text = ""
+        }
+        divideButton.addAction(divideButtonAction, for: .touchUpInside)
+        
+        /// Actions for number buttons (0 - 9)
+        let sevenButtonAction = setNumberButtonAction(number: "7")
+        sevenButton.addAction(sevenButtonAction, for: .touchUpInside)
+        
+        let eightButtonAction = setNumberButtonAction(number: "8")
+        eightButton.addAction(eightButtonAction, for: .touchUpInside)
+        
+        let nineButtonAction = setNumberButtonAction(number: "9")
+        nineButton.addAction(nineButtonAction, for: .touchUpInside)
+        
+        let fourButtonAction = setNumberButtonAction(number: "4")
+        fourButton.addAction(fourButtonAction, for: .touchUpInside)
+        
+        let fiveButtonAction = setNumberButtonAction(number: "5")
+        fiveButton.addAction(fiveButtonAction, for: .touchUpInside)
+        
+        let sixButtonAction = setNumberButtonAction(number: "6")
+        sixButton.addAction(sixButtonAction, for: .touchUpInside)
+        
+        let oneButtonAction = setNumberButtonAction(number: "1")
+        oneButton.addAction(oneButtonAction, for: .touchUpInside)
+        
+        let twoButtonAction = setNumberButtonAction(number: "2")
+        twoButton.addAction(twoButtonAction, for: .touchUpInside)
+        
+        let threeButtonAction = setNumberButtonAction(number: "3")
+        threeButton.addAction(threeButtonAction, for: .touchUpInside)
+        
+        let zeroButtonAction = setNumberButtonAction(number: "0")
+        zeroButton.addAction(zeroButtonAction, for: .touchUpInside)
+        
+        /// Action for "multiply button"
+        let multiplyButtonAction: UIAction = UIAction { [weak self] _ in
+            self?.firstNumber = self?.calculatorLabel.text
+            self?.currentOperator = .multiply
+            self?.calculatorLabel.text = ""
+        }
+        multiplyButton.addAction(multiplyButtonAction, for: .touchUpInside)
+        
+        /// Action for "minus button"
+        let minusButtonAction: UIAction = UIAction { [weak self] _ in
+            self?.firstNumber = self?.calculatorLabel.text
+            self?.currentOperator = .minus
+            self?.calculatorLabel.text = ""
+        }
+        minusButton.addAction(minusButtonAction, for: .touchUpInside)
+        
+        /// Action for "plus button"
+        let plusButtonAction: UIAction = UIAction { [weak self] _ in
+            self?.firstNumber = self?.calculatorLabel.text
+            self?.currentOperator = .plus
+            self?.calculatorLabel.text = ""
+        }
+        plusButton.addAction(plusButtonAction, for: .touchUpInside)
+        
+        /// Action for "point button"
+        let pointButtonAction: UIAction = UIAction { [weak self] _ in
+            let textIsContainsPoint = self!.calculatorLabel.text?.contains(where: { $0 == "," })
+            if self!.calculatorLabel.text != "0" && !(textIsContainsPoint!){
+                self!.calculatorLabel.text = self!.calculatorLabel.text! + ","
+            }
+        }
+        pointButton.addAction(pointButtonAction, for: .touchUpInside)
+        
+        /// Action for "equal button"
+        let equalButtonAction: UIAction = UIAction { [weak self] _ in
+            self?.secondNumber = self?.calculatorLabel.text
+            guard let currentOperator = self?.currentOperator,
+                  let firstNumber = self?.firstNumber,
+                  let secondNumber = self?.secondNumber else { return }
+            self?.calculatorLabel.text = self?.calculatorHandler?.calculate(oprator: currentOperator, firstNumber: firstNumber, secondNumber: secondNumber)
+        }
+        equalButton.addAction(equalButtonAction, for: .touchUpInside)
+    }
+}
+
+extension CalculatorView {
+    /// Function to set actions for number buttons
+    /// - Parameter number: number of button
+    /// - Returns: action for button
+    func setNumberButtonAction(number: String) -> UIAction {
+        let action: UIAction = UIAction { [weak self] _ in
+            if self?.calculatorLabel.text == "0" {
+                self?.calculatorLabel.text = number
+            }
+            else {
+                self?.calculatorLabel.text! += number
+            }
+        }
+        return action
     }
 }
