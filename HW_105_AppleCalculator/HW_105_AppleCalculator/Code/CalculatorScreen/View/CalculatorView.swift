@@ -7,10 +7,29 @@
 
 import UIKit
 
+///  Протокол для привязки Controller и View между друг другом
+protocol Calculte: AnyObject {
+    func Calculate (operations: Operations, firstIndex: String, secondIndex: String) -> String
+}
+
+/// Это для более облегченой работы с передачей типа операций
+enum Operations {
+    case plus
+    case minus
+    case multyply
+    case devide
+    case nilOpertion
+}
+
 ///  Класс для отрисовки нашего класса
 class CalculatorView: UIView {
     
-    ///  Блок  кнопок для калькулятор,  где мы задаем нанчальные параметры
+    var calculateExmpl: Calculte?
+    var firstEllment: String?
+    var secondEllement: String?
+    var currentOperation: Operations?
+    
+    ///  Блок  кнопок и label для калькулятора,  где мы задаем нанчальные параметры для объектов калькулятора
     lazy var calculatorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +43,7 @@ class CalculatorView: UIView {
     lazy var aCButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("AC", for: .normal)
+        button.setTitle("C", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         button.backgroundColor = .systemGray3
         return button
@@ -197,6 +216,271 @@ class CalculatorView: UIView {
         super.init(frame: frame)
         
         backgroundColor = .black
+        
+        setupLayout()
+        setupButton()
+    }
+    
+    /// Функция для создния и подключения Action для любой кнопки
+    func setupButton() {
+        let nineButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if self?.calculatorLabel.text?.count ?? 0 < 12 {
+                if self?.calculatorLabel.text == "0" || self?.calculatorLabel.text == "Ошибка"{
+                    self?.calculatorLabel.text = "9"
+                }
+                else {
+                    self?.calculatorLabel.text! += "9"
+                }
+                self?.reconfigurateLabel()
+            }
+        }
+        nineButton.addAction(nineButtonAction, for: .touchUpInside)
+        
+        let eightButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if (self?.calculatorLabel.text!.count)! < 12 {
+                if self?.calculatorLabel.text == "0" || self?.calculatorLabel.text == "Ошибка"{
+                    self?.calculatorLabel.text = "8"
+                }
+                else {
+                    self?.calculatorLabel.text! += "8"
+                }
+                self?.reconfigurateLabel()
+            }
+        }
+        eightButton.addAction(eightButtonAction, for: .touchUpInside)
+        
+        let sevenButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if (self?.calculatorLabel.text!.count)! < 12 {
+                if self?.calculatorLabel.text == "0" || self?.calculatorLabel.text == "Ошибка" {
+                    self?.calculatorLabel.text = "7"
+                }
+                else {
+                    self?.calculatorLabel.text! += "7"
+                }
+                self?.reconfigurateLabel()
+            }
+        }
+        sevenButton.addAction(sevenButtonAction, for: .touchUpInside)
+        
+        let sixButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if (self?.calculatorLabel.text!.count)! < 12 {
+                if self?.calculatorLabel.text == "0" || self?.calculatorLabel.text == "Ошибка"{
+                    self?.calculatorLabel.text = "6"
+                }
+                else {
+                    self?.calculatorLabel.text! += "6"
+                }
+                self?.reconfigurateLabel()
+            }
+        }
+        sixButton.addAction(sixButtonAction, for: .touchUpInside)
+        
+        let fiveButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if (self?.calculatorLabel.text!.count)! < 12 {
+                if self?.calculatorLabel.text == "0" || self?.calculatorLabel.text == "Ошибка"{
+                    self?.calculatorLabel.text = "5"
+                }
+                else {
+                    self?.calculatorLabel.text! += "5"
+                }
+                self?.reconfigurateLabel()
+            }
+        }
+        fiveButton.addAction(fiveButtonAction, for: .touchUpInside)
+        
+        let fourButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if (self?.calculatorLabel.text!.count)! < 12 {
+                if self?.calculatorLabel.text == "0" || self?.calculatorLabel.text == "Ошибка"{
+                    self?.calculatorLabel.text = "4"
+                }
+                else {
+                    self?.calculatorLabel.text! += "4"
+                }
+                self?.reconfigurateLabel()
+            }
+        }
+        fourButton.addAction(fourButtonAction, for: .touchUpInside)
+        
+        let threeButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if (self?.calculatorLabel.text!.count)! < 12 {
+                if self?.calculatorLabel.text == "0" || self?.calculatorLabel.text == "Ошибка"{
+                    self?.calculatorLabel.text = "3"
+                }
+                else {
+                    self?.calculatorLabel.text! += "3"
+                }
+                self?.reconfigurateLabel()
+            }
+        }
+        threeButton.addAction(threeButtonAction, for: .touchUpInside)
+        
+        let twoButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if (self?.calculatorLabel.text!.count)! < 12 {
+                if self?.calculatorLabel.text == "0" || self?.calculatorLabel.text == "Ошибка"{
+                    self?.calculatorLabel.text = "2"
+                }
+                else {
+                    self?.calculatorLabel.text! += "2"
+                }
+                self?.reconfigurateLabel()
+            }
+        }
+        twoButton.addAction(twoButtonAction, for: .touchUpInside)
+        
+        let oneButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if (self?.calculatorLabel.text!.count)! < 12 {
+                if self?.calculatorLabel.text == "0" || self?.calculatorLabel.text == "Ошибка"{
+                    self?.calculatorLabel.text = "1"
+                }
+                else {
+                    self?.calculatorLabel.text! += "1"
+                }
+                self?.reconfigurateLabel()
+            }
+        }
+        oneButton.addAction(oneButtonAction, for: .touchUpInside)
+        
+        let zeroButtonAction: UIAction = UIAction{ [weak self ] _ in
+            if self?.calculatorLabel.text! != "0" {
+                self?.calculatorLabel.text! += "0"
+                self?.reconfigurateLabel()
+            }
+        }
+        zeroButton.addAction(zeroButtonAction, for: .touchUpInside)
+        
+        let aCAction: UIAction = UIAction { [weak self] _ in
+            self?.calculatorLabel.text = "0"
+            self?.firstEllment = nil
+            self?.secondEllement = nil
+            self?.currentOperation = .nilOpertion
+            self?.reconfigurateLabel()
+        }
+        aCButton.addAction(aCAction, for: .touchUpInside)
+        
+        let piusMinusAction: UIAction = UIAction { [weak self] _ in
+            if self?.calculatorLabel.text != "0"{
+                if self?.calculatorLabel.text!.contains("-") == false {
+                    self?.calculatorLabel.text!.insert("-", at: (self?.calculatorLabel.text!.startIndex)!)
+                }
+                else{
+                    self?.calculatorLabel.text!.removeFirst()
+                }
+            }
+        }
+        plusAndMinusButton.addAction(piusMinusAction, for: .touchUpInside)
+        
+        let plusAction: UIAction = UIAction { [weak self] _ in
+            if self?.firstEllment != nil && self?.currentOperation != nil {
+                self?.secondEllement = self?.calculatorLabel.text
+                self?.calculatorLabel.text = self?.calculateExmpl?.Calculate(operations: (self?.currentOperation)!, firstIndex: (self?.firstEllment)!, secondIndex: (self?.calculatorLabel.text)!)
+                self?.secondEllement = self?.calculateExmpl?.Calculate(operations: (self?.currentOperation)!, firstIndex: (self?.firstEllment)!, secondIndex: (self?.calculatorLabel.text)!)
+                self?.firstEllment = nil
+            }
+            else {
+                self?.firstEllment = self?.calculatorLabel.text
+                self?.currentOperation = .plus
+                self?.calculatorLabel.text = ""
+            }
+        }
+        plusButton.addAction(plusAction, for: .touchUpInside)
+        
+        let minusAction: UIAction = UIAction { [weak self] _ in
+            if self?.firstEllment != nil && self?.currentOperation != nil {
+                self?.secondEllement = self?.calculatorLabel.text
+                self?.calculatorLabel.text = self?.calculateExmpl?.Calculate(operations: (self?.currentOperation)!, firstIndex: (self?.firstEllment)!, secondIndex: (self?.calculatorLabel.text)!)
+                self?.secondEllement = self?.calculateExmpl?.Calculate(operations: (self?.currentOperation)!, firstIndex: (self?.firstEllment)!, secondIndex: (self?.calculatorLabel.text)!)
+                self?.firstEllment = nil
+            }
+            else {
+                self?.firstEllment = self?.calculatorLabel.text
+                self?.currentOperation = .minus
+                self?.calculatorLabel.text = ""
+            }
+        }
+        minusButton.addAction(minusAction, for: .touchUpInside)
+        
+        let multyplyAction: UIAction = UIAction { [weak self] _ in
+            if self?.firstEllment != nil && self?.currentOperation != nil {
+                self?.secondEllement = self?.calculatorLabel.text
+                self?.calculatorLabel.text = self?.calculateExmpl?.Calculate(operations: (self?.currentOperation)!, firstIndex: (self?.firstEllment)!, secondIndex: (self?.calculatorLabel.text)!)
+                self?.secondEllement = self?.calculateExmpl?.Calculate(operations: (self?.currentOperation)!, firstIndex: (self?.firstEllment)!, secondIndex: (self?.calculatorLabel.text)!)
+                self?.firstEllment = nil
+            }
+            else {
+                self?.firstEllment = self?.calculatorLabel.text
+                self?.currentOperation = .multyply
+                self?.calculatorLabel.text = ""
+            }
+        }
+        multiplicationButton.addAction(multyplyAction, for: .touchUpInside)
+        
+        let divideAction: UIAction = UIAction { [weak self] _ in
+            if self?.firstEllment != nil && self?.currentOperation != nil {
+                if self?.firstEllment != "Ошибка" && self?.secondEllement != "Ошибка" {
+                    self?.secondEllement = self?.calculatorLabel.text
+                    self?.calculatorLabel.text = self?.calculateExmpl?.Calculate(operations: (self?.currentOperation)!, firstIndex: (self?.firstEllment)!, secondIndex: (self?.calculatorLabel.text)!)
+                    self?.secondEllement = self?.calculateExmpl?.Calculate(operations: (self?.currentOperation)!, firstIndex: (self?.firstEllment)!, secondIndex: (self?.calculatorLabel.text)!)
+                    self?.firstEllment = nil
+                }
+                else{
+                    self?.calculatorLabel.text = "Ошибка"
+                    self?.firstEllment = nil
+                }
+            }
+            else {
+                self?.firstEllment = self?.calculatorLabel.text
+                self?.currentOperation = .devide
+                self?.calculatorLabel.text = ""
+            }
+        }
+        divisionButton.addAction(divideAction, for: .touchUpInside)
+        
+        let equalsAction: UIAction = UIAction { [weak self] _ in
+            if self?.calculatorLabel.text != "Ошибка"{
+                self?.secondEllement = self?.calculatorLabel.text
+                self?.calculatorLabel.text = self?.calculateExmpl?.Calculate(operations: (self?.currentOperation)!, firstIndex: (self?.firstEllment)!, secondIndex: (self?.calculatorLabel.text)!)
+            }
+            else{
+                self?.calculatorLabel.text = "Ошибка"
+            }
+        }
+        equalsButton.addAction(equalsAction, for: .touchUpInside)
+        
+        let pointAction: UIAction = UIAction { [weak self] _ in
+            if self!.calculatorLabel.text?.contains(where: { $0 == "," }) == false{
+                self!.calculatorLabel.text = self!.calculatorLabel.text! + "."
+            }
+            self?.reconfigurateLabel()
+        }
+        doubleButton.addAction(pointAction, for: .touchUpInside)
+    }
+    
+    func reconfigurateLabel() {
+        let labelLenght = calculatorLabel.text?.replacingOccurrences(of: ",", with: "")
+            .replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "")
+            .replacingOccurrences(of: ".", with: "").count
+        
+        if (calculatorLabel.text == "0"){
+            aCButton.setTitle("C", for: .normal)
+        }
+        if (calculatorLabel.text != "0"){
+            aCButton.setTitle("AC", for: .normal)
+        }
+        
+        if labelLenght! % 3 == 0 && calculatorLabel.text?.contains(".") == false{
+            calculatorLabel.text! += " "
+        }
+        
+        if labelLenght! <= 6 {
+            calculatorLabel.font = UIFont.systemFont(ofSize: 85)
+        }
+        if labelLenght!>6 && labelLenght! < 12 {
+            calculatorLabel.font = UIFont.systemFont(ofSize: CGFloat((85 - labelLenght! * 3)))
+        }
+    }
+    
+    /// Здесь мы добовляем и настраиваем constrains
+    func setupLayout() {
         addSubview(equalsButton)
         addSubview(doubleButton)
         addSubview(zeroButton)
@@ -329,10 +613,10 @@ class CalculatorView: UIView {
             
             calculatorLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             calculatorLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            calculatorLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 5),
             calculatorLabel.bottomAnchor.constraint(equalTo: divisionButton.topAnchor, constant: -15),
             calculatorLabel.heightAnchor.constraint(equalToConstant: 80)
         ])
-        
         
         equalsButton.layer.cornerRadius = 40
         doubleButton.layer.cornerRadius = 40
@@ -353,8 +637,10 @@ class CalculatorView: UIView {
         procentButton.layer.cornerRadius = 40
         plusAndMinusButton.layer.cornerRadius = 40
         aCButton.layer.cornerRadius = 40
+        
     }
     
+    ///  Это добавил сам XCode
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

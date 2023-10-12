@@ -11,19 +11,22 @@ import Foundation
 class MafmaticOperationManager {
     
     /// Cllosure для операции сложения
-    let plusClosure: (Int, Int) -> Int = { firstEllement, SecondeEllemnt in
-        return firstEllement + SecondeEllemnt
+    let plusClosure: (Decimal, Decimal) -> String = { firstEllement, secondeEllemnt in
+        return "\(firstEllement + secondeEllemnt)"
     }
     /// Cllosure для операции вычитания
-    let minusClosure: (Int, Int) -> Int = { firstEllement, SecondeEllemnt in
-        return firstEllement - SecondeEllemnt
+    let minusClosure: (Decimal, Decimal) -> String = { firstEllement, secondeEllemnt in
+        return "\(firstEllement - secondeEllemnt)"
     }
     /// Cllosure для операции умножения
-    let miltiplactionClosure: (Int, Int) -> Int = { firstEllement, SecondeEllemnt in
-        return firstEllement * SecondeEllemnt
+    let miltiplactionClosure: (Decimal, Decimal) -> String = { firstEllement, secondeEllemnt in
+        return "\(firstEllement * secondeEllemnt)"
     }
     /// Cllosure для операции деления
-    let divisionClosure: (Int, Int) -> Int = { firstEllement, SecondeEllemnt in
-        return firstEllement / SecondeEllemnt
+    let divisionClosure: (Decimal, Decimal) -> String = { firstEllement, secondeEllemnt in
+        if secondeEllemnt == 0 {
+            return "Ошибка"
+        }
+        return "\(firstEllement / secondeEllemnt)"
     }
 }
