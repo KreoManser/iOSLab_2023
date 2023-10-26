@@ -1,13 +1,17 @@
 //
-//  ListCarsTableViewCell.swift
+//  ListCarsForBasketTableViewCell.swift
 //  AutoRepairShop
 //
-//  Created by Нияз Ризванов on 10.10.2023.
+//  Created by Нияз Ризванов on 11.10.2023.
 //
 
 import UIKit
 
-class ListCarsTableViewCell: UITableViewCell {
+class ListCarsForBasketTableViewCell: UITableViewCell {
+    
+    weak var controller: BasketViewController?
+    
+    var car: Car?
     private lazy var imageCar: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -26,21 +30,23 @@ class ListCarsTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var addCar: UIButton = {
-        var action = UIAction { _ in
-            //self.shopCarsController?.addBasket()
-        }
-        
-        let button = UIButton()
-        button.addAction(action , for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .gray
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Add", for: .normal)
-        button.layer.cornerRadius = 10
-        
-        return button
+    private lazy var buttonOption: UIButton = {
+        let action = UIAction { _ in
+            guard let newCar = self.car else {return}
+            self.controller?.deleteCarForBasket(newCar)
+    }
+       var button = UIButton(type: .custom)
+       button.addAction(action , for: .touchUpInside)
+       button.translatesAutoresizingMaskIntoConstraints = false
+       button.backgroundColor = .red
+       button.setTitleColor(.white, for: .normal)
+       button.setTitle("Delete", for: .normal)
+       button.layer.cornerRadius = 10
+       
+       return button
+
     }()
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -53,7 +59,8 @@ class ListCarsTableViewCell: UITableViewCell {
         contentView.addSubview(imageCar)
         contentView.addSubview(labelNameCar)
         contentView.addSubview(labelPrice)
-        contentView.addSubview(addCar)
+        contentView.addSubview(buttonOption)
+        
         setupLayout()
     }
     
@@ -61,16 +68,16 @@ class ListCarsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     func configureCell(with car: Car) {
         imageCar.image = car.image
         labelNameCar.text = car.name
         labelPrice.text = car.price
+        self.car = car
     }
     
     func setupLayout(){
-        
-        //var stackViewButton = UIStackView(arrangedSubviews: [addCar])
-        //contentView.addSubview(stackViewButton)
         
         NSLayoutConstraint.activate([
             imageCar.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -84,18 +91,11 @@ class ListCarsTableViewCell: UITableViewCell {
             labelPrice.topAnchor.constraint(equalTo: labelNameCar.bottomAnchor,constant: 10),
             labelPrice.leadingAnchor.constraint(equalTo: labelNameCar.leadingAnchor),
             
-            addCar.topAnchor.constraint(equalTo: labelPrice.bottomAnchor,constant: 10),
-            addCar.leadingAnchor.constraint(equalTo: labelNameCar.leadingAnchor),
-            addCar.widthAnchor.constraint(equalToConstant: 50),
-            addCar.heightAnchor.constraint(equalToConstant: 20),
+            buttonOption.topAnchor.constraint(equalTo: labelPrice.bottomAnchor,constant: 10),
+            buttonOption.leadingAnchor.constraint(equalTo: labelNameCar.leadingAnchor),
+            buttonOption.widthAnchor.constraint(equalToConstant: 100),
+            buttonOption.heightAnchor.constraint(equalToConstant: 20),
         ])
-        
-        
     }
 }
 
-extension UITableViewCell {
-    static var reuseIdentifier: String {
-        return String(describing: self)
-    }
-}

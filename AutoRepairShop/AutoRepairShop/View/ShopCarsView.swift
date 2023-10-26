@@ -8,15 +8,14 @@
 import UIKit
 
 class ShopCarsView: UIView {
-    weak var shopCarsController: ViewController?
+    weak var shopCarsController: ShopViewController?
     
-    lazy var tableCars: UITableView = {
+    lazy var tableCar: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.dataSource = self
+        table.separatorStyle = .singleLine
         table.delegate = self
-        table.separatorStyle = .none
-        table.register(ListCarsTableViewCell.self, forCellReuseIdentifier: ListCarsTableViewCell.reuseIdentifier)
+        table.register(ListCarsShopTableViewCell.self, forCellReuseIdentifier: "titleBuy")
         return table
     }()
     
@@ -29,25 +28,24 @@ class ShopCarsView: UIView {
     
     lazy var headerLabel: UILabel = {
         let label = UILabel()
+        label.text = "Выбери свою мечту"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Choose your dream car"
         label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
     lazy var basketButton: UIButton = {
-        var action = UIAction { _ in
-            self.shopCarsController?.addBasket()
-        }
-        let button = UIButton(type: .custom)
-        let buttonImage = UIImage(named: "basket icon")
-        button.setImage(buttonImage, for: .normal)
-        button.addAction(action , for: .touchUpInside)
-        
-        return button
-    }()
-    
-    var dataSourse: [Car] = []
+            var action = UIAction { _ in
+                self.shopCarsController?.showBasket()
+            }
+            let button = UIButton()
+            let buttonImage = UIImage(named: "basket icon")
+            button.setImage(buttonImage, for: .normal)
+            button.addAction(action , for: .touchUpInside)
+            
+            return button
+        }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,34 +53,28 @@ class ShopCarsView: UIView {
         backgroundColor = .white
         
         addSubview(headerView)
-        addSubview(tableCars)
         addSubview(headerLabel)
+        addSubview(tableCar)
         setupLayout()
-        
-        setupData()
-        
+
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupData() {
-        dataSourse = [
-            Car(id: UUID(), name: "BMW M5 competiton", price: "$53,800", image: UIImage(named:"BMW M5")),
-            Car(id: UUID(),name: "BMW 3 Series", price: "$43,000",image: UIImage(named:"BMW Series 3")),
-            Car(id: UUID(),name: "BMW X3", price: "$42,000", image: UIImage(named:"BMW X3")),
-            Car(id: UUID(),name: "BMW 7 Series", price: "$86,800", image: UIImage(named:"BMW Series 7")),
-            Car(id: UUID(),name: "BMW M4 ", price: "$50,800", image: UIImage(named:"BMW M4")),
-            Car(id: UUID(),name: "BMW X7", price: "$92,600", image: UIImage(named:"BMW x7")),
-            Car(id: UUID(),name: "BMW 2 Series", price: "$36,350", image: UIImage(named:"BMW Series 2")),
-        ]
+    func pressButton(car: Car) {
+        shopCarsController?.addCar(car: car)
+    }
+    
+    func setupDataSourse(dataSourse: UITableViewDataSource) {
+        tableCar.dataSource = dataSourse
     }
     
     func setupNavigationBar(){
         let customBarButtonItem = UIBarButtonItem(customView: basketButton)
         shopCarsController?.navigationItem.rightBarButtonItem = customBarButtonItem
-        shopCarsController?.navigationItem.title = "Main"
+        shopCarsController?.navigationItem.title = "Cars"
     }
     
     func setupLayout() {
@@ -91,34 +83,26 @@ class ShopCarsView: UIView {
             headerView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 50),
+            
             headerLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             headerLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            tableCars.topAnchor.constraint(equalTo: headerView.bottomAnchor,constant: 10),
-            tableCars.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            tableCars.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableCars.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            tableCar.topAnchor.constraint(equalTo: headerView.bottomAnchor,constant: 10),
+            tableCar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            tableCar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            tableCar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             basketButton.widthAnchor.constraint(equalToConstant: 30),
             basketButton.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
 }
 
-extension ShopCarsView: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSourse.count
+extension ShopCarsView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //shopCarsController?.pressCell(indexPath: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true )
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: ListCarsTableViewCell.reuseIdentifier , for: indexPath) as! ListCarsTableViewCell
-
-        let car = dataSourse[indexPath.row]
-
-        cell.configureCell(with: car)
-
-        return cell
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 110
-        }
+            return 120
+    }
 }

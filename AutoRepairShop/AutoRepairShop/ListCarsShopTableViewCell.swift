@@ -1,5 +1,5 @@
 //
-//  BasketTableViewCell.swift
+//  ListCarsTableViewCell.swift
 //  AutoRepairShop
 //
 //  Created by Нияз Ризванов on 10.10.2023.
@@ -7,7 +7,15 @@
 
 import UIKit
 
-class BasketTableViewCell: UITableViewCell {
+
+
+class ListCarsShopTableViewCell: UITableViewCell {
+    
+    
+    weak var controller: ShopViewController?
+    
+    var car: Car?
+    
     private lazy var imageCar: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -26,21 +34,23 @@ class BasketTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var addCar: UIButton = {
-        var action = UIAction { _ in
-            //self.shopCarsController?.addBasket()
-        }
-        
-        let button = UIButton()
-        button.addAction(action , for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .gray
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Delete", for: .normal)
-        button.layer.cornerRadius = 10
-        
-        return button
+    private lazy var buttonOption: UIButton = {
+        let action = UIAction { _ in
+            guard let newCar = self.car else {return}
+            self.controller?.addCar(car: newCar)
+    }
+        var button = UIButton(type: .custom)
+       button.addAction(action , for: .touchUpInside)
+       button.translatesAutoresizingMaskIntoConstraints = false
+       button.backgroundColor = .gray
+       button.setTitleColor(.white, for: .normal)
+       button.setTitle("Buy", for: .normal)
+       button.layer.cornerRadius = 10
+
+       return button
+
     }()
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -48,23 +58,26 @@ class BasketTableViewCell: UITableViewCell {
         imageCar.image = nil
     }
     
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier )
+        
         contentView.addSubview(imageCar)
         contentView.addSubview(labelNameCar)
         contentView.addSubview(labelPrice)
-        contentView.addSubview(addCar)
+        contentView.addSubview(buttonOption)
+        
         setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     func configureCell(with car: Car) {
         imageCar.image = car.image
         labelNameCar.text = car.name
         labelPrice.text = car.price
+        self.car = car
     }
     
     func setupLayout(){
@@ -81,11 +94,10 @@ class BasketTableViewCell: UITableViewCell {
             labelPrice.topAnchor.constraint(equalTo: labelNameCar.bottomAnchor,constant: 10),
             labelPrice.leadingAnchor.constraint(equalTo: labelNameCar.leadingAnchor),
             
-            addCar.topAnchor.constraint(equalTo: labelPrice.bottomAnchor,constant: 10),
-            addCar.leadingAnchor.constraint(equalTo: labelNameCar.leadingAnchor),
-            addCar.widthAnchor.constraint(equalToConstant: 60),
-            addCar.heightAnchor.constraint(equalToConstant: 20),
+            buttonOption.topAnchor.constraint(equalTo: labelPrice.bottomAnchor,constant: 10),
+            buttonOption.leadingAnchor.constraint(equalTo: labelNameCar.leadingAnchor),
+            buttonOption.widthAnchor.constraint(equalToConstant: 100),
+            buttonOption.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
 }
-

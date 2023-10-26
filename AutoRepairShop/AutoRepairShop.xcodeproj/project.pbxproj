@@ -7,37 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		620F2AB72AD68BFF003DF8D4 /* ConfigureTableViewShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620F2AB62AD68BFF003DF8D4 /* ConfigureTableViewShop.swift */; };
+		620F2ABA2AD6DEEE003DF8D4 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620F2AB92AD6DEEE003DF8D4 /* BasketViewController.swift */; };
+		620F2ABC2AD6DF12003DF8D4 /* BasketCarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620F2ABB2AD6DF12003DF8D4 /* BasketCarsView.swift */; };
+		620F2ABE2AD71D36003DF8D4 /* ListCarsForBasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620F2ABD2AD71D36003DF8D4 /* ListCarsForBasketTableViewCell.swift */; };
+		621E5BF42ADF0DDA0008C319 /* ConfigureTableViewBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621E5BF32ADF0DDA0008C319 /* ConfigureTableViewBasket.swift */; };
+		627A8B782ADBDA9B000B48B7 /* ShopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627A8B772ADBDA9B000B48B7 /* ShopModel.swift */; };
+		627A8B7A2ADBDAAB000B48B7 /* BasketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627A8B792ADBDAAB000B48B7 /* BasketModel.swift */; };
 		62C7277E2AD5832900F837ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C7277D2AD5832900F837ED /* AppDelegate.swift */; };
 		62C727802AD5832900F837ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C7277F2AD5832900F837ED /* SceneDelegate.swift */; };
-		62C727822AD5832900F837ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C727812AD5832900F837ED /* ViewController.swift */; };
-		62C727852AD5832900F837ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62C727832AD5832900F837ED /* Main.storyboard */; };
+		62C727822AD5832900F837ED /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C727812AD5832900F837ED /* ShopViewController.swift */; };
 		62C727872AD5832D00F837ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62C727862AD5832D00F837ED /* Assets.xcassets */; };
 		62C7278A2AD5832D00F837ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62C727882AD5832D00F837ED /* LaunchScreen.storyboard */; };
 		62C727922AD5857100F837ED /* ShopCarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C727912AD5857100F837ED /* ShopCarsView.swift */; };
 		62C727962AD585A500F837ED /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C727952AD585A500F837ED /* DataManager.swift */; };
 		62C727992AD58A5200F837ED /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C727982AD58A5200F837ED /* Car.swift */; };
-		62C7279B2AD58D8C00F837ED /* ListCarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C7279A2AD58D8B00F837ED /* ListCarsTableViewCell.swift */; };
-		62C7279D2AD5967B00F837ED /* BasketCarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C7279C2AD5967B00F837ED /* BasketCarsView.swift */; };
-		62C7279F2AD5983500F837ED /* BasketCarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C7279E2AD5983500F837ED /* BasketCarsViewController.swift */; };
-		62C727A12AD5AB3F00F837ED /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C727A02AD5AB3F00F837ED /* BasketTableViewCell.swift */; };
+		62C7279B2AD58D8C00F837ED /* ListCarsShopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C7279A2AD58D8B00F837ED /* ListCarsShopTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		620F2AB62AD68BFF003DF8D4 /* ConfigureTableViewShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureTableViewShop.swift; sourceTree = "<group>"; };
+		620F2AB92AD6DEEE003DF8D4 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
+		620F2ABB2AD6DF12003DF8D4 /* BasketCarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCarsView.swift; sourceTree = "<group>"; };
+		620F2ABD2AD71D36003DF8D4 /* ListCarsForBasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCarsForBasketTableViewCell.swift; sourceTree = "<group>"; };
+		621E5BF32ADF0DDA0008C319 /* ConfigureTableViewBasket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureTableViewBasket.swift; sourceTree = "<group>"; };
+		627A8B772ADBDA9B000B48B7 /* ShopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopModel.swift; sourceTree = "<group>"; };
+		627A8B792ADBDAAB000B48B7 /* BasketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketModel.swift; sourceTree = "<group>"; };
 		62C7277A2AD5832900F837ED /* AutoRepairShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoRepairShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62C7277D2AD5832900F837ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62C7277F2AD5832900F837ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		62C727812AD5832900F837ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		62C727842AD5832900F837ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		62C727812AD5832900F837ED /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		62C727862AD5832D00F837ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62C727892AD5832D00F837ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		62C7278B2AD5832D00F837ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62C727912AD5857100F837ED /* ShopCarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCarsView.swift; sourceTree = "<group>"; };
 		62C727952AD585A500F837ED /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		62C727982AD58A5200F837ED /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
-		62C7279A2AD58D8B00F837ED /* ListCarsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCarsTableViewCell.swift; sourceTree = "<group>"; };
-		62C7279C2AD5967B00F837ED /* BasketCarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCarsView.swift; sourceTree = "<group>"; };
-		62C7279E2AD5983500F837ED /* BasketCarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCarsViewController.swift; sourceTree = "<group>"; };
-		62C727A02AD5AB3F00F837ED /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
+		62C7279A2AD58D8B00F837ED /* ListCarsShopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCarsShopTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +57,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		620F2AB82AD6D6C7003DF8D4 /* Configures */ = {
+			isa = PBXGroup;
+			children = (
+				620F2AB62AD68BFF003DF8D4 /* ConfigureTableViewShop.swift */,
+				621E5BF32ADF0DDA0008C319 /* ConfigureTableViewBasket.swift */,
+			);
+			path = Configures;
+			sourceTree = "<group>";
+		};
 		62C727712AD5832900F837ED = {
 			isa = PBXGroup;
 			children = (
@@ -73,15 +88,15 @@
 				62C7277D2AD5832900F837ED /* AppDelegate.swift */,
 				62C7277F2AD5832900F837ED /* SceneDelegate.swift */,
 				62C727942AD5858500F837ED /* Controller */,
-				62C727832AD5832900F837ED /* Main.storyboard */,
 				62C727862AD5832D00F837ED /* Assets.xcassets */,
 				62C727882AD5832D00F837ED /* LaunchScreen.storyboard */,
 				62C7278B2AD5832D00F837ED /* Info.plist */,
 				62C727932AD5857700F837ED /* View */,
 				62C727972AD585B300F837ED /* Model */,
 				62C727982AD58A5200F837ED /* Car.swift */,
-				62C7279A2AD58D8B00F837ED /* ListCarsTableViewCell.swift */,
-				62C727A02AD5AB3F00F837ED /* BasketTableViewCell.swift */,
+				62C7279A2AD58D8B00F837ED /* ListCarsShopTableViewCell.swift */,
+				620F2ABD2AD71D36003DF8D4 /* ListCarsForBasketTableViewCell.swift */,
+				620F2AB82AD6D6C7003DF8D4 /* Configures */,
 			);
 			path = AutoRepairShop;
 			sourceTree = "<group>";
@@ -90,7 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				62C727912AD5857100F837ED /* ShopCarsView.swift */,
-				62C7279C2AD5967B00F837ED /* BasketCarsView.swift */,
+				620F2ABB2AD6DF12003DF8D4 /* BasketCarsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -98,8 +113,8 @@
 		62C727942AD5858500F837ED /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				62C727812AD5832900F837ED /* ViewController.swift */,
-				62C7279E2AD5983500F837ED /* BasketCarsViewController.swift */,
+				62C727812AD5832900F837ED /* ShopViewController.swift */,
+				620F2AB92AD6DEEE003DF8D4 /* BasketViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -108,6 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				62C727952AD585A500F837ED /* DataManager.swift */,
+				627A8B772ADBDA9B000B48B7 /* ShopModel.swift */,
+				627A8B792ADBDAAB000B48B7 /* BasketModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -172,7 +189,6 @@
 			files = (
 				62C7278A2AD5832D00F837ED /* LaunchScreen.storyboard in Resources */,
 				62C727872AD5832D00F837ED /* Assets.xcassets in Resources */,
-				62C727852AD5832900F837ED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,30 +199,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				620F2ABA2AD6DEEE003DF8D4 /* BasketViewController.swift in Sources */,
 				62C727962AD585A500F837ED /* DataManager.swift in Sources */,
-				62C727822AD5832900F837ED /* ViewController.swift in Sources */,
-				62C7279B2AD58D8C00F837ED /* ListCarsTableViewCell.swift in Sources */,
-				62C727A12AD5AB3F00F837ED /* BasketTableViewCell.swift in Sources */,
+				62C727822AD5832900F837ED /* ShopViewController.swift in Sources */,
+				62C7279B2AD58D8C00F837ED /* ListCarsShopTableViewCell.swift in Sources */,
 				62C727992AD58A5200F837ED /* Car.swift in Sources */,
+				627A8B782ADBDA9B000B48B7 /* ShopModel.swift in Sources */,
 				62C7277E2AD5832900F837ED /* AppDelegate.swift in Sources */,
-				62C7279F2AD5983500F837ED /* BasketCarsViewController.swift in Sources */,
-				62C7279D2AD5967B00F837ED /* BasketCarsView.swift in Sources */,
 				62C727802AD5832900F837ED /* SceneDelegate.swift in Sources */,
+				627A8B7A2ADBDAAB000B48B7 /* BasketModel.swift in Sources */,
+				620F2ABE2AD71D36003DF8D4 /* ListCarsForBasketTableViewCell.swift in Sources */,
 				62C727922AD5857100F837ED /* ShopCarsView.swift in Sources */,
+				620F2AB72AD68BFF003DF8D4 /* ConfigureTableViewShop.swift in Sources */,
+				621E5BF42ADF0DDA0008C319 /* ConfigureTableViewBasket.swift in Sources */,
+				620F2ABC2AD6DF12003DF8D4 /* BasketCarsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		62C727832AD5832900F837ED /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				62C727842AD5832900F837ED /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		62C727882AD5832D00F837ED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -348,7 +360,6 @@
 				INFOPLIST_FILE = AutoRepairShop/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -375,7 +386,6 @@
 				INFOPLIST_FILE = AutoRepairShop/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
