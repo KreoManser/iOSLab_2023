@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Homework5
+//  Homework2
 //
-//  Created by kerik on 07.10.2023.
+//  Created by kerik on 17.09.2023.
 //
 
 import UIKit
