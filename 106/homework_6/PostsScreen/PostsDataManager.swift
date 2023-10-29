@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 
-class PostsDataManager: NSObject, UITableViewDataSource, UITableViewDelegate, PostTableViewCellDelegate {
+class PostsDataManager: NSObject, UITableViewDataSource, UITableViewDelegate, PostTableViewCellDelegate, UISearchBarDelegate {
 
-    var deleteTapped: ((_ alertController: UIAlertController) -> Void)?
+    var optionsTapped: ((_ alertController: UIAlertController) -> Void)?
     var reloadData: (() -> Void)?
 
     private var postsModels: [PostModel] = []
+    private var filteredPosts: [PostModel] = []
     private var postsArray: [Post] = []
 
     private let profileDataManager = ProfileDataManager.shared
@@ -26,18 +27,26 @@ class PostsDataManager: NSObject, UITableViewDataSource, UITableViewDelegate, Po
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postsModels.count
+        if filteredPosts.isEmpty {
+            return postsModels.count
+        } else {
+            return filteredPosts.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let post = postsModels[indexPath.row]
+        var post: PostModel
+        if filteredPosts.isEmpty {
+            post = postsModels[indexPath.row]
+        } else {
+            post = filteredPosts[indexPath.row]
+        }
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.reuseIdentifier, for: indexPath) as? PostTableViewCell else { return UITableViewCell()}
 
-        cell.deleteTapped = { [weak self] alertController in
-            self?.deleteTapped!(alertController)
+        cell.optionsTapped = { [weak self] alertController in
+            self?.optionsTapped!(alertController)
         }
-        cell.isUserInteractionEnabled = false
 
         cell.configure(with: post)
         cell.delegate = self
@@ -77,6 +86,26 @@ class PostsDataManager: NSObject, UITableViewDataSource, UITableViewDelegate, Po
             postsModels.remove(at: index)
         }
         reloadData!()
+    }
 
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filteredPosts = postsModels
+            reloadData!()
+        } else {
+            profileDataManager.asyncSearchPosts(by: searchText, completion: { [weak self] result in
+                switch result {
+                case .success(let posts):
+                    self?.filteredPosts = []
+                    for post in posts {
+                        self?.filteredPosts.append(PostModel(id: post.id, postImage: post.image, caption: post.caption, date: post.date, isFavorite: post.isFavorite))
+                    }
+                    self?.reloadData!()
+                case .failure(let error):
+                    print("Ошибка получения постов: \(error)")
+                }
+
+            })
+        }
     }
 }

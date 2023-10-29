@@ -13,7 +13,7 @@ protocol PostTableViewCellDelegate: AnyObject {
 
 class PostTableViewCell: UITableViewCell {
 
-    var deleteTapped: ((_ alertController: UIAlertController) -> Void)?
+    var optionsTapped: ((_ alertController: UIAlertController) -> Void)?
 
     weak var delegate: PostTableViewCellDelegate?
 
@@ -70,7 +70,7 @@ class PostTableViewCell: UITableViewCell {
         alertController.addAction(cancelAction)
 
         optionsButton.addAction(UIAction(handler: { _  in
-            self.deleteTapped!(alertController)
+            self.optionsTapped!(alertController)
         }), for: .touchUpInside)
     }
 

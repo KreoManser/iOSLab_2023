@@ -28,7 +28,7 @@ class PostsViewController: UIViewController {
         postDataManager = PostsDataManager()
         setUpNavigationBar()
         setupPostView()
-        postDataManager?.deleteTapped = { [weak self] alertController in
+        postDataManager?.optionsTapped = { [weak self] alertController in
             self?.present(alertController, animated: true, completion: nil)
         }
         postDataManager?.reloadData = { [weak self] in
@@ -48,6 +48,7 @@ class PostsViewController: UIViewController {
         view = postView
         postView?.tableView.delegate = postDataManager
         postView?.tableView.dataSource = postDataManager
+        postView?.postSearchBar.delegate = postDataManager
         postView?.tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.reuseIdentifier)
         postView?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
