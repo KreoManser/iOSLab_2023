@@ -56,7 +56,6 @@ function_body_length:
 line_length:
   warning: 100
   error: 150
-  ignores_non_comment_lines: true # Это замена для line_length_allow_non_comment_only_lines
 type_body_length:
   warning: 400
   error: 600
@@ -66,4 +65,6 @@ indentation: spaces
 line_length:
   - 150
 
-#line_length_allow_non_comment_only_lines: true
+line_length_allow_non_comment_only_lines: true
+
+
