@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  CatGram
 //
-//  Created by Нияз Ризванов on 28.10.2023.
+//  Created by Нияз Ризванов on 31.10.2023.
 //
 
 import UIKit
