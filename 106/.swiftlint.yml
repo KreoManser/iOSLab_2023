@@ -1,11 +1,11 @@
 disabled_rules:
-  - trailing_newline # Отключить правило о завершающем переводе строки
-  - todo # Отключить правило проверки TODO-комментариев
-  - cyclomatic_complexity # Оно вам не надо
+  - trailing_newline
+  - todo
+  - cyclomatic_complexity
 
 excluded:
-  - Carthage # Исключить папку Carthage из проверки
-  - Pods # Исключить папку Pods из проверки
+  - Carthage
+  - Pods
 
 identifier_name:
   excluded:
@@ -15,17 +15,16 @@ identifier_name:
     - y
     - z
 
-
 opt_in_rules:
-  - indentation_width # Включить правило для проверки табуляции
-  - force_cast # Включить правило для проверки неявных приведений типов
-  - force_try # Включить правило для проверки неявных try
-  - implicitly_unwrapped_optional # Включить правило для неявно извлеченных опционалов
-  - operator_usage_whitespace # Включить правило проверки whitespaces
+  - colon
+  - control_statement
+  - force_cast
+  - force_try
+  - indentation_width
+  - operator_usage_whitespace
   - unused_capture_list
-
-indentation_width:
-  indentation_width: 4
+  - implicitly_unwrapped_optional
+  - force_unwrapping
 
 custom_rules:
   array_constructor:
@@ -35,19 +34,9 @@ custom_rules:
     message: "Неверная аннотация инициализации массива/словаря"
     severity: error
 
-# Конфигурация правил
-opt_in_overrides:
-  - inclusion: warning # Правила, указанные здесь, будут предупреждениями (warnings)
-    rules:
-      - colon
-      - control_statement
-  - inclusion: error # Правила, указанные здесь, будут ошибками (errors)
-    rules:
-      - force_cast
-      - force_try
-      - implicitly_unwrapped_optional
+force_unwrapping:
+  severity: error
 
-# Параметры вывода результатов
 reporter: "xcode"
 
 function_body_length:
@@ -56,15 +45,10 @@ function_body_length:
 line_length:
   warning: 100
   error: 150
+  ignores_non_comment_lines: true
 type_body_length:
   warning: 400
   error: 600
 
-# Настройки форматирования
-indentation: spaces
 line_length:
   - 150
-
-line_length_allow_non_comment_only_lines: true
-
-
