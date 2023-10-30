@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "maxresdefault-VFGiYBVWr-transformed.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "maxresdefault-VFGiYBVWr-transformed 1.jpg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "maxresdefault-VFGiYBVWr-transformed 2.jpg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
