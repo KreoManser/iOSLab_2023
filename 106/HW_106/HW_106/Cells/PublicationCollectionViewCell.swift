@@ -198,10 +198,9 @@ class PublicationCollectionViewCell: UICollectionViewCell {
         likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
     }
     @objc func likeButtonTapped() {
-        if(likeButton.currentImage == .unlike) {
+        if likeButton.currentImage == .unlike {
             likeButton.setImage(.like, for: .normal)
-        }
-        else{
+        } else {
             likeButton.setImage(.unlike, for: .normal)
         }
     }
