@@ -156,6 +156,6 @@ extension DetailPostTableViewCell {
         }
     }
     func getIndexPath() -> IndexPath {
-            return (tableView?.indexPath(for: self))!
-        }
+        return (tableView?.indexPath(for: self))!
+    }
 }

@@ -114,11 +114,11 @@ extension DataManager {
         let photos = createCatsImages()
         let descriptions = createCatsDescriptions()
         let post = Post(id: Int.random(in: 1...20),
-                    author: user,
-                    photos: photos[Int.random(in: 0...6)],
-                    dateOfPublication: Date.now,
-                    comments: [], amountOfLikes: 7,
-                    description: descriptions[Int.random(in: 0...3)])
+            author: user,
+            photos: photos[Int.random(in: 0...6)],
+            dateOfPublication: Date.now,
+            comments: [], amountOfLikes: 7,
+            description: descriptions[Int.random(in: 0...3)])
         return post
     }
     private func createCatsImages() -> [UIImage] {

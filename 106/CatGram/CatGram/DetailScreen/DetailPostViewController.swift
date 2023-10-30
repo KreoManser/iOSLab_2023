@@ -42,14 +42,14 @@ extension DetailPostViewController {
 
 extension DetailPostViewController {
     func present(_ controller: UIViewController) {
-         present(controller, animated: true)
-         show(controller, sender: nil)
-     }
+        present(controller, animated: true)
+        show(controller, sender: nil)
+    }
 
-     func delete(indexPath: IndexPath) {
-         dataManager.deleteSync(index: indexPath.row)
-         detailPostView.reloadData()
-     }
+    func delete(indexPath: IndexPath) {
+        dataManager.deleteSync(index: indexPath.row)
+        detailPostView.reloadData()
+    }
 
      func dismissScreen() {
          dismiss(animated: true)
