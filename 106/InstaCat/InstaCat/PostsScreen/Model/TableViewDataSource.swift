@@ -12,21 +12,29 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.reuseIdentifier, for: indexPath) as? PostTableViewCell
-        let post = DataManager.shared.syncGetAllPosts()[indexPath.row]
 
-        cell?.delegate = tableView.superview as? any PostTableAlertDelegate
+        var post: Post
 
-        cell?.superView = tableView
-        cell?.configureCell(post)
+        if DataManager.shared.isSearching == false {
+            post = DataManager.shared.syncGetAllPosts()[indexPath.row]
+        } else {
+            post = DataManager.shared.syncGetSearchedPosts()[indexPath.row]
+        }
 
-        return cell!
+        guard let cell = cell else { return UITableViewCell() }
+
+        cell.delegate = tableView.superview as? any PostTableAlertDelegate
+        cell.superView = tableView
+        cell.configureCell(post)
+
+        return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataManager.shared.syncGetAllPosts().count
-    }
-
-    override init() {
-        super.init()
+        if DataManager.shared.isSearching == false {
+            return DataManager.shared.syncGetAllPosts().count
+        } else {
+            return DataManager.shared.filteredPostsCount
+        }
     }
 }

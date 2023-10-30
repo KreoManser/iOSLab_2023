@@ -18,10 +18,10 @@ class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ProfilePostCollectionViewCell.reuseIdentifier,
             for: indexPath) as? ProfilePostCollectionViewCell
-
+        guard let cell = cell else { return UICollectionViewCell() }
         let post = DataManager.shared.syncGetAllPosts()[indexPath.row]
 
-        cell?.configureCell(post.imageName)
-        return cell!
+        cell.configureCell(post.imageName)
+        return cell
     }
 }

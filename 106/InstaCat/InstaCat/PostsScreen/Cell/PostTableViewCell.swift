@@ -42,7 +42,8 @@ class PostTableViewCell: UITableViewCell {
     private lazy var deleteButton: UIButton = {
         let action = UIAction { [weak self] _ in
             let indexPath = self?.getIndexPath()
-            self?.delegate?.presentAlert(indexPath: indexPath!)
+            guard var indexPath = indexPath else { return }
+            self?.delegate?.presentAlert(indexPath: indexPath)
         }
 
         let button = UIButton()
@@ -148,7 +149,7 @@ extension PostTableViewCell {
     }
 
     func getIndexPath() -> IndexPath {
-        return (superView?.indexPath(for: self))!
+        return (superView?.indexPath(for: self) ?? IndexPath(row: 0, section: 0))
     }
 
     private func configureUI() {

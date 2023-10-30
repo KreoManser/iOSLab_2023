@@ -14,6 +14,7 @@ class PostsView: UIView {
         searchbar.barTintColor = .black
         searchbar.placeholder = "Поиск"
         searchbar.backgroundColor = .white
+        searchbar.delegate = self
         searchbar.translatesAutoresizingMaskIntoConstraints = false
         return searchbar
     }()
@@ -35,7 +36,7 @@ class PostsView: UIView {
         backgroundColor = .black
         addSubviews(subviews: searchBar, postTableView)
         configureUI()
-        setupSwipeGesture()
+        setupGestures()
     }
 
     required init?(coder: NSCoder) {
@@ -81,17 +82,20 @@ extension PostsView: PostTableAlertDelegate {
 
         alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: {  [weak self] _ in
             self?.controller?.delete(indexPath: indexPath)
+            self?.reloadData()
         }))
 
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
         controller?.present(alert)
     }
 
-    func setupSwipeGesture() {
+    func setupGestures() {
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-
         swipeGesture.direction = .right
         self.addGestureRecognizer(swipeGesture)
+
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.addGestureRecognizer(tapGestureRecognizer)
     }
 
     @objc func handleSwipe(_ sender: UISwipeGestureRecognizer) {
@@ -100,4 +104,25 @@ extension PostsView: PostTableAlertDelegate {
         }
     }
 
+    @objc func handleTap() {
+        self.endEditing(true)
+    }
 }
+
+extension PostsView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let controller = controller else { return }
+        controller.searchPostsByName(searchText)
+
+        guard let text = searchBar.text else { return }
+
+        if text.isEmpty {
+            DataManager.shared.isSearching = false
+        } else {
+            DataManager.shared.isSearching = true
+        }
+
+        reloadData()
+    }
+}
+

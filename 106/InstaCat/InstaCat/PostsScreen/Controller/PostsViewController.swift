@@ -13,7 +13,7 @@ class PostsViewController: UIViewController {
 
     private var indexPath: IndexPath?
 
-    let dataSource = TableViewDataSource()
+    private let dataSource = TableViewDataSource()
 
     // MARK: - Life cycle
     override func loadView() {
@@ -23,7 +23,7 @@ class PostsViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        pictureDetailView.scrollToIndexPath(self.indexPath!)
+        pictureDetailView.scrollToIndexPath(self.indexPath ?? IndexPath(row: 0, section: 0))
     }
 
     override func viewDidLoad() {
@@ -45,7 +45,6 @@ class PostsViewController: UIViewController {
 extension PostsViewController {
     func present(_ controller: UIViewController) {
         present(controller, animated: true)
-        show(controller, sender: nil)
     }
 
     func delete(indexPath: IndexPath) {
@@ -55,5 +54,13 @@ extension PostsViewController {
 
     func dismissScreen() {
         dismiss(animated: true)
+    }
+
+    func getSearchedPostsConunt() -> Int {
+        return DataManager.shared.filteredPostsCount
+    }
+
+    func searchPostsByName(_ name: String) {
+        DataManager.shared.syncSearchByName(name)
     }
 }

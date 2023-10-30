@@ -31,7 +31,6 @@ class ProfileViewController: UIViewController {
     }
 
     func presentDetailScreen(_ postIndexPath: IndexPath) {
-        print(postIndexPath)
         let presentController = PostsViewController(postIndexPath)
         presentController.modalPresentationStyle = .fullScreen
         present(presentController, animated: true)
