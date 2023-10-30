@@ -1,0 +1,70 @@
+disabled_rules:
+  - trailing_newline # Отключить правило о завершающем переводе строки
+  - todo # Отключить правило проверки TODO-комментариев
+  - cyclomatic_complexity # Оно вам не надо
+
+excluded:
+  - Carthage # Исключить папку Carthage из проверки
+  - Pods # Исключить папку Pods из проверки
+
+identifier_name:
+  excluded:
+    - i
+    - id
+    - x
+    - y
+    - z
+
+
+opt_in_rules:
+  - indentation_width # Включить правило для проверки табуляции
+  - force_cast # Включить правило для проверки неявных приведений типов
+  - force_try # Включить правило для проверки неявных try
+  - implicitly_unwrapped_optional # Включить правило для неявно извлеченных опционалов
+  - operator_usage_whitespace # Включить правило проверки whitespaces
+  - unused_capture_list
+
+indentation_width:
+  indentation_width: 4
+
+custom_rules:
+  array_constructor:
+    name: "Array/Dictionary initializer"
+    regex: '[let,var] .+ = (\[.+\]\(\))'
+    capture_group: 1
+    message: "Неверная аннотация инициализации массива/словаря"
+    severity: error
+
+# Конфигурация правил
+opt_in_overrides:
+  - inclusion: warning # Правила, указанные здесь, будут предупреждениями (warnings)
+    rules:
+      - colon
+      - control_statement
+  - inclusion: error # Правила, указанные здесь, будут ошибками (errors)
+    rules:
+      - force_cast
+      - force_try
+      - implicitly_unwrapped_optional
+
+# Параметры вывода результатов
+reporter: "xcode"
+
+function_body_length:
+  warning: 100
+  error: 200
+line_length:
+  warning: 100
+  error: 150
+type_body_length:
+  warning: 400
+  error: 600
+
+# Настройки форматирования
+indentation: spaces
+line_length:
+  - 150
+
+line_length_allow_non_comment_only_lines: true
+
+
