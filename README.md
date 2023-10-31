@@ -11,7 +11,8 @@
 104. [TableView, Diffable Data Source](/104)
 105. [MVC, Closures, ARC](/105)
 106. [GCD. Start.](/106)
-107. [Скоро...](/)
+107. [GCD. Finish.](/107)
+108. [Скоро...](/)
 
 
 
