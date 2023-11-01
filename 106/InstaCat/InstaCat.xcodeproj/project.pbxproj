@@ -21,6 +21,9 @@
 		27CC94662AED480C00D414F0 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC94652AED480C00D414F0 /* ProfileView.swift */; };
 		27CC946D2AED4AC400D414F0 /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC946C2AED4AC400D414F0 /* PostsView.swift */; };
 		27CC946F2AED4ADB00D414F0 /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CC946E2AED4ADB00D414F0 /* PostsViewController.swift */; };
+		27DEC88F2AF2CB0E00A48982 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DEC88E2AF2CB0E00A48982 /* User.swift */; };
+		27DEC8952AF2CC9900A48982 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DEC8942AF2CC9900A48982 /* LoginViewController.swift */; };
+		27DEC8972AF2CCB500A48982 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DEC8962AF2CCB500A48982 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		27CC94652AED480C00D414F0 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		27CC946C2AED4AC400D414F0 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
 		27CC946E2AED4ADB00D414F0 /* PostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
+		27DEC88E2AF2CB0E00A48982 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		27DEC8942AF2CC9900A48982 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		27DEC8962AF2CCB500A48982 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				279067B92AEE70BD00233362 /* Post.swift */,
+				27DEC88E2AF2CB0E00A48982 /* User.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -96,6 +103,7 @@
 		27CC94492AED3EA200D414F0 /* InstaCat */ = {
 			isa = PBXGroup;
 			children = (
+				27DEC8902AF2CC0300A48982 /* LoginScreen */,
 				27F0DDF32AEF17B7005269D5 /* PostsScreen */,
 				279067B82AEE709F00233362 /* Struct */,
 				27CC94672AED48E600D414F0 /* Application */,
@@ -172,6 +180,39 @@
 			isa = PBXGroup;
 			children = (
 				27CC946E2AED4ADB00D414F0 /* PostsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		27DEC8902AF2CC0300A48982 /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				27DEC8932AF2CC8400A48982 /* Controller */,
+				27DEC8922AF2CC7E00A48982 /* View */,
+				27DEC8912AF2CC7700A48982 /* Model */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		27DEC8912AF2CC7700A48982 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		27DEC8922AF2CC7E00A48982 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				27DEC8962AF2CCB500A48982 /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		27DEC8932AF2CC8400A48982 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				27DEC8942AF2CC9900A48982 /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -280,7 +321,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DEC8952AF2CC9900A48982 /* LoginViewController.swift in Sources */,
+				27DEC88F2AF2CB0E00A48982 /* User.swift in Sources */,
 				27CC946D2AED4AC400D414F0 /* PostsView.swift in Sources */,
+				27DEC8972AF2CCB500A48982 /* LoginView.swift in Sources */,
 				27CC94662AED480C00D414F0 /* ProfileView.swift in Sources */,
 				27CC94642AED47FD00D414F0 /* ProfileViewController.swift in Sources */,
 				279067BA2AEE70BD00233362 /* Post.swift in Sources */,
