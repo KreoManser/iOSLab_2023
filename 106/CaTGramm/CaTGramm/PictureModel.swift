@@ -35,10 +35,10 @@ class PictureModel: Hashable, Identifiable {
 
     init(avatar: UIImage, nickname: String, picture: UIImage, text: String) {
         detailButton = UIButton()
-        likeButton = UIButton()
-        commentButton = UIButton()
-        shareButton = UIButton()
-        savedPicturesButton = UIButton()
+        likeButton = TempButton.createLikeButton()
+        commentButton = TempButton.createCommentButton()
+        shareButton = TempButton.createShareButton()
+        savedPicturesButton = TempButton.createFavButton()
         self.id = UUID()
         self.avatar = avatar
         self.nickname = nickname

@@ -17,6 +17,8 @@
 		0A8ECC1C2AEEED7A00692787 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8ECC1B2AEEED7A00692787 /* DataManager.swift */; };
 		0A8ECC1E2AEEF47800692787 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8ECC1D2AEEF47800692787 /* PictureCell.swift */; };
 		0A8ECC202AEF369800692787 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8ECC1F2AEF369800692787 /* DetailViewController.swift */; };
+		0A8ECC222AF2DF9300692787 /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8ECC212AF2DF9300692787 /* TempButton.swift */; };
+		0A8ECC242AF2E63200692787 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8ECC232AF2E63200692787 /* PostCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		0A8ECC1B2AEEED7A00692787 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		0A8ECC1D2AEEF47800692787 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
 		0A8ECC1F2AEF369800692787 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0A8ECC212AF2DF9300692787 /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
+		0A8ECC232AF2E63200692787 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				0A8ECC1B2AEEED7A00692787 /* DataManager.swift */,
 				0A8ECC1D2AEEF47800692787 /* PictureCell.swift */,
 				0A8ECC192AEEBD1800692787 /* PictureModel.swift */,
+				0A8ECC212AF2DF9300692787 /* TempButton.swift */,
+				0A8ECC232AF2E63200692787 /* PostCell.swift */,
 				0A8ECC092AEC811A00692787 /* Assets.xcassets */,
 				0A8ECC0B2AEC811A00692787 /* LaunchScreen.storyboard */,
 				0A8ECC0E2AEC811A00692787 /* Info.plist */,
@@ -171,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A8ECC1E2AEEF47800692787 /* PictureCell.swift in Sources */,
+				0A8ECC222AF2DF9300692787 /* TempButton.swift in Sources */,
 				0A8ECC1A2AEEBD1800692787 /* PictureModel.swift in Sources */,
 				0A8ECC052AEC811800692787 /* ViewController.swift in Sources */,
 				0A8ECC1C2AEEED7A00692787 /* DataManager.swift in Sources */,
@@ -178,6 +185,7 @@
 				0A8ECC032AEC811800692787 /* SceneDelegate.swift in Sources */,
 				0A8ECC162AEC9E9000692787 /* DataManagerProtocol.swift in Sources */,
 				0A8ECC202AEF369800692787 /* DetailViewController.swift in Sources */,
+				0A8ECC242AF2E63200692787 /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

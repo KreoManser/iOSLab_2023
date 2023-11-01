@@ -12,7 +12,6 @@ class PictureCell: UICollectionViewCell {
     static let identifier = "CalcButtonCell"
 
     /// getting type of our button
-    private(set) var pictureModel: PictureModel!
 
     var picInCell = UIImageView()
     /// adding UI properties to our cell

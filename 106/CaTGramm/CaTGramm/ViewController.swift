@@ -118,6 +118,10 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         return button
     }()
 
+    func reloadData() {
+        self.collectionView.reloadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
@@ -188,6 +192,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(DetailViewController(), animated: true)
+        self.navigationController?.pushViewController(DetailViewController(controller: self), animated: true)
     }
 }

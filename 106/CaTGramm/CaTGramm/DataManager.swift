@@ -94,11 +94,13 @@ class DataManager: DataManagerProtocol {
 
     private init () {
         dataSource = []
-        dataSource.append(PictureModel(avatar: UIImage(named: "myava") ?? UIImage(), nickname: "topovaya_murmurka", picture: UIImage(named: "myava") ?? UIImage(), text: "Моя топовая ава"))
-        dataSource.append(PictureModel(avatar: UIImage(named: "myava") ?? UIImage(), nickname: "topovaya_murmurka", picture: UIImage(named: "myava") ?? UIImage(), text: "Моя топовая ава"))
-        dataSource.append(PictureModel(avatar: UIImage(named: "myava") ?? UIImage(), nickname: "topovaya_murmurka", picture: UIImage(named: "myava") ?? UIImage(), text: "Моя топовая ава"))
-        dataSource.append(PictureModel(avatar: UIImage(named: "myava") ?? UIImage(), nickname: "topovaya_murmurka", picture: UIImage(named: "myava") ?? UIImage(), text: "Моя топовая ава"))
-        dataSource.append(PictureModel(avatar: UIImage(named: "myava") ?? UIImage(), nickname: "topovaya_murmurka", picture: UIImage(named: "myava") ?? UIImage(), text: "Моя топовая ава"))
+        let instaImage = UIImage(named: "myava") ?? UIImage()
+        let instaPicture = UIImage(named: "myava") ?? UIImage()
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава"))
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава"))
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава"))
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава"))
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава"))
     }
 
     public static var OurDataManager = DataManager()
