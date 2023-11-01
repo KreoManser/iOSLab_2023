@@ -34,11 +34,15 @@ class PostViewController: UIViewController {
 
 extension PostViewController {
     func delete(_ indexPath: IndexPath) {
-        DataManager.shared.syncDelete(indexPath.row+1)
+        DataManager.shared.syncDelete(indexPath.row + 1)
         postView.reloadData()
     }
 
     func dismissPostScreen() {
         dismiss(animated: true)
+    }
+
+    func findByName(_ name: String) {
+        DataManager.shared.syncFindByName(name)
     }
 }

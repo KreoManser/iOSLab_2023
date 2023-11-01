@@ -109,7 +109,6 @@
 				CEFE30102AEF3C4700E3DA19 /* Models */,
 				CEFE300E2AEF3C2D00E3DA19 /* Views */,
 				CEFE300F2AEF3C3500E3DA19 /* Controllers */,
-				CE5B3CB52AEED5ED00911C77 /* ProfileViewController.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -126,6 +125,7 @@
 		CEFE300F2AEF3C3500E3DA19 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE5B3CB52AEED5ED00911C77 /* ProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

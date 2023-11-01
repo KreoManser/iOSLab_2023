@@ -94,6 +94,8 @@ class ProfileView: UIView {
 
     private lazy var profileCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
 
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier:
@@ -129,30 +131,30 @@ extension ProfileView {
 
         NSLayoutConstraint.activate([
             profileNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            profileNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            profileNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
 
-            profileMoreButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            profileMoreButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            profileMoreButton.heightAnchor.constraint(equalToConstant: 27),
-            profileMoreButton.widthAnchor.constraint(equalToConstant: 27),
+            profileMoreButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            profileMoreButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
+            profileMoreButton.heightAnchor.constraint(equalToConstant: 29),
+            profileMoreButton.widthAnchor.constraint(equalToConstant: 29),
 
-            profileAddButton.trailingAnchor.constraint(equalTo: profileMoreButton.leadingAnchor, constant: -5),
+            profileAddButton.trailingAnchor.constraint(equalTo: profileMoreButton.leadingAnchor, constant: -10),
             profileAddButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             profileAddButton.heightAnchor.constraint(equalToConstant: 25),
             profileAddButton.widthAnchor.constraint(equalToConstant: 25),
 
             profileImageView.topAnchor.constraint(equalTo: profileNameLabel.bottomAnchor, constant: 15),
-            profileImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            profileImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             profileImageView.widthAnchor.constraint(equalToConstant: 80),
             profileImageView.heightAnchor.constraint(equalToConstant: 80),
 
-            infoStackView.topAnchor.constraint(equalTo: profileMoreButton.bottomAnchor, constant: 20),
+            profileUserInformationLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 10),
+            profileUserInformationLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
+            constant: 15),
+
+            infoStackView.bottomAnchor.constraint(equalTo: profileUserInformationLabel.topAnchor, constant: -25),
             infoStackView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
             infoStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -15),
-
-            profileUserInformationLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 5),
-            profileUserInformationLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
-            constant: 10),
 
             profileCollectionView.topAnchor.constraint(equalTo: profileUserInformationLabel.bottomAnchor, constant: 15),
             profileCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5),
@@ -183,7 +185,7 @@ extension ProfileView: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: frame.width / 3 - 10, height: frame.width / 3 - 10)
+            return CGSize(width: frame.width / 3 - 4, height: frame.width / 3 - 4)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

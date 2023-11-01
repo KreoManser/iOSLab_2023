@@ -4,8 +4,8 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     private lazy var profilePostImageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.layer.cornerRadius = 2
-        image.layer.borderWidth = 0.25
+        image.layer.borderWidth = 1
+        image.layer.borderColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
         image.layer.masksToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image

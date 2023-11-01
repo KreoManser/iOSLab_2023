@@ -5,6 +5,7 @@ class PostView: UIView {
         let bar = UISearchBar()
         bar.placeholder = "Search"
         bar.tintColor = .black
+        bar.delegate = self
         bar.translatesAutoresizingMaskIntoConstraints = false
         return bar
     }()
@@ -87,5 +88,21 @@ extension PostView: PostTableAlertDelegate {
         if sender.direction == .right {
             postViewController?.dismissPostScreen()
         }
+    }
+}
+
+extension PostView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let postViewController = postViewController else { return }
+        postViewController.findByName(searchText)
+
+        guard let text = searchBar.text else { return }
+
+        if text.isEmpty {
+            DataManager.shared.isSearching = false
+        } else {
+            DataManager.shared.isSearching = true
+        }
+        reloadData()
     }
 }

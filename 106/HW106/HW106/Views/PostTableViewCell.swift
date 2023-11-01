@@ -136,29 +136,29 @@ extension PostTableViewCell {
         NSLayoutConstraint.activate([
             postAvatarImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
             postAvatarImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
-                                                         constant: 10),
+                constant: 10),
             postAvatarImageView.widthAnchor.constraint(equalToConstant: 40),
             postAvatarImageView.heightAnchor.constraint(equalToConstant: 40),
 
             postNameLabel.leadingAnchor.constraint(equalTo: postAvatarImageView.trailingAnchor,
-                                                   constant: 15),
+                constant: 15),
             postNameLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor,
-                                               constant: 20),
+                constant: 20),
 
             postDeleteButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
             postDeleteButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
-                                                       constant: -10),
+                constant: -10),
 
-            postImageView.topAnchor.constraint(equalTo: postAvatarImageView.bottomAnchor, constant: 20),
+            postImageView.topAnchor.constraint(equalTo: postAvatarImageView.bottomAnchor, constant: 10),
             postImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
-                                                   constant: 10),
+                constant: 10),
             postImageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
-                                                    constant: -10),
-            postImageView.heightAnchor.constraint(equalToConstant: frame.width-20),
+                constant: -10),
+            postImageView.heightAnchor.constraint(equalToConstant: frame.width),
 
             postLikeButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
             postLikeButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
-                                                    constant: 10),
+                constant: 10),
 
             postCommentButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
             postCommentButton.leadingAnchor.constraint(equalTo: postLikeButton.trailingAnchor, constant: 10),
@@ -168,17 +168,17 @@ extension PostTableViewCell {
 
             postFavouriteButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
             postFavouriteButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
-                                                          constant: -10),
+                constant: -10),
 
             postDescriptionLabel.topAnchor.constraint(equalTo: postLikeButton.bottomAnchor, constant: 5),
             postDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
-                                                          constant: 10),
+                constant: 10),
             postDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
-                                                           constant: -10),
+                constant: -10),
 
             postDateLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: 5),
             postDateLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
-                                                   constant: 10),
+                constant: 10),
             postDateLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -25)
         ])
     }

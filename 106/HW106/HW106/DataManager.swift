@@ -8,8 +8,8 @@ protocol DataManagerProtocol {
     func syncGetPosts() -> [Post]
     func asyncGetPosts() -> [Post]
 
-    func syncFindByName(_ postDescription: String) -> [Post]
-    func asyncFindByName(_ postDescription: String) -> [Post]
+    func syncFindByName(_ postDescription: String)
+    func asyncFindByName(_ postDescription: String)
 
     func syncFindByID(_ postID: Int) -> [Post]
     func asyncFindByID(_ postID: Int) -> [Post]
@@ -20,23 +20,28 @@ protocol DataManagerProtocol {
 
 class DataManager: DataManagerProtocol {
     private var posts: [Post] = [
-         Post(id: 1, postImage: UIImage(named: "Image_2")!,
-              postDescription: "My first post", postDate: "03.01.2023"),
-         Post(id: 2, postImage: UIImage(named: "Image_3")!,
-              postDescription: "My second post", postDate: "11.02.2023"),
-         Post(id: 3, postImage: UIImage(named: "Image_5")!,
-              postDescription: "My third post", postDate: "23.03.2023"),
-         Post(id: 4, postImage: UIImage(named: "Image_6")!,
-              postDescription: "My fourth post", postDate: "05.04.2023"),
-         Post(id: 5, postImage: UIImage(named: "Image_7")!,
-              postDescription: "My fith post", postDate: "06.05.2023"),
-         Post(id: 6, postImage: UIImage(named: "Image_8")!,
-              postDescription: "My sixth post", postDate: "12.07.2023"),
-         Post(id: 7, postImage: UIImage(named: "Image_9")!,
-              postDescription: "My seventh post", postDate: "17.08.2023")
+    Post(id: 1, postImage: UIImage(named: "Image_2")!,
+    postDescription: "My first post", postDate: "03.01.2023"),
+    Post(id: 2, postImage: UIImage(named: "Image_3")!,
+    postDescription: "My second post", postDate: "11.02.2023"),
+    Post(id: 3, postImage: UIImage(named: "Image_5")!,
+    postDescription: "My third post", postDate: "23.03.2023"),
+    Post(id: 4, postImage: UIImage(named: "Image_6")!,
+    postDescription: "My fourth post", postDate: "05.04.2023"),
+    Post(id: 5, postImage: UIImage(named: "Image_7")!,
+    postDescription: "My fith post", postDate: "06.05.2023"),
+    Post(id: 6, postImage: UIImage(named: "Image_8")!,
+    postDescription: "My sixth post", postDate: "12.07.2023"),
+    Post(id: 7, postImage: UIImage(named: "Image_9")!,
+    postDescription: "My seventh post", postDate: "17.08.2023")
     ]
+    private var searchedPosts: [Post] = []
     static let shared = DataManager()
+    var isSearching: Bool = false
 
+    func getSearchedPosts() -> [Post] {
+        return searchedPosts
+    }
     func syncSave(_ post: Post) {
         posts.append(post)
     }
@@ -62,7 +67,7 @@ class DataManager: DataManagerProtocol {
         var resultPosts: [Post] = []
         let operationQueue = OperationQueue()
         let operation = BlockOperation {
-            resultPosts =  self.posts
+            resultPosts = self.posts
         }
 
         operation.completionBlock = {
@@ -73,15 +78,14 @@ class DataManager: DataManagerProtocol {
         return resultPosts
     }
 
-    func syncFindByName(_ postDescription: String) -> [Post] {
-        return posts.filter { $0.postDescription == postDescription }
+    func syncFindByName(_ postDescription: String) {
+        self.searchedPosts = posts.filter { $0.postDescription.contains(postDescription) }
     }
 
-    func asyncFindByName(_ postDescription: String) -> [Post] {
-        var resultPosts: [Post] = []
+    func asyncFindByName(_ postDescription: String) {
         let operationQueue = OperationQueue()
         let operation = BlockOperation {
-            resultPosts =  self.posts.filter { $0.postDescription == postDescription }
+            self.searchedPosts = self.posts.filter { $0.postDescription.contains(postDescription) }
         }
 
         operation.completionBlock = {
@@ -89,7 +93,6 @@ class DataManager: DataManagerProtocol {
         }
 
         operationQueue.addOperation(operation)
-        return resultPosts
     }
 
     func syncFindByID(_ postID: Int) -> [Post] {
