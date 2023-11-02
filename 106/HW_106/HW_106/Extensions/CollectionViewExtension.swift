@@ -2,11 +2,19 @@ import UIKit
 
 extension ProfileDataManager: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        do {
+            return try syncGet().count
+        } catch {
+            print("Произошла ошибка при получении данных: \(error)")
+            return 0
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView
-            .dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.reuseIdentifier, for: indexPath) as? ProfileCollectionViewCell
+            .dequeueReusableCell(
+                withReuseIdentifier: ProfileCollectionViewCell.reuseIdentifier,
+                for: indexPath)
+                as? ProfileCollectionViewCell
         else {
             return UICollectionViewCell()
         }

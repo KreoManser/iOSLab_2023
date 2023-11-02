@@ -16,24 +16,29 @@ class PublicationsViewController: UIViewController, UpdatePublicationsDataManage
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         swipeRight.direction = .right
         view.addGestureRecognizer(swipeRight)
-// не понимаю почему не работает скролл к элементу
-//        if let index = selectedPublication {
-//            publicationsView.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredVertically, animated: true)
-//        }
+        DispatchQueue.main.async {
+            self.publicationsView.collectionView
+                .scrollToItem(at: IndexPath(item: self.selectedPublication ?? 0, section: 0),
+                at: .centeredVertically, animated: true)
+        }
     }
     @objc func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
         if gesture.direction == .right {
+            dataManager.sortedPublications = []
             navigationController?.popViewController(animated: true)
         }
     }
     private func setUpPublicationsView() {
         publicationsView.collectionView.delegate = dataManager
         publicationsView.collectionView.dataSource = dataManager
-        publicationsView.collectionView.register(PublicationCollectionViewCell.self, forCellWithReuseIdentifier: PublicationCollectionViewCell.reuseIdentifier)
+        publicationsView.searchBar.delegate = dataManager
+        publicationsView.collectionView
+            .register(PublicationCollectionViewCell.self,
+            forCellWithReuseIdentifier: PublicationCollectionViewCell.reuseIdentifier)
         view = publicationsView
         dataManager.funcButtonTapped = { [weak self] alertController in
             self?.present(alertController, animated: true, completion: nil)
         }
     }
-
 }
+

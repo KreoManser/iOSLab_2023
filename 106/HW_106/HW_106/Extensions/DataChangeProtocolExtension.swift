@@ -1,5 +1,4 @@
 import UIKit
-import Foundation
 extension ProfileDataManager: DataChangeProtocol {
     func syncSave(model photo: Photo) {
         saveQueue.addOperation { [weak self] in
@@ -16,10 +15,10 @@ extension ProfileDataManager: DataChangeProtocol {
             }
         }
     }
-    func syncGetModels() throws -> [Photo] {
+    func syncGet() throws -> [Photo] {
         return photos
     }
-    func asyncGetModels(completion: @escaping (Result<[Photo], Error>) -> Void) {
+    func asyncGet(completion: @escaping (Result<[Photo], Error>) -> Void) {
         let operation = BlockOperation {
             completion(.success(self.photos))
         }
@@ -45,11 +44,11 @@ extension ProfileDataManager: DataChangeProtocol {
         deleteQueue.addOperation(operation)
         self.updateUI()
     }
-    func syncFindModel(model comment: String) throws -> [Photo] {
+    func syncFind(model comment: String) throws -> [Photo] {
         let findPublications = photos.filter { $0.comment.contains(comment) }
         return findPublications
     }
-    func asyncFindModel(model comment: String, completion: @escaping (Result<[Photo], Error>) -> Void) {
+    func asyncFind(model comment: String, completion: @escaping (Result<[Photo], Error>) -> Void) {
         let operation = BlockOperation { [self] in
             let findPublications = photos.filter { $0.comment.contains(comment) }
             OperationQueue.main.addOperation {

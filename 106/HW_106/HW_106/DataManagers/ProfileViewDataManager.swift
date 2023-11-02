@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 class ProfileViewDataManager: NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -13,7 +12,7 @@ class ProfileViewDataManager: NSObject, UICollectionViewDelegate, UICollectionVi
     private func generateTestData() -> [Photo] {
         var testData: [Photo] = []
         for i in 1...10 {
-            let photo =  Photo(id: UUID().uuidString, image: .avatar)
+            let photo = Photo(id: UUID().uuidString, image: .avatar)
             testData.append(photo)
         }
         return testData
@@ -22,7 +21,12 @@ class ProfileViewDataManager: NSObject, UICollectionViewDelegate, UICollectionVi
         return photos.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = controller?.profileView.collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.reuseIdentifier, for: indexPath) as? ProfileCollectionViewCell {
+        if let cell = controller?
+            .profileView.collectionView
+            .dequeueReusableCell(
+                withReuseIdentifier: ProfileCollectionViewCell.reuseIdentifier,
+                for: indexPath)
+            as? ProfileCollectionViewCell {
             let photo = photos[indexPath.row]
             cell.configure(with: photo)
             return cell

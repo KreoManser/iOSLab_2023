@@ -23,11 +23,11 @@ class ProfileViewController: UIViewController, UpdateProfileDataManagerDelegate 
         }
     }
     @objc func syncSaveButtonTapped() {
-        let photo = Photo(id: UUID().uuidString, image: .avatar, like: false, comment: "12")
+        let photo = Photo(id: UUID().uuidString, image: .avatar, like: false, comment: "Работаю")
         dataManager.syncSave(model: photo)
     }
     @objc func asyncSaveButtonTapped() {
-        let photo = Photo(id: UUID().uuidString, image: .avatar, like: false, comment: "12")
+        let photo = Photo(id: UUID().uuidString, image: .avatar, like: false, comment: "Работаю")
         dataManager.asyncSave(model: photo) { result in
             switch result {
             case .success:

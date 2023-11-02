@@ -2,7 +2,6 @@ import UIKit
 protocol PublicationCollectionViewCellDelegate: AnyObject {
     func deleteItem(photo: Photo)
 }
-
 class PublicationCollectionViewCell: UICollectionViewCell {
     weak var delegate: PublicationCollectionViewCellDelegate?
     var optionsTapped: ((_ alertController: UIAlertController) -> Void)?
@@ -41,6 +40,7 @@ class PublicationCollectionViewCell: UICollectionViewCell {
         setUpCommentAccountNameLabel()
         setUpCommentLabel()
         setUpDateLabel()
+
     }
     /// Label
     private func setUpAccountNameLabel() {
@@ -71,12 +71,11 @@ class PublicationCollectionViewCell: UICollectionViewCell {
     private func setUpCommentLabel() {
         contentView.addSubview(commentLabel)
         commentLabel.translatesAutoresizingMaskIntoConstraints = false
-        commentLabel.text = "немного о коте"
         commentLabel.textColor = .white
-        commentLabel.font = UIFont(name: "boldSystemFont", size: 12)
+        commentLabel.font = UIFont(name: "boldSystemFont", size: 8)
         NSLayoutConstraint.activate([
             commentLabel.topAnchor.constraint(equalTo: subStackview.bottomAnchor),
-            commentLabel.leadingAnchor.constraint(equalTo: commentAccountNameLabel.trailingAnchor, constant: 10),
+            commentLabel.leadingAnchor.constraint(equalTo: commentAccountNameLabel.trailingAnchor, constant: 6),
             commentLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8),
             commentLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.1)
         ])
@@ -86,7 +85,7 @@ class PublicationCollectionViewCell: UICollectionViewCell {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.text = "6дн. назад"
         dateLabel.textColor = .systemGray
-        dateLabel.font = UIFont(name: "boldSystemFont", size: 8)
+        dateLabel.font = UIFont(name: "systemFont", size: 16)
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: commentAccountNameLabel.bottomAnchor, constant: -6),
             dateLabel.leadingAnchor.constraint(equalTo: commentAccountNameLabel.leadingAnchor, constant: 5),
@@ -178,6 +177,7 @@ class PublicationCollectionViewCell: UICollectionViewCell {
     func configure(with photo: Photo) {
         mainImageView.image = photo.image
         avatarImageView.image = .avatar
+        commentLabel.text = photo.comment
         likeButton.setImage(.unlike, for: .normal)
         showActionSheet(photo: photo)
         addTargetForButton(photo: photo)
@@ -191,7 +191,7 @@ class PublicationCollectionViewCell: UICollectionViewCell {
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
         funcButton.addAction(UIAction(handler: { _  in
-            self.optionsTapped!(alertController)
+            self.optionsTapped?(alertController)
         }), for: .touchUpInside)
     }
     func addTargetForButton(photo: Photo) {

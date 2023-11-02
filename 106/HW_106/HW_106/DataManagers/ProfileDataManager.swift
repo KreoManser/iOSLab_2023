@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 protocol UpdateProfileDataManagerDelegate: AnyObject {
     func dataDidChange()
@@ -22,10 +21,9 @@ class ProfileDataManager: NSObject {
         delegate?.dataDidChange()
     }
     func add() {
-        photos.append(dataSource.photoDataSource[0])
-        photos.append(dataSource.photoDataSource[1])
-        photos.append(dataSource.photoDataSource[2])
-        photos.append(dataSource.photoDataSource[3])
+        for index in 0..<8 {
+            photos.append(dataSource.photoDataSource[index])
+        }
     }
 }
 
