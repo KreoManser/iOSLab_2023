@@ -7,7 +7,7 @@ import UIKit
          let button = UIButton(type: .custom)
          let buttonImage = UIImage(named: "threePoints")
          button.setImage(buttonImage, for: .normal)
-         button.addAction(action , for: .touchUpInside)
+         button.addAction(action, for: .touchUpInside)
          return button
      }()
      lazy var avatarImage: UIImageView = {
@@ -89,20 +89,15 @@ import UIKit
      
      override func viewDidLoad() {
          super.viewDidLoad()
-         
          view.backgroundColor = .black
-         
-         if let image = UIImage(named: "photo1"){
+         if let image = UIImage(named: "photo1") {
              avatarImage.image = image
          }
          avatarImage.layer.cornerRadius = 40
          avatarImage.clipsToBounds = true
-         
          view.addSubview(avatarImage)
          view.addSubview(descriptionCanal)
-         
          view.addSubview(gridCollectionView)
-         
          setupLayout()
          setupNavigationBar()
      }
