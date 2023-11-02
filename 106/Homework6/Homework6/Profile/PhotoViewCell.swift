@@ -21,8 +21,7 @@ class PhotoViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(photoImageView)
-        configureUI()
-
+        setLayout()
     }
 
     required init?(coder: NSCoder) {
@@ -39,7 +38,7 @@ extension PhotoViewCell {
         photoImageView.image = UIImage(named: imageName)
     }
 
-    private func configureUI() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

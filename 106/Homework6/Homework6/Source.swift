@@ -20,7 +20,7 @@ struct Source {
         ]
     }
     static func randomPhoto(with count: Int) -> [Photo] {
-        return (0 ..< count).map {_ in allPhotos().randomElement()! }
+        return (0 ..< count).map { _ in allPhotos().randomElement() ?? Photo(id: 1, imageName: "cat1") }
     }
 }
 

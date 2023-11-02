@@ -16,13 +16,21 @@ protocol DataManagerProtocol {
 
     func syncDelete(index: Int)
     func asyncDelete(index: Int)
+
+    func syncSearchByDescription(_ description: String)
+    func asyncSearchByDescription(_ description: String)
 }
 
 public class DataManager: DataManagerProtocol {
-
     private var posts: [Post] = []
-
+    private var searchedPosts: [Post] = []
+    var isSearching: Bool = false
     static let shared = DataManager()
+
+    private let savePostQueue = OperationQueue()
+    private let deletePostQueue = OperationQueue()
+    private let searchByDescrQueue = OperationQueue()
+    private let getPostsQueue = OperationQueue()
 
     private init() {
         posts = [
@@ -41,17 +49,15 @@ public class DataManager: DataManagerProtocol {
     }
 
     func asyncSave(_ post: Post) {
-        let operationQueue = OperationQueue()
-
         let operation = BlockOperation {
             self.posts.append(post)
         }
 
         operation.completionBlock = {
-            print("saved!")
+            print("Сохранено")
         }
 
-        operationQueue.addOperation(operation)
+        savePostQueue.addOperation(operation)
     }
 
     func syncGetAllPosts() -> [Post] {
@@ -61,17 +67,15 @@ public class DataManager: DataManagerProtocol {
     func asyncGetAllPosts() -> [Post] {
         var result: [Post] = []
 
-        let operationQueue = OperationQueue()
-
         let operation = BlockOperation {
             result = self.posts
         }
 
         operation.completionBlock = {
-            print("post get all")
+            print("Все посты получены")
         }
 
-        operationQueue.addOperation(operation)
+        getPostsQueue.addOperation(operation)
         return result
     }
 
@@ -80,16 +84,37 @@ public class DataManager: DataManagerProtocol {
     }
 
     func asyncDelete(index: Int) {
-        let operationQueue = OperationQueue()
-
         let operation = BlockOperation {
             self.posts.remove(at: index)
         }
 
         operation.completionBlock = {
-            print("Deleted!")
+            print("Удалено")
         }
 
-        operationQueue.addOperation(operation)
+        deletePostQueue.addOperation(operation)
+    }
+
+    func syncSearchByDescription(_ description: String) {
+        searchedPosts = posts.filter { $0.description.lowercased().contains(description.lowercased()) }
+    }
+
+    func asyncSearchByDescription(_ description: String) {
+        let operation = BlockOperation {
+            self.searchedPosts = self.posts.filter { $0.description.lowercased().contains(description.lowercased()) }
+        }
+
+        operation.completionBlock = {
+            print("Найдены посты по описанию")
+        }
+        searchByDescrQueue.addOperation(operation)
+    }
+
+    var searchedPostsCount: Int {
+        return searchedPosts.count
+    }
+
+    func syncGetSearchedPosts() -> [Post] {
+        return searchedPosts
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     private lazy var mainView: ProfileView = ProfileView(viewWidth: view.frame)
-    private let dataSourse = CollectionViewDataSource()
+    private let dataSource = CollectionViewDataSource()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -21,15 +21,15 @@ class ProfileViewController: UIViewController {
         view.addSubview(mainView)
         view.backgroundColor = .white
         mainView.controller = self
-        mainView.setupDataSourse(dataSourse)
+        mainView.setupDataSource(dataSource)
         configureProfileViewOnView()
         setNavigationBar()
     }
 
     func presentDetailScreen(_ postIndexPath: IndexPath) {
-        let presentController = PostsViewController(postIndexPath)
-        presentController.modalPresentationStyle = .pageSheet
-        present(presentController, animated: true)
+        let postsViewtController = PostsViewController(postIndexPath)
+        postsViewtController.modalPresentationStyle = .fullScreen
+        present(postsViewtController, animated: true)
     }
 }
 

@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PostsTableAlertDelegate: AnyObject {
+    func presentAlert(indexPath: IndexPath)
+}
+
 class PostsTableViewCell: UITableViewCell {
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "profile"))
@@ -35,7 +39,15 @@ class PostsTableViewCell: UITableViewCell {
     }()
 
     private lazy var deleteButton: UIButton = {
+        let action = UIAction { [weak self] _ in
+            let indexPath = self?.getIndexPath()
+            guard var indexPath = indexPath else { return }
+            self?.delegate?.presentAlert(indexPath: indexPath)
+        }
+
         let button = UIButton()
+        button.addAction(action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "ellipsis")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
         button.imageView?.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +56,7 @@ class PostsTableViewCell: UITableViewCell {
 
     private lazy var likeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "heart")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
+        button.setImage(UIImage(systemName: "heart")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 21)), for: .normal)
         button.imageView?.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -68,7 +80,7 @@ class PostsTableViewCell: UITableViewCell {
 
     private lazy var favouriteButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "bookmark")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 22)), for: .normal)
+        button.setImage(UIImage(systemName: "bookmark")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
         button.imageView?.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -76,7 +88,7 @@ class PostsTableViewCell: UITableViewCell {
 
     private lazy var postDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -91,6 +103,7 @@ class PostsTableViewCell: UITableViewCell {
         return label
     }()
 
+    weak var delegate: PostsTableAlertDelegate?
     weak var superView: UITableView?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -122,8 +135,11 @@ extension PostsTableViewCell {
         postDateLabel.text = post.date
     }
 
-    func getIndexPath() -> IndexPath {
-        return (superView?.indexPath(for: self))!
+    func getIndexPath() -> IndexPath? {
+        guard let superView = superView, let indexPath = superView.indexPath(for: self) else {
+            return nil
+        }
+        return indexPath
     }
 
     private func setLayout() {
@@ -134,17 +150,17 @@ extension PostsTableViewCell {
             userImageView.heightAnchor.constraint(equalToConstant: 40),
 
             userNameLabel.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: 10),
-            userNameLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            userNameLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
 
-            deleteButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            deleteButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
             deleteButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
 
-            postImageView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 20),
+            postImageView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 10),
             postImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
             postImageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
             postImageView.heightAnchor.constraint(equalToConstant: contentView.frame.width),
 
-            likeButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
+            likeButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 7),
             likeButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
 
             commentButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
@@ -156,14 +172,13 @@ extension PostsTableViewCell {
             favouriteButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
             favouriteButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
 
-            postDescriptionLabel.topAnchor.constraint(equalTo: favouriteButton.bottomAnchor, constant: 10),
+            postDescriptionLabel.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 10),
             postDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             postDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
 
             postDateLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: 10),
             postDateLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            postDateLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            postDateLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
 }
-

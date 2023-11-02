@@ -13,13 +13,20 @@ class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
+        guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PhotoViewCell.reuseIdentifier,
             for: indexPath) as? PhotoViewCell
+        else { return UICollectionViewCell() }
 
         let post = DataManager.shared.syncGetAllPosts()[indexPath.row]
 
-        cell?.configureCell(post.imageName)
-        return cell!
+        cell.configureCell(post.imageName)
+        return cell
+    }
+}
+
+extension UICollectionView {
+    func getItemsCount() -> Int {
+        return DataManager.shared.syncGetAllPosts().count
     }
 }

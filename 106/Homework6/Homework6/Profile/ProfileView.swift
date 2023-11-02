@@ -8,7 +8,6 @@
 import UIKit
 
 class ProfileView: UIView {
-    private var source: [Photo] = Source.randomPhoto(with: 9)
     private lazy var profileImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "profile")
@@ -43,7 +42,7 @@ class ProfileView: UIView {
     }()
 
     private lazy var countOfPublications: UILabel = {
-        createlabel(text: "2")
+        createlabel(text: "7")
     }()
 
     private lazy var publicationsLabel: UILabel = {
@@ -164,7 +163,7 @@ extension ProfileView {
 }
 
 extension ProfileView {
-    func setupDataSourse(_ dataSource: UICollectionViewDataSource) {
+    func setupDataSource(_ dataSource: UICollectionViewDataSource) {
         photoCollectionView.dataSource = dataSource
     }
 

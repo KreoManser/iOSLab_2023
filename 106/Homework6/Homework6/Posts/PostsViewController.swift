@@ -9,6 +9,7 @@ import UIKit
 
 class PostsViewController: UIViewController {
     private lazy var pictureDetailView = PostsView(frame: .zero)
+    private lazy var profileView = ProfileView(viewWidth: view.frame)
 
     private var indexPath: IndexPath?
 
@@ -21,7 +22,9 @@ class PostsViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        pictureDetailView.scrollToIndexPath(self.indexPath!)
+        if let indexPath = self.indexPath {
+            pictureDetailView.scrollToIndexPath(indexPath)
+        }
     }
 
     override func viewDidLoad() {
@@ -52,5 +55,13 @@ extension PostsViewController {
 
     func dismissScreen() {
         dismiss(animated: true)
+    }
+
+    func getSearchedPostsConunt() -> Int {
+        return DataManager.shared.searchedPostsCount
+    }
+
+    func searchPostsByDescription(_ description: String) {
+        DataManager.shared.syncSearchByDescription(description)
     }
 }

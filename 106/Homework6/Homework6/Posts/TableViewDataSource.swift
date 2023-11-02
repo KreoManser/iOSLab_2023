@@ -8,20 +8,33 @@
 import Foundation
 import UIKit
 
-class TableViewDataSource: NSObject, UITableViewDataSource {
+class TableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostsTableViewCell.reuseIdentifier, for: indexPath) as? PostsTableViewCell
-        let post = DataManager.shared.syncGetAllPosts()[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PostsTableViewCell.reuseIdentifier, for: indexPath) as? PostsTableViewCell
+        else { return UITableViewCell() }
 
-        cell?.superView = tableView
-        cell?.configureCell(post)
+        let post: Post
 
-        return cell!
+        if DataManager.shared.isSearching == false {
+            post = DataManager.shared.syncGetAllPosts()[indexPath.row]
+        } else {
+            post = DataManager.shared.syncGetSearchedPosts()[indexPath.row]
+        }
+
+        cell.delegate = tableView.superview as? any PostsTableAlertDelegate
+        cell.superView = tableView
+        cell.configureCell(post)
+
+        return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataManager.shared.syncGetAllPosts().count
+        if DataManager.shared.isSearching == false {
+            return DataManager.shared.syncGetAllPosts().count
+        } else {
+            return DataManager.shared.searchedPostsCount
+        }
     }
 
     override init() {
