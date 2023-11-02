@@ -19,10 +19,14 @@ protocol DataManagerProtocol {
 
     func deletePostSync(_ index: Int)
     func deletePostAsync(_ index: Int)
+
+    func searchByNameSync(_ name: String)
 }
 
 class DataManager: DataManagerProtocol {
-    lazy var posts: [Post] = []
+    private var posts: [Post] = []
+    var postWithFilter: [Post] = []
+    var isSearching: Bool = false
     static let dataManager = DataManager()
 
     private init() {
@@ -32,7 +36,29 @@ class DataManager: DataManagerProtocol {
     private let savePostQueue = OperationQueue()
     private let deletePostQueue = OperationQueue()
     private let searchByIdQueue = OperationQueue()
+    private let searchByNameQueue = OperationQueue()
     private let getPostsQueue = OperationQueue()
+
+    func getSearchedPostsSync() -> [Post] {
+        return postWithFilter
+    }
+
+    func searchByNameSync(_ name: String) {
+        postWithFilter = posts.filter { $0.description.lowercased().contains(name.lowercased()) }
+    }
+    func searchByNameAsync(_ name: String) {
+        let operation = BlockOperation {
+            if name.count >= 3 {
+                self.postWithFilter = self.posts.filter { $0.description.lowercased().contains(name.lowercased()) }
+            } else {
+                self.postWithFilter = self.posts
+            }
+        }
+        operation.completionBlock = {
+            print("посты с именем \(name) done асинк")
+        }
+        searchByNameQueue.addOperation(operation)
+    }
 
     func savePostSunc(_ post: Post) {
         posts.append(post)
@@ -46,6 +72,7 @@ class DataManager: DataManagerProtocol {
         }
         savePostQueue.addOperation(operation)
     }
+
     func deletePostSync(_ index: Int) {
         self.posts.remove(at: index)
     }
@@ -58,6 +85,7 @@ class DataManager: DataManagerProtocol {
         }
         deletePostQueue.addOperation(operation)
     }
+
     func getPostsSync() -> [Post] {
         return posts
     }
@@ -72,6 +100,7 @@ class DataManager: DataManagerProtocol {
         }
         getPostsQueue.addOperation(operation)
     }
+
     func searchByIdSync(_ id: Int) -> [Post] {
         let result = posts.filter { $0.id == id }
         return result
@@ -87,6 +116,7 @@ class DataManager: DataManagerProtocol {
         }
         searchByIdQueue.addOperation(operation)
     }
+
     func deleteSync(index: Int) {
         posts.remove(at: index)
     }
@@ -107,7 +137,7 @@ extension DataManager {
         UIImage(named: name) ?? UIImage()
     }
     private func createUser() -> User {
-        User(iconUrl: URL(string: "https://clck.ru/36GD6d")!, nick: "evaklq")
+        User(iconUrl: URL(string: "https://clck.ru/36GD6d") ?? nil, nick: "evaklq")
     }
     private func createPost() -> Post {
         let user = createUser()

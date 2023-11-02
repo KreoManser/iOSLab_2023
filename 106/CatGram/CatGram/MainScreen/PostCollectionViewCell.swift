@@ -26,6 +26,16 @@ class PostCollectionViewCell: UICollectionViewCell {
     }
 }
 
+// MARK: - ViewCell settings
+extension PostCollectionViewCell {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+    func configureCell(with post: Post) {
+        self.photoOfPost.image = post.photos
+    }
+}
+
 // MARK: - Constraints
 extension PostCollectionViewCell {
     private func setupLayouts() {
@@ -39,14 +49,3 @@ extension PostCollectionViewCell {
         ])
     }
 }
-
-// MARK: - ViewCell settings
-extension PostCollectionViewCell {
-    static var reuseIdentifier: String {
-        return String(describing: self)
-    }
-    func configureCell(with post: Post) {
-        self.photoOfPost.image = post.photos
-    }
-}
-

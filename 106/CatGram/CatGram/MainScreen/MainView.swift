@@ -11,6 +11,7 @@ class MainView: UIView {
     // MARK: - Declaration objects
     weak var controller: MainViewController?
     private let support = SupportFunctions()
+
     lazy var iconImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 48
@@ -94,6 +95,32 @@ extension MainView: UICollectionViewDelegate {
     }
 }
 
+// MARK: - Support things
+extension MainView {
+    func getImageAsync(stringUrl: String) {
+        guard let url = URL(string: stringUrl) else { return }
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: url) { [weak self] (data, _, _) in
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self?.iconImage.image = image
+                    print("икона загрузилась")
+                }
+            }
+        }
+        dataTask.resume()
+    }
+}
+
+// MARK: - ObjC
+extension MainView {
+    @objc func linkLabelTapped(_ sender: UITapGestureRecognizer) {
+        if let url = URL(string: "https://t.me/evaklq") {
+            UIApplication.shared.open(url)
+        }
+    }
+}
+
 // MARK: - Constraints
 extension MainView {
     private func setupLayouts() {
@@ -135,31 +162,5 @@ extension MainView {
             postsCollectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             postsCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
-    }
-}
-
-// MARK: - Support things
-extension MainView {
-    func getImageAsync(stringUrl: String) {
-        guard let url = URL(string: stringUrl) else { return }
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: url) { [weak self] (data, _, _) in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self?.iconImage.image = image
-                    print("икона загрузилась")
-                }
-            }
-        }
-        dataTask.resume()
-    }
-}
-
-// MARK: - ObjC
-extension MainView {
-    @objc func linkLabelTapped(_ sender: UITapGestureRecognizer) {
-        if let url = URL(string: "https://t.me/evaklq") {
-            UIApplication.shared.open(url)
-        }
     }
 }

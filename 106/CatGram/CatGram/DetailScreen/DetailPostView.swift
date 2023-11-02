@@ -8,7 +8,18 @@
 import UIKit
 
 class DetailPostView: UIView, UITableViewDelegate {
+    // MARK: - Declaration objects
     weak var controller: DetailPostViewController?
+
+    private lazy var searchBar: UISearchBar = {
+        let searchbar = UISearchBar()
+        searchbar.barTintColor = .white
+        searchbar.placeholder = "Введите описание поста"
+        searchbar.backgroundColor = .white
+        searchbar.delegate = self
+        searchbar.translatesAutoresizingMaskIntoConstraints = false
+        return searchbar
+    }()
     lazy var postsTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -32,51 +43,64 @@ class DetailPostView: UIView, UITableViewDelegate {
     }
 }
 
+// MARK: - Search Bar Funcs
+extension DetailPostView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let controller = controller else { return }
+        controller.searchPostsByName(searchText)
+
+        guard let text = searchBar.text else { return }
+
+        if text.isEmpty {
+            DataManager.dataManager.isSearching = false
+        } else {
+            DataManager.dataManager.isSearching = true
+        }
+
+        reloadData()
+    }
+}
+
+// MARK: - Custom DetailPostAlertDelegate
+extension DetailPostView: DetailPostAlertDelegate {
+    func presentAlert(indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Удалить котикса", message: "Удалить котика :(?", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: {  [weak self] _ in
+            self?.controller?.delete(indexPath: indexPath)
+            self?.reloadData()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Не надо..", style: .cancel))
+        controller?.present(alert)
+    }
+}
+
+// MARK: - Table Info with system methods
+extension DetailPostView {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+// MARK: - Table Info with personal metiods
 extension DetailPostView {
     func setTableDataSource(_ dataSource: UITableViewDataSource) {
         postsTableView.dataSource = dataSource
     }
-
     func reloadData() {
-        postsTableView.reloadData()
+        self.postsTableView.reloadData()
     }
-
     func scrollTo(_ postIndex: IndexPath) {
         postsTableView.scrollToRow(at: postIndex, at: .top, animated: true)
     }
 }
 
-// MARK: - Constraints
+// MARK: - ObjC
 extension DetailPostView {
-    private func setupLayouts() {
-        addSubview(postsTableView)
-
-        NSLayoutConstraint.activate([
-            postsTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            postsTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            postsTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            postsTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-}
-
-extension DetailPostView: DetailPostAlertDelegate {
-
-    func presentAlert(indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Удалить пост", message: "Вы действительно хотите удалить этот пост?", preferredStyle: .actionSheet)
-
-        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: {  [weak self] _ in
-            self?.controller?.delete(indexPath: indexPath)
-        }))
-
-        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
-        controller?.present(alert)
-    }
-
     func setupSwipeGesture() {
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
 
@@ -89,6 +113,24 @@ extension DetailPostView: DetailPostAlertDelegate {
             controller?.dismissScreen()
         }
     }
-
 }
 
+// MARK: - Constraints
+extension DetailPostView {
+    private func setupLayouts() {
+        addSubview(searchBar)
+        addSubview(postsTableView)
+
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
+            searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 30),
+
+            postsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5),
+            postsTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            postsTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            postsTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+}

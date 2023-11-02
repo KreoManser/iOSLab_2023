@@ -8,6 +8,6 @@
 import Foundation
 
 struct User: Hashable {
-    var iconUrl: URL
+    var iconUrl: URL?
     var nick: String
 }

@@ -19,7 +19,6 @@ class MainViewDataSourse {
             return cell
         })
     }
-
     func updateDataSourse(with posts: [Post]) {
         var snapshot = NSDiffableDataSourceSnapshot<CollectionSection, Post>()
         snapshot.appendSections([.main])

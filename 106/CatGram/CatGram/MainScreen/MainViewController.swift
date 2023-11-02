@@ -8,21 +8,21 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    // MARK: - Declaration objects
     var mainView = MainView(frame: .zero)
     var mainDataSourse = MainViewDataSourse()
-    lazy var posts = DataManager.dataManager.getPostsSync()
 
     // MARK: - Load view
     override func loadView() {
         view = mainView
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateDataSourse()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         mainView.controller = self
         setDataSourse(mainView.postsCollectionView)
-        updateDataSourse()
     }
 }
 
@@ -38,7 +38,7 @@ extension MainViewController {
         mainDataSourse.setupDataSourse(postsCollectionView)
     }
     func updateDataSourse() {
-        mainDataSourse.updateDataSourse(with: posts)
+        mainDataSourse.updateDataSourse(with: DataManager.dataManager.getPostsSync())
     }
 }
 

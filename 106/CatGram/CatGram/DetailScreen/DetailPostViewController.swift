@@ -8,26 +8,44 @@
 import UIKit
 
 class DetailPostViewController: UIViewController {
-    private var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
+    // MARK: - Declaration objects
     private lazy var detailPostView = DetailPostView(frame: .zero)
-    private lazy var dataManager = DataManager.dataManager
-    private lazy var posts = dataManager.getPostsSync()
-    private lazy var detailDataSourse = DetailPostViewDataSourse(posts)
+    private lazy var detailDataSourse = DetailPostViewDataSourse()
+    private lazy var mainController = MainViewDataSourse()
+    private let manager = DataManager.dataManager
     var currentPost: IndexPath?
 
     // MARK: - Load view
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        detailPostView.setTableDataSource(detailDataSourse)
+        detailPostView.scrollTo(currentPost ?? IndexPath(index: 0))
+    }
     override func loadView() {
+        super.loadView()
+        detailPostView.setTableDataSource(detailDataSourse)
         view = detailPostView
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailPostView.setTableDataSource(detailDataSourse)
+        detailPostView.controller = self
+        detailPostView.postsTableView.allowsSelection = false
         setupSwipeGesture()
-        detailPostView.scrollTo(currentPost ?? IndexPath(index: 0))
     }
 }
 
-// MARK: - ObjC
+// MARK: - Search Bar for view funcs
+extension DetailPostViewController {
+    func getSearchedPostsCount() -> Int {
+        return manager.postWithFilter.count
+    }
+
+    func searchPostsByName(_ name: String) {
+        manager.searchByNameAsync(name)
+    }
+}
+
+// MARK: - ObjC for dismiss screen
 extension DetailPostViewController {
     private func setupSwipeGesture() {
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
@@ -38,20 +56,19 @@ extension DetailPostViewController {
     @objc private func handleSwipeGesture() {
         dismiss(animated: true, completion: nil)
     }
+    func dismissScreen() {
+        dismiss(animated: true)
+    }
 }
 
+// MARK: - For using in view with alert
 extension DetailPostViewController {
     func present(_ controller: UIViewController) {
         present(controller, animated: true)
-        show(controller, sender: nil)
     }
 
     func delete(indexPath: IndexPath) {
-        dataManager.deleteSync(index: indexPath.row)
-        detailPostView.reloadData()
+        manager.deleteSync(index: indexPath.row)
+        detailPostView.setTableDataSource(detailDataSourse)
     }
-
-     func dismissScreen() {
-         dismiss(animated: true)
-     }
 }
