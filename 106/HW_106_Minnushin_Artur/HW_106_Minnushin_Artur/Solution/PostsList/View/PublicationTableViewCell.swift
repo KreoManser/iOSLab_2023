@@ -7,9 +7,13 @@
 
 import UIKit
 
+protocol AllertConnection: AnyObject {
+    func presentAllertVC(indexPath: IndexPath)
+}
+
 class PublicationTableViewCell: UITableViewCell {
-    weak var delegate: AllertConnection?
-    weak var superView: UITableView?
+    var superView: UITableView?
+    var delegate: AllertConnection?
     lazy var postPhotoImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -23,16 +27,13 @@ class PublicationTableViewCell: UITableViewCell {
         return image
     }()
     lazy var postDeleteButton: UIButton = {
+        let button = UIButton()
         let action = UIAction { [weak self] _ in
             let indexPath = self?.getIndexPath()
-            guard var indexPath = indexPath else { return }
-            self?.delegate?.presentAllertVC(indexPath: indexPath)
+            self?.delegate?.presentAllertVC(indexPath: indexPath!)
         }
-        let button = UIButton()
-        button.addAction(action, for: .touchUpInside)
-        button.setImage(UIImage(named: "deleteIcon"), for: .normal)
-        button.imageView?.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "deleteIcon"), for: .normal)
         return button
     }()
     lazy var postNameLabel: UILabel = {
@@ -88,9 +89,12 @@ class PublicationTableViewCell: UITableViewCell {
         addSubview(postDateLabel)
         setupLayout()
     }
-    func getIndexPath() -> IndexPath {
-        return (superView?.indexPath(for: self))!
-    }
+    func getIndexPath() -> IndexPath? {
+            guard let superView = superView, let indexPath = superView.indexPath(for: self) else {
+                return nil
+            }
+            return indexPath
+        }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

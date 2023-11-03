@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol AllertConnection: AnyObject {
-    func presentAllertVC(indexPath: IndexPath)
-}
-
 class PublicationView: UIView {
     weak var publicationViewController: PublicationViewController?
     lazy var publicationSearchBar: UISearchBar = {
@@ -81,8 +77,8 @@ extension PublicationView: UISearchBarDelegate {
         }
 }
 
-extension PublicationView {
-    func presentAllertVC(indexPath: IndexPath) {
+extension PublicationView: AllertConnection {
+    @objc func presentAllertVC(indexPath: IndexPath) {
         let alertVC = UIAlertController(title: "Внимание",
             message: "Вы уверены что хотите удлаить этот пост?",
             preferredStyle: .actionSheet)

@@ -20,8 +20,6 @@ class PublicationDataSource: NSObject, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "tableCell", for: indexPath) as? PublicationTableViewCell else { fatalError() }
-        cell.delegate = tableView.superview as? any AllertConnection
-        cell.superView = tableView
         let item: PostInfo
         if dataManager.isSearching == false {
             item = dataManager.syncGetAllPost()[indexPath.row]
@@ -33,6 +31,8 @@ class PublicationDataSource: NSObject, UITableViewDelegate, UITableViewDataSourc
         cell.postPhotoImageView.image = UIImage(named: item.postPhotoNmae)
         cell.postCommentLabel.text = "\(cell.postNameLabel.text!): \(item.postComment)"
         cell.postDateLabel.text = "\(item.postDate)"
+        cell.delegate = tableView.superview as? any AllertConnection
+        cell.superView = tableView
         return cell
     }
 }
