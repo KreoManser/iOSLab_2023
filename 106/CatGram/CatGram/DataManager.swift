@@ -1,8 +1,14 @@
 import Foundation
+import UIKit
 
 class DataManager: DataManagerProtocol {
 
-    private var posts: [Post] = []
+    private var posts: [Post]
+
+    init() {
+        self.posts = []
+        self.initPosts()
+    }
 
     private let saveSemaphore = DispatchSemaphore(value: 1)
     private let getSemaphore = DispatchSemaphore(value: 1)
@@ -14,6 +20,18 @@ class DataManager: DataManagerProtocol {
     private let deleteQueue = OperationQueue()
     private let searchQueue = OperationQueue()
 
+    func initPosts() {
+        if let image1 = UIImage(named: "miniCat") {
+            posts.append(Post(id: 1, image: image1, caption: "The mini Cat", date: Date(), countOfLikes: 5))
+        }
+        if let image2 = UIImage(named: "3in1Cats") {
+            posts.append(Post(id: 2, image: image2, caption: "With bro", date: Date(), countOfLikes: 11))
+        }
+        if let image3 = UIImage(named: "mrCat") {
+            posts.append(Post(id: 3, image: image3, caption: "Mr Cat", date: Date(), countOfLikes: 7))
+        }
+    }
+
     func syncSave(post: Post) {
         saveSemaphore.wait()
         posts.append(post)
@@ -21,8 +39,10 @@ class DataManager: DataManagerProtocol {
     }
     func asyncSave(post: Post, completion: @escaping (Bool) -> Void) {
         let saveOperation = BlockOperation {
-            self.posts.append(post)
-            completion(true)
+            DispatchQueue.main.async {
+                self.posts.append(post)
+                completion(true)
+            }
         }
         saveQueue.addOperation(saveOperation)
     }
@@ -36,7 +56,9 @@ class DataManager: DataManagerProtocol {
     func asyncGetPosts(completion: @escaping ([Post]) -> Void) {
         let getPostsOperation = BlockOperation {
             let gotPosts = self.posts
-            completion(gotPosts)
+            DispatchQueue.main.async {
+                completion(gotPosts)
+            }
         }
         getQueue.addOperation(getPostsOperation)
     }
@@ -51,9 +73,15 @@ class DataManager: DataManagerProtocol {
     func asyncDelete(post: Post, completion: @escaping (Bool) -> Void) {
         let deleteOperation = BlockOperation {
             if let index = self.posts.firstIndex(where: { $0.id == post.id }) {
-                self.posts.remove(at: index)
+                DispatchQueue.main.async {
+                    self.posts.remove(at: index)
+                    completion(true)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(false)
+                }
             }
-            completion(true)
         }
         deleteQueue.addOperation(deleteOperation)
     }
@@ -66,8 +94,11 @@ class DataManager: DataManagerProtocol {
     }
     func asyncSearchPostById(byId id: Int, completion: @escaping (Post?) -> Void) {
         let searchOperation = BlockOperation {
-            let foundPost = self.posts.first(where: { $0.id == id })
-            completion(foundPost)
+            var foundPost: Post?
+            DispatchQueue.main.sync {
+                foundPost = self.posts.first(where: { $0.id == id })
+                completion(foundPost)
+            }
         }
         searchQueue.addOperation(searchOperation)
     }

@@ -6,4 +6,5 @@ struct Post {
     let image: UIImage
     let caption: String
     let date: Date
+    var countOfLikes: Int
 }

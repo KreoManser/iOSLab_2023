@@ -18,6 +18,7 @@
 		283D25402AEECA6D004DFFD2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D253F2AEECA6D004DFFD2 /* DataManager.swift */; };
 		283D25462AEF10CC004DFFD2 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D25452AEF10CC004DFFD2 /* PostCollectionViewCell.swift */; };
 		283D25482AEF1104004DFFD2 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283D25472AEF1104004DFFD2 /* PostDetailViewController.swift */; };
+		2892BD662AF408C200D15EF5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2892BD652AF408C200D15EF5 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		283D253F2AEECA6D004DFFD2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		283D25452AEF10CC004DFFD2 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		283D25472AEF1104004DFFD2 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		2892BD652AF408C200D15EF5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,11 +71,12 @@
 				283D25242AEEA29A004DFFD2 /* AppDelegate.swift */,
 				283D25262AEEA29A004DFFD2 /* SceneDelegate.swift */,
 				283D25282AEEA29A004DFFD2 /* ProfileViewController.swift */,
+				283D253F2AEECA6D004DFFD2 /* DataManager.swift */,
 				283D25452AEF10CC004DFFD2 /* PostCollectionViewCell.swift */,
 				283D25472AEF1104004DFFD2 /* PostDetailViewController.swift */,
-				283D253B2AEEC5AE004DFFD2 /* Post.swift */,
-				283D253F2AEECA6D004DFFD2 /* DataManager.swift */,
 				283D253D2AEEC845004DFFD2 /* DataManagerProtocol.swift */,
+				283D253B2AEEC5AE004DFFD2 /* Post.swift */,
+				2892BD652AF408C200D15EF5 /* User.swift */,
 				283D252A2AEEA29A004DFFD2 /* Main.storyboard */,
 				283D252D2AEEA29B004DFFD2 /* Assets.xcassets */,
 				283D252F2AEEA29B004DFFD2 /* LaunchScreen.storyboard */,
@@ -182,6 +185,7 @@
 				283D253E2AEEC845004DFFD2 /* DataManagerProtocol.swift in Sources */,
 				283D25292AEEA29A004DFFD2 /* ProfileViewController.swift in Sources */,
 				283D25402AEECA6D004DFFD2 /* DataManager.swift in Sources */,
+				2892BD662AF408C200D15EF5 /* User.swift in Sources */,
 				283D25252AEEA29A004DFFD2 /* AppDelegate.swift in Sources */,
 				283D25272AEEA29A004DFFD2 /* SceneDelegate.swift in Sources */,
 				283D253C2AEEC5AE004DFFD2 /* Post.swift in Sources */,

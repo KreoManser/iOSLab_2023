@@ -34,15 +34,15 @@ class PostCollectionViewCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
 
-            imageView.heightAnchor.constraint(equalToConstant: 50.0),
-            imageView.widthAnchor.constraint(equalToConstant: 50.0),
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 
         ])
     }
 }
+
 extension UICollectionViewCell {
     static var reuseIdentifier: String {
         return String(describing: self)
