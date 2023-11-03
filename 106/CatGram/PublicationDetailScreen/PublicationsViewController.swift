@@ -29,6 +29,8 @@ class PublicationsViewController: UIViewController {
         publicationsManager?.showdeleteOptionTapped = { [weak self] alertController in
             self?.present(alertController, animated: true)
         }
+
+        publicationView?.searchBar.becomeFirstResponder()
     }
     
     private func setUpNavBar() {
@@ -40,6 +42,7 @@ class PublicationsViewController: UIViewController {
         publicationView?.tableView.delegate = publicationsManager
         publicationView?.tableView.dataSource = publicationsManager
         publicationView?.tableView.register(PublicationsTableViewCell.self, forCellReuseIdentifier: PublicationsTableViewCell.reuseIdentifier)
+        publicationView?.searchBar.delegate = publicationsManager
         view = publicationView
     }
 }

@@ -50,14 +50,20 @@ class ProfileDataManager: NSObject, DataManaging, UICollectionViewDataSource {
             completion(true)
         }
     }
-    func asyncSearchPostsByCaption(byCaption caption: String, completion: @escaping (Post) -> Void) {
+    func asyncSearchPostsByCaption(byCaption caption: String, completion: @escaping (Post?) -> Void) {
         searchQueue.addOperation {
-            let filteredPosts = self.posts.first { $0.caption == caption }
-            completion(filteredPosts!)
+            if let filteredPosts = self.posts.first( where: { $0.caption == caption }) {
+                print("post found!")
+                completion(filteredPosts)
+            } else {
+                print("post not found!")
+                completion(nil)
+            }
         }
     }
+
     func asyncDeletePost(_ post: Post, completion: @escaping (Bool) -> Void) {
-        deleteQueue.addOperation {
+        self.deleteQueue.addOperation {
             if let index = self.posts.firstIndex(where: { $0.id == post.id}) {
                 self.posts.remove(at: index)
             }
@@ -65,12 +71,13 @@ class ProfileDataManager: NSObject, DataManaging, UICollectionViewDataSource {
         }
     }
     func asyncRetrievePost(completion: @escaping ([Post]) -> Void) {
-        retrievePostQueue.addOperation {
+        self.retrievePostQueue.addOperation {
             print("posts retrieved!")
             completion(self.posts)
         }
     }
 }
+
 extension ProfileDataManager: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return retrievePost().count

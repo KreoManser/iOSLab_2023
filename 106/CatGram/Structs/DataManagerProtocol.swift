@@ -16,6 +16,6 @@ protocol DataManaging {
     /// asynchronous version of methods
     func asyncSavePost(_ post: Post, completion: @escaping(Bool) -> Void)
     func asyncRetrievePost(completion: @escaping([Post]) -> Void)
-    func asyncSearchPostsByCaption(byCaption caption: String, completion: @escaping(Post) -> Void )
+    func asyncSearchPostsByCaption(byCaption caption: String, completion: @escaping(Post?) -> Void )
     func asyncDeletePost(_ post: Post, completion: @escaping(Bool) -> Void)
 }
