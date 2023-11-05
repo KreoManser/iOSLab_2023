@@ -20,14 +20,18 @@ class ProfileViewDataSource: NSObject, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCell(
+        guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ProfileCollectionViewCell.reuseIdentifier,
-            for: indexPath) as? ProfileCollectionViewCell
+            for: indexPath) as? ProfileCollectionViewCell else {
+            return UICollectionViewCell()
+        }
 
-        let publication = DataManager.shared.syncGetAllPublications()[indexPath.row]
-        let image = publication.photo
-        cell?.configureCell(image: image)
+        DataManager.shared.asyncGetAllPublications(completion: {publications in
+            let publication = publications[indexPath.row]
+            let image = publication.photo
+            cell.configureCell(image: image)
+        })
 
-        return cell!
+        return cell
     }
 }

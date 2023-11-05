@@ -119,12 +119,15 @@ class PostsTableViewCell: UITableViewCell {
 extension PostsTableViewCell {
 
     func configureCell(with post: Publication) {
-        postImage.image = post.photo
-        descriptionLabel.text = post.text
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy"
-        dateLabel.text = dateFormatter.string(from: post.date)
+        DispatchQueue.main.async {
+            self.postImage.image = post.photo
+            self.descriptionLabel.text = post.text
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
+            self.dateLabel.text = dateFormatter.string(from: post.date)
+        }
     }
 
     func setupLayout() {

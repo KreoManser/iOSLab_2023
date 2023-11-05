@@ -20,12 +20,12 @@ class DataManager: DataManagerProtocol {
         guard let remyEat = UIImage(named: "remy_eat") else {return}
         guard let remy = UIImage(named: "remy") else {return}
         publications = [
-            Publication(photo: remyBorn, text: "Это я только родился"),
-            Publication(photo: remySleep, text: "Хочу поспать"),
-            Publication(photo: remySleeping, text: "Это я уже сплю"),
-            Publication(photo: remyWash, text: "Я помылся"),
-            Publication(photo: remyEat, text: "Тут я ем"),
-            Publication(photo: remy, text: "Добро пожаловать на мой аккаунт")
+            Publication(userId: UUID(), photo: remyWash, text: "Я помылся"),
+            Publication(userId: UUID(), photo: remyEat, text: "Тут я ем"),
+            Publication(userId: UUID(), photo: remySleeping, text: "Это я уже сплю"),
+            Publication(userId: UUID(), photo: remySleep, text: "Хочу поспать"),
+            Publication(userId: UUID(), photo: remyBorn, text: "Это я только родился"),
+            Publication(userId: UUID(), photo: remy, text: "Добро пожаловать на мой аккаунт")
         ]
     }
 
@@ -33,21 +33,18 @@ class DataManager: DataManagerProtocol {
     let semaphore = DispatchSemaphore(value: 1)
 
     func syncSavePublication(_ publication: Publication) {
+        semaphore.wait()
         publications.append(publication)
+        semaphore.signal()
     }
 
-    func asyncSavePublication(_ publication: Publication) {
+    func asyncSavePublication(_ publication: Publication, completion: @escaping () -> Void) {
 
         let operationQueue = OperationQueue()
 
         let saveOperation = BlockOperation { [weak self] in
-            self?.semaphore.wait()
-            self?.publications.append(publication)
-            self?.semaphore.signal()
-        }
-
-        saveOperation.completionBlock = {
-            print("Публикация успешно сохранена")
+            self?.syncSavePublication(publication)
+            completion()
         }
 
         operationQueue.addOperation(saveOperation)
@@ -55,97 +52,81 @@ class DataManager: DataManagerProtocol {
 
     func syncGetPublication(byId id: UUID) -> Publication? {
 
-        return publications.first { $0.id == id }
+        semaphore.wait()
+        let result = publications.first { $0.id == id }
+        semaphore.signal()
+        return result
+
     }
 
-    func asyncGetPublication(byId id: UUID) -> Publication? {
+    func asyncGetPublication(byId id: UUID, completion: @escaping (Publication?) -> Void) {
 
         var result: Publication?
         let operationQueue = OperationQueue()
 
         let getOperation = BlockOperation { [weak self] in
-            self?.semaphore.wait()
             result = self?.syncGetPublication(byId: id)
-            self?.semaphore.signal()
-        }
-
-        getOperation.completionBlock = {
-            if result != nil {
-                print("Нашелся пользователь с таким Id")
-            } else {
-                print("Пользователя с таким Id нет")
-            }
+            completion(result)
         }
 
         operationQueue.addOperation(getOperation)
-        return result
     }
 
     func syncDeletePublication(byId id: UUID) {
 
+        semaphore.wait()
         let index = publications.firstIndex { $0.id == id }
         if let index {
             publications.remove(at: index)
         }
+        semaphore.signal()
     }
 
-    func asyncDeletePublication(byId id: UUID) {
+    func asyncDeletePublication(byId id: UUID, completion: @escaping () -> Void) {
 
         let operationQueue = OperationQueue()
 
         let deleteOperation = BlockOperation { [weak self] in
-            self?.semaphore.wait()
             self?.syncDeletePublication(byId: id)
-            self?.semaphore.signal()
-        }
-
-        deleteOperation.completionBlock = {
-            print("Пользователь с таким Id удален, если он был")
+            completion()
         }
 
         operationQueue.addOperation(deleteOperation)
     }
 
     func syncGetAllPublications() -> [Publication] {
-        return publications
+        semaphore.wait()
+        let result = publications
+        semaphore.signal()
+        return result
     }
 
-    func asyncGetAllPublications() -> [Publication] {
+    func asyncGetAllPublications(completion: @escaping ([Publication]) -> Void) {
 
         let operationQueue = OperationQueue()
         var result: [Publication] = []
 
         let operation = BlockOperation { [weak self] in
-            self?.semaphore.wait()
             result = self?.syncGetAllPublications() ?? []
-            self?.semaphore.signal()
-        }
-
-        operation.completionBlock = {
-            print("Все публикации успешно получены")
+            completion(result)
         }
 
         operationQueue.addOperation(operation)
-        semaphore.wait()
-        semaphore.signal()
-
-        return result
     }
 
     func syncDeletePublication(withIndex index: Int) {
+        semaphore.wait()
         publications.remove(at: index)
+        semaphore.signal()
     }
 
-    func asyncDeletePublication(withIndex index: Int) {
+    func asyncDeletePublication(withIndex index: Int, completion: @escaping () -> Void) {
 
         let operationQueue = OperationQueue()
 
         let operation = BlockOperation { [weak self] in
             self?.publications.remove(at: index)
-        }
-
-        operation.completionBlock = {
-            print("Публикация удалена")
+            completion()
         }
 
         operationQueue.addOperation(operation)

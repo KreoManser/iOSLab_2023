@@ -51,8 +51,9 @@ extension PostsViewController {
             message: "Вы действительно хотите удалить эту публикацию?", preferredStyle: .alert)
 
         let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { [weak self] _ in
-            dataManager.asyncDeletePublication(withIndex: indexPath.row)
-            self?.postsView.reloadData()
+            dataManager.asyncDeletePublication(withIndex: indexPath.row, completion: {
+                self?.postsView.reloadData()
+            })
         }
 
         alertController.addAction(deleteAction)

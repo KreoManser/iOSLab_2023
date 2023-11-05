@@ -33,7 +33,9 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     }
 
     func configureCell(image: UIImage) {
-        imageView.image = image
+        DispatchQueue.main.async {
+            self.imageView.image = image
+        }
     }
 }
 

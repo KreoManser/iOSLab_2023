@@ -39,7 +39,9 @@ extension PostsView: UITableViewDelegate, DeleteAlertDelegate {
     }
 
     func reloadData() {
-        postTableView.reloadData()
+        DispatchQueue.main.async {
+            self.postTableView.reloadData()
+        }
     }
 
     func scrollToIndexPath(_ indexPath: IndexPath) {

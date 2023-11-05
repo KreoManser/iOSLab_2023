@@ -19,17 +19,23 @@ class PostsViewDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
+
+        guard let cell = tableView.dequeueReusableCell(
             withIdentifier: PostsTableViewCell.reuseIdentifier,
-            for: indexPath) as? PostsTableViewCell
-        cell?.selectionStyle = .none
-        cell?.indexPath = indexPath
-        cell?.delegate = tableView.superview as? any DeleteAlertDelegate
+            for: indexPath) as? PostsTableViewCell else {
+            return UITableViewCell()
+        }
 
-        let publication = DataManager.shared.syncGetAllPublications()[indexPath.row]
-        cell?.configureCell(with: publication)
+        cell.selectionStyle = .none
+        cell.indexPath = indexPath
+        cell.delegate = tableView.superview as? any DeleteAlertDelegate
 
-        return cell!
+        DataManager.shared.asyncGetAllPublications(completion: { publications in
+            let publication = publications[indexPath.row]
+            cell.configureCell(with: publication)
+        })
+
+        return cell
     }
 
 }

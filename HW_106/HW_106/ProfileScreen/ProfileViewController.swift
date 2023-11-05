@@ -21,6 +21,11 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         profileView.photoCollectionView.reloadData()
+        DataManager.shared.asyncGetAllPublications { publications in
+            DispatchQueue.main.async {
+                self.profileView.publicationsNumberLabel.text = String(publications.count)
+            }
+        }
     }
 
     override func viewDidLoad() {

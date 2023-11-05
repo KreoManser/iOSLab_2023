@@ -24,11 +24,10 @@ class ProfileView: UIView {
         return label
     }()
 
-    private lazy var publicationsNumberLabel: UILabel = {
+    lazy var publicationsNumberLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.text = "??"
         return label
     }()
 
