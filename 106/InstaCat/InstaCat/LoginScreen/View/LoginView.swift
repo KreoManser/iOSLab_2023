@@ -22,7 +22,7 @@ class LoginView: UIView {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textColor = .white
-        textField.backgroundColor = .darkGray
+        textField.backgroundColor = .systemFill
         textField.borderStyle = .roundedRect
         return textField
     }()
@@ -31,24 +31,68 @@ class LoginView: UIView {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textColor = .white
-        textField.backgroundColor = .darkGray
+        textField.backgroundColor = .systemFill
         textField.borderStyle = .roundedRect
         textField.isSecureTextEntry = true
         return textField
     }()
 
     private lazy var loginButton: UIButton = {
+        let action = UIAction { [weak self] _ in
+            self?.controller?.checkUser(
+            self?.loginTextField.text ?? "",
+            self?.passwordTextField.text ?? "")
+        }
         let button = UIButton(configuration: .filled())
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addAction(action, for: .touchUpInside)
         button.setTitle("Войти", for: .normal)
         return button
     }()
 
-    private lazy var registerButton: UIButton = {
-        let button = UIButton(configuration: .filled())
+    private lazy var splitLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "или"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 17)
+        return label
+    }()
+
+    private lazy var loginWithFacebookButton: UIButton = {
+        let button = UIButton(configuration: .plain())
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Зарегестрироваться", for: .normal)
+        button.setImage(UIImage(systemName: "f.square"), for: .normal)
+        button.setTitle("  Войти через Facebook", for: .normal)
         return button
+    }()
+
+    private lazy var registrationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "У вас нет аккаунта?"
+        label.textColor = .systemGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+
+    private lazy var registrationButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .black
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(.systemGray, for: .highlighted)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Зарегестрируйтесь.", for: .normal)
+        return button
+    }()
+
+    private lazy var footerStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [registrationLabel, registrationButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        return stackView
     }()
 
     // MARK: - Variables
@@ -60,9 +104,10 @@ class LoginView: UIView {
         super.init(frame: frame)
         backgroundColor = .black
         addSubviews(subviews: logoImageView, loginTextField, passwordTextField,
-        loginButton, registerButton)
+        loginButton, loginWithFacebookButton, splitLabel, footerStackView)
         configureUI()
         setupTextFields()
+        setupGesture()
     }
 
     required init?(coder: NSCoder) {
@@ -98,18 +143,39 @@ extension LoginView {
             loginButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
             loginButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -30),
 
-            registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
-            registerButton.heightAnchor.constraint(equalToConstant: 40),
-            registerButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            registerButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -30)
+            splitLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            splitLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+
+            loginWithFacebookButton.topAnchor.constraint(equalTo: splitLabel.bottomAnchor, constant: 7),
+            loginWithFacebookButton.heightAnchor.constraint(equalToConstant: 40),
+            loginWithFacebookButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            loginWithFacebookButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -30),
+
+            footerStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -5),
+            footerStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
         ])
+
     }
 
     private func setupTextFields() {
         loginTextField.attributedPlaceholder =
-        NSAttributedString(string: " Логин", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        NSAttributedString(string: " Логин", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
 
         passwordTextField.attributedPlaceholder =
-        NSAttributedString(string: " Пароль", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        NSAttributedString(string: " Пароль", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
     }
+
+}
+
+extension LoginView {
+
+    private func setupGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    @objc private func handleTap() {
+        endEditing(true)
+    }
+
 }

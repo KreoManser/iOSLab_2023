@@ -8,11 +8,13 @@
 import Foundation
 
 struct User {
-    let userName: String
-    let avatar: String
+    let nickname: String
+    var fullName: String
+    var avatar: String
     var posts: [Post] = []
-    var numberOfPosts: Int { return posts.count }
-    var numberOfSubscriptions: Int
+    var story: Story = Story()
     var numberOfSubscribers: Int
     var profileDescription: String
+    var subscriptions: [User] = []
+    let password: String
 }

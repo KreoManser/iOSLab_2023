@@ -7,33 +7,37 @@
 
 import UIKit
 
-class PostsViewController: UIViewController {
+class UserProfilePostsViewController: UIViewController {
     // MARK: - Variables
-    private lazy var pictureDetailView = PostsView(frame: .zero)
+    private lazy var pictureDetailView = UserProfilePostsView(frame: .zero)
 
     private var indexPath: IndexPath?
 
-    private let dataSource = TableViewDataSource()
+    private let dataSource = UserProfilePostsTableViewDataSource()
 
     // MARK: - Life cycle
     override func loadView() {
         view = pictureDetailView
+
         pictureDetailView.setupDataSource(dataSource)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         pictureDetailView.scrollToIndexPath(self.indexPath ?? IndexPath(row: 0, section: 0))
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         pictureDetailView.controller = self
     }
 
     // MARK: - Init
     init(_ indexPathToScroll: IndexPath) {
         super.init(nibName: nil, bundle: nil)
+
         self.indexPath = indexPathToScroll
     }
 
@@ -42,14 +46,16 @@ class PostsViewController: UIViewController {
     }
 }
 
-extension PostsViewController {
+extension UserProfilePostsViewController {
     func present(_ controller: UIViewController) {
         present(controller, animated: true)
     }
 
     func delete(indexPath: IndexPath) {
-        DataManager.shared.syncDelete(index: indexPath.row)
-        pictureDetailView.reloadData()
+        Task {
+            await DataManager.shared.asyncDeletePost(index: indexPath.row)
+            pictureDetailView.reloadData()
+        }
     }
 
     func dismissScreen() {
@@ -63,4 +69,5 @@ extension PostsViewController {
     func searchPostsByName(_ name: String) {
         DataManager.shared.syncSearchByName(name)
     }
+
 }

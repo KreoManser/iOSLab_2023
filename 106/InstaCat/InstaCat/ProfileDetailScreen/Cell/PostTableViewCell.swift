@@ -14,7 +14,7 @@ protocol PostTableAlertDelegate: AnyObject {
 class PostTableViewCell: UITableViewCell {
     // MARK: - UI elements
     private lazy var userImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Avatar"))
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 20
@@ -25,7 +25,6 @@ class PostTableViewCell: UITableViewCell {
     private lazy var userNameTopLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1k_mile"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 15)
         return label
@@ -89,7 +88,6 @@ class PostTableViewCell: UITableViewCell {
     private lazy var userNameBottomLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1k_mile"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 15)
         return label
@@ -122,6 +120,7 @@ class PostTableViewCell: UITableViewCell {
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
         contentView.backgroundColor = .black
         addSubviews(subviews: userImageView, userNameTopLabel,
         postImageView, deleteButton, likeButton, commentButton,
@@ -143,7 +142,20 @@ extension PostTableViewCell {
         subviews.forEach { contentView.addSubview($0) }
     }
 
-    func configureCell(_ post: Post) {
+    func configureCellForProfile(post: Post, userName: String, avatar: String) {
+        deleteButton.isHidden = false
+        userNameTopLabel.text = userName
+        userNameBottomLabel.text = userName
+        userImageView.image = UIImage(named: avatar)
+        postImageView.image = UIImage(named: post.imageName)
+        postDescriptionLabel.text = post.description
+    }
+
+    func configureCellForMainFeed(post: Post, userName: String, avatar: String) {
+        deleteButton.isHidden = true
+        userNameTopLabel.text = userName
+        userNameBottomLabel.text = userName
+        userImageView.image = UIImage(named: avatar)
         postImageView.image = UIImage(named: post.imageName)
         postDescriptionLabel.text = post.description
     }

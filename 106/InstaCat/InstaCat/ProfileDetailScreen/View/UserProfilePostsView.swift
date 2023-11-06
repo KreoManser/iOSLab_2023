@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PostsView: UIView {
+class UserProfilePostsView: UIView {
     // MARK: - UI elements
     private lazy var searchBar: UISearchBar = {
         let searchbar = UISearchBar()
@@ -29,10 +29,12 @@ class PostsView: UIView {
     }()
 
     // MARK: - Variables
-    weak var controller: PostsViewController?
+    weak var controller: UserProfilePostsViewController?
+
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         backgroundColor = .black
         addSubviews(subviews: searchBar, postTableView)
         configureUI()
@@ -44,7 +46,7 @@ class PostsView: UIView {
     }
 }
 
-extension PostsView {
+extension UserProfilePostsView {
     private func addSubviews(subviews: UIView...) {
         subviews.forEach { addSubview($0) }
     }
@@ -75,7 +77,7 @@ extension PostsView {
     }
 }
 
-extension PostsView: PostTableAlertDelegate {
+extension UserProfilePostsView: PostTableAlertDelegate {
 
     func presentAlert(indexPath: IndexPath) {
         let alert = UIAlertController(title: "Удалить пост", message: "Вы действительно хотите удалить этот пост?", preferredStyle: .actionSheet)
@@ -109,7 +111,7 @@ extension PostsView: PostTableAlertDelegate {
     }
 }
 
-extension PostsView: UISearchBarDelegate {
+extension UserProfilePostsView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let controller = controller else { return }
         controller.searchPostsByName(searchText)

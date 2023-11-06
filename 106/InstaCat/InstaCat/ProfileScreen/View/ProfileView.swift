@@ -13,7 +13,6 @@ class ProfileView: UIView {
     private lazy var userNicknameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1k_mile"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
@@ -36,7 +35,7 @@ class ProfileView: UIView {
     }()
 
     private lazy var userAvatarImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Avatar"))
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -82,7 +81,6 @@ class ProfileView: UIView {
     private lazy var numberOfPublicationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "0"
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
         return label
@@ -109,7 +107,6 @@ class ProfileView: UIView {
     private lazy var numberOfSubscribersLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "777"
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
         return label
@@ -136,7 +133,6 @@ class ProfileView: UIView {
     private lazy var numberOfSubscriptionsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1"
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
         return label
@@ -171,6 +167,7 @@ class ProfileView: UIView {
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         backgroundColor = .black
         addSubviews(subviews: userNicknameLabel, addPostButton, userMenuButton,
         userAvatarImageView, userNameLabel, userStatistickStackView, editUserInfoButton,
@@ -244,4 +241,24 @@ extension ProfileView: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         controller?.presentDetailScreen(indexPath)
     }
+}
+
+extension ProfileView {
+
+    func configureProfile(with user: User) {
+
+        userNicknameLabel.text = user.nickname
+        userAvatarImageView.image = UIImage(named: user.avatar)
+        userNameLabel.text = user.fullName
+        numberOfPublicationLabel.text = String(user.posts.count)
+        numberOfSubscriptionsLabel.text = String(user.subscriptions.count)
+        numberOfSubscribersLabel.text = String(user.numberOfSubscribers)
+    }
+
+    func updateProfileData(with user: User) {
+        numberOfPublicationLabel.text = String(user.posts.count)
+        numberOfSubscriptionsLabel.text = String(user.subscriptions.count)
+        numberOfSubscribersLabel.text = String(user.numberOfSubscribers)
+    }
+
 }
