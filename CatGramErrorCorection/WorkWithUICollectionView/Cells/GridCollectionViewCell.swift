@@ -8,7 +8,6 @@
 import UIKit
 
 class GridCollectionViewCell: UICollectionViewCell {
-    var imagePhoto: UIImage?
     lazy var image: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false

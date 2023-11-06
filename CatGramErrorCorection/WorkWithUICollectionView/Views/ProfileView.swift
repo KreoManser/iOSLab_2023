@@ -9,10 +9,11 @@ import UIKit
 
 class ProfileView: UIView {
     weak var controller: ProfileViewController?
-    var publishers: [Publisher] = []
+    var cat: Cat?
+    //var publishers: [Publisher] = []
     var count: Int = 0 {
         didSet {
-            numberPublication.text = "\(count)"
+            self.numberPublication.text = "\(self.count)"
         }
     }
     lazy var buttonForRefactorProfile: UIButton = {
@@ -163,7 +164,7 @@ class ProfileView: UIView {
     func setupNavigationBar() {
         let customBarButtonItem = UIBarButtonItem(customView: buttonForRefactorProfile )
         controller?.navigationItem.rightBarButtonItem = customBarButtonItem
-        controller?.navigationItem.title = "Cat_Boss"
+        controller?.navigationItem.title = cat?.name
         controller?.navigationItem.titleView?.tintColor = .white
         controller?.navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white
@@ -172,12 +173,15 @@ class ProfileView: UIView {
 }
 extension ProfileView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return publishers.count
+        guard let newCat = cat else {return 0}
+        return newCat.publishers.count
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            guard let publishers = cat?.publishers else {return UICollectionViewCell()}
+            
         if let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: GridCollectionViewCell.reuseIdentifier,
             for: indexPath

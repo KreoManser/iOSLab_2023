@@ -9,7 +9,7 @@ import UIKit
 class PublishersView: UIView {
     weak var controller: PublisherViewController?
     var publishers: [Publisher] = []
-    var array = DataManager.publishers
+//    var array = DataManager.publishers
     lazy var tablePublisher: UITableView =  {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -27,15 +27,8 @@ class PublishersView: UIView {
         setupLayout()
     }
     required init?(coder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
-    }
-    func loadData() {
-        DataManager.getPublishers { [weak self] publishers in
-            DispatchQueue.main.async {
-                self?.publishers = publishers
-            }
-        }
-        tablePublisher.reloadData()
     }
     func setupLayout() {
         NSLayoutConstraint.activate([
@@ -45,7 +38,6 @@ class PublishersView: UIView {
             tablePublisher.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
-
 }
 extension PublishersView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

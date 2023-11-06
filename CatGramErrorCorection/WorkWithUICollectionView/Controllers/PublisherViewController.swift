@@ -6,16 +6,19 @@
 //
 
 import UIKit
-protocol PublishersDelegate: AnyObject {
+protocol UpdateDataDelegate: AnyObject {
     func updateData()
 }
-class PublisherViewController: UIViewController, PublisherCellDelegate, ManagerDelegate {
-    weak var delegate1: PublishersDelegate?
+class PublisherViewController: UIViewController, PublisherCellDelegate, UpdateDataDelegate {
+    weak var delegate1: UpdateDataDelegate?
     func updateData() {
-        DataManager.asyncGetPublisher { publishers in
-            self.delegate1?.updateData()
-            self.publishersView.publishers = publishers
-        }
+//        DataManager.asyncGetPublisher { publishers in
+//            self.delegate1?.updateData()
+//            self.publishersView.publishers = publishers
+//        }
+        guard let newCat = DataManager.currentCat else{return}
+        publishersView.publishers = newCat.publishers
+        
     }
     weak var delegate: MainUpdateWithOperationDelegate?
     lazy var publishersView = PublishersView(frame: .zero)
@@ -31,7 +34,7 @@ class PublisherViewController: UIViewController, PublisherCellDelegate, ManagerD
                 self.publishersView.tablePublisher.beginUpdates()
                 self.publishersView.tablePublisher.deleteRows(at: [newIndexPath], with: .fade)
                 self.publishersView.tablePublisher.endUpdates()
-                self.delegate?.deletePost()
+                self.delegate?.updateTable()
             }
         }
     }
@@ -40,6 +43,7 @@ class PublisherViewController: UIViewController, PublisherCellDelegate, ManagerD
         publishersView.controller = self
         managerData.delegate = self
         updateData()
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

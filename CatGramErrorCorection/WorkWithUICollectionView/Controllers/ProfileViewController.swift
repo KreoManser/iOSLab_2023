@@ -1,30 +1,49 @@
 import UIKit
 protocol MainUpdateWithOperationDelegate: AnyObject {
-    func deletePost()
+    func updateTable()
 }
-class ProfileViewController: UIViewController, MainUpdateWithOperationDelegate, ManagerDelegate, PublishersDelegate {
+class ProfileViewController: UIViewController, MainUpdateWithOperationDelegate /*UpdateDataDelegate */ {
     lazy  var profileView = ProfileView(frame: .zero)
     weak var delegate: MainUpdateWithOperationDelegate?
     override func loadView() {
         super.loadView()
         view = profileView
     }
-    func updateData() {
-        DataManager.asyncGetPublisher { publishers in
-            self.profileView.publishers = publishers
-            DispatchQueue.main.async {
-                self.profileView.count = publishers.count
-            }
-        }
-    }
+    //var publishers: [Publisher] = []
+//    func updateData() {
+//        DataManager.asyncGetPublisher { publishers in
+//            self.profileView.publishers = publishers
+//           
+//            DispatchQueue.main.async {
+//                self.profileView.count = publishers.count
+//                self.updateTable()
+//            }
+//           
+//        }
+//    }
+//    func updateData() {
+//        Task {
+//            publishers = await DataManager.asyncGetPublisher1()
+//            await setData()
+//        }
+//    }
+//    func setData() async {
+//        self.profileView.publishers = self.publishers
+//        self.profileView.count = self.publishers.count
+//    }
      override func viewDidLoad() {
          super.viewDidLoad()
          profileView.controller = self
          profileView.setupNavigationBar()
-         updateData()
+         //updateData()
      }
-    func deletePost() {
+    func updateTable() {
         profileView.gridCollectionView.reloadData()
+    }
+    func setData(cat: Cat) {
+        //guard let newPublishers = publishers else {return}
+        profileView.cat = cat
+        profileView.count = cat.publishers.count
     }
  }
 extension ProfileViewController: UICollectionViewDelegate {
@@ -32,7 +51,7 @@ extension ProfileViewController: UICollectionViewDelegate {
         let publisherViewController = PublisherViewController()
         publisherViewController.selectedIndexPath = indexPath
         publisherViewController.delegate = self
-        publisherViewController.delegate1 = self
+        //publisherViewController.delegate1 = self
         present(publisherViewController, animated: true, completion: nil)
     }
 }
