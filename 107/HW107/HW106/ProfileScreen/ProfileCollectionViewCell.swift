@@ -35,7 +35,7 @@ extension ProfileCollectionViewCell {
     }
 
     func configureCell(_ post: Post) {
-        profilePostImageView.image = post.postImage
+        profilePostImageView.image = UIImage(named: post.postImageName)
     }
 
     static var reuseIdentifier: String {

@@ -3,7 +3,7 @@ import UIKit
 
 struct Post {
     let id: Int
-    let postImage: UIImage
+    let postImageName: String
     let postDescription: String
     let postDate: String
 }

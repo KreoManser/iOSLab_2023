@@ -16,25 +16,55 @@ protocol DataManagerProtocol {
 
     func syncDelete(_ postID: Int)
     func asyncDelete(_ postID: Int)
+
+    func asyncGetPostsByUser(login: String) -> [Post]
+    func syncGetPostsByUser(login: String) -> [Post]
 }
 
 class DataManager: DataManagerProtocol {
-    private var posts: [Post] = [
-    Post(id: 1, postImage: UIImage(named: "Image_2")!,
+    private var allPosts: [Post] = []
+    private var timerglotPosts: [Post] = [
+    Post(id: 1, postImageName: "Image_2",
     postDescription: "My first post", postDate: "03.01.2023"),
-    Post(id: 2, postImage: UIImage(named: "Image_3")!,
+    Post(id: 2, postImageName: "Image_3",
     postDescription: "My second post", postDate: "11.02.2023"),
-    Post(id: 3, postImage: UIImage(named: "Image_5")!,
+    Post(id: 3, postImageName: "Image_5",
     postDescription: "My third post", postDate: "23.03.2023"),
-    Post(id: 4, postImage: UIImage(named: "Image_6")!,
-    postDescription: "My fourth post", postDate: "05.04.2023"),
-    Post(id: 5, postImage: UIImage(named: "Image_7")!,
+    Post(id: 4, postImageName: "Image_6",
+    postDescription: "My fourth post", postDate: "05.04.2023")
+    ]
+
+    private var gigaChadPosts: [Post] = [
+    Post(id: 1, postImageName: "Image_7",
     postDescription: "My fith post", postDate: "06.05.2023"),
-    Post(id: 6, postImage: UIImage(named: "Image_8")!,
+    Post(id: 2, postImageName: "Image_8",
     postDescription: "My sixth post", postDate: "12.07.2023"),
-    Post(id: 7, postImage: UIImage(named: "Image_9")!,
+    Post(id: 3, postImageName: "Image_9",
     postDescription: "My seventh post", postDate: "17.08.2023")
     ]
+
+    private var theBenkoPosts: [Post] = [
+    Post(id: 1, postImageName: "Image_7",
+    postDescription: "My fith post", postDate: "06.05.2023"),
+    Post(id: 2, postImageName: "Image_8",
+    postDescription: "My sixth post", postDate: "12.07.2023"),
+    Post(id: 3, postImageName: "Image_9",
+    postDescription: "My seventh post", postDate: "17.08.2023"),
+    Post(id: 4, postImageName: "Image_5",
+    postDescription: "My third post", postDate: "23.03.2023"),
+    Post(id: 5, postImageName: "Image_6",
+    postDescription: "My fourth post", postDate: "05.04.2023")
+    ]
+    private var postDict: [String: [Post]] = [:]
+    private init() {
+        if postDict.isEmpty {
+            postDict["Timerglot"] = timerglotPosts
+            postDict["Giga_chad"] = gigaChadPosts
+            postDict["The_benko"] = theBenkoPosts
+        }
+        self.setPostsFromDict()
+    }
+    lazy var posts: [Post] = syncGetPostsByUser(login: LoginDataManager.curUser)
     private var searchedPosts: [Post] = []
     static let shared = DataManager()
     var isSearching: Bool = false
@@ -133,5 +163,32 @@ class DataManager: DataManagerProtocol {
         }
 
         operationQueue.addOperation(operation)
+    }
+
+    private func setPostsFromDict() {
+        for posts in postDict {
+            for post in posts.value {
+                self.allPosts.append(post)
+            }
+        }
+    }
+
+    func asyncGetPostsByUser(login: String) -> [Post] {
+        var resultPosts: [Post] = []
+        let operationQueue = OperationQueue()
+        let operation = BlockOperation { [self] in
+            resultPosts = postDict[login] ?? []
+        }
+
+        operation.completionBlock = {
+            print("Post by login have been received!")
+        }
+
+        operationQueue.addOperation(operation)
+        return resultPosts
+    }
+
+    func syncGetPostsByUser(login: String) -> [Post] {
+        return postDict[login] ?? []
     }
 }

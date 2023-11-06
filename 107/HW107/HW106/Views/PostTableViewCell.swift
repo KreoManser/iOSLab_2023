@@ -81,7 +81,8 @@ class PostTableViewCell: UITableViewCell {
 
     private lazy var postDeleteButton: UIButton = {
         let action = UIAction { [weak self] _ in
-            self?.delegate?.presentAlert(indexPath: (self?.getIndexPath())!)
+            guard let index = self?.getIndexPath() else { return }
+            self?.delegate?.presentAlert(indexPath: (index))
         }
         let button = UIButton()
         button.addAction(action, for: .touchUpInside)
@@ -108,7 +109,8 @@ class PostTableViewCell: UITableViewCell {
 
 extension PostTableViewCell {
     func getIndexPath() -> IndexPath {
-        return (superView?.indexPath(for: self))!
+        guard let indexPath = superView?.indexPath(for: self) else { return IndexPath() }
+        return indexPath
     }
 
     static var reuseIdentifier: String {
@@ -116,7 +118,7 @@ extension PostTableViewCell {
     }
 
     func configureCell(_ post: Post) {
-        postImageView.image = post.postImage
+        postImageView.image = UIImage(named: post.postImageName)
         postDescriptionLabel.text = post.postDescription
         postDateLabel.text = post.postDate
     }

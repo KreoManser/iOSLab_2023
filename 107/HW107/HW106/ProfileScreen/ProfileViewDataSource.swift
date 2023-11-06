@@ -10,9 +10,10 @@ class ProfileViewDataSource: NSObject, UICollectionViewDataSource {
     UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.reuseIdentifier,
         for: indexPath) as? ProfileCollectionViewCell
+        guard let cell = cell else { return UICollectionViewCell() }
         let post = DataManager.shared.syncGetPosts()[indexPath.row]
-        cell?.configureCell(post)
+        cell.configureCell(post)
 
-        return cell!
+        return cell
     }
 }

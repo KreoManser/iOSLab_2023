@@ -18,8 +18,8 @@ class PostViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        postView.scrollToPost(self.indexPath!)
+        guard let index = self.indexPath else { return }
+        postView.scrollToPost(index)
     }
 
     init(indexPathToScroll: IndexPath) {
