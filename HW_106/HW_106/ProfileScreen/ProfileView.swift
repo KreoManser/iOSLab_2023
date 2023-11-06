@@ -65,14 +65,12 @@ class ProfileView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.text = "Рэми"
         return label
     }()
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "У меня лапки"
         return label
     }()
 
@@ -101,6 +99,7 @@ class ProfileView: UIView {
     }()
 
     weak var controller: ProfileViewController?
+    var user: User?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -115,6 +114,15 @@ class ProfileView: UIView {
 
 extension ProfileView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
+    func setupProfile(avatar: UIImage?, subscribers: Int, subscriptions: Int, name: String, description: String) {
+
+        avatarImageView.image = avatar
+        subscribersNumberLabel.text = String(subscribers)
+        subscriptionsNumberLabel.text = String(subscriptions)
+        nameLabel.text = name
+        descriptionLabel.text = description
+    }
+
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -123,7 +131,8 @@ extension ProfileView: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let postsViewController = PostsViewController(indexPath)
+        guard let user else { return }
+        let postsViewController = PostsViewController(indexPath, user)
         controller?.navigationController?.pushViewController(postsViewController, animated: true)
 
     }

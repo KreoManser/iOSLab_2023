@@ -10,12 +10,14 @@ import UIKit
 class PostsViewController: UIViewController {
 
     let postsView = PostsView()
-    let postsViewDataSource = PostsViewDataSource.shared
+    let postsViewDataSource = PostsViewDataSource()
     private var indexPath: IndexPath?
+    private var user: User?
 
-    init(_ index: IndexPath) {
+    init(_ index: IndexPath, _ user: User) {
         super.init(nibName: nil, bundle: nil)
         self.indexPath = index
+        self.user = user
     }
 
     required init?(coder: NSCoder) {
@@ -30,7 +32,8 @@ class PostsViewController: UIViewController {
     override func loadView() {
         view = postsView
         postsView.controller = self
-        postsView.setupDataSourse(postsViewDataSource)
+        postsViewDataSource.user = self.user
+        postsView.setupDataSource(postsViewDataSource)
     }
 
     override func viewDidLoad() {
@@ -44,16 +47,16 @@ class PostsViewController: UIViewController {
 extension PostsViewController {
 
     func presentAlert(_ indexPath: IndexPath) {
-
         let dataManager = DataManager.shared
 
         let alertController = UIAlertController(title: "Удалить публикацию",
             message: "Вы действительно хотите удалить эту публикацию?", preferredStyle: .alert)
 
         let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { [weak self] _ in
-            dataManager.asyncDeletePublication(withIndex: indexPath.row, completion: {
-                self?.postsView.reloadData()
-            })
+            guard let user = self?.user else { return }
+            guard let publication = dataManager.syncGetPublications(byUserId: user.id)?[indexPath.row] else { return }
+            dataManager.syncDeletePublication(byId: publication.id)
+            self?.postsView.reloadData()
         }
 
         alertController.addAction(deleteAction)

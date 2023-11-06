@@ -16,8 +16,8 @@ protocol FeedDataManagerProtocol {
     func syncGetAllPublications() -> [Publication]
     func asyncGetAllPublications() async -> [Publication]
 
-    func syncGetAllPublications(byUserId userId: UUID) -> [Publication]
-    func asyncGetAllPublications(byUserId userId: UUID) async -> [Publication]
+    func syncGetAllPublications(byUserId userId: String) -> [Publication]
+    func asyncGetAllPublications(byUserId userId: String) async -> [Publication]
 
     func syncDeletePublication(withIndex index: Int)
     func asyncDeletePublication(withIndex index: Int) async

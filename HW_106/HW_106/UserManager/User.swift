@@ -9,7 +9,12 @@ import Foundation
 import UIKit
 
 struct User {
-    let id = UUID()
+    let id: String
     let login: String
     let password: String
+    let avatarImage: UIImage?
+    let numberOfSubscribers: Int
+    let numberOfSubscriptions: Int
+    let name: String
+    let description: String
 }

@@ -19,4 +19,7 @@ protocol UserDataManagerProtocol {
     func syncGetAllUsers() -> [User]
     func asyncGetAllUsers() async -> [User]
 
+    func syncGetUser(byId id: String) -> User?
+    func asyncGetUser(byId id: String) async -> User?
+
 }

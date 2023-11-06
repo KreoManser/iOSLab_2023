@@ -10,8 +10,8 @@ import UIKit
 
 struct Publication {
     let id: UUID = UUID()
-    let userId: UUID
-    let photo: UIImage
+    let userId: String
+    let photo: UIImage?
     let text: String
     let date: Date = Date()
 }

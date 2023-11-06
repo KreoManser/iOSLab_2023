@@ -12,8 +12,16 @@ class FeedDataManager: FeedDataManagerProtocol {
 
     static let shared = FeedDataManager()
 
-    private init() {}
-
+    private init() {
+        publications = [
+            Publication(userId: "1", photo: UIImage(named: "remy_wash"), text: "Я помылся"),
+            Publication(userId: "1", photo: UIImage(named: "remy_eat"), text: "Тут я ем"),
+            Publication(userId: "1", photo: UIImage(named: "remy_sleeping"), text: "Это я уже сплю"),
+            Publication(userId: "1", photo: UIImage(named: "remy_sleep"), text: "Хочу поспать"),
+            Publication(userId: "1", photo: UIImage(named: "remy_born"), text: "Это я только родился"),
+            Publication(userId: "1", photo: UIImage(named: "remy"), text: "Добро пожаловать на мой аккаунт")
+        ]
+    }
     private var publications: [Publication] = []
     private let locker = NSLock()
 
@@ -53,7 +61,7 @@ class FeedDataManager: FeedDataManagerProtocol {
         }
     }
 
-    func syncGetAllPublications(byUserId userId: UUID) -> [Publication] {
+    func syncGetAllPublications(byUserId userId: String) -> [Publication] {
 
         locker.lock()
         let result = publications.filter { $0.userId == userId}
@@ -61,7 +69,7 @@ class FeedDataManager: FeedDataManagerProtocol {
         return result
     }
 
-    func asyncGetAllPublications(byUserId userId: UUID) async -> [Publication] {
+    func asyncGetAllPublications(byUserId userId: String) async -> [Publication] {
 
         let queue = OperationQueue()
 

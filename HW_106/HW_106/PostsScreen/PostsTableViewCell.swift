@@ -22,7 +22,6 @@ class PostsTableViewCell: UITableViewCell {
 
     private lazy var avatarImage: UIImageView = {
         let imageView = RoundImageView()
-        imageView.image = UIImage(named: "remy")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -54,7 +53,6 @@ class PostsTableViewCell: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "like")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
-        // button.imageView?.tintColor = .white
         return button
     }()
 
@@ -86,7 +84,6 @@ class PostsTableViewCell: UITableViewCell {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "remy_fluffy"
         return label
     }()
 
@@ -118,15 +115,19 @@ class PostsTableViewCell: UITableViewCell {
 
 extension PostsTableViewCell {
 
-    func configureCell(with post: Publication) {
+    func configureCell(with post: Publication, _ user: User) {
 
         DispatchQueue.main.async {
             self.postImage.image = post.photo
             self.descriptionLabel.text = post.text
 
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMM dd, yyyy"
+            dateFormatter.dateFormat = "MMMM d, yyyy"
             self.dateLabel.text = dateFormatter.string(from: post.date)
+
+            self.avatarImage.image = user.avatarImage
+            self.nameLabel.text = user.login
+            self.nameUnderPostLabel.text = user.login
         }
     }
 

@@ -23,4 +23,7 @@ protocol DataManagerProtocol {
 
     func syncDeletePublication(withIndex index: Int)
     func asyncDeletePublication(withIndex index: Int, completion: @escaping () -> Void)
+
+    func syncGetPublications(byUserId userId: String) -> [Publication]?
+    func asyncGetPublications(byUserId userId: String) async -> [Publication]?
 }

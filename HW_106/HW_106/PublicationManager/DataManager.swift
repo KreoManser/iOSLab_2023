@@ -13,29 +13,35 @@ class DataManager: DataManagerProtocol {
     static let shared = DataManager()
 
     private init() {
-        guard let remyBorn = UIImage(named: "remy_born") else {return}
-        guard let remySleep = UIImage(named: "remy_sleep") else {return}
-        guard let remySleeping = UIImage(named: "remy_sleeping") else {return}
-        guard let remyWash = UIImage(named: "remy_wash") else {return}
-        guard let remyEat = UIImage(named: "remy_eat") else {return}
-        guard let remy = UIImage(named: "remy") else {return}
         publications = [
-            Publication(userId: UUID(), photo: remyWash, text: "Я помылся"),
-            Publication(userId: UUID(), photo: remyEat, text: "Тут я ем"),
-            Publication(userId: UUID(), photo: remySleeping, text: "Это я уже сплю"),
-            Publication(userId: UUID(), photo: remySleep, text: "Хочу поспать"),
-            Publication(userId: UUID(), photo: remyBorn, text: "Это я только родился"),
-            Publication(userId: UUID(), photo: remy, text: "Добро пожаловать на мой аккаунт")
+            Publication(userId: "1", photo: UIImage(named: "remy_wash"), text: "Я помылся"),
+            Publication(userId: "2", photo: UIImage(named: "warmup"), text: "Утро начинается с разминки"),
+            Publication(userId: "3", photo: UIImage(named: "catAndSea"), text: "я у моря"),
+            Publication(userId: "1", photo: UIImage(named: "remy_eat"), text: "Тут я ем"),
+            Publication(userId: "2", photo: UIImage(named: "fastCat"), text: "Я настолько быстр, что даже камера не может меня уловить"),
+            Publication(userId: "3", photo: UIImage(named: "catInEgypt"), text: "нахожусь на родине своих предков"),
+            Publication(userId: "1", photo: UIImage(named: "remy_sleeping"), text: "Это я уже сплю"),
+            Publication(userId: "2", photo: UIImage(named: "powerfulcat"), text: "Моя любовь к спорту началась с самого детства"),
+            Publication(userId: "3", photo: UIImage(named: "catWithPiza"), text: "никакого фотошопа - я удерживаю пизанскую башню"),
+            Publication(userId: "1", photo: UIImage(named: "remy_sleep"), text: "Хочу поспать"),
+            Publication(userId: "2", photo: UIImage(named: "catWithOwner"), text: "Хозяин тоже поддерживает мою любовь к спорту"),
+            Publication(userId: "3", photo: UIImage(named: "catInJapan"), text: "Люблю Японию"),
+            Publication(userId: "1", photo: UIImage(named: "remy_born"), text: "Это я только родился"),
+            Publication(userId: "2", photo: UIImage(named: "dinner"), text: "Обэд спортсмэна"),
+            Publication(userId: "3", photo: UIImage(named: "catInParis"), text: "я в пагиже"),
+            Publication(userId: "1", photo: UIImage(named: "remy"), text: "Добро пожаловать на мой аккаунт"),
+            Publication(userId: "3", photo: UIImage(named: "catInRussia"), text: "встретил своих друзей в России"),
+            Publication(userId: "3", photo: UIImage(named: "catInSpace"), text: "Ухожу на пару дней из соц.сетей: отправляюсь в космос")
         ]
     }
 
     private var publications: [Publication] = []
-    let semaphore = DispatchSemaphore(value: 1)
+    let locker = NSLock()
 
     func syncSavePublication(_ publication: Publication) {
-        semaphore.wait()
+        locker.lock()
         publications.append(publication)
-        semaphore.signal()
+        locker.unlock()
     }
 
     func asyncSavePublication(_ publication: Publication, completion: @escaping () -> Void) {
@@ -52,9 +58,9 @@ class DataManager: DataManagerProtocol {
 
     func syncGetPublication(byId id: UUID) -> Publication? {
 
-        semaphore.wait()
+        locker.lock()
         let result = publications.first { $0.id == id }
-        semaphore.signal()
+        locker.unlock()
         return result
 
     }
@@ -74,12 +80,12 @@ class DataManager: DataManagerProtocol {
 
     func syncDeletePublication(byId id: UUID) {
 
-        semaphore.wait()
+        locker.lock()
         let index = publications.firstIndex { $0.id == id }
         if let index {
             publications.remove(at: index)
         }
-        semaphore.signal()
+        locker.unlock()
     }
 
     func asyncDeletePublication(byId id: UUID, completion: @escaping () -> Void) {
@@ -95,9 +101,9 @@ class DataManager: DataManagerProtocol {
     }
 
     func syncGetAllPublications() -> [Publication] {
-        semaphore.wait()
+        locker.lock()
         let result = publications
-        semaphore.signal()
+        locker.unlock()
         return result
     }
 
@@ -115,9 +121,9 @@ class DataManager: DataManagerProtocol {
     }
 
     func syncDeletePublication(withIndex index: Int) {
-        semaphore.wait()
+        locker.lock()
         publications.remove(at: index)
-        semaphore.signal()
+        locker.unlock()
     }
 
     func asyncDeletePublication(withIndex index: Int, completion: @escaping () -> Void) {
@@ -130,5 +136,24 @@ class DataManager: DataManagerProtocol {
         }
 
         operationQueue.addOperation(operation)
+    }
+
+    func syncGetPublications(byUserId userId: String) -> [Publication]? {
+
+        locker.lock()
+        let result = publications.filter { $0.userId == userId }
+        locker.unlock()
+        return result
+    }
+
+    func asyncGetPublications(byUserId userId: String) async -> [Publication]? {
+
+        let queue = OperationQueue()
+
+        return await withCheckedContinuation { continuation in
+            queue.addOperation {
+                continuation.resume(returning: self.syncGetPublications(byUserId: userId))
+            }
+        }
     }
 }

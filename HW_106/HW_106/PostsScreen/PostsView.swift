@@ -52,7 +52,7 @@ extension PostsView: UITableViewDelegate, DeleteAlertDelegate {
         return 550
     }
 
-    func setupDataSourse(_ dataSource: UITableViewDataSource) {
+    func setupDataSource(_ dataSource: UITableViewDataSource) {
         postTableView.dataSource = dataSource
     }
 
