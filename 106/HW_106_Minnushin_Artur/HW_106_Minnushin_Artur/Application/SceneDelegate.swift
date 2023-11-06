@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let viewController = InstagramProfileViewController()
+        let viewController = AuthorizationViewController()
         let navigationVC = UINavigationController(rootViewController: viewController)
         window?.rootViewController = navigationVC
         window?.makeKeyAndVisible()

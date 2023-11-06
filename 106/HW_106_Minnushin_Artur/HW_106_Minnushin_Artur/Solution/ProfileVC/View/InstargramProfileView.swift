@@ -155,6 +155,7 @@ class InstargramProfileView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func 
 }
 
 extension InstargramProfileView: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {

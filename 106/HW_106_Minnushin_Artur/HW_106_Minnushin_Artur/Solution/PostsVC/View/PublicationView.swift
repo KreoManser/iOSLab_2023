@@ -78,7 +78,7 @@ extension PublicationView: UISearchBarDelegate {
 }
 
 extension PublicationView: AllertConnection {
-    @objc func presentAllertVC(indexPath: IndexPath) {
+    func presentAllertVC(indexPath: IndexPath) {
         let alertVC = UIAlertController(title: "Внимание",
             message: "Вы уверены что хотите удлаить этот пост?",
             preferredStyle: .actionSheet)

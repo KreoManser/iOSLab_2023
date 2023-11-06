@@ -22,6 +22,7 @@ class InstagramProfileViewController: UIViewController {
     override func loadView() {
         view = profileView
     }
+    
     func publicationPresintation(indexPath: IndexPath) {
         let publicationVC = PublicationViewController(indexPath: indexPath)
         publicationVC.modalPresentationStyle = .overFullScreen

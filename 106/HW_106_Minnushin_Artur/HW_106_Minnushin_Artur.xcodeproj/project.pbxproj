@@ -21,6 +21,10 @@
 		1485BD052AF4218300C8AF42 /* PublicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD042AF4218300C8AF42 /* PublicationView.swift */; };
 		1485BD072AF421BE00C8AF42 /* PublicationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD062AF421BE00C8AF42 /* PublicationTableViewCell.swift */; };
 		1485BD092AF4221600C8AF42 /* PublicationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD082AF4221600C8AF42 /* PublicationDataSource.swift */; };
+		1485BD0F2AF7F1E200C8AF42 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD0E2AF7F1E200C8AF42 /* AuthorizationViewController.swift */; };
+		1485BD112AF7F20700C8AF42 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD102AF7F20700C8AF42 /* AuthorizationView.swift */; };
+		1485BD132AF7F23500C8AF42 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD122AF7F23500C8AF42 /* AuthorizationManager.swift */; };
+		1485BD152AF83FD800C8AF42 /* UserDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD142AF83FD800C8AF42 /* UserDataBase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,10 @@
 		1485BD042AF4218300C8AF42 /* PublicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationView.swift; sourceTree = "<group>"; };
 		1485BD062AF421BE00C8AF42 /* PublicationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationTableViewCell.swift; sourceTree = "<group>"; };
 		1485BD082AF4221600C8AF42 /* PublicationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationDataSource.swift; sourceTree = "<group>"; };
+		1485BD0E2AF7F1E200C8AF42 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
+		1485BD102AF7F20700C8AF42 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
+		1485BD122AF7F23500C8AF42 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		1485BD142AF83FD800C8AF42 /* UserDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataBase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +109,8 @@
 		1465F74F2AEEA03A00B455F7 /* Solution */ = {
 			isa = PBXGroup;
 			children = (
-				1485BCE62AF3E3E600C8AF42 /* PostsList */,
+				1485BD0A2AF7F13F00C8AF42 /* AuthorizationVC */,
+				1485BCE62AF3E3E600C8AF42 /* PostsVC */,
 				1465F7552AEF044B00B455F7 /* ProfileVC */,
 			);
 			path = Solution;
@@ -144,14 +153,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		1485BCE62AF3E3E600C8AF42 /* PostsList */ = {
+		1485BCE62AF3E3E600C8AF42 /* PostsVC */ = {
 			isa = PBXGroup;
 			children = (
 				1485BCFD2AF4204F00C8AF42 /* Controller */,
 				1485BCFC2AF4204A00C8AF42 /* View */,
 				1485BCFB2AF4204500C8AF42 /* Model */,
 			);
-			path = PostsList;
+			path = PostsVC;
 			sourceTree = "<group>";
 		};
 		1485BCFB2AF4204500C8AF42 /* Model */ = {
@@ -175,6 +184,41 @@
 			isa = PBXGroup;
 			children = (
 				1485BD022AF4213700C8AF42 /* PublicationViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1485BD0A2AF7F13F00C8AF42 /* AuthorizationVC */ = {
+			isa = PBXGroup;
+			children = (
+				1485BD0D2AF7F1AF00C8AF42 /* Controller */,
+				1485BD0C2AF7F1A300C8AF42 /* View */,
+				1485BD0B2AF7F19900C8AF42 /* Model */,
+			);
+			path = AuthorizationVC;
+			sourceTree = "<group>";
+		};
+		1485BD0B2AF7F19900C8AF42 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1485BD122AF7F23500C8AF42 /* AuthorizationManager.swift */,
+				1485BD142AF83FD800C8AF42 /* UserDataBase.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1485BD0C2AF7F1A300C8AF42 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1485BD102AF7F20700C8AF42 /* AuthorizationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1485BD0D2AF7F1AF00C8AF42 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1485BD0E2AF7F1E200C8AF42 /* AuthorizationViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -274,16 +318,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				1485BD072AF421BE00C8AF42 /* PublicationTableViewCell.swift in Sources */,
+				1485BD152AF83FD800C8AF42 /* UserDataBase.swift in Sources */,
 				1465F7752AF16E0900B455F7 /* CollectionViewCell.swift in Sources */,
+				1485BD132AF7F23500C8AF42 /* AuthorizationManager.swift in Sources */,
 				1465F7742AF16CDA00B455F7 /* ProfileCollectionDataSOurce.swift in Sources */,
 				1485BD032AF4213700C8AF42 /* PublicationViewController.swift in Sources */,
 				1485BD052AF4218300C8AF42 /* PublicationView.swift in Sources */,
+				1485BD0F2AF7F1E200C8AF42 /* AuthorizationViewController.swift in Sources */,
 				1465F73D2AEE59FC00B455F7 /* InstagramProfileViewController.swift in Sources */,
 				1465F7392AEE59FC00B455F7 /* AppDelegate.swift in Sources */,
 				1465F7682AF0FB4800B455F7 /* DataBase.swift in Sources */,
 				1465F73B2AEE59FC00B455F7 /* SceneDelegate.swift in Sources */,
 				1485BCF82AF3EACD00C8AF42 /* InstargramProfileView.swift in Sources */,
 				1465F76C2AF1014B00B455F7 /* DataManager.swift in Sources */,
+				1485BD112AF7F20700C8AF42 /* AuthorizationView.swift in Sources */,
 				1485BD092AF4221600C8AF42 /* PublicationDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

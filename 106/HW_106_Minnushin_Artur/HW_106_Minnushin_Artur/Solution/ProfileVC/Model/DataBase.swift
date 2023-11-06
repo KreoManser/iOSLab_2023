@@ -7,13 +7,6 @@
 
 import Foundation
 
-struct PostInfo {
-    let postID: Int
-    let postPhotoNmae: String
-    let postDate: String
-    let postComment: String
-}
-
 class DataBase {
     func getData() -> [PostInfo] {
         [
