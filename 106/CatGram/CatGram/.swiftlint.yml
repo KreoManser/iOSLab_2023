@@ -22,7 +22,6 @@ opt_in_rules:
   - force_try # Включить правило для проверки неявных try
   - implicitly_unwrapped_optional # Включить правило для неявно извлеченных опционалов
   - operator_usage_whitespace # Включить правило проверки whitespaces
-  - unused_capture_list
 
 indentation_width:
   indentation_width: 4
@@ -61,10 +60,7 @@ type_body_length:
   error: 600
 
 # Настройки форматирования
-indentation: spaces
+indentation: 4
 line_length:
-  - 150
-
+  - 180
 line_length_allow_non_comment_only_lines: true
-
-
