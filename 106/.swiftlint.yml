@@ -1,0 +1,54 @@
+disabled_rules:
+  - trailing_newline
+  - todo
+  - cyclomatic_complexity
+
+excluded:
+  - Carthage
+  - Pods
+
+identifier_name:
+  excluded:
+    - i
+    - id
+    - x
+    - y
+    - z
+
+opt_in_rules:
+  - colon
+  - control_statement
+  - force_cast
+  - force_try
+  - indentation_width
+  - operator_usage_whitespace
+  - unused_capture_list
+  - implicitly_unwrapped_optional
+  - force_unwrapping
+
+custom_rules:
+  array_constructor:
+    name: "Array/Dictionary initializer"
+    regex: '[let,var] .+ = (\[.+\]\(\))'
+    capture_group: 1
+    message: "Неверная аннотация инициализации массива/словаря"
+    severity: error
+
+force_unwrapping:
+  severity: error
+
+reporter: "xcode"
+
+function_body_length:
+  warning: 100
+  error: 200
+line_length:
+  warning: 100
+  error: 150
+  ignores_non_comment_lines: true
+type_body_length:
+  warning: 400
+  error: 600
+
+line_length:
+  - 150
