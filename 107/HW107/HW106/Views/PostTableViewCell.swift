@@ -8,14 +8,13 @@ class PostTableViewCell: UITableViewCell {
     private lazy var postNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        label.text = "timerglOoOt"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private lazy var postAvatarImageView: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "Avatar"))
+        let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 20
         image.layer.masksToBounds = true
@@ -121,6 +120,21 @@ extension PostTableViewCell {
         postImageView.image = UIImage(named: post.postImageName)
         postDescriptionLabel.text = post.postDescription
         postDateLabel.text = post.postDate
+        Task {
+            let user = await LoginDataManager.loginShared.getCurUser()
+            postNameLabel.text = user.login
+            postAvatarImageView.image = UIImage(named: user.avatarImageName)
+        }
+    }
+
+    func configureMainScreenPostCell(_ post: Post) {
+        postDeleteButton.isHidden = true
+        postImageView.image = UIImage(named: post.postImageName)
+        postDescriptionLabel.text = post.postDescription
+        postDateLabel.text = post.postDate
+        let index = Int.random(in: 0..<LoginDataManager.loginShared.getUsersName().count)
+        postAvatarImageView.image = UIImage(named: LoginDataManager.loginShared.getUsersAvatarImageName()[index])
+        postNameLabel.text = LoginDataManager.loginShared.getUsersName()[index]
     }
 
     func setupLayouts() {

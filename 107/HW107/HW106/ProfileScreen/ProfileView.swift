@@ -2,7 +2,7 @@ import UIKit
 
 class ProfileView: UIView {
     private lazy var profileImageView: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "Avatar"))
+        let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 40
         image.layer.masksToBounds = true
@@ -13,7 +13,7 @@ class ProfileView: UIView {
     private lazy var profileNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        label.text = "timerglOoOt"
+        label.text = ""
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -36,7 +36,7 @@ class ProfileView: UIView {
     private lazy var profileUserInformationLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        label.text = "Timur Khairullin, Kazan📍"
+        label.text = ""
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -94,8 +94,8 @@ class ProfileView: UIView {
 
     private lazy var profileCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 1
 
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier:
@@ -169,6 +169,7 @@ extension ProfileView {
 
     func reloadData() {
         profileCollectionView.reloadData()
+        publicationsCountLabel.text = "\(DataManager.shared.syncGetPosts().count)"
     }
 
     func profileInfoLabel(_ text: String, weight: UIFont.Weight) -> UILabel {
@@ -177,6 +178,14 @@ extension ProfileView {
         label.font = .systemFont(ofSize: 15, weight: weight)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }
+
+    func configureProfile(user: User) {
+        profileImageView.image = UIImage(named: user.avatarImageName)
+        profileNameLabel.text = user.login
+        profileUserInformationLabel.text = user.description
+        subsCountLabel.text = user.subsCount
+        followsCountLabel.text = user.followsCount
     }
 }
 

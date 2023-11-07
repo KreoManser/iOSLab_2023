@@ -11,6 +11,12 @@
 		CE10398C2AF88BBC003EBB7B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10398B2AF88BBC003EBB7B /* LoginView.swift */; };
 		CE10398E2AF89112003EBB7B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10398D2AF89112003EBB7B /* LoginViewController.swift */; };
 		CE1039902AF899E6003EBB7B /* LoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10398F2AF899E6003EBB7B /* LoginDataManager.swift */; };
+		CE1CE4062AFA4FF200258F0D /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CE4052AFA4FF200258F0D /* Story.swift */; };
+		CE1CE40C2AFA515400258F0D /* StoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CE40B2AFA515400258F0D /* StoryCollectionViewCell.swift */; };
+		CE1CE40E2AFA578300258F0D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CE40D2AFA578300258F0D /* MainView.swift */; };
+		CE1CE4102AFAC4F300258F0D /* StoriesCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CE40F2AFAC4F300258F0D /* StoriesCollectionViewDataSource.swift */; };
+		CE1CE4122AFAD0F400258F0D /* MainPostsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CE4112AFAD0F400258F0D /* MainPostsTableViewDataSource.swift */; };
+		CE1CE4142AFADB4D00258F0D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CE4132AFADB4D00258F0D /* MainViewController.swift */; };
 		CE5B3CB22AEED5ED00911C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B3CB12AEED5ED00911C77 /* AppDelegate.swift */; };
 		CE5B3CB42AEED5ED00911C77 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B3CB32AEED5ED00911C77 /* SceneDelegate.swift */; };
 		CE5B3CB62AEED5ED00911C77 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B3CB52AEED5ED00911C77 /* ProfileViewController.swift */; };
@@ -32,6 +38,12 @@
 		CE10398B2AF88BBC003EBB7B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CE10398D2AF89112003EBB7B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CE10398F2AF899E6003EBB7B /* LoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataManager.swift; sourceTree = "<group>"; };
+		CE1CE4052AFA4FF200258F0D /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
+		CE1CE40B2AFA515400258F0D /* StoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE1CE40D2AFA578300258F0D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		CE1CE40F2AFAC4F300258F0D /* StoriesCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		CE1CE4112AFAD0F400258F0D /* MainPostsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPostsTableViewDataSource.swift; sourceTree = "<group>"; };
+		CE1CE4132AFADB4D00258F0D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CE5B3CAE2AEED5ED00911C77 /* HW106.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HW106.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5B3CB12AEED5ED00911C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE5B3CB32AEED5ED00911C77 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +107,53 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		CE1CE4042AFA4D8200258F0D /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				CEFE300A2AEF39E200E3DA19 /* Post.swift */,
+				CE1039852AF88A97003EBB7B /* User.swift */,
+				CE1CE4052AFA4FF200258F0D /* Story.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		CE1CE4072AFA510800258F0D /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CE1CE4082AFA511D00258F0D /* Models */,
+				CE1CE40A2AFA513300258F0D /* Views */,
+				CE1CE4092AFA512700258F0D /* Controllers */,
+			);
+			name = MainScreen;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		CE1CE4082AFA511D00258F0D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE1CE40F2AFAC4F300258F0D /* StoriesCollectionViewDataSource.swift */,
+				CE1CE4112AFAD0F400258F0D /* MainPostsTableViewDataSource.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		CE1CE4092AFA512700258F0D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE1CE4132AFADB4D00258F0D /* MainViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CE1CE40A2AFA513300258F0D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE1CE40B2AFA515400258F0D /* StoryCollectionViewCell.swift */,
+				CE1CE40D2AFA578300258F0D /* MainView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		CE5B3CA52AEED5ED00911C77 = {
 			isa = PBXGroup;
 			children = (
@@ -117,10 +176,9 @@
 				CE5B3CC62AEEDECF00911C77 /* AppLife */,
 				CE1039872AF88B68003EBB7B /* LoginScreen */,
 				CEFE300D2AEF3C1D00E3DA19 /* ProfileScreen */,
+				CE1CE4072AFA510800258F0D /* MainScreen */,
 				CEFE300C2AEF3BAB00E3DA19 /* PostScreen */,
-				CEFE300A2AEF39E200E3DA19 /* Post.swift */,
-				CE1039852AF88A97003EBB7B /* User.swift */,
-				CEFE30132AEF3D8E00E3DA19 /* DataManager.swift */,
+				CE1CE4042AFA4D8200258F0D /* Structs */,
 				CE5B3CBA2AEED5EE00911C77 /* Assets.xcassets */,
 				CE5B3CBC2AEED5EE00911C77 /* LaunchScreen.storyboard */,
 				CE5B3CBF2AEED5EE00911C77 /* Info.plist */,
@@ -178,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				CEFE30112AEF3D7700E3DA19 /* ProfileViewDataSource.swift */,
+				CEFE30132AEF3D8E00E3DA19 /* DataManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -301,15 +360,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE10398C2AF88BBC003EBB7B /* LoginView.swift in Sources */,
+				CE1CE4142AFADB4D00258F0D /* MainViewController.swift in Sources */,
 				CE1039862AF88A97003EBB7B /* User.swift in Sources */,
 				CE5B3CB62AEED5ED00911C77 /* ProfileViewController.swift in Sources */,
+				CE1CE4062AFA4FF200258F0D /* Story.swift in Sources */,
+				CE1CE4122AFAD0F400258F0D /* MainPostsTableViewDataSource.swift in Sources */,
 				CE10398E2AF89112003EBB7B /* LoginViewController.swift in Sources */,
+				CE1CE40E2AFA578300258F0D /* MainView.swift in Sources */,
 				CEFE30192AEF56C000E3DA19 /* ProfileCollectionViewCell.swift in Sources */,
+				CE1CE4102AFAC4F300258F0D /* StoriesCollectionViewDataSource.swift in Sources */,
 				CEFE30162AEF4B8A00E3DA19 /* PostTableViewCell.swift in Sources */,
 				CEFE30142AEF3D8E00E3DA19 /* DataManager.swift in Sources */,
 				CEFE30242AEF69D900E3DA19 /* ProfileView.swift in Sources */,
 				CEFE301F2AEF60AD00E3DA19 /* PostViewController.swift in Sources */,
 				CE5B3CB22AEED5ED00911C77 /* AppDelegate.swift in Sources */,
+				CE1CE40C2AFA515400258F0D /* StoryCollectionViewCell.swift in Sources */,
 				CEFE30122AEF3D7700E3DA19 /* ProfileViewDataSource.swift in Sources */,
 				CE5B3CB42AEED5ED00911C77 /* SceneDelegate.swift in Sources */,
 				CEFE301B2AEF5A7B00E3DA19 /* PostView.swift in Sources */,

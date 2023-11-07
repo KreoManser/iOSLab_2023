@@ -19,16 +19,16 @@ extension LoginViewController {
     func curUserPostScreen(login: String, avatarImageName: String) {
         let tabBarController: UITabBarController = UITabBarController()
 
-        let postViewController = PostViewController(indexPathToScroll: IndexPath(row: 0, section: 0))
-        let postTabBarItem = UITabBarItem(title: "Posts", image: UIImage(systemName: "house.fill"), selectedImage: nil)
-        postViewController.tabBarItem = postTabBarItem
+        let mainViewController = MainViewController()
+        let mainTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "house.fill"), selectedImage: nil)
+        mainViewController.tabBarItem = mainTabBarItem
 
         let profileViewController = ProfileViewController()
-        let profileTabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.fill"),
+        let profileTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person.fill"),
             selectedImage: nil)
         profileViewController.tabBarItem = profileTabBarItem
 
-        tabBarController.viewControllers = [postViewController, profileViewController]
+        tabBarController.viewControllers = [mainViewController, profileViewController]
         tabBarController.selectedIndex = 1
         tabBarController.modalPresentationStyle = .fullScreen
         present(tabBarController, animated: true)
@@ -41,6 +41,11 @@ extension LoginViewController {
                 DispatchQueue.main.async {
                     if let user {
                         self?.curUserPostScreen(login: user.login, avatarImageName: user.avatarImageName)
+                    } else {
+                        let alert = UIAlertController(title: "Error",
+                        message: "Please check input login and password. Try again!", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                        self?.present(alert, animated: true)
                     }
                 }
             })

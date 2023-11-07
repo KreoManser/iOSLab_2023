@@ -19,6 +19,10 @@ class ProfileViewController: UIViewController {
 
         profileView.profileViewController = self
         profileView.setupDataSource(dataSource)
+
+        Task {
+            await profileView.configureProfile(user: LoginDataManager.loginShared.getCurUser())
+        }
     }
 }
 

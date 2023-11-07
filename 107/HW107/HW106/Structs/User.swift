@@ -5,4 +5,7 @@ struct User {
     let login: String
     let password: String
     let avatarImageName: String
+    let description: String
+    let subsCount: String
+    let followsCount: String
 }

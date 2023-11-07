@@ -13,10 +13,10 @@ class LoginView: UIView {
         let field = UITextField()
         field.placeholder = "Login"
         field.font = .systemFont(ofSize: 25)
+        field.backgroundColor = UIColor(white: 0.75, alpha: 0.6)
         field.layer.cornerRadius = 10
-        field.clipsToBounds = true
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.systemGray.cgColor
+        field.layer.masksToBounds = true
+        field.indent(size: 15)
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -25,11 +25,11 @@ class LoginView: UIView {
         let field = UITextField()
         field.placeholder = "Password"
         field.font = .systemFont(ofSize: 25)
+        field.backgroundColor = UIColor(white: 0.75, alpha: 0.6)
         field.isSecureTextEntry = true
         field.layer.cornerRadius = 10
-        field.clipsToBounds = true
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.systemGray.cgColor
+        field.layer.masksToBounds = true
+        field.indent(size: 15)
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -109,5 +109,12 @@ extension LoginView {
             self?.loginTextField.text = ""
         })
         logInButton.addAction(loginAction, for: .touchUpInside)
+    }
+}
+
+extension UITextField {
+    func indent(size: CGFloat) {
+        self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
+        self.leftViewMode = .always
     }
 }
