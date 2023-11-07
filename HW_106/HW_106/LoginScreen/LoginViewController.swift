@@ -31,8 +31,13 @@ class LoginViewController: UIViewController {
                 let profileViewController = ProfileViewController(user)
                 let feedViewController = FeedViewController(user)
 
-                profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: nil, selectedImage: nil)
-                feedViewController.tabBarItem = UITabBarItem(title: "Лента", image: nil, selectedImage: nil)
+                var profileImage = UIImage(named: "profileIcon")
+                var homeImage = UIImage(named: "homeIcon")
+                profileImage = profileImage?.resize(targetSize: CGSize(width: 30, height: 30))
+                homeImage = homeImage?.resize(targetSize: CGSize(width: 30, height: 30))
+
+                profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: profileImage, selectedImage: nil)
+                feedViewController.tabBarItem = UITabBarItem(title: "Лента", image: homeImage, selectedImage: nil)
 
                 tabBarController.viewControllers = [profileViewController, feedViewController]
 
