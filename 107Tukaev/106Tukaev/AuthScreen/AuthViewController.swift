@@ -37,11 +37,14 @@ extension AuthViewController: CheckAuthDelegate {
             let user = await dataManagerUser?.auth(login: login, password: password)
             if let user = user {
                 dataManagerPublication?.setUser(user: user)
-                if let image = user.userImage {
-                    let tapbarController = TapBarController(userImage: image)
-                    navigationController?.pushViewController(tapbarController, animated: true)
+                    let tapbarController = TapBarController()
+                    if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate, let window = sceneDelegate.window {
+
+                        window.rootViewController = tapbarController
+                        window.makeKeyAndVisible()
+                    }
                 }
             }
         }
     }
-}
+

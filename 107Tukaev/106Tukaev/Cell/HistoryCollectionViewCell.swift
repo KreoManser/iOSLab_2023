@@ -30,7 +30,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
 
         let hight = frame.size.height
         historyImage.layer.cornerRadius = hight / 2
-        addSubview(historyImage)
+        contentView.addSubview(historyImage)
         let content = contentView.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([

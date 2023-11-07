@@ -98,7 +98,7 @@ class TimelineCollectionViewCell: UICollectionViewCell {
         setupButton()
         setupPublicationCell()
         setupLayout()
-        backgroundColor = .white
+        contentView.backgroundColor = .white
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -136,7 +136,7 @@ class TimelineCollectionViewCell: UICollectionViewCell {
     }
 
     private func addSubviews(_ subview: UIView...) {
-        subview.forEach { addSubview($0) }
+        subview.forEach { contentView.addSubview($0) }
     }
 
     private func setupLayout() {

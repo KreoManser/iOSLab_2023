@@ -177,7 +177,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     }
 
     private func addSubviews(_ subview: UIView...) {
-        subview.forEach { addSubview($0) }
+        subview.forEach { contentView.addSubview($0) }
     }
     func configureCell(with user: User) {
         self.publicationNumLabel.text = String(user.publicationsCount)

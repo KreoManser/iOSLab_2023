@@ -43,12 +43,14 @@ class ProfileTimelineViewController: UIViewController {
     }
 }
 extension ProfileTimelineViewController {
+
     func present(_ viewControllerToPresent: UIViewController) {
         present(viewControllerToPresent, animated: false)
     }
 
     func acyncDelete(id: Int) {
         dataSource?.dataManager.syncDelete(id: id)
+        customView.reloadData()
     }
 }
 

@@ -34,7 +34,7 @@ class HistoryTimelineCollectionViewCell: UICollectionViewCell, UICollectionViewD
     }
 
     private func setupLayout() {
-        addSubview(collectionView)
+        contentView.addSubview(collectionView)
 
         let content = contentView.safeAreaLayoutGuide
 

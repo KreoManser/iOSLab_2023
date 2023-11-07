@@ -20,7 +20,7 @@ class PublicationCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(image)
+        contentView.addSubview(image)
         setupLayout()
     }
     required init?(coder: NSCoder) {

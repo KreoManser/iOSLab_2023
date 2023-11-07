@@ -41,7 +41,7 @@ class ProfileTimelineView: UIView, UICollectionViewDelegateFlowLayout {
     }
 
     func scroll(_ index: IndexPath) {
-        collectionView.scrollToItem(at: index, at: .centeredVertically, animated: true)
+        collectionView.scrollToItem(at: index, at: .top, animated: true)
     }
 
     func setupDataSource(_ dataSource: ProfileTimelineDataSource) {
@@ -84,14 +84,13 @@ extension ProfileTimelineView: AlertDelegate {
 
     func didPressAlert(id: Int) {
         let alert = UIAlertController(title: "Уведомление", message: "Удалить?", preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "Ок", style: .default) {_ in
+        let okAction = UIAlertAction(title: "Ок", style: .destructive, handler: {_ in
             self.controller?.acyncDelete(id: id)
             self.reloadData()
-        }
+        })
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
         alert.addAction(okAction)
         alert.addAction(cancelAction)
         controller?.present(alert)
     }
-
 }

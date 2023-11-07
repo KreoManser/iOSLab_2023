@@ -21,6 +21,7 @@ class ProfileTimelineDataSource: NSObject, UICollectionViewDataSource, UICollect
         let withIdentificator = TimelineCollectionViewCell.reuseIdentificator
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: withIdentificator, for: indexPath) as? TimelineCollectionViewCell
         if let cell = cell {
+            cell.delegate = collectionView.superview as? any AlertDelegate
             cell.setupUser(user: dataManager.getUser())
             cell.configureCell(publication: dataManager.syncGetPublicationByUserId()[indexPath.row])
             return cell

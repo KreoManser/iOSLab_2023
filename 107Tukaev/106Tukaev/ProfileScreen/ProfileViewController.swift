@@ -19,7 +19,11 @@ class ProfileViewController: UIViewController {
             profileView.setupDataSource(dataSource: source)
         }
         profileView.reloadData()
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        profileView.reloadData()
     }
 
     private var dataSource: PublicationsDataSource?
