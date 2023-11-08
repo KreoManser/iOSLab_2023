@@ -10,9 +10,12 @@ import Foundation
 class UserDataManager: NSObject, UserManaging {
     static let shared = UserDataManager()
 
-    var users: [User] = [User(username: "Lovelycats__", password: "123", interest: "Animals"),
-    User(username: "Doosuur14", password: "456", interest: "Fashion"),
-    User(username: "User1", password: "1234", interest: "Nature")]
+    var users: [User] = [User(username: "Doosuur14", password: "456",
+    interest: "Fashion", friends: ["Lovelycats__", "User1"]),User(username: "Lovelycats__", password: "123",
+    interest: "Animals", friends: ["Doosuur14"]),
+    User(username: "User1", password: "1234",
+    interest: "Nature", friends: ["Doosuur14", "Lovelycats__"])
+    ]
 
     var didTapLoginButton: (() -> Void)?
 
@@ -23,14 +26,16 @@ class UserDataManager: NSObject, UserManaging {
         }
     }
 
-    func asyncRegisterUser(username: String, password: String, interest: String, completion: @escaping (Result<User, UserError>) -> Void) {
+    func asyncRegisterUser(username: String, password: String, interest: String, friends: [String],
+
+                           completion: @escaping (Result<User, UserError>) -> Void) {
             Task {
                 do {
                     try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
                     if users.contains(where: { $0.username == username}) {
                         completion(.failure(UserError.usernameTaken))
                     } else {
-                        let newUser = User(username: username, password: password, interest: interest)
+                        let newUser = User(username: username, password: password, interest: interest, friends: friends)
                         users.append(newUser)
                         completion(.success(newUser))
                     }
@@ -43,8 +48,6 @@ class UserDataManager: NSObject, UserManaging {
     func asyncLogin(username: String, password: String, completion: @escaping (Result<User, UserError>) -> Void) {
         Task {
             do {
-                // try await Task.sleep(nanoseconds: 1 * 1000_000_000)
-                try await authenticateUser(username: username, password: password)
                 if let user = users.first(where: { $0.username == username && $0.password == password }) {
                     print("User found!")
                     completion(.success(user))
@@ -52,8 +55,6 @@ class UserDataManager: NSObject, UserManaging {
                     print("User not found")
                     completion(.failure(UserError.loginFailed))
               }
-            } catch {
-                completion(.failure(UserError.loginFailed))
             }
         }
     }

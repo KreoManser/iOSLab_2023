@@ -39,7 +39,10 @@ class PublicationsViewController: UIViewController {
         publicationView = PublicationsView(frame: view.bounds)
         publicationView?.tableView.delegate = publicationsManager
         publicationView?.tableView.dataSource = publicationsManager
-        publicationView?.tableView.register(PublicationsTableViewCell.self, forCellReuseIdentifier: PublicationsTableViewCell.reuseIdentifier)
+        publicationView?.tableView.register(
+        PublicationsTableViewCell.self,
+        forCellReuseIdentifier: PublicationsTableViewCell.reuseIdentifier
+        )
         publicationView?.searchBar.delegate = publicationsManager
         view = publicationView
     }

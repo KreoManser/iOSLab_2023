@@ -12,9 +12,15 @@ class ProfileDataManager: NSObject, DataManaging, UICollectionViewDataSource {
     static let shared = ProfileDataManager()
 
     var posts: [Post] = [
-        Post(id: UUID(), caption: "Are you kitten me?", photo: UIImage(named: "whitecat.jpeg"), date: "20th May 2018", isFav: false),
-        Post(id: UUID(), caption: "Putting the fur in furniture", photo: UIImage(named: "greycat.jpeg"), date: "14th Oct 2021", isFav: false),
-        Post(id: UUID(), caption: "Black cats are not evil", photo: UIImage(named: "blackcat.jpeg"), date: "26th Dec 2023", isFav: false)
+        Post(id: UUID(), caption: "Are you kitten me?",
+             photo: UIImage(named: "whitecat.jpeg"),
+             date: "20th May 2018", isFav: false),
+        Post(id: UUID(), caption: "Putting the fur in furniture",
+             photo: UIImage(named: "greycat.jpeg"),
+             date: "14th Oct 2021", isFav: false),
+        Post(id: UUID(), caption: "Black cats are not evil",
+             photo: UIImage(named: "blackcat.jpeg"),
+             date: "26th Dec 2023", isFav: false)
     ]
 
     /// custom queues for respective methods.
@@ -82,9 +88,11 @@ extension ProfileDataManager: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return retrievePost().count
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
+    -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-        withReuseIdentifier: ProfileCollectionViewCell.reuseidentifier, for: indexPath) as? ProfileCollectionViewCell else {
+        withReuseIdentifier: ProfileCollectionViewCell.reuseidentifier,
+        for: indexPath) as? ProfileCollectionViewCell else {
             return UICollectionViewCell()}
         let posts = retrievePost()
         let post = posts[indexPath.row]
@@ -97,15 +105,22 @@ extension ProfileDataManager: UICollectionViewDelegate {
     }
 }
 extension ProfileDataManager: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width / 3 - 3
         let height = width
         return CGSize(width: width, height: height)
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
 }

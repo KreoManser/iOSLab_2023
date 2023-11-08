@@ -8,7 +8,6 @@
 import UIKit
 
 class FeedTableViewCell: UITableViewCell {
-    
     private lazy var mainStackView: UIStackView = {
         let mainStackView = UIStackView()
         mainStackView.axis = .horizontal

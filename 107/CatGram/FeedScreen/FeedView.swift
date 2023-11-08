@@ -62,7 +62,7 @@ class FeedView: UIView {
     }
     private func setupHeartButton() {
         addSubview(heartButton)
-        heartButton.setImage(UIImage(systemName: "heart")?.withTintColor(UIColor.black, renderingMode: .alwaysTemplate), for: .normal)
+        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
         heartButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             heartButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 5),
@@ -72,13 +72,13 @@ class FeedView: UIView {
     }
     private func setupMessageButton() {
         addSubview(messageButton)
-        messageButton.setImage(UIImage(systemName: "ellipsis.message")?.withTintColor(UIColor.black, renderingMode: .alwaysTemplate), for: .normal)
+        messageButton.setImage(UIImage(systemName: "ellipsis.message"), for: .normal)
         messageButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             messageButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 5),
             messageButton.leadingAnchor.constraint(equalTo: heartButton.trailingAnchor, constant: -50),
             messageButton.heightAnchor.constraint(equalToConstant: 70)
         ])
-
     }
+
 }

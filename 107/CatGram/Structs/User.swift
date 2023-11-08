@@ -10,5 +10,6 @@ import Foundation
 struct User: Equatable {
     let username: String
     let password: String
-   let interest: String
+    let interest: String
+    let friends: [String]
 }

@@ -33,7 +33,10 @@ class ProfileViewController: UIViewController {
         profileView = ProfileView(frame: view.bounds)
         profileView?.collectionView.delegate = profiledataManager
         profileView?.collectionView.dataSource = profiledataManager
-        profileView?.collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: ProfileCollectionViewCell.reuseidentifier)
+        profileView?.collectionView.register(
+        ProfileCollectionViewCell.self,
+        forCellWithReuseIdentifier: ProfileCollectionViewCell.reuseidentifier
+        )
         view = profileView
         view.backgroundColor = .white
     }

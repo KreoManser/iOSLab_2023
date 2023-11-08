@@ -11,7 +11,9 @@ import UIKit
 class StoryDataManager: NSObject, UICollectionViewDataSource,
                             UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     static let shared = StoryDataManager()
-    var stories: [StoryAvatar] = [StoryAvatar(image: UIImage(named: "profile01")), StoryAvatar(image: UIImage(named: "dp2")),
+    var stories: [StoryAvatar] = [
+        StoryAvatar(image: UIImage(named: "profile01")),
+        StoryAvatar(image: UIImage(named: "dp2")),
         StoryAvatar(image: UIImage(named: "dp3")),
         StoryAvatar(image: UIImage(named: "dp6")),
         StoryAvatar(image: UIImage(systemName: "person")),
@@ -30,9 +32,13 @@ class StoryDataManager: NSObject, UICollectionViewDataSource,
         print(stories.count)
         return stories.count
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print("collectionView:cellForItemAt")
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryCollectionViewCell.storyID, for: indexPath) as? StoryCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: StoryCollectionViewCell.storyID,
+            for: indexPath) as? StoryCollectionViewCell else {
             return UICollectionViewCell() }
         let avatars = stories
         let image = avatars[indexPath.row]
@@ -40,10 +46,16 @@ class StoryDataManager: NSObject, UICollectionViewDataSource,
         cell.contentMode = .scaleAspectFill
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int)
+    -> CGFloat {
         return 1
     }
 }

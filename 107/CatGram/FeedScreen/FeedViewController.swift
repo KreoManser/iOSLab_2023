@@ -26,7 +26,10 @@ class FeedViewController: UIViewController {
         feedView?.circularCollectionView.collectionView.delegate = storyDatamanager
         feedView?.circularCollectionView.collectionView.dataSource = storyDatamanager
         feedView?.circularCollectionView.isHidden = false
-        feedView?.circularCollectionView.collectionView.register(StoryCollectionViewCell.self, forCellWithReuseIdentifier: StoryCollectionViewCell.storyID)
+        feedView?.circularCollectionView.collectionView.register(
+        StoryCollectionViewCell.self,
+        forCellWithReuseIdentifier: StoryCollectionViewCell.storyID
+        )
         feedView?.circularCollectionView.collectionView.showsHorizontalScrollIndicator = false
         feedView?.tableView.delegate = feedDatamanger
         feedView?.tableView.dataSource = feedDatamanger
