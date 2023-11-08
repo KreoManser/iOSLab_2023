@@ -9,7 +9,6 @@ import UIKit
 
 class PostsViewController: UIViewController {
     private lazy var pictureDetailView = PostsView(frame: .zero)
-    private lazy var profileView = ProfileView(viewWidth: view.frame)
 
     private var indexPath: IndexPath?
 
@@ -45,12 +44,13 @@ class PostsViewController: UIViewController {
 extension PostsViewController {
     func present(_ controller: UIViewController) {
         present(controller, animated: true)
-        show(controller, sender: nil)
     }
 
     func delete(indexPath: IndexPath) {
-        DataManager.shared.syncDelete(index: indexPath.row)
-        pictureDetailView.reloadData()
+        Task {
+            await DataManager.shared.asyncDelete(index: indexPath.row)
+            pictureDetailView.reloadData()
+        }
     }
 
     func dismissScreen() {

@@ -8,22 +8,29 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    private lazy var mainView: ProfileView = ProfileView(viewWidth: view.frame)
+    private lazy var profileView: ProfileView = ProfileView(viewWidth: view.frame)
     private let dataSource = CollectionViewDataSource()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mainView.reloadData()
+        profileView.reloadData()
+        profileView.updateProfileData(with: DataManager.shared.syncGetCurrentUser())
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(mainView)
+        view.addSubview(profileView)
         view.backgroundColor = .white
-        mainView.controller = self
-        mainView.setupDataSource(dataSource)
+        profileView.controller = self
+        profileView.setupDataSource(dataSource)
         configureProfileViewOnView()
-        setNavigationBar()
+        Task {
+            await setNavigationBar()
+        }
+
+        Task {
+            await profileView.configureProfile(with: DataManager.shared.asyncGetCurrentUser())
+        }
     }
 
     func presentDetailScreen(_ postIndexPath: IndexPath) {
@@ -34,9 +41,9 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController {
-    private func setNavigationBar() {
+    private func setNavigationBar() async {
         let profileNameLabel = UILabel()
-        profileNameLabel.text = "kerikg"
+        profileNameLabel.text = await DataManager.shared.asyncGetCurrentUser().login
         profileNameLabel.textColor = .black
         profileNameLabel.font = .boldSystemFont(ofSize: 25)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileNameLabel)
@@ -57,10 +64,24 @@ extension ProfileViewController {
 
     private func configureProfileViewOnView() {
         NSLayoutConstraint.activate([
-            mainView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            mainView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            mainView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            profileView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            profileView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            profileView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            profileView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+extension ProfileViewController {
+    func setExitAction() {
+        let alert = UIAlertController(
+            title: "Выход",
+            message: "Вы точно хотите выйти?",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Выйти", style: .destructive, handler: { _ in
+            self.navigationController?.dismiss(animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        self.present(alert, animated: true)
     }
 }

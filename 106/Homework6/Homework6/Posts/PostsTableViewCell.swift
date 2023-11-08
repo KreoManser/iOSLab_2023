@@ -23,7 +23,7 @@ class PostsTableViewCell: UITableViewCell {
 
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "kerikg"
+        label.text = ""
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -130,6 +130,24 @@ extension PostsTableViewCell {
     }
 
     func configureCell(_ post: Post) {
+        postImageView.image = UIImage(named: post.imageName)
+        postDescriptionLabel.text = post.description
+        postDateLabel.text = post.date
+    }
+
+    func configureCellForProfile(post: Post, userName: String, avatar: String) {
+        deleteButton.isHidden = false
+        userNameLabel.text = userName
+        userImageView.image = UIImage(named: avatar)
+        postImageView.image = UIImage(named: post.imageName)
+        postDescriptionLabel.text = post.description
+        postDateLabel.text = post.date
+    }
+
+    func configureCellForMainFeed(post: Post, userName: String, avatar: String) {
+        deleteButton.isHidden = true
+        userNameLabel.text = userName
+        userImageView.image = UIImage(named: avatar)
         postImageView.image = UIImage(named: post.imageName)
         postDescriptionLabel.text = post.description
         postDateLabel.text = post.date

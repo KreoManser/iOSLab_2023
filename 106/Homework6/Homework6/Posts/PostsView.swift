@@ -74,7 +74,7 @@ extension PostsView {
     }
 
     func scrollToIndexPath(_ indexPath: IndexPath) {
-        postsTableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        postsTableView.scrollToRow(at: indexPath, at: .middle, animated: false)
     }
 
     private func setLayout() {
@@ -125,7 +125,6 @@ extension PostsView: UISearchBarDelegate {
         } else {
             DataManager.shared.isSearching = true
         }
-
         reloadData()
     }
 }

@@ -10,7 +10,6 @@ import UIKit
 class ProfileView: UIView {
     private lazy var profileImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "profile")
         image.contentMode = .scaleAspectFill
         image.frame.size = CGSize(width: 100, height: 100)
         image.layer.cornerRadius = image.frame.size.width / 2
@@ -22,7 +21,6 @@ class ProfileView: UIView {
     private lazy var profileUserName: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.text = "Kirill Abramov"
         label.font = .systemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -42,7 +40,7 @@ class ProfileView: UIView {
     }()
 
     private lazy var countOfPublications: UILabel = {
-        createlabel(text: "7")
+        createlabel(text: "")
     }()
 
     private lazy var publicationsLabel: UILabel = {
@@ -50,7 +48,7 @@ class ProfileView: UIView {
     }()
 
     private lazy var countOfFollowers: UILabel = {
-        createlabel(text: "123")
+        createlabel(text: "")
     }()
 
     private lazy var followersLabel: UILabel = {
@@ -58,11 +56,26 @@ class ProfileView: UIView {
     }()
 
     private lazy var countOfSubscribes: UILabel = {
-        createlabel(text: "5")
+        createlabel(text: "2")
     }()
 
     private lazy var subscribesLabel: UILabel = {
         createlabel(text: "Подписки")
+    }()
+
+    private lazy var exitButton: UIButton = {
+        let action = UIAction { [weak self] _ in
+            self?.controller?.setExitAction()
+        }
+
+        let button = UIButton()
+        button.addAction(action, for: .touchUpInside)
+        button.setTitle("Выйти", for: .normal)
+        button.backgroundColor = .systemGray5
+        button.setTitleColor(.red, for: .normal)
+        button.layer.cornerRadius = 8
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
 
     private lazy var editButton: UIButton = {
@@ -73,6 +86,15 @@ class ProfileView: UIView {
         button.layer.cornerRadius = 8
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+
+    private lazy var buttonsStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [editButton, exitButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.distribution = .fillEqually
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
     private lazy var photoCollectionView: UICollectionView = {
@@ -88,14 +110,12 @@ class ProfileView: UIView {
     private var viewFrame: CGRect
 
     init(viewWidth: CGRect) {
-
         viewFrame = viewWidth
-
         super.init(frame: .zero)
 
         backgroundColor = .white
         translatesAutoresizingMaskIntoConstraints = false
-        addSubviews(subviews: profileImage, profileUserName, horizontalStackView, editButton, photoCollectionView)
+        addSubviews(subviews: profileImage, profileUserName, horizontalStackView, buttonsStackView, photoCollectionView)
         setLayout()
     }
 
@@ -123,15 +143,14 @@ extension ProfileView {
             horizontalStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5),
             horizontalStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40),
 
-            editButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            editButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            editButton.topAnchor.constraint(equalTo: profileUserName.bottomAnchor, constant: 10),
+            buttonsStackView.topAnchor.constraint(equalTo: profileUserName.bottomAnchor, constant: 10),
+            buttonsStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            buttonsStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
 
-            photoCollectionView.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 10),
+            photoCollectionView.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: 10),
             photoCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             photoCollectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             photoCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
-
         ])
     }
 
@@ -182,5 +201,19 @@ extension ProfileView: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         controller?.presentDetailScreen(indexPath)
+    }
+}
+
+extension ProfileView {
+    func configureProfile(with user: User) {
+        profileImage.image = UIImage(named: user.avatar)
+        profileUserName.text = user.fullName
+        countOfPublications.text = String(user.posts.count)
+        countOfFollowers.text = String(user.numberOfSubscribers)
+    }
+
+    func updateProfileData(with user: User) {
+        countOfPublications.text = String(user.posts.count)
+        countOfFollowers.text = String(user.numberOfSubscribers)
     }
 }

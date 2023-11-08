@@ -9,7 +9,7 @@ import UIKit
 
 class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DataManager.shared.syncGetAllPosts().count
+        return DataManager.shared.syncGetUserPosts().count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -18,7 +18,7 @@ class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
             for: indexPath) as? PhotoViewCell
         else { return UICollectionViewCell() }
 
-        let post = DataManager.shared.syncGetAllPosts()[indexPath.row]
+        let post = DataManager.shared.syncGetUserPosts()[indexPath.row]
 
         cell.configureCell(post.imageName)
         return cell
