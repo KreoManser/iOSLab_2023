@@ -7,23 +7,28 @@
 
 import UIKit
 
-class StoryViewController: UIViewController {
+class StoryViewController: UIViewController, UpdateDataDelegate, UpdateDataEverythingControllers, PublicationCellDelegate {
+    func postDeleted(at indexPath: IndexPath?) {
+    }
 
     lazy var storyView = StoryView(frame: .zero)
-    var currentCat: Cat?
+    var currentCat: User?
     override func loadView() {
         super.loadView()
         view = storyView
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         storyView.setupNavigationBar()
         storyView.controler = self
+        RegistrationDataManager.shared.delegate = self
+        updateData()
     }
-    func setData(cat: Cat) {
-        //guard let newCat = cat else {return}
-        currentCat = cat
-        storyView.publishers = cat.publishers
+    func updateData() {
+        Task {
+            let publications = await PublicationDataManager.shared.asyncGetEverythingPublication()
+            storyView.publication = publications
+            storyView.tableStoryPosts.reloadData()
+        }
     }
 }

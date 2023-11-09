@@ -1,11 +1,9 @@
 import UIKit
-protocol PublisherCellDelegate: AnyObject {
-    func postDeleted(at indexPath: IndexPath?)
-}
+protocol PublicationCellDelegate: AnyObject {}
 
-class PublisherTableViewCell: UITableViewCell {
-    var currentPublisher: Publisher?
-    weak var delegate: PublisherCellDelegate?
+class PublicationTableViewCell: UITableViewCell {
+    var currentPublication: Publication?
+    weak var delegate: PublicationCellDelegate?
     private lazy var imageAvatar: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "photo1")
@@ -14,7 +12,7 @@ class PublisherTableViewCell: UITableViewCell {
     }()
     private lazy var labelName: UILabel = {
         let label = UILabel()
-        label.text = "Cat_boss"
+        label.text = ""
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 12)
         label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -25,15 +23,8 @@ class PublisherTableViewCell: UITableViewCell {
         let action = UIAction { _ in
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             let deleteAction = UIAlertAction(title: "Удалить пост", style: .destructive) { _ in
-                if let publisher = self.currentPublisher {
-                    DataManager.asyncDelete(publisher) { [weak self]  (objectIndex, success) in
-                        if success {
-                            var index = IndexPath(row: objectIndex, section: 0)
-                            self?.delegate?.postDeleted(at: index)
-                        } else {
-                            print("Произошла ошибка при удалении")
-                        }
-                    }
+                if let publication = self.currentPublication {
+                    PublicationDataManager.shared.asyncDelete(publication)
                 }
             }
             let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
@@ -49,7 +40,7 @@ class PublisherTableViewCell: UITableViewCell {
         button.setImage(UIImage(named: "threePoints"), for: .normal)
         return button
     }()
-    private lazy var photoPublisher: UIImageView = {
+    private lazy var photoPublication: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -78,7 +69,7 @@ class PublisherTableViewCell: UITableViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    private lazy var descriptionPublisher: UILabel = {
+    private lazy var descriptionPublication: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12)
@@ -88,7 +79,7 @@ class PublisherTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         return label
     }()
-    private lazy var datePublisher: UILabel = {
+    private lazy var datePublication: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 10)
@@ -97,7 +88,7 @@ class PublisherTableViewCell: UITableViewCell {
     }()
     override func prepareForReuse() {
         super.prepareForReuse()
-        photoPublisher.image = nil
+        photoPublication.image = nil
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -105,9 +96,9 @@ class PublisherTableViewCell: UITableViewCell {
         contentView.addSubview(imageAvatar)
         contentView.addSubview(labelName)
         contentView.addSubview(buttonThreePoint)
-        contentView.addSubview(photoPublisher)
-        contentView.addSubview(descriptionPublisher)
-        contentView.addSubview(datePublisher)
+        contentView.addSubview(photoPublication)
+        contentView.addSubview(descriptionPublication)
+        contentView.addSubview(datePublication)
         contentView.addSubview(favoriteIcon)
         imageAvatar.layer.cornerRadius = 15
         imageAvatar.clipsToBounds = true
@@ -133,11 +124,11 @@ class PublisherTableViewCell: UITableViewCell {
             labelName.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             buttonThreePoint.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             buttonThreePoint.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            photoPublisher.topAnchor.constraint(equalTo: imageAvatar.bottomAnchor, constant: 10),
-            photoPublisher.leadingAnchor.constraint(equalTo: leadingAnchor),
-            photoPublisher.trailingAnchor.constraint(equalTo: trailingAnchor),
-            photoPublisher.heightAnchor.constraint(equalToConstant: 570),
-            iconsStackView.topAnchor.constraint(equalTo: photoPublisher.bottomAnchor, constant: 15),
+            photoPublication.topAnchor.constraint(equalTo: imageAvatar.bottomAnchor, constant: 10),
+            photoPublication.leadingAnchor.constraint(equalTo: leadingAnchor),
+            photoPublication.trailingAnchor.constraint(equalTo: trailingAnchor),
+            photoPublication.heightAnchor.constraint(equalToConstant: 570),
+            iconsStackView.topAnchor.constraint(equalTo: photoPublication.bottomAnchor, constant: 15),
             iconsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             iconsStackView.widthAnchor.constraint(equalToConstant: 100),
             iconsStackView.heightAnchor.constraint(equalToConstant: 35),
@@ -146,17 +137,18 @@ class PublisherTableViewCell: UITableViewCell {
             planeIcon.heightAnchor.constraint(equalToConstant: 25),
             planeIcon.widthAnchor.constraint(equalToConstant: 30),
             favoriteIcon.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            favoriteIcon.topAnchor.constraint(equalTo: photoPublisher.bottomAnchor, constant: 15),
+            favoriteIcon.topAnchor.constraint(equalTo: photoPublication.bottomAnchor, constant: 15),
             favoriteIcon.heightAnchor.constraint(equalToConstant: 35),
-            descriptionPublisher.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            descriptionPublisher.topAnchor.constraint(equalTo: iconsStackView.bottomAnchor, constant: 15),
-            datePublisher.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            datePublisher.topAnchor.constraint(equalTo: descriptionPublisher.bottomAnchor, constant: 10)
+            descriptionPublication.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            descriptionPublication.topAnchor.constraint(equalTo: iconsStackView.bottomAnchor, constant: 15),
+            datePublication.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            datePublication.topAnchor.constraint(equalTo: descriptionPublication.bottomAnchor, constant: 10)
         ])
     }
-    func configure(with publisher: Publisher) {
-        photoPublisher.image = publisher.image
-        datePublisher.text = publisher.date
-        descriptionPublisher.text = publisher.description
+    func configure(with publication: Publication) {
+        labelName.text = publication.label
+        photoPublication.image = publication.image
+        datePublication.text = publication.date
+        descriptionPublication.text = publication.description
     }
 }

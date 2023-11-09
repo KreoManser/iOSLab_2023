@@ -12,19 +12,23 @@
 		6225B7D02AEEFAF300CCEDAE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6225B7CF2AEEFAF300CCEDAE /* ProfileViewController.swift */; };
 		6225B7D52AEEFAF600CCEDAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6225B7D42AEEFAF600CCEDAE /* Assets.xcassets */; };
 		6225B7D82AEEFAF600CCEDAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6225B7D62AEEFAF600CCEDAE /* LaunchScreen.storyboard */; };
-		6225B7E02AEF15B400CCEDAE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6225B7DF2AEF15B400CCEDAE /* DataManager.swift */; };
-		6225B7E22AEF169600CCEDAE /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6225B7E12AEF169500CCEDAE /* Publisher.swift */; };
-		6225B7E42AEF1CAE00CCEDAE /* PublisherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6225B7E32AEF1CAE00CCEDAE /* PublisherViewController.swift */; };
-		6225B7E62AEF1E8300CCEDAE /* PublisherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6225B7E52AEF1E8300CCEDAE /* PublisherTableViewCell.swift */; };
+		6225B7E02AEF15B400CCEDAE /* PublicationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6225B7DF2AEF15B400CCEDAE /* PublicationDataManager.swift */; };
+		6225B7E22AEF169600CCEDAE /* Publication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6225B7E12AEF169500CCEDAE /* Publication.swift */; };
+		6225B7E42AEF1CAE00CCEDAE /* PublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6225B7E32AEF1CAE00CCEDAE /* PublicationViewController.swift */; };
+		6225B7E62AEF1E8300CCEDAE /* PublicationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6225B7E52AEF1E8300CCEDAE /* PublicationTableViewCell.swift */; };
 		62684BD02AF54E3A00F3EDB8 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62684BCF2AF54E3A00F3EDB8 /* RegistrationViewController.swift */; };
 		62684BD22AF5573600F3EDB8 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62684BD12AF5573600F3EDB8 /* RegistrationView.swift */; };
 		626E37EF2AF61C290037D2B8 /* StoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E37EE2AF61C290037D2B8 /* StoryCollectionViewCell.swift */; };
 		626E37F12AF61EAC0037D2B8 /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E37F02AF61EAC0037D2B8 /* StoryViewController.swift */; };
 		626E37F52AF633B90037D2B8 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E37F42AF633B90037D2B8 /* StoryView.swift */; };
-		626E37F92AF8964A0037D2B8 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E37F82AF8964A0037D2B8 /* Cat.swift */; };
+		626E37F92AF8964A0037D2B8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E37F82AF8964A0037D2B8 /* User.swift */; };
+		626E37FC2AFA22290037D2B8 /* UsersProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E37FB2AFA22290037D2B8 /* UsersProtocol.swift */; };
+		626E37FE2AFA31D70037D2B8 /* PublicationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E37FD2AFA31D70037D2B8 /* PublicationProtocol.swift */; };
+		626E38002AFA5ADD0037D2B8 /* RegistrationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626E37FF2AFA5ADD0037D2B8 /* RegistrationDataManager.swift */; };
 		62AE72B62AF263A200639FDF /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AE72B52AF263A200639FDF /* ProfileView.swift */; };
-		62AE72BA2AF2756600639FDF /* PublishersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AE72B92AF2756600639FDF /* PublishersView.swift */; };
+		62AE72BA2AF2756600639FDF /* PublicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AE72B92AF2756600639FDF /* PublicationsView.swift */; };
 		62AE72DE2AF42BFF00639FDF /* GridCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AE72DD2AF42BFF00639FDF /* GridCollectionViewCell.swift */; };
+		62E3595A2AFD4A30009451AB /* LentaPostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E359592AFD4A30009451AB /* LentaPostsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,19 +39,23 @@
 		6225B7D42AEEFAF600CCEDAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6225B7D72AEEFAF600CCEDAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6225B7D92AEEFAF600CCEDAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6225B7DF2AEF15B400CCEDAE /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		6225B7E12AEF169500CCEDAE /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
-		6225B7E32AEF1CAE00CCEDAE /* PublisherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherViewController.swift; sourceTree = "<group>"; };
-		6225B7E52AEF1E8300CCEDAE /* PublisherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherTableViewCell.swift; sourceTree = "<group>"; };
+		6225B7DF2AEF15B400CCEDAE /* PublicationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationDataManager.swift; sourceTree = "<group>"; };
+		6225B7E12AEF169500CCEDAE /* Publication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publication.swift; sourceTree = "<group>"; };
+		6225B7E32AEF1CAE00CCEDAE /* PublicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationViewController.swift; sourceTree = "<group>"; };
+		6225B7E52AEF1E8300CCEDAE /* PublicationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationTableViewCell.swift; sourceTree = "<group>"; };
 		62684BCF2AF54E3A00F3EDB8 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		62684BD12AF5573600F3EDB8 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		626E37EE2AF61C290037D2B8 /* StoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		626E37F02AF61EAC0037D2B8 /* StoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
 		626E37F42AF633B90037D2B8 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
-		626E37F82AF8964A0037D2B8 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
+		626E37F82AF8964A0037D2B8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		626E37FB2AFA22290037D2B8 /* UsersProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersProtocol.swift; sourceTree = "<group>"; };
+		626E37FD2AFA31D70037D2B8 /* PublicationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationProtocol.swift; sourceTree = "<group>"; };
+		626E37FF2AFA5ADD0037D2B8 /* RegistrationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDataManager.swift; sourceTree = "<group>"; };
 		62AE72B52AF263A200639FDF /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		62AE72B92AF2756600639FDF /* PublishersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishersView.swift; sourceTree = "<group>"; };
+		62AE72B92AF2756600639FDF /* PublicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationsView.swift; sourceTree = "<group>"; };
 		62AE72DD2AF42BFF00639FDF /* GridCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCollectionViewCell.swift; sourceTree = "<group>"; };
+		62E359592AFD4A30009451AB /* LentaPostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LentaPostsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,22 +94,33 @@
 				6225B7D42AEEFAF600CCEDAE /* Assets.xcassets */,
 				6225B7D62AEEFAF600CCEDAE /* LaunchScreen.storyboard */,
 				6225B7D92AEEFAF600CCEDAE /* Info.plist */,
-				6225B7DF2AEF15B400CCEDAE /* DataManager.swift */,
-				6225B7E12AEF169500CCEDAE /* Publisher.swift */,
-				626E37F82AF8964A0037D2B8 /* Cat.swift */,
+				6225B7DF2AEF15B400CCEDAE /* PublicationDataManager.swift */,
+				626E37FF2AFA5ADD0037D2B8 /* RegistrationDataManager.swift */,
+				626E37FB2AFA22290037D2B8 /* UsersProtocol.swift */,
+				626E37FD2AFA31D70037D2B8 /* PublicationProtocol.swift */,
+				626E37FA2AFA21E50037D2B8 /* Objects */,
 				62AE72B82AF2754900639FDF /* Views */,
 				62AE72DF2AF42C4600639FDF /* Cells */,
 			);
 			path = WorkWithUICollectionView;
 			sourceTree = "<group>";
 		};
+		626E37FA2AFA21E50037D2B8 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				6225B7E12AEF169500CCEDAE /* Publication.swift */,
+				626E37F82AF8964A0037D2B8 /* User.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		62AE72B72AF2753200639FDF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6225B7CF2AEEFAF300CCEDAE /* ProfileViewController.swift */,
-				6225B7E32AEF1CAE00CCEDAE /* PublisherViewController.swift */,
 				62684BCF2AF54E3A00F3EDB8 /* RegistrationViewController.swift */,
 				626E37F02AF61EAC0037D2B8 /* StoryViewController.swift */,
+				6225B7CF2AEEFAF300CCEDAE /* ProfileViewController.swift */,
+				6225B7E32AEF1CAE00CCEDAE /* PublicationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -110,7 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				62AE72B52AF263A200639FDF /* ProfileView.swift */,
-				62AE72B92AF2756600639FDF /* PublishersView.swift */,
+				62AE72B92AF2756600639FDF /* PublicationsView.swift */,
 				62684BD12AF5573600F3EDB8 /* RegistrationView.swift */,
 				626E37F42AF633B90037D2B8 /* StoryView.swift */,
 			);
@@ -121,7 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				62AE72DD2AF42BFF00639FDF /* GridCollectionViewCell.swift */,
-				6225B7E52AEF1E8300CCEDAE /* PublisherTableViewCell.swift */,
+				6225B7E52AEF1E8300CCEDAE /* PublicationTableViewCell.swift */,
+				62E359592AFD4A30009451AB /* LentaPostsTableViewCell.swift */,
 				626E37EE2AF61C290037D2B8 /* StoryCollectionViewCell.swift */,
 			);
 			path = Cells;
@@ -210,8 +230,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n  exit 1\nfi\n\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -222,19 +241,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				626E37F52AF633B90037D2B8 /* StoryView.swift in Sources */,
-				62AE72BA2AF2756600639FDF /* PublishersView.swift in Sources */,
+				62AE72BA2AF2756600639FDF /* PublicationsView.swift in Sources */,
+				626E37FC2AFA22290037D2B8 /* UsersProtocol.swift in Sources */,
 				62AE72B62AF263A200639FDF /* ProfileView.swift in Sources */,
 				6225B7D02AEEFAF300CCEDAE /* ProfileViewController.swift in Sources */,
 				62684BD22AF5573600F3EDB8 /* RegistrationView.swift in Sources */,
 				6225B7CC2AEEFAF300CCEDAE /* AppDelegate.swift in Sources */,
 				62AE72DE2AF42BFF00639FDF /* GridCollectionViewCell.swift in Sources */,
+				626E37FE2AFA31D70037D2B8 /* PublicationProtocol.swift in Sources */,
 				6225B7CE2AEEFAF300CCEDAE /* SceneDelegate.swift in Sources */,
-				6225B7E62AEF1E8300CCEDAE /* PublisherTableViewCell.swift in Sources */,
+				6225B7E62AEF1E8300CCEDAE /* PublicationTableViewCell.swift in Sources */,
 				626E37EF2AF61C290037D2B8 /* StoryCollectionViewCell.swift in Sources */,
-				6225B7E02AEF15B400CCEDAE /* DataManager.swift in Sources */,
-				6225B7E22AEF169600CCEDAE /* Publisher.swift in Sources */,
-				626E37F92AF8964A0037D2B8 /* Cat.swift in Sources */,
-				6225B7E42AEF1CAE00CCEDAE /* PublisherViewController.swift in Sources */,
+				62E3595A2AFD4A30009451AB /* LentaPostsTableViewCell.swift in Sources */,
+				6225B7E02AEF15B400CCEDAE /* PublicationDataManager.swift in Sources */,
+				6225B7E22AEF169600CCEDAE /* Publication.swift in Sources */,
+				626E38002AFA5ADD0037D2B8 /* RegistrationDataManager.swift in Sources */,
+				626E37F92AF8964A0037D2B8 /* User.swift in Sources */,
+				6225B7E42AEF1CAE00CCEDAE /* PublicationViewController.swift in Sources */,
 				626E37F12AF61EAC0037D2B8 /* StoryViewController.swift in Sources */,
 				62684BD02AF54E3A00F3EDB8 /* RegistrationViewController.swift in Sources */,
 			);

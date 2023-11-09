@@ -9,8 +9,12 @@ import UIKit
 
 class ProfileView: UIView {
     weak var controller: ProfileViewController?
-    var cat: Cat?
-    //var publishers: [Publisher] = []
+    var cat: User? {
+        didSet {
+            avatarImage.image = cat?.imageAvatar
+            descriptionCanal.text = cat?.description
+        }
+    }
     var count: Int = 0 {
         didSet {
             self.numberPublication.text = "\(self.count)"
@@ -28,6 +32,7 @@ class ProfileView: UIView {
     }()
     lazy var avatarImage: UIImageView = {
         let image = UIImageView()
+        image.image = controller?.currentCat?.imageAvatar
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -84,7 +89,6 @@ class ProfileView: UIView {
         text.translatesAutoresizingMaskIntoConstraints = false
         text.font = UIFont.systemFont(ofSize: 15)
         text.textColor = .white
-        text.text = "Мой блог"
         return text
     }()
     lazy var gridCollectionView: UICollectionView = {
@@ -106,14 +110,12 @@ class ProfileView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
-        if let image = UIImage(named: "photo1") {
-            avatarImage.image = image
-        }
         avatarImage.layer.cornerRadius = 40
         avatarImage.clipsToBounds = true
         addSubview(avatarImage)
         addSubview(descriptionCanal)
         addSubview(gridCollectionView)
+        setupNavigationBar()
         setupLayout()
     }
     required init?(coder: NSCoder) {
@@ -149,7 +151,7 @@ class ProfileView: UIView {
                 gridCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 gridCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
                 gridCollectionView.topAnchor.constraint(equalTo: descriptionCanal.bottomAnchor, constant: 15),
-                gridCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10)
+                gridCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     func createVerticalStackView(_ views: [UIView]) -> UIStackView {
@@ -164,7 +166,7 @@ class ProfileView: UIView {
     func setupNavigationBar() {
         let customBarButtonItem = UIBarButtonItem(customView: buttonForRefactorProfile )
         controller?.navigationItem.rightBarButtonItem = customBarButtonItem
-        controller?.navigationItem.title = cat?.name
+        controller?.navigationItem.title = "Cat_Boss"
         controller?.navigationItem.titleView?.tintColor = .white
         controller?.navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white
@@ -174,20 +176,19 @@ class ProfileView: UIView {
 extension ProfileView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let newCat = cat else {return 0}
-        return newCat.publishers.count
+        return newCat.publications.count
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let publishers = cat?.publishers else {return UICollectionViewCell()}
-            
+            guard let publications = cat?.publications else {return UICollectionViewCell()}
         if let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: GridCollectionViewCell.reuseIdentifier,
             for: indexPath
         ) as? GridCollectionViewCell {
-            let publisher = publishers[indexPath.row]
-            cell.configure(with: publisher)
+            let publication = publications[indexPath.row]
+            cell.configure(with: publication)
             return cell
         } else {
             return UICollectionViewCell()
@@ -199,3 +200,4 @@ extension ProfileView: UICollectionViewDelegate {
         controller?.collectionView(collectionView, didSelectItemAt: indexPath)
     }
 }
+

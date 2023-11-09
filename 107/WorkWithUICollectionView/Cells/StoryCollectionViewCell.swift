@@ -23,7 +23,7 @@ class StoryCollectionViewCell: UICollectionViewCell {
             image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             image.topAnchor.constraint(equalTo: contentView.topAnchor),
-            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     required init?(coder aDecoder: NSCoder) {

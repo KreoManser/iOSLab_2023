@@ -24,8 +24,8 @@ class GridCollectionViewCell: UICollectionViewCell {
             image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-    func configure(with publisher: Publisher) {
-        image.image = publisher.image
+    func configure(with publication: Publication) {
+        image.image = publication.image
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

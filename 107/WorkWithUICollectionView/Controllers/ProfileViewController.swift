@@ -1,57 +1,36 @@
 import UIKit
-protocol MainUpdateWithOperationDelegate: AnyObject {
-    func updateTable()
-}
-class ProfileViewController: UIViewController, MainUpdateWithOperationDelegate /*UpdateDataDelegate */ {
+class ProfileViewController: UIViewController, UpdateDataDelegate, UpdateDataEverythingControllers {
+
     lazy  var profileView = ProfileView(frame: .zero)
-    weak var delegate: MainUpdateWithOperationDelegate?
+    var currentCat: User?
+
     override func loadView() {
         super.loadView()
         view = profileView
     }
-    //var publishers: [Publisher] = []
-//    func updateData() {
-//        DataManager.asyncGetPublisher { publishers in
-//            self.profileView.publishers = publishers
-//           
-//            DispatchQueue.main.async {
-//                self.profileView.count = publishers.count
-//                self.updateTable()
-//            }
-//           
-//        }
-//    }
-//    func updateData() {
-//        Task {
-//            publishers = await DataManager.asyncGetPublisher1()
-//            await setData()
-//        }
-//    }
-//    func setData() async {
-//        self.profileView.publishers = self.publishers
-//        self.profileView.count = self.publishers.count
-//    }
-     override func viewDidLoad() {
-         super.viewDidLoad()
-         profileView.controller = self
-         profileView.setupNavigationBar()
-         //updateData()
-     }
-    func updateTable() {
-        profileView.gridCollectionView.reloadData()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        profileView.controller = self
+        profileView.setupNavigationBar()
+        RegistrationDataManager.shared.delegate1 = self
+        updateData()
     }
-    func setData(cat: Cat) {
-        //guard let newPublishers = publishers else {return}
-        profileView.cat = cat
-        profileView.count = cat.publishers.count
+    func updateData() {
+        Task {
+            let cat = await RegistrationDataManager.shared.getCurrentUser()
+            currentCat = cat
+            profileView.count = cat?.publications.count ?? 0
+            profileView.cat = cat
+            profileView.gridCollectionView.reloadData()
+        }
     }
- }
+}
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let publisherViewController = PublisherViewController()
-        publisherViewController.selectedIndexPath = indexPath
-        publisherViewController.delegate = self
-        //publisherViewController.delegate1 = self
-        present(publisherViewController, animated: true, completion: nil)
+        let piblicationViewController = PublicationViewController()
+        piblicationViewController.selectedIndexPath = indexPath
+        piblicationViewController.delegate = self
+        present(piblicationViewController, animated: true, completion: nil)
     }
 }

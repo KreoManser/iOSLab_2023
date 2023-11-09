@@ -1,39 +1,57 @@
 import UIKit
 
 class RegistrationViewController: UIViewController {
-    
-    
-    
     lazy var registrationView = RegistrationView(frame: .zero)
-    
     override func loadView() {
         super.loadView()
-        
         view = registrationView
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         registrationView.controller = self
         navigationItem.title = "Welcome to CatGram"
     }
-    
     func actionForButtonEnter(textLogin: String, textPassword: String) {
-        if let cat = DataManager.findCat(forLogin: textLogin.lowercased(), password: textPassword.lowercased()) {
-            var storyViewController = StoryViewController()
-            storyViewController.setData(cat: cat)
-            navigationController?.pushViewController(storyViewController, animated: true)
-        }
-        else if textLogin == "" || textPassword == "" {
-            registrationView.showAlert(title: "Внимание", message: "Заполните все поля")
-        }
-        else{
-            registrationView.showAlert(title: "Внимание", message: "Введены некорректные данные")
+        Task {
+            await RegistrationDataManager.shared.login(login: textLogin, password: textPassword)
+            if await RegistrationDataManager.shared.getCurrentUser() != nil {
+
+                let firstViewController = ProfileViewController()
+                    firstViewController.view.backgroundColor = .white
+                    firstViewController.title = "Profile"
+                    firstViewController.tabBarItem = UITabBarItem(
+                        title: nil,
+                        image: UIImage(named: "profile"),
+                        selectedImage: UIImage(named: "profile")
+                    )
+                let secondViewController = StoryViewController()
+                    secondViewController.view.backgroundColor = .white
+                    secondViewController.title = "Home"
+                    secondViewController.tabBarItem = UITabBarItem(
+                        title: nil,
+                        image: UIImage(named: "home"),
+                        selectedImage: UIImage(named: "home")
+                    )
+                firstViewController.view.backgroundColor = .black
+                secondViewController.view.backgroundColor = .black
+            let firstNavigationController = UINavigationController(rootViewController:
+                firstViewController)
+            let secondNavigationController = UINavigationController(rootViewController: secondViewController)
+            let tabBarController = UITabBarController()
+            tabBarController.setViewControllers([firstNavigationController, secondNavigationController], animated: false)
+
+            tabBarController.tabBar.barTintColor = .black
+            tabBarController.tabBar.tintColor = .white
+            tabBarController.tabBar.unselectedItemTintColor = .black
+            tabBarController.tabBar.backgroundColor = .darkGray
+            SceneDelegate.window?.rootViewController = tabBarController
+            SceneDelegate.window?.makeKeyAndVisible()
+            } else if textLogin == "" || textPassword == "" {
+                registrationView.showAlert(title: "Внимание", message: "Заполните все поля")
+            } else {
+                registrationView.showAlert(title: "Внимание", message: "Введены некорректные данные")
+            }
         }
     }
-    
-   
-    
-    
 }
-
-
