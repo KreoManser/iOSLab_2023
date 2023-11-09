@@ -4,25 +4,40 @@ protocol UpdateProfileDataManagerDelegate: AnyObject {
 }
 class ProfileDataManager: NSObject {
     typealias Model = Photo
-    private let dataSource = ProfileDataSource()
-    internal var photos: [Photo] = []
+    private let dataSource = DataSource()
+    var user: User?
+    var photosProfile: [Photo] = []
+    var photosSubscribers: [Photo] = []
     static let shared = ProfileDataManager()
     weak var delegate: UpdateProfileDataManagerDelegate?
-    internal let saveQueue = OperationQueue()
-    internal let getModelsQueue = OperationQueue()
-    internal let deleteQueue = OperationQueue()
-    internal let findModelQueue = OperationQueue()
+    let saveQueue = DispatchQueue(label: "saveQueue")
+    let getModelsQueue = DispatchQueue(label: "getModelsQueue")
+    let deleteQueue = DispatchQueue(label: "deleteQueue")
+    let findModelQueue = DispatchQueue(label: "findModelQueue")
     weak var navigationController: UINavigationController?
     private override init() {
         super.init()
-        add()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func setPhotos(user: User) {
+        self.user = user
+        let key = user.login
+        let photodict = DataSource.photosDictionary
+        for photos in DataSource.photosDictionary {
+            if photos.key == key {
+                for photo in photos.value {
+                    self.photosProfile.append(photo)
+                }
+            } else {
+                for photo in photos.value {
+                    self.photosSubscribers.append(photo)
+                }
+            }
+        }
     }
     func updateUI() {
         delegate?.dataDidChange()
-    }
-    func add() {
-        for index in 0..<8 {
-            photos.append(dataSource.photoDataSource[index])
-        }
     }
 }

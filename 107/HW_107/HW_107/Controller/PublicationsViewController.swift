@@ -1,6 +1,8 @@
 import UIKit
-
-class PublicationsViewController: UIViewController, UpdatePublicationsDataManagerDelegate {
+class PublicationsViewController:
+    UIViewController,
+    UpdatePublicationsDataManagerDelegate,
+    UpdateProfileDataManagerDelegate {
     func dataDidChange() {
         DispatchQueue.main.async {
             self.publicationsView.collectionView.reloadData()
@@ -11,8 +13,8 @@ class PublicationsViewController: UIViewController, UpdatePublicationsDataManage
     private let dataManager = PublicationsDataManager.shared
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataManager.updateDelegate = self
         setUpPublicationsView()
+        dataManager.updateDelegate = self
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         swipeRight.direction = .right
         view.addGestureRecognizer(swipeRight)

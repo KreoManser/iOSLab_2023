@@ -1,11 +1,10 @@
 import UIKit
-
 class ProfileView: UIView {
     private lazy var menuButon: UIButton = UIButton()
     lazy var createContentButton: UIButton = UIButton()
     private lazy var accountsButton: UIButton = UIButton()
     private lazy var avatarImage: UIImageView = UIImageView()
-    //    private lazy var fullNameLabel: UILabel = UILabel()
+    private lazy var fullNameLabel: UILabel = UILabel()
     lazy var countPublicationLabel: UILabel = UILabel()
     private lazy var publicationLabel: UILabel = UILabel()
     private lazy var countSubscribersLabel: UILabel = UILabel()
@@ -51,19 +50,19 @@ class ProfileView: UIView {
         setUpDataAccountStackView()
         setUpAnimatedBar()
         setUpCollectionView()
+        setUpfullNameLabel()
     }
     /// Buttons
     private func setUpAccountsButton() {
         addSubview(accountsButton)
         accountsButton.translatesAutoresizingMaskIntoConstraints = false
-        accountsButton.setTitle("Kot", for: .normal)
         accountsButton.titleLabel?.font = .boldSystemFont(ofSize: 26)
         accountsButton.setTitleColor(.white, for: .normal)
         NSLayoutConstraint.activate([
             accountsButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             accountsButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.3),
             accountsButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.1),
-            accountsButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor)
+            accountsButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10)
         ])
     }
     private func setUpMenuButton() {
@@ -78,8 +77,9 @@ class ProfileView: UIView {
     private func setUpAvatarImage() {
         addSubview(avatarImage)
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
-        avatarImage.image = .avatar
         avatarImage.backgroundColor = .white
+        avatarImage.contentMode = .scaleAspectFill
+        avatarImage.clipsToBounds = true
         avatarImage.layer.borderWidth = 1.0
         avatarImage.layer.masksToBounds = false
         avatarImage.layer.cornerRadius = 46
@@ -88,13 +88,13 @@ class ProfileView: UIView {
             avatarImage.topAnchor.constraint(equalTo: accountsButton.bottomAnchor, constant: 10),
             avatarImage.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.24),
             avatarImage.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.24),
-            avatarImage.leadingAnchor.constraint(equalTo: accountsButton.leadingAnchor, constant: 30)
+            avatarImage.leadingAnchor.constraint(equalTo: accountsButton.leadingAnchor, constant: 10)
         ])
     }
     /// Labels
     private func setUpCountPublicationLabel() {
         countPublicationLabel.translatesAutoresizingMaskIntoConstraints = false
-        countPublicationLabel.text = "4"
+        countPublicationLabel.text = "6"
         countPublicationLabel.font = UIFont(name: "systemFont", size: 16)
         countPublicationLabel.textColor = .white
     }
@@ -106,7 +106,7 @@ class ProfileView: UIView {
     }
     private func setUpCountSubscribersLabel() {
         countSubscribersLabel.translatesAutoresizingMaskIntoConstraints = false
-        countSubscribersLabel.text = "88"
+        countSubscribersLabel.text = "2"
         countSubscribersLabel.font = UIFont(name: "systemFont", size: 16)
         countSubscribersLabel.textColor = .white
     }
@@ -118,7 +118,7 @@ class ProfileView: UIView {
     }
     private func setUpCountSubscriptionsLabel() {
         countSubscriptionsLabel.translatesAutoresizingMaskIntoConstraints = false
-        countSubscriptionsLabel.text = "64"
+        countSubscriptionsLabel.text = "2"
         countSubscriptionsLabel.font = UIFont(name: "systemFont", size: 16)
         countSubscriptionsLabel.textColor = .white
     }
@@ -128,8 +128,21 @@ class ProfileView: UIView {
         subscriptionsLabel.font = UIFont(name: "systemFont", size: 10)
         subscriptionsLabel.textColor = .white
     }
+    private func setUpfullNameLabel() {
+        addSubview(fullNameLabel)
+        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        fullNameLabel.font = UIFont(name: "systemFont", size: 14)
+        fullNameLabel.text = "23445"
+        fullNameLabel.textColor = .white
+        NSLayoutConstraint.activate([
+            fullNameLabel.topAnchor.constraint(equalTo: avatarImage.bottomAnchor, constant: 5),
+            fullNameLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.4),
+            fullNameLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.1),
+            fullNameLabel.leadingAnchor.constraint(equalTo: accountsButton.leadingAnchor, constant: 10)
+        ])
+    }
     /// StackViews
-    private func  setUpTopStackView() {
+    private func setUpTopStackView() {
         addSubview(topStackView)
         setUpCountPublicationLabel()
         setUpPublicationLabel()
@@ -201,9 +214,9 @@ class ProfileView: UIView {
         collectionView.backgroundColor = .black
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: animatedBarView.bottomAnchor),
-            collectionView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor),
-            collectionView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor)
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     /// Config
@@ -214,5 +227,10 @@ class ProfileView: UIView {
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.spacing = 0.2
+    }
+    func configUser(user: User) {
+        accountsButton.setTitle(user.login, for: .normal)
+        fullNameLabel.text = user.fullName
+        avatarImage.image = user.avatar
     }
 }

@@ -1,5 +1,4 @@
 import UIKit
-
 class PublicationsView: UIView {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
