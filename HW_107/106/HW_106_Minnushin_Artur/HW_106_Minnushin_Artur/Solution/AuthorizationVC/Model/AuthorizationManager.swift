@@ -9,14 +9,13 @@ import Foundation
 import UIKit
 
 protocol AuthorizationManagerProtocol {
-    func asyncCheckAthorizationData(login: String, password: String, users: [User]) async -> Bool
-    func asyncGetCurrentUser() async -> User?
-
+    func asyncCheckAthorizationData(login: String, password: String, users: [User]) async -> (cheker: Bool, item: User?)
 }
 class AuthorizationManager: AuthorizationManagerProtocol {
-    let dataBase: [User] = UserDataBase().getData()
-    var currentUser: User?
-    func asyncCheckAthorizationData(login: String, password: String, users: [User]) async -> Bool {
+    var currentUser: User!
+    func asyncCheckAthorizationData(login: String,
+                                    password: String,
+                                    users: [User]) async -> (cheker: Bool, item: User?) {
         return await withCheckedContinuation {continuation in
             DispatchQueue.global().asyncAfter(deadline: .now()) {
                 var cheker: Bool = false
@@ -26,13 +25,8 @@ class AuthorizationManager: AuthorizationManagerProtocol {
                     self.currentUser = users[item]
                     break
                 }
-                continuation.resume(returning: cheker)
+                continuation.resume(returning: (cheker, self.currentUser))
             }
-        }
-    }
-    func asyncGetCurrentUser() async -> User? {
-        return await withCheckedContinuation { continuation in
-            continuation.resume(returning: self.currentUser)
         }
     }
 }

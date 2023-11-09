@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileCollectionDataSource: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    let posts: [PostInfo] = DataManager.sigelton.syncGetAllPost()
+    var posts: [PostInfo] = []
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }

@@ -9,8 +9,9 @@ import UIKit
 
 class InstargramProfileView: UIView {
     weak var profileViewController: InstagramProfileViewController?
+    var user: User?
     lazy var avatarImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "avatar"))
+        let image = UIImageView()
         image.layer.cornerRadius = 45
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -20,20 +21,17 @@ class InstargramProfileView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20)
-        label.text = "10"
         return label
     }()
     lazy var countFollowersLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "10"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     lazy var countFollowingLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "10"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
@@ -61,14 +59,12 @@ class InstargramProfileView: UIView {
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Миннушин Артур"
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     lazy var subTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "iOS и С# программист"
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
@@ -95,6 +91,15 @@ class InstargramProfileView: UIView {
     }
     func reloadData() {
         imageCollection.reloadData()
+    }
+    func configureUserProfile(user: User) {
+        self.user = user
+        avatarImage.image = UIImage(named: "\(String(describing: user.userAvatarImageName))")
+        countPostLabel.text = "\(String(describing: user.userCountPosts))"
+        countFollowersLabel.text = "\(String(describing: user.userCountFolowers))"
+        countFollowingLabel.text = "\(String(describing: user.userCountFolowing))"
+        nameLabel.text = "\(String(describing: user.userName))"
+        subTitle.text = "\(String(describing: user.userDescription))"
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -136,7 +141,7 @@ class InstargramProfileView: UIView {
             nameLabel.topAnchor.constraint(equalTo: avatarImage.bottomAnchor, constant: 15),
             nameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 145),
             subTitle.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            subTitle.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 165),
+            subTitle.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
             photoCollectionImageView.topAnchor.constraint(equalTo: subTitle.bottomAnchor, constant: 20),
             photoCollectionImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             photoCollectionImageView.widthAnchor.constraint(equalToConstant: 30),
@@ -155,7 +160,6 @@ class InstargramProfileView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func 
 }
 
 extension InstargramProfileView: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {

@@ -51,7 +51,7 @@ class UserDataBase {
                     PostInfo(postID: 13, postPhotoNmae: "Photo1", postDate: "01.01.2020", postComment: "пост 13"),
                     PostInfo(postID: 14, postPhotoNmae: "Photo1", postDate: "01.01.2020", postComment: "пост 14"),
                     PostInfo(postID: 15, postPhotoNmae: "Photo1", postDate: "01.01.2020", postComment: "пост 15")]),
-        User(userLogin: "login2", userPassword: "pasword2",
+        User(userLogin: "2", userPassword: "2",
              userId: 2, userName: "Timofei Brisovix",
              userAvatarImageName: "avatar1", userCountPosts: 10,
              userCountFolowing: 10, userCountFolowers: 10,

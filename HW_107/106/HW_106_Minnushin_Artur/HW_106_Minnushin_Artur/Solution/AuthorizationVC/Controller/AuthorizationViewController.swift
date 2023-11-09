@@ -9,7 +9,6 @@ import UIKit
 
 class AuthorizationViewController: UIViewController {
     var authorizationView = AuthorizationView(frame: .zero)
-    var catGramVC = InstagramProfileViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
         authorizationView.authorizationVC = self
@@ -22,13 +21,22 @@ class AuthorizationViewController: UIViewController {
             let checkAthorizationData = await AuthorizationManager().asyncCheckAthorizationData(
                 login: login, password: pasword,
                 users: UserDataBase().getData())
-            if checkAthorizationData == true {
-                _ = await AuthorizationManager().asyncGetCurrentUser()
-                catGramVC.modalPresentationStyle = .overFullScreen
-                present(catGramVC, animated: true)
+            if checkAthorizationData.cheker == true {
+                setupTabBar(user: checkAthorizationData.item!)
             } else {
                 authorizationView.presentAllertVC()
             }
         }
+    }
+    func setupTabBar(user: User) {
+        let tabBarController = UITabBarController()
+        let profileVC = InstagramProfileViewController(user: user)
+        profileVC.tabBarItem.title = "Профиль"
+        profileVC.tabBarItem.image = UIImage(systemName: "house.fill")
+        tabBarController.viewControllers = [
+            UINavigationController(rootViewController: profileVC)
+        ]
+        tabBarController.modalPresentationStyle = .overFullScreen
+        present(tabBarController, animated: true)
     }
 }
