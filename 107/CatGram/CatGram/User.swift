@@ -8,6 +8,3 @@ struct User: Equatable {
     let login: String
     let password: String
 }
-//let username = "cat"
-//let description = "super Cat"
-//let profileImage = UIImage(named: "kingCat")

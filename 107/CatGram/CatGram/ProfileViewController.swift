@@ -3,12 +3,11 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     var posts: [Post] = []
-    let authVC = AuthorizationViewController()
     var user: User?
     private var dataManager = DataManager()
+    let feedVC = FeedViewController()
 
     init() {
-//        self.user = authVC.users[0]
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -40,7 +39,7 @@ class ProfileViewController: UIViewController {
         image.contentMode = .scaleAspectFill
         return image
     }()
-
+// collectionView для отображения постов в profile
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -59,9 +58,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         posts = dataManager.syncGetPosts()
-//        user = authVC.users[0]
         setupLayout()
-//        collectionView.reloadData()
+        collectionView.reloadData()
     }
 
     private func setupLayout() {
@@ -76,16 +74,16 @@ class ProfileViewController: UIViewController {
             usernameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             usernameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             usernameLabel.widthAnchor.constraint(equalToConstant: 100),
-            usernameLabel.heightAnchor.constraint(equalToConstant: 20),
+            usernameLabel.heightAnchor.constraint(equalToConstant: 25),
 
             avatarImageView.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 10),
             avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             avatarImageView.widthAnchor.constraint(equalToConstant: 80),
             avatarImageView.heightAnchor.constraint(equalToConstant: 80),
 
-            descriptionLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 5),
+            descriptionLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 2),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            descriptionLabel.widthAnchor.constraint(equalToConstant: 70),
+            descriptionLabel.widthAnchor.constraint(equalToConstant: 100),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 70),
 
             collectionView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
@@ -109,29 +107,20 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         return cell ?? UICollectionViewCell()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let selectedPost = posts[indexPath.row]
-        let postDetailVC = ListOfPostsViewController(index: indexPath)
-//        postDetailVC.delegate = self
-        navigationController?.pushViewController(postDetailVC, animated: true)
+        if let selectedUser = user {
+            let listOfPostsDetailVC = ListOfPostsViewController(index: indexPath, user: selectedUser, posts: posts)
+            listOfPostsDetailVC.delegate = self
+            navigationController?.pushViewController(listOfPostsDetailVC, animated: true)
+        }
     }
 }
-extension ProfileViewController: PostTableViewCellDelegate {
-    func reloadArrayAfterDeleting(_ postTableViewCell: PostTableViewCell, didDeletePost post: Post) {
-//        if let index = posts.firstIndex(where: { $0.id == post.id }) {
-//            posts.remove(at: index)
-//        }
-        print("****** 1) posts array HERE: \(posts)")
-//        print("delete post: \(post)")
-        posts = dataManager.syncGetPosts()
-        print("****** 2) posts array HERE: \(posts)")
+
+extension ProfileViewController: ListOfPostsViewControllerDelegate {
+    func reloadArrayAfterDeletingFromList(_ listOfPostsViewController: ListOfPostsViewController, didDeletePost post: Post) {
+        if let index = posts.firstIndex(where: { $0.id == post.id }) {
+            posts.remove(at: index)
+        }
         collectionView.reloadData()
     }
 }
-extension ProfileViewController: AuthorizationViewControllerDelegate {
-    func reloadUserAfterLogin(_ authVC: AuthorizationViewController) {
-        user = authVC.users[0]
-        usernameLabel.text = user?.username
-        descriptionLabel.text = user?.description
-        avatarImageView.image = user?.profileImage
-    }
-}
+

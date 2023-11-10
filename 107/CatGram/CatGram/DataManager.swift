@@ -11,18 +11,19 @@ class DataManager: DataManagerProtocol {
         self.users = []
         self.initPosts()
         self.initUsers()
-
     }
 
     private let saveSemaphore = DispatchSemaphore(value: 1)
-    private let getSemaphore = DispatchSemaphore(value: 1)
+    private let getPostsSemaphore = DispatchSemaphore(value: 1)
     private let deleteSemaphore = DispatchSemaphore(value: 1)
     private let searchSemaphore = DispatchSemaphore(value: 1)
+    private let getUsersSemaphore = DispatchSemaphore(value: 1)
 
     private let saveQueue = OperationQueue()
     private let getQueue = OperationQueue()
     private let deleteQueue = OperationQueue()
     private let searchQueue = OperationQueue()
+    private let getUsersQueue = OperationQueue()
 
     func initPosts() {
         if let image1 = UIImage(named: "miniCat") {
@@ -47,6 +48,22 @@ class DataManager: DataManagerProtocol {
         }
     }
 
+    func syncGetUsers() -> [User] {
+        getUsersSemaphore.wait()
+        let currentUsers = users
+        getUsersSemaphore.signal()
+        return currentUsers
+    }
+    func asyncGetUsers() async -> [User] {
+        return await withCheckedContinuation { continuation in
+            let getUsersOperation = BlockOperation {
+                let gotUsers = self.users
+                continuation.resume(returning: gotUsers)
+            }
+            getUsersQueue.addOperation(getUsersOperation)
+        }
+    }
+
     func getUsers() -> [User] {
         return users
     }
@@ -56,31 +73,49 @@ class DataManager: DataManagerProtocol {
         posts.append(post)
         saveSemaphore.signal()
     }
-    func asyncSave(post: Post, completion: @escaping (Bool) -> Void) {
-        let saveOperation = BlockOperation {
-            DispatchQueue.main.async {
+    func asyncSave(post: Post) async -> Bool {
+        return await withCheckedContinuation { continuation in
+            let saveOperation = BlockOperation {
                 self.posts.append(post)
-                completion(true)
+                continuation.resume(returning: true)
             }
+            saveQueue.addOperation(saveOperation)
         }
-        saveQueue.addOperation(saveOperation)
     }
+//    func asyncSave(post: Post, completion: @escaping (Bool) -> Void) {
+//        let saveOperation = BlockOperation {
+//            DispatchQueue.main.async {
+//                self.posts.append(post)
+//                completion(true)
+//            }
+//        }
+//        saveQueue.addOperation(saveOperation)
+//    }
 
     func syncGetPosts() -> [Post] {
-        getSemaphore.wait()
+        getPostsSemaphore.wait()
         let currentPosts = posts
-        getSemaphore.signal()
+        getPostsSemaphore.signal()
         return currentPosts
     }
-    func asyncGetPosts(completion: @escaping ([Post]) -> Void) {
-        let getPostsOperation = BlockOperation {
-            let gotPosts = self.posts
-            DispatchQueue.main.async {
-                completion(gotPosts)
+    func asyncGetPosts() async -> [Post] {
+        return await withCheckedContinuation { continuation in
+            let getPostsOperation = BlockOperation {
+                let gotPosts = self.posts
+                continuation.resume(returning: gotPosts)
             }
+            getQueue.addOperation(getPostsOperation)
         }
-        getQueue.addOperation(getPostsOperation)
     }
+//    func asyncGetPosts(completion: @escaping ([Post]) -> Void) {
+//        let getPostsOperation = BlockOperation {
+//            let gotPosts = self.posts
+//            DispatchQueue.main.async {
+//                completion(gotPosts)
+//            }
+//        }
+//        getQueue.addOperation(getPostsOperation)
+//    }
 
     func syncDelete(post: Post) {
         deleteSemaphore.wait()
@@ -89,23 +124,36 @@ class DataManager: DataManagerProtocol {
         }
         deleteSemaphore.signal()
     }
-    func asyncDelete(post: Post, completion: @escaping (Bool) -> Void) {
-//        print("!!!!!!!!!!!!!!!!!posts in DM before deleting:\(posts)")
-        let deleteOperation = BlockOperation {
-            if let index = self.posts.firstIndex(where: { $0.id == post.id }) {
-                DispatchQueue.main.async {
+    func asyncDelete(post: Post) async -> Bool {
+        return await withCheckedContinuation { continuation in
+            let deleteOperation = BlockOperation {
+                if let index = self.posts.firstIndex(where: { $0.id == post.id }) {
                     self.posts.remove(at: index)
-                    completion(true)
+                    continuation.resume(returning: true)
+                } else {
+                    continuation.resume(returning: false)
                 }
             }
-            else {
-                DispatchQueue.main.async {
-                    completion(false)
-                }
-            }
+            deleteQueue.addOperation(deleteOperation)
         }
-        deleteQueue.addOperation(deleteOperation)
     }
+//    func asyncDelete(post: Post, completion: @escaping (Bool) -> Void) {
+////        print("!!!!!!!!!!!!!!!!!posts in DM before deleting:\(posts)")
+//        let deleteOperation = BlockOperation {
+//            if let index = self.posts.firstIndex(where: { $0.id == post.id }) {
+//                DispatchQueue.main.async {
+//                    self.posts.remove(at: index)
+//                    completion(true)
+//                }
+//            }
+//            else {
+//                DispatchQueue.main.async {
+//                    completion(false)
+//                }
+//            }
+//        }
+//        deleteQueue.addOperation(deleteOperation)
+//    }
 
     func syncSearchPostById(byId id: Int) -> Post? {
         searchSemaphore.wait()
@@ -113,14 +161,23 @@ class DataManager: DataManagerProtocol {
         searchSemaphore.signal()
         return foundPost
     }
-    func asyncSearchPostById(byId id: Int, completion: @escaping (Post?) -> Void) {
-        let searchOperation = BlockOperation {
-            var foundPost: Post?
-            DispatchQueue.main.sync {
-                foundPost = self.posts.first(where: { $0.id == id })
-                completion(foundPost)
+    func asyncSearchPostById(byId id: Int) async -> Post? {
+        return await withCheckedContinuation { continuation in
+            let searchOperation = BlockOperation {
+                let foundPost = self.posts.first(where: { $0.id == id })
+                continuation.resume(returning: foundPost)
             }
+            searchQueue.addOperation(searchOperation)
         }
-        searchQueue.addOperation(searchOperation)
     }
+    //    func asyncSearchPostById(byId id: Int, completion: @escaping (Post?) -> Void) {
+    //        let searchOperation = BlockOperation {
+    //            var foundPost: Post?
+    //            DispatchQueue.main.async {
+    //                foundPost = self.posts.first(where: { $0.id == id })
+    //                completion(foundPost)
+    //            }
+    //        }
+    //        searchQueue.addOperation(searchOperation)
+    //    }
 }

@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-struct Post {
+struct Post: Equatable {
     let id: Int
     let image: UIImage
     let caption: String

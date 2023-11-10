@@ -1,17 +1,19 @@
 import UIKit
 
-protocol PostTableViewCellDelegate: AnyObject {
-    func reloadArrayAfterDeleting(_ postTableViewCell: PostTableViewCell, didDeletePost post: Post)
+protocol FeedTableViewCellDelegate: AnyObject {
+    func reloadArrayAfterDeletingFromFeedCell(_ feedTableViewCell: FeedTableViewCell, didDeletePost post: Post)
 }
 
-class PostTableViewCell: UITableViewCell {
+class FeedTableViewCell: UITableViewCell {
 
     var viewController: UIViewController?
     private var post: Post?
     private let dataManager = DataManager()
     var dateFormatter = DateFormatter()
     var user: User?
-    weak var delegate: PostTableViewCellDelegate?
+    weak var delegate: FeedTableViewCellDelegate?
+
+    static let feedCellReuseIdentifier = "FeedCell"
 
 // элементы публикации
     lazy var avatarImageView: UIImageView = {
@@ -74,7 +76,7 @@ class PostTableViewCell: UITableViewCell {
                 Task {
                     let deletingResult = await self.dataManager.asyncDelete(post: selectedPost)
                     if deletingResult {
-                        self.delegate?.reloadArrayAfterDeleting(self, didDeletePost: selectedPost)
+                        self.delegate?.reloadArrayAfterDeletingFromFeedCell(self, didDeletePost: selectedPost)
                         let deletedAlert = UIAlertController(title: "Удалено", message: "Пост успешно удален", preferredStyle: .alert)
                         deletedAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                         self.viewController?.present(deletedAlert, animated: true, completion: nil)
@@ -170,8 +172,3 @@ class PostTableViewCell: UITableViewCell {
 
 }
 
-extension UITableViewCell {
-    static var reuseIdentifier: String {
-        return String(describing: self)
-    }
-}

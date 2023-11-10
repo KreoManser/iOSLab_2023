@@ -1,44 +1,38 @@
 import UIKit
 
-protocol AuthorizationViewControllerDelegate: AnyObject {
-    func reloadUserAfterLogin(_ authVC: AuthorizationViewController)
-}
 class AuthorizationViewController: UIViewController, UITextFieldDelegate {
 
-    var users: [User] = []
 //  currentUser = the 1st user in the users array
-    weak var delegate: AuthorizationViewControllerDelegate?
-
+    var users: [User] = []
     let dataManager = DataManager()
 
     var OKButton: UIButton = {
         let button = UIButton()
         button.setTitle("ok", for: .normal)
         button.backgroundColor = .black
-//        button.backgroundColor = .systemBrown
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     var loginText: UILabel = {
-        let text = UILabel ()
+        let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
         text.text = "Login:"
         return text
     }()
     var passwordText: UILabel = {
-        let text = UILabel ()
+        let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
         text.text = "Password:"
         return text
     }()
     var loginTextField: UITextField = {
-        let login = UITextField ()
+        let login = UITextField()
         login.translatesAutoresizingMaskIntoConstraints = false
         login.borderStyle = .line
         return login
     }()
     var passwordTextField: UITextField = {
-        let password = UITextField ()
+        let password = UITextField()
         password.translatesAutoresizingMaskIntoConstraints = false
         password.borderStyle = .line
         password.isSecureTextEntry = true
@@ -101,32 +95,29 @@ class AuthorizationViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func pushToProfile() {
-        print("***** before removing in array users \(users)")
         if let user = users.first(where: { $0.login == loginTextField.text }) {
             if user.password == passwordTextField.text {
                 if let index = users.firstIndex(of: user) {
                     users.remove(at: index)
                     users.insert(user, at: 0)
 
-                    self.delegate?.reloadUserAfterLogin(self)
-                    print("##### after removing in array users \(users)")
-
                     let tabBarController = UITabBarController()
 
                     let feedViewController = FeedViewController()
                     let feedNavigationController = UINavigationController(rootViewController: feedViewController)
+                    feedViewController.user = user
                     feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: nil, tag: 0)
 
                     let profileViewController = ProfileViewController()
                     let profileNavigationController = UINavigationController(rootViewController: profileViewController)
+                    profileViewController.user = user
                     profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: nil, tag: 1)
 
                     tabBarController.viewControllers = [feedNavigationController, profileNavigationController]
 
                     if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                       let sceneDelegate = windowScene.delegate as? SceneDelegate {
+                    let sceneDelegate = windowScene.delegate as? SceneDelegate {
                         sceneDelegate.window?.rootViewController = tabBarController
-
                     }
                 }
             }
