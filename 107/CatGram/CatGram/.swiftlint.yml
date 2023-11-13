@@ -23,8 +23,6 @@ opt_in_rules:
   - indentation_width
   - operator_usage_whitespace
   - unused_capture_list
-  - implicitly_unwrapped_optional
-  - force_unwrapping
 
 custom_rules:
   array_constructor:
@@ -33,9 +31,6 @@ custom_rules:
     capture_group: 1
     message: "Неверная аннотация инициализации массива/словаря"
     severity: error
-
-force_unwrapping:
-  severity: error
 
 reporter: "xcode"
 
