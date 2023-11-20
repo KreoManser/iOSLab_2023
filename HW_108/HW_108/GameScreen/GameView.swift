@@ -13,7 +13,18 @@ class GameView: UIView {
         let imageView = UIImageView(image: UIImage(named: "spaceship"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        // imageView.backgroundColor = .red
         return imageView
+    }()
+
+    var scoreLabel: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "0"
+        label.font = UIFont.systemFont(ofSize: 60)
+        label.textColor = .white
+        label.alpha = 0.75
+        return label
     }()
 
     var panHandler: ((UIPanGestureRecognizer) -> Void)?
@@ -41,6 +52,12 @@ class GameView: UIView {
 }
 
 extension GameView {
+
+    func incrementString() {
+        guard let scoreText = scoreLabel.text else { return }
+        let scoreNumber = (Int(scoreText) ?? 0) + 1
+        scoreLabel.text = String(scoreNumber)
+    }
 
     @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
         panHandler?(gesture)
@@ -71,13 +88,17 @@ extension GameView {
         addSubview(alien3.view)
         addSubview(alien4.view)
         addSubview(spaceshipImageView)
+        addSubview(scoreLabel)
 
         NSLayoutConstraint.activate([
 
+            scoreLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            scoreLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+
             spaceshipImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             spaceshipImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
-            spaceshipImageView.widthAnchor.constraint(equalToConstant: 75),
-            spaceshipImageView.heightAnchor.constraint(equalToConstant: 150),
+            spaceshipImageView.widthAnchor.constraint(equalToConstant: 50),
+            spaceshipImageView.heightAnchor.constraint(equalToConstant: 125),
 
             alien1.view.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             alien2.view.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),

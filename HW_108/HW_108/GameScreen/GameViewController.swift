@@ -11,6 +11,10 @@ class GameViewController: UIViewController {
 
     let gameView = GameView()
     var bulletTimer: Timer?
+    var alien1BulletTimer: Timer?
+    var alien2BulletTimer: Timer?
+    var alien3BulletTimer: Timer?
+    var alien4BulletTimer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +23,23 @@ class GameViewController: UIViewController {
         gameView.frame = view.bounds
         gameView.panHandler = handlePan
 
-        bulletTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
+        bulletTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(spaceshipShoot), userInfo: nil, repeats: true)
+        alien1BulletTimer = Timer.scheduledTimer(
+            timeInterval: Double.random(in: 1 ... 2),
+            target: self, selector: #selector(alienShoot),
+            userInfo: gameView.aliens[0], repeats: true)
+        alien2BulletTimer = Timer.scheduledTimer(
+            timeInterval: Double.random(in: 1 ... 2),
+            target: self, selector: #selector(alienShoot),
+            userInfo: gameView.aliens[1], repeats: true)
+        alien3BulletTimer = Timer.scheduledTimer(
+            timeInterval: Double.random(in: 1 ... 2),
+            target: self, selector: #selector(alienShoot),
+            userInfo: gameView.aliens[2], repeats: true)
+        alien4BulletTimer = Timer.scheduledTimer(
+            timeInterval: Double.random(in: 1 ... 2),
+            target: self, selector: #selector(alienShoot),
+            userInfo: gameView.aliens[3], repeats: true)
 
     }
 
@@ -41,7 +61,7 @@ class GameViewController: UIViewController {
         }
     }
 
-    @objc func shoot() {
+    @objc func spaceshipShoot() {
 
         let spaceshipCenterX = gameView.spaceshipImageView.center.x
 
@@ -52,7 +72,7 @@ class GameViewController: UIViewController {
 
         UIView.animate(withDuration: 1) {
 
-            bulletImageView.frame.origin.y = 0
+            bulletImageView.frame.origin.y = 40
         } completion: { isFinished in
             guard isFinished else { return }
 
@@ -61,9 +81,36 @@ class GameViewController: UIViewController {
         }
     }
 
+    @objc func alienShoot(timer: Timer) {
+        guard let alien = timer.userInfo as? Alien else { return }
+        guard alien.isAlive else { return }
+
+        let bulletImageView = UIImageView(image: UIImage(named: "alienBullet"))
+        // bulletImageView.backgroundColor = .purple
+        bulletImageView.frame = CGRect(x: alien.view.center.x - 10, y: alien.view.frame.maxY - 70, width: 20, height: 70)
+        view.addSubview(bulletImageView)
+
+        UIView.animate(withDuration: 2, delay: .zero, options: .curveLinear) {
+            bulletImageView.frame.origin.y = self.gameView.spaceshipImageView.frame.maxY - 80
+        } completion: { isFinished in
+            guard isFinished else { return }
+
+            self.checkSpaceshipCollisions(bullet: bulletImageView)
+            bulletImageView.removeFromSuperview()
+        }
+    }
+
+    func checkSpaceshipCollisions(bullet: UIView) {
+        if bullet.frame.intersects(gameView.spaceshipImageView.frame) {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+
     func checkCollisions(bullet: UIView) {
         for alien in gameView.aliens {
             if alien.isAlive && bullet.frame.intersects(alien.view.frame) {
+
+                gameView.scoreLabel.text = incrementString(num: gameView.scoreLabel.text ?? "0")
 
                 UIView.animate(withDuration: 0.5) {
 
@@ -94,6 +141,11 @@ class GameViewController: UIViewController {
         }
         alien.isAlive = true
         alien.view.isHidden = false
+    }
+
+    func incrementString(num: String) -> String {
+        let increment = (Int(num) ?? 0) + 1
+        return String(increment)
     }
 }
 
