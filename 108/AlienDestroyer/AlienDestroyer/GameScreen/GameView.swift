@@ -183,7 +183,11 @@ class GameView: UIView {
             initialTouchPoint = touchPoint
         } else if gesture.state == .changed {
             let translation = CGAffineTransform(translationX: touchPoint.x - initialTouchPoint.x, y: touchPoint.y - initialTouchPoint.y)
-            customPlayerView.transform = customPlayerView.transform.concatenating(translation)
+            let transformedFrame = customPlayerView.frame.applying(translation)
+
+            if self.bounds.contains(transformedFrame) {
+                customPlayerView.transform = customPlayerView.transform.concatenating(translation)
+            }
 
             initialTouchPoint = touchPoint
         }
@@ -255,7 +259,7 @@ class GameView: UIView {
     }
 
     private func startBossTimer() {
-        spawnBossTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(spawnBoss), userInfo: nil, repeats: false)
+        spawnBossTimer = Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(spawnBoss), userInfo: nil, repeats: false)
     }
 
     // MARK: Spawners
