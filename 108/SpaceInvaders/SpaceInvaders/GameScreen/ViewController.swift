@@ -9,10 +9,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var gameView: GameView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        setupSettings()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        gameView?.downwardMovementShip()
+    }
+
+    func setupSettings() {
+        gameView = GameView(frame: .zero)
+        view = gameView
+    }
 }
 
