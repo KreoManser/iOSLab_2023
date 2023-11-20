@@ -111,6 +111,8 @@ class GameView: UIView {
 
     private var playerHealthAnimator: UIViewPropertyAnimator?
 
+    private var healthInitialTransform: CGAffineTransform?
+
     private var currentEnemy: UIImageView?
 
     private var enemyTimer: Timer?
@@ -202,12 +204,15 @@ extension GameView {
             self.spaceShipImageView.transform = moveTransform
         }
 
+        healthInitialTransform = playerHitPount.transform
+
         playerHealthAnimator = UIViewPropertyAnimator(duration: 1.5, curve: .easeIn, animations: {
             let scaleTransform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             let moveTranform = CGAffineTransform(translationX: -50, y: 100)
             let rotationtranform = CGAffineTransform(rotationAngle: 0 - .pi)
             self.playerHitPount.transform = rotationtranform.concatenating(moveTranform).concatenating(scaleTransform)
         })
+
     }
 
     private func createTimers() {
@@ -313,7 +318,7 @@ extension GameView {
                     let rotationtranform = CGAffineTransform(rotationAngle: 10 * .pi)
                     self.currentEnemy?.transform = rotationtranform
                 }
-            } 
+            }
         }
     }
 
@@ -354,6 +359,8 @@ extension GameView {
         restartGameButton.isHidden = true
         loseLabel.isHidden = true
         scoreLabel.text = "Score: 0"
-        playerHealthAnimator?.fractionComplete = 0.0
+        UIView.animate(withDuration: 1) {
+            self.playerHitPount.transform = self.healthInitialTransform ?? CGAffineTransform()
+        }
     }
 }
