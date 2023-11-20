@@ -11,6 +11,15 @@ class CustomPlayerView: UIView, EntityProtocol {
     var health: Int = 4
     var atackSpeed: Double = 1.5
 
+    let explosionImages = [
+        "ExplosionImage1",
+        "ExplosionImage2",
+        "ExplosionImage3",
+        "ExplosionImage4",
+        "ExplosionImage5",
+        "ExplosionImage6",
+        "ExplosionImage7"]
+
     private lazy var playerImageView: UIImageView = UIImageView()
     private lazy var playerEngineImageView: UIImageView = UIImageView()
 
@@ -93,6 +102,24 @@ class CustomPlayerView: UIView, EntityProtocol {
         }
 
         animator.startAnimation()
+    }
+
+    public func makeExplosion() {
+        let images = explosionImages.compactMap { UIImage(named: $0) }
+        createAnimation(imageView: playerImageView, images: images, duration: 0.4) { [weak self] in
+            self?.removeFromSuperview()
+        }
+    }
+
+    private func createAnimation(imageView: UIImageView, images: [UIImage], duration: TimeInterval, completion: (() -> Void)?) {
+        imageView.animationImages = images
+        imageView.animationDuration = duration
+        imageView.animationRepeatCount = 1
+        imageView.startAnimating()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration - 0.1) {
+            completion?()
+        }
     }
 
     public func updatePlayerHealthState() {

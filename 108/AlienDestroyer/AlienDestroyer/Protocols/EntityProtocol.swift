@@ -10,4 +10,6 @@ import Foundation
 protocol EntityProtocol {
     var health: Int { get set }
     var atackSpeed: Double { get set }
+
+    func makeExplosion()
 }

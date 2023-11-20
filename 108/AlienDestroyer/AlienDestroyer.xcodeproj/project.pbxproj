@@ -22,12 +22,15 @@
 		C36214492B094A30001527C1 /* EntityProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214482B094A30001527C1 /* EntityProtocol.swift */; };
 		C362144B2B096A7B001527C1 /* CustomBossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362144A2B096A7B001527C1 /* CustomBossView.swift */; };
 		C362144D2B09758D001527C1 /* CustomWinLoseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362144C2B09758D001527C1 /* CustomWinLoseMenu.swift */; };
-		C362144F2B099406001527C1 /* CustomEnemyWeaponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362144E2B099406001527C1 /* CustomEnemyWeaponView.swift */; };
+		C362144F2B099406001527C1 /* CustomAlienWeaponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362144E2B099406001527C1 /* CustomAlienWeaponView.swift */; };
 		C36214512B0995BB001527C1 /* CustomBossWeaponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214502B0995BB001527C1 /* CustomBossWeaponView.swift */; };
 		C36214532B09A07F001527C1 /* WeaponProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214522B09A07F001527C1 /* WeaponProtocol.swift */; };
 		C36214582B0ABC5F001527C1 /* CustomBulletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214572B0ABC5F001527C1 /* CustomBulletView.swift */; };
 		C362145D2B0ABE7F001527C1 /* LevelUpBonus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362145C2B0ABE7F001527C1 /* LevelUpBonus.swift */; };
 		C362145F2B0AC470001527C1 /* BonusProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362145E2B0AC470001527C1 /* BonusProtocol.swift */; };
+		C36214612B0AE326001527C1 /* CustomExtraAlienView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214602B0AE326001527C1 /* CustomExtraAlienView.swift */; };
+		C36214632B0AE3C5001527C1 /* CustomExtraAlienWeaponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214622B0AE3C5001527C1 /* CustomExtraAlienWeaponView.swift */; };
+		C36214652B0AE457001527C1 /* GameViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214642B0AE457001527C1 /* GameViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,12 +51,15 @@
 		C36214482B094A30001527C1 /* EntityProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityProtocol.swift; sourceTree = "<group>"; };
 		C362144A2B096A7B001527C1 /* CustomBossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBossView.swift; sourceTree = "<group>"; };
 		C362144C2B09758D001527C1 /* CustomWinLoseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWinLoseMenu.swift; sourceTree = "<group>"; };
-		C362144E2B099406001527C1 /* CustomEnemyWeaponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnemyWeaponView.swift; sourceTree = "<group>"; };
+		C362144E2B099406001527C1 /* CustomAlienWeaponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlienWeaponView.swift; sourceTree = "<group>"; };
 		C36214502B0995BB001527C1 /* CustomBossWeaponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBossWeaponView.swift; sourceTree = "<group>"; };
 		C36214522B09A07F001527C1 /* WeaponProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponProtocol.swift; sourceTree = "<group>"; };
 		C36214572B0ABC5F001527C1 /* CustomBulletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBulletView.swift; sourceTree = "<group>"; };
 		C362145C2B0ABE7F001527C1 /* LevelUpBonus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpBonus.swift; sourceTree = "<group>"; };
 		C362145E2B0AC470001527C1 /* BonusProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusProtocol.swift; sourceTree = "<group>"; };
+		C36214602B0AE326001527C1 /* CustomExtraAlienView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExtraAlienView.swift; sourceTree = "<group>"; };
+		C36214622B0AE3C5001527C1 /* CustomExtraAlienWeaponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExtraAlienWeaponView.swift; sourceTree = "<group>"; };
+		C36214642B0AE457001527C1 /* GameViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				C362143E2B06F884001527C1 /* GameView.swift */,
+				C36214642B0AE457001527C1 /* GameViewDelegate.swift */,
 			);
 			path = GameScreen;
 			sourceTree = "<group>";
@@ -153,8 +160,10 @@
 			isa = PBXGroup;
 			children = (
 				C36214462B0923BE001527C1 /* CustomAlienView.swift */,
+				C36214602B0AE326001527C1 /* CustomExtraAlienView.swift */,
 				C362144A2B096A7B001527C1 /* CustomBossView.swift */,
-				C362144E2B099406001527C1 /* CustomEnemyWeaponView.swift */,
+				C362144E2B099406001527C1 /* CustomAlienWeaponView.swift */,
+				C36214622B0AE3C5001527C1 /* CustomExtraAlienWeaponView.swift */,
 				C36214502B0995BB001527C1 /* CustomBossWeaponView.swift */,
 			);
 			path = "Enemy&Weapon";
@@ -269,6 +278,7 @@
 				C36214362B06C7A0001527C1 /* StartViewController.swift in Sources */,
 				C36214582B0ABC5F001527C1 /* CustomBulletView.swift in Sources */,
 				C36214412B0701F1001527C1 /* CustomPlayerView.swift in Sources */,
+				C36214612B0AE326001527C1 /* CustomExtraAlienView.swift in Sources */,
 				C36214472B0923BE001527C1 /* CustomAlienView.swift in Sources */,
 				C362145F2B0AC470001527C1 /* BonusProtocol.swift in Sources */,
 				C36214492B094A30001527C1 /* EntityProtocol.swift in Sources */,
@@ -278,8 +288,10 @@
 				C36214232B06C671001527C1 /* SceneDelegate.swift in Sources */,
 				C362143D2B06F450001527C1 /* GameDataManager.swift in Sources */,
 				C362145D2B0ABE7F001527C1 /* LevelUpBonus.swift in Sources */,
-				C362144F2B099406001527C1 /* CustomEnemyWeaponView.swift in Sources */,
+				C36214632B0AE3C5001527C1 /* CustomExtraAlienWeaponView.swift in Sources */,
+				C362144F2B099406001527C1 /* CustomAlienWeaponView.swift in Sources */,
 				C362143F2B06F884001527C1 /* GameView.swift in Sources */,
+				C36214652B0AE457001527C1 /* GameViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

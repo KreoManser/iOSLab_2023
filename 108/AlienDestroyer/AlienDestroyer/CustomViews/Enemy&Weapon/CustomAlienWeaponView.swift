@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomEnemyWeaponView: UIView, WeaponProtocol {
+class CustomAlienWeaponView: UIView, WeaponProtocol {
     var damage: Int = 1
 
     private lazy var weaponImageView: UIImageView = UIImageView()

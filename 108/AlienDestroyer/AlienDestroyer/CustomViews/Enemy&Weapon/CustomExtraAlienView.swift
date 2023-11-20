@@ -1,16 +1,16 @@
 //
-//  CustomBossView.swift
+//  CustomExtraAlienView.swift
 //  AlienDestroyer
 //
-//  Created by Кирилл Щёлоков on 19.11.2023.
+//  Created by Кирилл Щёлоков on 20.11.2023.
 //
 
 import UIKit
 
-class CustomBossView: UIView, EntityProtocol, WeaponProtocol {
-    var health: Int = 5
-    var atackSpeed: Double = 1.5
-    var damage: Int = 10
+class CustomExtraAlienView: UIView, EntityProtocol, WeaponProtocol {
+    var health: Int = 2
+    var atackSpeed: Double = 2
+    var damage: Int = 1
 
     let explosionImages = [
         "ExplosionImage1",
@@ -21,7 +21,7 @@ class CustomBossView: UIView, EntityProtocol, WeaponProtocol {
         "ExplosionImage6",
         "ExplosionImage7"]
 
-    private lazy var bossImageView: UIImageView = UIImageView()
+    private lazy var alienImageView: UIImageView = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,24 +37,23 @@ class CustomBossView: UIView, EntityProtocol, WeaponProtocol {
     }
 
     private func setUpAlienImageView() {
-        addSubview(bossImageView)
-        bossImageView.image = UIImage(named: "bossexp")
-        bossImageView.contentMode = .scaleAspectFit
-        bossImageView.clipsToBounds = true
-        bossImageView.translatesAutoresizingMaskIntoConstraints = false
-        bossImageView.transform = CGAffineTransform(rotationAngle: .pi / 2)
+        addSubview(alienImageView)
+        alienImageView.image = UIImage(named: "AlienImage2")
+        alienImageView.contentMode = .scaleAspectFill
+        alienImageView.clipsToBounds = true
+        alienImageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            bossImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            bossImageView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-            bossImageView.heightAnchor.constraint(equalToConstant: 80),
-            bossImageView.widthAnchor.constraint(equalToConstant: 128)
+            alienImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            alienImageView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+            alienImageView.heightAnchor.constraint(equalToConstant: 40),
+            alienImageView.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
 
     public func makeExplosion() {
         let images = explosionImages.compactMap { UIImage(named: $0) }
-        createAnimation(imageView: bossImageView, images: images, duration: 0.4) { [weak self] in
+        createAnimation(imageView: alienImageView, images: images, duration: 0.4) { [weak self] in
             self?.removeFromSuperview()
         }
     }
@@ -69,5 +68,4 @@ class CustomBossView: UIView, EntityProtocol, WeaponProtocol {
             completion?()
         }
     }
-
 }

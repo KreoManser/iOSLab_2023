@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomBulletView: UIView, WeaponProtocol {
-    var damage: Int = 1
+    var damage: Int = 2
 
     private lazy var bulletImageView: UIImageView = UIImageView()
 

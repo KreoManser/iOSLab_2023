@@ -7,9 +7,19 @@
 
 import UIKit
 
-class CustomAlienView: UIView, EntityProtocol {
+class CustomAlienView: UIView, EntityProtocol, WeaponProtocol {
     var health: Int = 2
     var atackSpeed: Double = 2
+    var damage: Int = 1
+
+    let explosionImages = [
+        "ExplosionImage1",
+        "ExplosionImage2",
+        "ExplosionImage3",
+        "ExplosionImage4",
+        "ExplosionImage5",
+        "ExplosionImage6",
+        "ExplosionImage7"]
 
     private lazy var alienImageView: UIImageView = UIImageView()
 
@@ -39,5 +49,23 @@ class CustomAlienView: UIView, EntityProtocol {
             alienImageView.heightAnchor.constraint(equalToConstant: 40),
             alienImageView.widthAnchor.constraint(equalToConstant: 40)
         ])
+    }
+
+    public func makeExplosion() {
+        let images = explosionImages.compactMap { UIImage(named: $0) }
+        createAnimation(imageView: alienImageView, images: images, duration: 0.4) { [weak self] in
+            self?.removeFromSuperview()
+        }
+    }
+
+    private func createAnimation(imageView: UIImageView, images: [UIImage], duration: TimeInterval, completion: (() -> Void)?) {
+        imageView.animationImages = images
+        imageView.animationDuration = duration
+        imageView.animationRepeatCount = 1
+        imageView.startAnimating()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration - 0.1) {
+            completion?()
+        }
     }
 }

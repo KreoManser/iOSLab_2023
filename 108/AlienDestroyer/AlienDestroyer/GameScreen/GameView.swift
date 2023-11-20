@@ -1,18 +1,4 @@
-//
-//  GameView.swift
-//  AlienDestroyer
-//
-//  Created by Кирилл Щёлоков on 17.11.2023.
-//
-
 import UIKit
-
-protocol GameViewDelegate: AnyObject {
-    func minusHealth(for view: EntityProtocol, from weapon: WeaponProtocol) -> Int
-    func increaseScore(score: String) -> String
-    func setBestScore(score: String)
-    func getScore() -> String
-}
 
 class GameView: UIView {
 
@@ -160,7 +146,10 @@ class GameView: UIView {
     }
 
     private func playerFlyAwayAnimation() {
-        UIView.animate(withDuration: 2, delay: .zero, options: [.curveLinear], animations: { [weak self] in
+        for weapon in playerWeaponArray {
+            weapon.removeFromSuperview()
+        }
+        UIView.animate(withDuration: 2, delay: 0.5, options: [.curveLinear], animations: { [weak self] in
             self?.customPlayerView.transform = CGAffineTransform(translationX: 0, y: -(self?.bounds.height ?? 500) - 200)
         }, completion: { [weak self] _ in
             self?.showWinLoseMenu(state: "ПОБЕДА!!!")
@@ -168,36 +157,13 @@ class GameView: UIView {
     }
 
     private func setExplosionAnimation(for view: UIView) {
+        guard let entity = view as? EntityProtocol else {return}
         let location = getLocation(for: view)
         if !(view is CustomPlayerView) {
             scoreLabel.text = delegate?.increaseScore(score: scoreLabel.text ?? "0")
             spawnBonus(for: view, location: location)
         }
-        var explosionImageView: UIImageView
-        if view is CustomBossView {
-            explosionImageView = UIImageView(frame: CGRect(x: location.locationX - 64, y: location.locationY - 64, width: 140, height: 140))
-        } else {
-            explosionImageView = UIImageView(frame: CGRect(x: location.locationX - 20, y: location.locationY - 20, width: 50, height: 50))
-        }
-        let explosionImages = [
-            "ExplosionImage1",
-            "ExplosionImage2",
-            "ExplosionImage3",
-            "ExplosionImage4",
-            "ExplosionImage5",
-            "ExplosionImage6",
-            "ExplosionImage7"]
-        view.removeFromSuperview()
-        let images = explosionImages.compactMap { UIImage(named: $0) }
-        createAnimation(imageView: explosionImageView, images: images, duration: 0.4)
-        addSubview(explosionImageView)
-    }
-
-    private func createAnimation(imageView: UIImageView, images: [UIImage], duration: TimeInterval) {
-        imageView.animationImages = images
-        imageView.animationDuration = duration
-        imageView.animationRepeatCount = 1
-        imageView.startAnimating()
+        entity.makeExplosion()
     }
 
     private func blink(for image: UIView) {
@@ -226,28 +192,23 @@ class GameView: UIView {
     private func enemyCollisionHandler(rocket: UIView, alien: UIView) {
         guard let enemy = alien as? EntityProtocol else {return}
         guard let health = delegate?.minusHealth(for: enemy, from: rocket as? WeaponProtocol ?? CustomRocketView()) else {return}
-        rocket.removeFromSuperview()
         removeFromArray(array: &playerWeaponArray, subject: rocket)
-        blink(for: alien)
-        if health == 0 {
-            setExplosionAnimation(for: alien)
-            removeFromArray(array: &alienArray, subject: alien)
-        }
-    }
-
-    private func bossCollisionHandler(rocket: UIView, boss: UIView) {
-        guard let enemy = boss as? EntityProtocol else {return}
-        guard let health = delegate?.minusHealth(for: enemy, from: rocket as? WeaponProtocol ?? CustomRocketView()) else {return}
         rocket.removeFromSuperview()
-        removeFromArray(array: &enemyWeaponArray, subject: rocket)
-        blink(for: boss)
-        if health == 0 {
-            setExplosionAnimation(for: boss)
-            boss.removeFromSuperview()
-            shootingTimer?.invalidate()
-            shootBossTimer?.invalidate()
-            movePlayerRecognizer.isEnabled = false
-            playerFlyAwayAnimation()
+        blink(for: alien)
+        if !(alien is CustomBossView) {
+            if health <= 0 {
+                setExplosionAnimation(for: alien)
+                removeFromArray(array: &alienArray, subject: alien)
+            }
+        } else {
+            if health <= 0 {
+                shootingTimer?.invalidate()
+                shootBossTimer?.invalidate()
+                setExplosionAnimation(for: alien)
+                removeFromArray(array: &alienArray, subject: alien)
+                movePlayerRecognizer.isEnabled = false
+                playerFlyAwayAnimation()
+            }
         }
     }
 
@@ -256,16 +217,14 @@ class GameView: UIView {
         guard let health = delegate?.minusHealth(for: player, from: enemyWeapon) else {return}
         removeFromArray(array: &playerWeaponArray, subject: weapon)
         weapon.removeFromSuperview()
-        blink(for: player)
         if health <= 0 {
-            weapon.removeFromSuperview()
             setExplosionAnimation(for: player)
             shootingTimer?.invalidate()
             shootBossTimer?.invalidate()
             movePlayerRecognizer.isEnabled = false
-            player.removeFromSuperview()
             showWinLoseMenu(state: "Поражение")
         } else {
+            blink(for: player)
             player.updatePlayerHealthState()
         }
     }
@@ -307,7 +266,7 @@ class GameView: UIView {
         if bonusCount < 1 {
             weapon = CustomRocketView()
         } else {
-            weapon = CustomRocketView()
+            weapon = CustomBulletView()
         }
         playerWeaponArray.append(weapon)
         addSubview(weapon)
@@ -316,15 +275,23 @@ class GameView: UIView {
 
         UIView.animate(withDuration: 4, animations: { [weak self, weak weapon] in
             weapon?.transform = CGAffineTransform(translationX: 0, y: -(self?.bounds.height ?? 0) - 80)
-        }, completion: { [weak weapon] _ in
-            weapon?.removeFromSuperview()
-            self.removeFromArray(array: &self.playerWeaponArray, subject: weapon ?? UIView())
+        }, completion: { _ in
+            self.removeFromArray(array: &self.playerWeaponArray, subject: weapon)
+            weapon.removeFromSuperview()
         })
     }
 
     @objc
     private func spawnAliens() {
-        let customAlienView = CustomAlienView()
+        var customAlienView: UIView
+        var duration: TimeInterval
+        if alienArray.count % 2 == 0 {
+            customAlienView = CustomAlienView()
+            duration = 12
+        } else {
+            customAlienView = CustomExtraAlienView()
+            duration = 9
+        }
         alienArray.append(customAlienView)
         addSubview(customAlienView)
 
@@ -332,21 +299,22 @@ class GameView: UIView {
         customAlienView.frame = CGRect(x: randomX, y: bounds.minY - 10, width: 40, height: 40)
         enemyShoot(for: customAlienView)
 
-        UIView.animate(withDuration: 12, animations: { [weak self] in
+        UIView.animate(withDuration: duration, delay: .zero, options: [.curveLinear], animations: { [weak self] in
             customAlienView.transform = CGAffineTransform(translationX: 0, y: (self?.bounds.height ?? 0) + customAlienView.frame.height)
         }, completion: { [weak customAlienView] _ in
             guard let alien = customAlienView else { return }
-            alien.removeFromSuperview()
             self.removeFromArray(array: &self.alienArray, subject: alien)
+            alien.removeFromSuperview()
         })
     }
 
     @objc
     private func spawnBoss() {
         spawnAlienTimer?.invalidate()
+        alienArray.append(customBossView)
         addSubview(customBossView)
 
-        customBossView.frame = CGRect(x: (bounds.width / 2) - 40, y: -200, width: 80, height: 128)
+        customBossView.frame = CGRect(x: (bounds.width / 2) - 40, y: -200, width: 80, height: 40)
         bossShoot(for: customBossView)
 
         UIView.animate(withDuration: 4, animations: { [weak self] in
@@ -354,9 +322,14 @@ class GameView: UIView {
         })
     }
 
-    private func enemyShoot(for alien: CustomAlienView) {
+    private func enemyShoot(for alien: UIView) {
         Timer.scheduledTimer(withTimeInterval: diff.enemyAttackSpeed, repeats: true) { [weak self] _ in
-            let weapon = CustomEnemyWeaponView()
+            var weapon: UIView
+            if alien is CustomAlienView {
+                weapon = CustomAlienWeaponView()
+            } else {
+                weapon = CustomExtraAlienWeaponView()
+            }
             guard let location = self?.getLocation(for: alien) else { return }
             weapon.frame = CGRect(x: location.locationX - 10, y: location.locationY, width: 20, height: 20)
 
@@ -367,8 +340,8 @@ class GameView: UIView {
                 weapon.transform = CGAffineTransform(translationX: 0, y: (self?.bounds.height ?? 0) + 80)
             }, completion: { _ in
                 guard let gameView = self else { return }
-                weapon.removeFromSuperview()
                 gameView.removeFromArray(array: &gameView.enemyWeaponArray, subject: weapon)
+                weapon.removeFromSuperview()
             })
         }
     }
@@ -387,8 +360,8 @@ class GameView: UIView {
                 weapon.transform = CGAffineTransform(translationX: randomX, y: (self?.bounds.height ?? 0) + 80)
             }, completion: { _ in
                 guard let gameView = self else { return }
-                weapon.removeFromSuperview()
                 gameView.removeFromArray(array: &gameView.enemyWeaponArray, subject: weapon)
+                weapon.removeFromSuperview()
             })
         }
     }
@@ -406,8 +379,8 @@ class GameView: UIView {
                 levelUpBonusView.transform = CGAffineTransform(translationX: 0, y: (self?.bounds.height ?? 0) + levelUpBonusView.frame.height)
             }, completion: { [weak levelUpBonusView] _ in
                 guard let bonus = levelUpBonusView else { return }
-                bonus.removeFromSuperview()
                 self.removeFromArray(array: &self.bonusArray, subject: bonus)
+                bonus.removeFromSuperview()
             })
         }
     }
@@ -422,44 +395,26 @@ class GameView: UIView {
 
     @objc
     private func checkCollision() {
+        checkPlayerCollision(forWeapons: enemyWeaponArray)
+        checkPlayerCollision(forWeapons: alienArray)
+        checkBonusCollision(forBonuses: bonusArray)
         for rocketView in playerWeaponArray {
             for alienView in alienArray where rocketView.layer.presentation()?.frame.intersects(alienView.layer.presentation()?.frame ?? .zero)
             ?? false {
                 enemyCollisionHandler(rocket: rocketView, alien: alienView)
             }
-            guard let bool = rocketView.layer.presentation()?.frame.intersects(customBossView.layer.presentation()?.frame ?? .zero)
-            else { return }
-            if bool {
-                bossCollisionHandler(rocket: rocketView, boss: customBossView)
-            }
         }
-        checkPlayerCollision(forWeapons: enemyWeaponArray)
-        checkBonusCollision(forBonuses: bonusArray)
     }
 
     private func checkPlayerCollision(forWeapons array: [UIView]) {
-        for weapon in array {
-            var bool: Bool = false
-            if let weapon1 = weapon as? CustomEnemyWeaponView {
-                bool = weapon1.layer.presentation()?.frame.intersects(customPlayerView.layer.presentation()?.frame ?? .zero) ?? false
-            } else if let weapon2 = weapon as? CustomBossWeaponView {
-                bool = weapon2.layer.presentation()?.frame.intersects(customPlayerView.layer.presentation()?.frame ?? .zero) ?? false
-            }
-            if bool {
-                playerCollisionHandler(weapon: weapon, player: customPlayerView)
-            }
+        for weapon in array where weapon.layer.presentation()?.frame.intersects(customPlayerView.layer.presentation()?.frame ?? .zero) ?? false {
+            playerCollisionHandler(weapon: weapon, player: customPlayerView)
         }
     }
 
     private func checkBonusCollision(forBonuses array: [UIView]) {
-        for bonus in array {
-            var bool: Bool = false
-            if let levelUp = bonus as? LevelUpBonus {
-                bool = levelUp.layer.presentation()?.frame.intersects(customPlayerView.layer.presentation()?.frame ?? .zero) ?? false
-            }
-            if bool {
-                bonusCollisionHandler(bonus: bonus)
-            }
+        for bonus in array where bonus.layer.presentation()?.frame.intersects(customPlayerView.layer.presentation()?.frame ?? .zero) ?? false {
+            bonusCollisionHandler(bonus: bonus)
         }
     }
 
