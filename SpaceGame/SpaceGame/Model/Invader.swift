@@ -29,13 +29,23 @@ internal class Invader {
     }
     
     internal func handleCollision() {
-        health -= 20 // Уменьшаем здоровье пришельца после столкновения с пулей
+        health -= 20 
         
         if health <= 0 {
             invaderMovementTimer?.invalidate()
-            imageView.removeFromSuperview()
+
+            imageView.image = UIImage(named: "fire.png")
+            
+            // Анимация увеличения размера взрыва
+            UIView.animate(withDuration: 0.5, animations: {
+                self.imageView.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+                self.imageView.alpha = 0.0
+            }) { (_) in
+                self.imageView.removeFromSuperview()
+            }
         }
     }
+
     
     deinit {
         invaderMovementTimer?.invalidate()

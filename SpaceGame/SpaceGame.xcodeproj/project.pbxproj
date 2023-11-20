@@ -15,6 +15,7 @@
 		B7F81ABC2B0AC57F00D0F92A /* Spaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F81ABB2B0AC57F00D0F92A /* Spaceship.swift */; };
 		B7F81AC12B0AC82900D0F92A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F81AC02B0AC82900D0F92A /* GameViewController.swift */; };
 		B7F81AC42B0B133100D0F92A /* Invader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F81AC32B0B133100D0F92A /* Invader.swift */; };
+		B7F81AC62B0BA4A500D0F92A /* PauseMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F81AC52B0BA4A500D0F92A /* PauseMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		B7F81ABB2B0AC57F00D0F92A /* Spaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaceship.swift; sourceTree = "<group>"; };
 		B7F81AC02B0AC82900D0F92A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		B7F81AC32B0B133100D0F92A /* Invader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invader.swift; sourceTree = "<group>"; };
+		B7F81AC52B0BA4A500D0F92A /* PauseMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				B7F81AC02B0AC82900D0F92A /* GameViewController.swift */,
+				B7F81AC52B0BA4A500D0F92A /* PauseMenuViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			files = (
 				B7F819862B0AA4FC00D0F92A /* AppDelegate.swift in Sources */,
 				B7F81ABC2B0AC57F00D0F92A /* Spaceship.swift in Sources */,
+				B7F81AC62B0BA4A500D0F92A /* PauseMenuViewController.swift in Sources */,
 				B7F81AC42B0B133100D0F92A /* Invader.swift in Sources */,
 				B7F81AC12B0AC82900D0F92A /* GameViewController.swift in Sources */,
 				B7F819882B0AA4FC00D0F92A /* SceneDelegate.swift in Sources */,

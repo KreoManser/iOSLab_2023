@@ -46,9 +46,7 @@ internal class Spaceship {
             let invaderMaxX = invader.imageView.frame.maxX
             
             if bulletX >= invaderMinX && bulletX <= invaderMaxX {
-                print("hit!")
                 invader.handleCollision()
-                bullet.removeFromSuperview()
             }
         }
     }
@@ -60,7 +58,6 @@ internal class Spaceship {
         view.addSubview(bulletImageView)
         bullets.append(bulletImageView)
         
-
         UIView.animate(withDuration: 0.5, animations: {
             bulletImageView.frame.origin.y = -20
         }) { _ in
