@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AB71EEB2B0AE9FC0082B601 /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0AB71EEA2B0AE9FC0082B601 /* swiftlint.yml */; };
 		0AED4F002B0A941400831C61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AED4EFF2B0A941400831C61 /* AppDelegate.swift */; };
 		0AED4F022B0A941400831C61 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AED4F012B0A941400831C61 /* SceneDelegate.swift */; };
 		0AED4F042B0A941400831C61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AED4F032B0A941400831C61 /* ViewController.swift */; };
@@ -17,7 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0AB71EEA2B0AE9FC0082B601 /* swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = swiftlint.yml; path = ../../../../../Downloads/swiftlint.yml; sourceTree = "<group>"; };
 		0AED4EFC2B0A941400831C61 /* StarShip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarShip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AED4EFF2B0A941400831C61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AED4F012B0A941400831C61 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +40,6 @@
 		0AED4EF32B0A941400831C61 = {
 			isa = PBXGroup;
 			children = (
-				0AB71EEA2B0AE9FC0082B601 /* swiftlint.yml */,
 				0AED4EFE2B0A941400831C61 /* StarShip */,
 				0AED4EFD2B0A941400831C61 /* Products */,
 			);
@@ -130,7 +127,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AED4F0C2B0A941A00831C61 /* LaunchScreen.storyboard in Resources */,
-				0AB71EEB2B0AE9FC0082B601 /* swiftlint.yml in Resources */,
 				0AED4F092B0A941A00831C61 /* Assets.xcassets in Resources */,
 				0AED4F072B0A941400831C61 /* Main.storyboard in Resources */,
 			);
@@ -141,6 +137,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		0AB71EED2B0AEB7D0082B601 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 12;
 			files = (
 			);
@@ -154,7 +151,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n  exit 1\nfi\n";
+			shellScript = " \nexport PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n  exit 1\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
