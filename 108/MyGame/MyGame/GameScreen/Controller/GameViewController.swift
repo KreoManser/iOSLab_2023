@@ -69,6 +69,30 @@ extension GameViewController {
     func configureEnemyImageView(imageView: UIImageView) {
         let randomImageWithFrame = gameManager.getRandomEnemy()
         imageView.image = UIImage(named: randomImageWithFrame.imageName) ?? UIImage()
-        imageView.frame = randomImageWithFrame.frame
+    }
+
+    func addScore(label: UILabel) {
+        gameManager.addScore()
+        label.text = "Score: \(gameManager.playerScore)"
+    }
+
+    func incrementEnemyCounter() {
+        gameManager.enemyCount += 1
+    }
+
+    func fixHit() {
+        gameManager.currentEnemyHP -= 1
+    }
+
+    func enemyIsDeadChecker() -> Bool {
+        return gameManager.enemyIsDead
+    }
+
+    func checkScore() {
+
+        if gameManager.isLost {
+            gameView.showLoseMenu()
+            gameManager.resetGame()
+        }
     }
 }

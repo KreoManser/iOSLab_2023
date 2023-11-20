@@ -11,14 +11,17 @@ class GameManager {
 
     var playerScore: Int = 0
     var enemyCount: Int = 0
-    var currentEnemuHP: Int = 0
+    var currentEnemyHP: Int = 0
+    var isLost: Bool { return playerScore < enemyCount}
 
-    private var enemyImageNameFrame: [String: Int] = [:]
+    var enemyIsDead: Bool { return currentEnemyHP == 0}
+
+    private var enemyDictionary: [String: Int] = [:]
 
     init() {
-        enemyImageNameFrame["Alien1"] = CGRect(x: 0, y: 0, width: 50, height: 50)
-        enemyImageNameFrame["Alien2"] = CGRect(x: 0, y: 0, width: 50, height: 100)
-        enemyImageNameFrame["Alien3"] = CGRect(x: 0, y: 0, width: 60, height: 40)
+        enemyDictionary["Alien1"] = 2
+        enemyDictionary["Alien2"] = 2
+        enemyDictionary["Alien3"] = 1
     }
 
     func getCurrentXCoordinate(startX: CGFloat, endX: CGFloat, value: Float) -> CGFloat {
@@ -29,13 +32,23 @@ class GameManager {
         CGFloat.random(in: 50..<screenFrame.width - 100)
     }
 
-    func getRandomEnemy() -> (imageName: String, frame: CGRect) {
-        let keys = Array(enemyImageNameFrame.keys)
+    func getRandomEnemy() -> (imageName: String, hp: Int) {
+        let keys = Array(enemyDictionary.keys)
         let randomKey = keys[Int.random(in: 0..<keys.count)]
-        let enemyFrame = enemyImageNameFrame[randomKey]
+        let enemyhp = enemyDictionary[randomKey]
+        currentEnemyHP = enemyhp ?? 1
+        return (randomKey, enemyhp ?? 1)
 
-        return (randomKey, enemyFrame ?? CGRect())
+    }
 
+    func addScore() {
+        playerScore += 1
+    }
+
+    func resetGame() {
+        playerScore = 0
+        enemyCount = 0
+        currentEnemyHP = 0
     }
 
 }
