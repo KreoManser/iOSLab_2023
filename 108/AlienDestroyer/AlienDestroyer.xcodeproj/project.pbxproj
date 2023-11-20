@@ -1,0 +1,499 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C36214212B06C671001527C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214202B06C671001527C1 /* AppDelegate.swift */; };
+		C36214232B06C671001527C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214222B06C671001527C1 /* SceneDelegate.swift */; };
+		C362142A2B06C673001527C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C36214292B06C673001527C1 /* Assets.xcassets */; };
+		C362142D2B06C673001527C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C362142B2B06C673001527C1 /* LaunchScreen.storyboard */; };
+		C36214362B06C7A0001527C1 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214352B06C7A0001527C1 /* StartViewController.swift */; };
+		C36214392B06C7BA001527C1 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214382B06C7BA001527C1 /* StartView.swift */; };
+		C362143B2B06E1DC001527C1 /* CustomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362143A2B06E1DC001527C1 /* CustomMenuView.swift */; };
+		C362143D2B06F450001527C1 /* GameDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362143C2B06F450001527C1 /* GameDataManager.swift */; };
+		C362143F2B06F884001527C1 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362143E2B06F884001527C1 /* GameView.swift */; };
+		C36214412B0701F1001527C1 /* CustomPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214402B0701F1001527C1 /* CustomPlayerView.swift */; };
+		C36214432B070741001527C1 /* CustomRocketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214422B070741001527C1 /* CustomRocketView.swift */; };
+		C36214472B0923BE001527C1 /* CustomAlienView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214462B0923BE001527C1 /* CustomAlienView.swift */; };
+		C36214492B094A30001527C1 /* EntityProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214482B094A30001527C1 /* EntityProtocol.swift */; };
+		C362144B2B096A7B001527C1 /* CustomBossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362144A2B096A7B001527C1 /* CustomBossView.swift */; };
+		C362144D2B09758D001527C1 /* CustomWinLoseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362144C2B09758D001527C1 /* CustomWinLoseMenu.swift */; };
+		C362144F2B099406001527C1 /* CustomEnemyWeaponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362144E2B099406001527C1 /* CustomEnemyWeaponView.swift */; };
+		C36214512B0995BB001527C1 /* CustomBossWeaponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214502B0995BB001527C1 /* CustomBossWeaponView.swift */; };
+		C36214532B09A07F001527C1 /* WeaponProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214522B09A07F001527C1 /* WeaponProtocol.swift */; };
+		C36214582B0ABC5F001527C1 /* CustomBulletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36214572B0ABC5F001527C1 /* CustomBulletView.swift */; };
+		C362145D2B0ABE7F001527C1 /* LevelUpBonus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362145C2B0ABE7F001527C1 /* LevelUpBonus.swift */; };
+		C362145F2B0AC470001527C1 /* BonusProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362145E2B0AC470001527C1 /* BonusProtocol.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C362141D2B06C671001527C1 /* AlienDestroyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlienDestroyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C36214202B06C671001527C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C36214222B06C671001527C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C36214292B06C673001527C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C362142C2B06C673001527C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C362142E2B06C673001527C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C36214352B06C7A0001527C1 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		C36214382B06C7BA001527C1 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		C362143A2B06E1DC001527C1 /* CustomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuView.swift; sourceTree = "<group>"; };
+		C362143C2B06F450001527C1 /* GameDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataManager.swift; sourceTree = "<group>"; };
+		C362143E2B06F884001527C1 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		C36214402B0701F1001527C1 /* CustomPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPlayerView.swift; sourceTree = "<group>"; };
+		C36214422B070741001527C1 /* CustomRocketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRocketView.swift; sourceTree = "<group>"; };
+		C36214462B0923BE001527C1 /* CustomAlienView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlienView.swift; sourceTree = "<group>"; };
+		C36214482B094A30001527C1 /* EntityProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityProtocol.swift; sourceTree = "<group>"; };
+		C362144A2B096A7B001527C1 /* CustomBossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBossView.swift; sourceTree = "<group>"; };
+		C362144C2B09758D001527C1 /* CustomWinLoseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWinLoseMenu.swift; sourceTree = "<group>"; };
+		C362144E2B099406001527C1 /* CustomEnemyWeaponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnemyWeaponView.swift; sourceTree = "<group>"; };
+		C36214502B0995BB001527C1 /* CustomBossWeaponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBossWeaponView.swift; sourceTree = "<group>"; };
+		C36214522B09A07F001527C1 /* WeaponProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponProtocol.swift; sourceTree = "<group>"; };
+		C36214572B0ABC5F001527C1 /* CustomBulletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBulletView.swift; sourceTree = "<group>"; };
+		C362145C2B0ABE7F001527C1 /* LevelUpBonus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpBonus.swift; sourceTree = "<group>"; };
+		C362145E2B0AC470001527C1 /* BonusProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusProtocol.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C362141A2B06C671001527C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C36214142B06C671001527C1 = {
+			isa = PBXGroup;
+			children = (
+				C362141F2B06C671001527C1 /* AlienDestroyer */,
+				C362141E2B06C671001527C1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C362141E2B06C671001527C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C362141D2B06C671001527C1 /* AlienDestroyer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C362141F2B06C671001527C1 /* AlienDestroyer */ = {
+			isa = PBXGroup;
+			children = (
+				C36214542B09A415001527C1 /* Protocols */,
+				C36214452B071A7E001527C1 /* CustomViews */,
+				C36214442B071A6F001527C1 /* GameScreen */,
+				C36214372B06C7A5001527C1 /* StartScreen */,
+				C36214202B06C671001527C1 /* AppDelegate.swift */,
+				C36214222B06C671001527C1 /* SceneDelegate.swift */,
+				C36214292B06C673001527C1 /* Assets.xcassets */,
+				C362142B2B06C673001527C1 /* LaunchScreen.storyboard */,
+				C362142E2B06C673001527C1 /* Info.plist */,
+			);
+			path = AlienDestroyer;
+			sourceTree = "<group>";
+		};
+		C36214372B06C7A5001527C1 /* StartScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C36214352B06C7A0001527C1 /* StartViewController.swift */,
+				C36214382B06C7BA001527C1 /* StartView.swift */,
+				C362143C2B06F450001527C1 /* GameDataManager.swift */,
+			);
+			path = StartScreen;
+			sourceTree = "<group>";
+		};
+		C36214442B071A6F001527C1 /* GameScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C362143E2B06F884001527C1 /* GameView.swift */,
+			);
+			path = GameScreen;
+			sourceTree = "<group>";
+		};
+		C36214452B071A7E001527C1 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				C362145B2B0ABE6C001527C1 /* Bonuses */,
+				C362145A2B0ABD0D001527C1 /* Enemy&Weapon */,
+				C36214592B0ABCED001527C1 /* Player&Weapon */,
+				C362143A2B06E1DC001527C1 /* CustomMenuView.swift */,
+				C362144C2B09758D001527C1 /* CustomWinLoseMenu.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		C36214542B09A415001527C1 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C36214482B094A30001527C1 /* EntityProtocol.swift */,
+				C36214522B09A07F001527C1 /* WeaponProtocol.swift */,
+				C362145E2B0AC470001527C1 /* BonusProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C36214592B0ABCED001527C1 /* Player&Weapon */ = {
+			isa = PBXGroup;
+			children = (
+				C36214402B0701F1001527C1 /* CustomPlayerView.swift */,
+				C36214572B0ABC5F001527C1 /* CustomBulletView.swift */,
+				C36214422B070741001527C1 /* CustomRocketView.swift */,
+			);
+			path = "Player&Weapon";
+			sourceTree = "<group>";
+		};
+		C362145A2B0ABD0D001527C1 /* Enemy&Weapon */ = {
+			isa = PBXGroup;
+			children = (
+				C36214462B0923BE001527C1 /* CustomAlienView.swift */,
+				C362144A2B096A7B001527C1 /* CustomBossView.swift */,
+				C362144E2B099406001527C1 /* CustomEnemyWeaponView.swift */,
+				C36214502B0995BB001527C1 /* CustomBossWeaponView.swift */,
+			);
+			path = "Enemy&Weapon";
+			sourceTree = "<group>";
+		};
+		C362145B2B0ABE6C001527C1 /* Bonuses */ = {
+			isa = PBXGroup;
+			children = (
+				C362145C2B0ABE7F001527C1 /* LevelUpBonus.swift */,
+			);
+			path = Bonuses;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C362141C2B06C671001527C1 /* AlienDestroyer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C36214312B06C673001527C1 /* Build configuration list for PBXNativeTarget "AlienDestroyer" */;
+			buildPhases = (
+				C36214192B06C671001527C1 /* Sources */,
+				C362141A2B06C671001527C1 /* Frameworks */,
+				C362141B2B06C671001527C1 /* Resources */,
+				C36214342B06C6EC001527C1 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AlienDestroyer;
+			productName = AlienDestroyer;
+			productReference = C362141D2B06C671001527C1 /* AlienDestroyer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C36214152B06C671001527C1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					C362141C2B06C671001527C1 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = C36214182B06C671001527C1 /* Build configuration list for PBXProject "AlienDestroyer" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C36214142B06C671001527C1;
+			productRefGroup = C362141E2B06C671001527C1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C362141C2B06C671001527C1 /* AlienDestroyer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C362141B2B06C671001527C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C362142D2B06C673001527C1 /* LaunchScreen.storyboard in Resources */,
+				C362142A2B06C673001527C1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C36214342B06C6EC001527C1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n  exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C36214192B06C671001527C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C362144B2B096A7B001527C1 /* CustomBossView.swift in Sources */,
+				C36214512B0995BB001527C1 /* CustomBossWeaponView.swift in Sources */,
+				C362143B2B06E1DC001527C1 /* CustomMenuView.swift in Sources */,
+				C36214392B06C7BA001527C1 /* StartView.swift in Sources */,
+				C36214432B070741001527C1 /* CustomRocketView.swift in Sources */,
+				C36214362B06C7A0001527C1 /* StartViewController.swift in Sources */,
+				C36214582B0ABC5F001527C1 /* CustomBulletView.swift in Sources */,
+				C36214412B0701F1001527C1 /* CustomPlayerView.swift in Sources */,
+				C36214472B0923BE001527C1 /* CustomAlienView.swift in Sources */,
+				C362145F2B0AC470001527C1 /* BonusProtocol.swift in Sources */,
+				C36214492B094A30001527C1 /* EntityProtocol.swift in Sources */,
+				C36214212B06C671001527C1 /* AppDelegate.swift in Sources */,
+				C362144D2B09758D001527C1 /* CustomWinLoseMenu.swift in Sources */,
+				C36214532B09A07F001527C1 /* WeaponProtocol.swift in Sources */,
+				C36214232B06C671001527C1 /* SceneDelegate.swift in Sources */,
+				C362143D2B06F450001527C1 /* GameDataManager.swift in Sources */,
+				C362145D2B0ABE7F001527C1 /* LevelUpBonus.swift in Sources */,
+				C362144F2B099406001527C1 /* CustomEnemyWeaponView.swift in Sources */,
+				C362143F2B06F884001527C1 /* GameView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C362142B2B06C673001527C1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C362142C2B06C673001527C1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C362142F2B06C673001527C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C36214302B06C673001527C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C36214322B06C673001527C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W937SWAWNQ;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlienDestroyer/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kirill.AlienDestroyer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C36214332B06C673001527C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W937SWAWNQ;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlienDestroyer/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kirill.AlienDestroyer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C36214182B06C671001527C1 /* Build configuration list for PBXProject "AlienDestroyer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C362142F2B06C673001527C1 /* Debug */,
+				C36214302B06C673001527C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C36214312B06C673001527C1 /* Build configuration list for PBXNativeTarget "AlienDestroyer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C36214322B06C673001527C1 /* Debug */,
+				C36214332B06C673001527C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C36214152B06C671001527C1 /* Project object */;
+}
