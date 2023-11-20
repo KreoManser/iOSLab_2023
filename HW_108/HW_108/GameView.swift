@@ -85,9 +85,9 @@ extension GameView {
             alien4.view.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
 
             alien1.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            alien2.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 115),
+            alien2.view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 110),
             alien3.view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            alien4.view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -115)
+            alien4.view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -110)
 
         ])
     }
