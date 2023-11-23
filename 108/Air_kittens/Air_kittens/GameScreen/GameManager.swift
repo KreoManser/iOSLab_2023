@@ -9,7 +9,6 @@ protocol GameManagerProtocol {
     func increaseScore() -> Int
     func decreaseHealth() -> Int
     func restartGame()
-    func getCurXPosition() -> CGFloat
 }
 
 class GameManager: GameManagerProtocol {
@@ -21,7 +20,7 @@ class GameManager: GameManagerProtocol {
     init() {
         enemyArray = ["Enemy1", "Enemy2", "Enemy3"]
     }
-    func getRandXPosition(screenBounds: CGRect) -> CGFloat { CGFloat.random(in: 50..<screenBounds.width - 50) }
+    func getRandXPosition(screenBounds: CGRect) -> CGFloat { CGFloat.random(in: 0..<screenBounds.width - 40) }
 
     func getRandEnemy() -> String {
         let index = Int.random(in: 0..<enemyArray.count)
@@ -35,10 +34,6 @@ class GameManager: GameManagerProtocol {
     func restartGame() {
         playersScore = 0
         playersHealth = 3
-    }
-
-    func getCurXPosition() -> CGFloat {
-        0
     }
 
     func getCurScore() -> Int { playersScore }
