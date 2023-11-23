@@ -8,31 +8,38 @@
 import UIKit
 
 enum UserArm: Int {
-    case blaster = 2
+    case blaster = 4
     case fire = 10
-    case galaxy = 26
+    case galaxy = 20
 }
 
 class User: Hero {
-    private var arm: UserArm = .blaster
+    var arm: UserArm = .blaster
 
     override init(_ type: HeroType) {
         super.init(type)
-        image = UIImageView(image: UIImage(named: "user"))
-
         switch type {
         case .noob:
             arm = .blaster
         case .junior:
-            arm = .blaster
-        case .middle:
             arm = .fire
+        case .middle:
+            arm = .galaxy
         case .senior:
             arm = .galaxy
         }
+        health += 20
+        image = UIImageView(image: UIImage(named: "user"))
+        isUser = true
         damage *= arm.rawValue
     }
 
+    override func upgradeHero() {
+        super.upgradeHero()
+        if self.type == .senior {
+            upgradeArm()
+        }
+    }
     func upgradeArm() {
         switch self.arm {
         case .blaster:
@@ -43,11 +50,5 @@ class User: Hero {
             self.amountOfMissiles += 1
         }
         self.damage = self.amountOfMissiles * self.arm.rawValue
-    }
-    override func upgradeHero() {
-        super.upgradeHero()
-        if self.type == .senior {
-            upgradeArm()
-        }
     }
 }

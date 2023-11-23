@@ -8,17 +8,11 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    private var mainView = MainView(frame: .zero)
+    private var mainView = MainView(.zero, 1, 1)
 
     override func loadView() {
         super.loadView()
         view = mainView
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        mainView.moveAlienShipsToNewPositions()
     }
 }
 

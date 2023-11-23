@@ -9,16 +9,18 @@ import UIKit
 
 enum AlienArm: Int {
     case blaster = 3
-    case fire = 12
-    case meteorite = 40
+    case fire = 7
+    case meteorite = 30
 }
 
 class Alien: Hero {
-    private var arm: AlienArm = .blaster
+    var arm: AlienArm = .blaster
+    var alienObject: UIView?
 
     override init(_ type: HeroType) {
         super.init(type)
 
+        isUser = false
         switch type {
         case .noob:
             arm = AlienArm.blaster
@@ -34,6 +36,7 @@ class Alien: Hero {
             image = UIImageView(image: UIImage(named: "boss"))
         }
         damage *= arm.rawValue
+        alienObject = image
     }
     func createAmountOfAliens(type: HeroType, amount: Int) -> [Alien] {
         var aliens: [Alien] = []

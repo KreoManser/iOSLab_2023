@@ -15,6 +15,7 @@ enum HeroType {
 }
 
 class Hero {
+    var isUser: Bool
     var health: Double
     var image: UIImageView = UIImageView()
     var amountOfMissiles: Int
@@ -24,21 +25,22 @@ class Hero {
     init(_ type: HeroType) {
         switch type {
         case .noob:
-            health = 10
+            health = 5
             amountOfMissiles = 1
         case .junior:
-            health = 20
+            health = 10
             amountOfMissiles = 3
         case .middle:
-            health = 50
+            health = 25
             amountOfMissiles = 1
         case .senior:
-            health = 250
+            health = 50
             amountOfMissiles = 1
         }
 
         self.type = type
         damage = amountOfMissiles
+        isUser = false
     }
 
     func upgradeHealth() {
