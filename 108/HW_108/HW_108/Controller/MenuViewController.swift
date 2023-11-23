@@ -2,10 +2,14 @@ import UIKit
 
 class MenuViewController: UIViewController {
     let menuView = MenuView()
+    let dataManager = DataManager.shared
     override func viewDidLoad() {
         super.viewDidLoad()
         view = menuView
         setButtonAction()
+        setDifficult()
+        dataManager.spaceshipHP = 4
+        dataManager.currentWave = 1
     }
     func setButtonAction() {
         menuView.setButtonActionClosure { [weak self] in
@@ -13,9 +17,15 @@ class MenuViewController: UIViewController {
             self?.navigationController?.pushViewController(gameViewController, animated: true)
         }
     }
-    var findSquare = { (num: Int) -> (Int) in
-        var square = num * num
-        return square
+    func setDifficult() {
+        menuView.setEasyButtonActionClosure { [weak self] in
+            self?.dataManager.difficult = 1
+        }
+        menuView.setMiddleButtonActionClosure { [weak self] in
+            self?.dataManager.difficult = 2
+        }
+        menuView.setHardButtonActionClosure { [weak self] in
+            self?.dataManager.difficult = 3
+        }
     }
-
 }

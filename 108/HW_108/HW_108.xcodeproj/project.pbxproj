@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2ADBA45C2B0FA28C0045F023 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADBA45B2B0FA28C0045F023 /* GameOverView.swift */; };
 		2AF9121C2B0914B6008FD964 /* Spaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF9121B2B0914B6008FD964 /* Spaceship.swift */; };
 		2AF9121E2B0914D7008FD964 /* Alien.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF9121D2B0914D7008FD964 /* Alien.swift */; };
 		2AF912202B094379008FD964 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF9121F2B094379008FD964 /* Bullet.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2ADBA45B2B0FA28C0045F023 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		2AF9121B2B0914B6008FD964 /* Spaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaceship.swift; sourceTree = "<group>"; };
 		2AF9121D2B0914D7008FD964 /* Alien.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alien.swift; sourceTree = "<group>"; };
 		2AF9121F2B094379008FD964 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				2AFA850A2B050DA7004CA0C1 /* MenuView.swift */,
 				2AFA850E2B054FD9004CA0C1 /* GameView.swift */,
+				2ADBA45B2B0FA28C0045F023 /* GameOverView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				2AF912202B094379008FD964 /* Bullet.swift in Sources */,
 				2AF912222B0AA7EE008FD964 /* DataManager.swift in Sources */,
 				2AFA85092B050D93004CA0C1 /* MenuViewController.swift in Sources */,
+				2ADBA45C2B0FA28C0045F023 /* GameOverView.swift in Sources */,
 				2AFA850F2B054FD9004CA0C1 /* GameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,9 +1,18 @@
 import UIKit
-
 class Alien: UIView {
     lazy var spaceship: UIImageView = UIImageView()
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    let currentAlien: String
+    let height: CGFloat
+    let width: CGFloat
+    var health: Int
+    var bulletSpeed: CGFloat
+    init(currentAlien: String, height: CGFloat, width: CGFloat, health: Int, bulletSpeed: CGFloat) {
+        self.currentAlien = currentAlien
+        self.height = height
+        self.width = width
+        self.health = health
+        self.bulletSpeed = bulletSpeed
+        super.init(frame: .zero)
         backgroundColor = .clear
         createShip()
     }
@@ -11,7 +20,7 @@ class Alien: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     func createShip() {
-        spaceship.image = UIImage(named: "enemyship")
+        spaceship.image = UIImage(named: currentAlien)
         addSubview(spaceship)
         spaceship.translatesAutoresizingMaskIntoConstraints = false
         spaceship.contentMode = .scaleAspectFill
@@ -19,8 +28,8 @@ class Alien: UIView {
         NSLayoutConstraint.activate([
             spaceship.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             spaceship.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-            spaceship.heightAnchor.constraint(equalToConstant: 50),
-            spaceship.widthAnchor.constraint(equalToConstant: 50)
+            spaceship.heightAnchor.constraint(equalToConstant: height),
+            spaceship.widthAnchor.constraint(equalToConstant: width)
         ])
     }
 }

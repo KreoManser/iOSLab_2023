@@ -1,19 +1,16 @@
 import UIKit
-
 class Spaceship: UIView {
     lazy var spaceship: UIImageView = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
-        createShip()
+        setUpSpaceship()
     }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    func createShip() {
+    func setUpSpaceship() {
         spaceship.image = UIImage(named: "spaceShip")
         addSubview(spaceship)
         spaceship.translatesAutoresizingMaskIntoConstraints = false

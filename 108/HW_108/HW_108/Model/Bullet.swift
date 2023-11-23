@@ -1,5 +1,4 @@
 import UIKit
-
 class Bullet: UIView {
     lazy var bullet: UIImageView = UIImageView()
     override init(frame: CGRect) {
@@ -7,11 +6,9 @@ class Bullet: UIView {
         backgroundColor = .clear
         createBullet()
     }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     func createBullet() {
         bullet.image = UIImage(named: "bullet")
         addSubview(bullet)
@@ -24,6 +21,5 @@ class Bullet: UIView {
             bullet.heightAnchor.constraint(equalToConstant: 30),
             bullet.widthAnchor.constraint(equalToConstant: 30)
         ])
-
     }
 }
