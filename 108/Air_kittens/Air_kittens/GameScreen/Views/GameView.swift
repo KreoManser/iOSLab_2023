@@ -18,7 +18,8 @@ class GameView: UIView {
     private lazy var scoreLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.text = "0"
+        label.font = .systemFont(ofSize: 45, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -48,6 +49,7 @@ class GameView: UIView {
         button.setTitle("Переиграть", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.tintColor = UIColor(red: 44 / 255, green: 40 / 255, blue: 107 / 255, alpha: 1)
+        button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(action, for: .touchUpInside)
         return button
@@ -56,8 +58,9 @@ class GameView: UIView {
     private lazy var gameOverLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Игра завершена."
-        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.text = "Игра завершена"
+        label.contentMode = .center
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = .white
         label.isHidden = true
         return label
@@ -72,8 +75,8 @@ class GameView: UIView {
     private var enemyTimer: Timer?
     private var collisionTimer: Timer?
     private var lastTouch: CGPoint = .zero
-    private var enemyPosition: [UIView: Int] = [:]
-    private var playerBullet: UIView?
+    private var enemyPosition: [UIImageView: Int] = [:]
+    private var playerBullet: UIImageView?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -90,10 +93,10 @@ extension GameView {
     func showMenu() {
         gameOverLabel.isHidden = false
         restartButton.isHidden = false
-        playerAnimator?.fractionComplete = 0.5
         enemyTimer?.invalidate()
         bossTimer?.invalidate()
         collisionTimer?.invalidate()
+        playerShotTimer?.invalidate()
     }
 
     func restartGame() {
@@ -106,7 +109,7 @@ extension GameView {
     func startTimers() {
         playerShotTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self, selector: #selector(shot), userInfo: nil, repeats: true)
         enemyTimer = Timer.scheduledTimer(timeInterval: 2.4, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
-        bossTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(createBoss), userInfo: nil, repeats: false)
+        bossTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(createBoss), userInfo: nil, repeats: false)
         collisionTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(handleCollision), userInfo: nil, repeats: true)
     }
 
@@ -114,7 +117,7 @@ extension GameView {
         let boss = UIImageView(image: UIImage(named: "Boss"))
         boss.translatesAutoresizingMaskIntoConstraints = false
         boss.contentMode = .scaleAspectFill
-        enemyPosition[boss] = 3
+        enemyPosition[boss] = 4
         addSubview(boss)
         NSLayoutConstraint.activate([
             boss.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
@@ -128,7 +131,8 @@ extension GameView {
         bossAnimator?.addCompletion({ _ in
             boss.removeFromSuperview()
             self.enemyPosition.removeValue(forKey: boss)
-            self.gameViewController?.checkGame()
+            self.showMenu()
+            GameManager.shared.restartGame()
         })
         bossAnimator?.startAnimation()
     }
@@ -155,6 +159,7 @@ extension GameView {
             enemy.transform = moveTransform
         }
         enemyAnimator?.addCompletion({ _ in
+            GameManager.shared.decreaseHealth()
             enemy.removeFromSuperview()
             self.enemyPosition.removeValue(forKey: enemy)
             self.gameViewController?.checkGame()
@@ -165,22 +170,27 @@ extension GameView {
     @objc private func handleCollision() {
         for enemy in enemyPosition.keys  where
         ((enemy.layer.presentation()?.frame.intersects(playerBullet?.layer.presentation()?.frame ?? .zero)) == true) {
-            getExplosion(enemy)
+            if var enemyHealth = enemyPosition[enemy] {
+                enemyHealth -= 1
+                enemyPosition[enemy] = enemyHealth
+                if enemyHealth <= 0 {
+                    getExplosion(enemy)
+                    gameViewController?.increaseScore(scoreLabel: scoreLabel)
+                } else {
+                    playerBullet?.removeFromSuperview()
+                }
+            }
         }
     }
 
-    func getExplosion(_ shipView: UIView) {
-        let explosion = UIImageView(image: UIImage(named: "Explosion"))
-        shipView.frame = CGRect(x: shipView.frame.midX, y: shipView.frame.midY, width: 40, height: 60)
-        print(explosion.frame)
-        explosion.contentMode = .scaleAspectFill
-        addSubview(explosion)
+    func getExplosion(_ shipView: UIImageView) {
         UIView.animate(withDuration: 0.8) {
-            shipView.removeFromSuperview()
+            shipView.frame = CGRect(x: shipView.frame.midX, y: shipView.frame.midY, width: 40, height: 60)
+            shipView.image = UIImage(named: "Explosion")
             self.playerBullet?.removeFromSuperview()
             self.enemyPosition.removeValue(forKey: shipView)
         } completion: { _ in
-            explosion.removeFromSuperview()
+            shipView.removeFromSuperview()
         }
     }
 
@@ -225,7 +235,10 @@ extension GameView {
     func setupLayout() {
         addSubview(backgroundImageView)
         addSubview(playButton)
+        addSubview(scoreLabel)
         addSubview(playerImageView)
+        addSubview(gameOverLabel)
+        addSubview(restartButton)
 
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
@@ -238,10 +251,21 @@ extension GameView {
             playButton.widthAnchor.constraint(equalToConstant: 150),
             playButton.heightAnchor.constraint(equalToConstant: 75),
 
-            playerImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -80),
+            playerImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -100),
             playerImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             playerImageView.widthAnchor.constraint(equalToConstant: 50),
-            playerImageView.heightAnchor.constraint(equalToConstant: 100)
+            playerImageView.heightAnchor.constraint(equalToConstant: 100),
+
+            scoreLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            scoreLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+
+            gameOverLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 300),
+            gameOverLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+
+            restartButton.topAnchor.constraint(equalTo: gameOverLabel.bottomAnchor, constant: 10),
+            restartButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            restartButton.widthAnchor.constraint(equalToConstant: 150),
+            restartButton.heightAnchor.constraint(equalToConstant: 75)
         ])
     }
 }

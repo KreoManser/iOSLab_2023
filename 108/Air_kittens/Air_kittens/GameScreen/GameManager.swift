@@ -7,7 +7,7 @@ protocol GameManagerProtocol {
     func getCurScore() -> Int
     func getCurHealth() -> Int
     func increaseScore() -> Int
-    func decreaseHealth() -> Int
+    func decreaseHealth()
     func restartGame()
 }
 
@@ -20,16 +20,19 @@ class GameManager: GameManagerProtocol {
     init() {
         enemyArray = ["Enemy1", "Enemy2", "Enemy3"]
     }
-    func getRandXPosition(screenBounds: CGRect) -> CGFloat { CGFloat.random(in: 0..<screenBounds.width - 40) }
+    func getRandXPosition(screenBounds: CGRect) -> CGFloat { CGFloat.random(in: 40..<screenBounds.width - 50) }
 
     func getRandEnemy() -> String {
         let index = Int.random(in: 0..<enemyArray.count)
         return enemyArray[index]
     }
 
-    func increaseScore() -> Int { getCurScore() + 1 }
+    func increaseScore() -> Int {
+        playersScore += 1
+        return getCurScore()
+    }
 
-    func decreaseHealth() -> Int { getCurHealth() - 1 }
+    func decreaseHealth() { playersHealth -= 1 }
 
     func restartGame() {
         playersScore = 0
