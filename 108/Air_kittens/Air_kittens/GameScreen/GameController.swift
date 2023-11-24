@@ -23,7 +23,6 @@ extension GameController {
     func increaseScore(scoreLabel: UILabel) { scoreLabel.text = "\(GameManager.shared.increaseScore())" }
 
     func checkGame() {
-        print(GameManager.shared.getCurHealth())
         if GameManager.shared.getCurHealth() <= 0 {
             gameView.showMenu()
             GameManager.shared.restartGame()

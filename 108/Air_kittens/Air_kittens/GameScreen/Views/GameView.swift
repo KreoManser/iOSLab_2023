@@ -106,6 +106,9 @@ extension GameView {
         bossTimer?.invalidate()
         collisionTimer?.invalidate()
         playerShotTimer?.invalidate()
+        for enemy in enemyPosition.keys {
+            enemy.removeFromSuperview()
+        }
     }
 
     func restartGame() {
@@ -130,7 +133,7 @@ extension GameView {
         addSubview(boss)
         NSLayoutConstraint.activate([
             boss.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
-                constant: CGFloat.random(in: 60..<self.frame.width - 100)),
+                constant: CGFloat.random(in: 60..<self.frame.width - 80)),
             boss.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -100)
         ])
         bossAnimator = UIViewPropertyAnimator(duration: 10, curve: .linear) {
@@ -170,25 +173,38 @@ extension GameView {
         enemyAnimator?.addCompletion({ _ in
             enemy.removeFromSuperview()
             self.enemyPosition.removeValue(forKey: enemy)
-            GameManager.shared.decreaseHealth()
             self.gameViewController?.checkGame()
         })
         enemyAnimator?.startAnimation()
     }
 
     @objc private func handleCollision() {
-        for enemy in enemyPosition.keys  where
-        ((enemy.layer.presentation()?.frame.intersects(playerBullet?.layer.presentation()?.frame ?? .zero)) == true) {
-            if var enemyHealth = enemyPosition[enemy] {
-                enemyHealth -= 1
-                enemyPosition[enemy] = enemyHealth
-                if enemyHealth <= 0 {
-                    getExplosion(enemy)
-                    gameViewController?.increaseScore(scoreLabel: scoreLabel)
-                } else {
-                    playerBullet?.removeFromSuperview()
+        for enemy in enemyPosition.keys {
+            if enemy.layer.presentation()?.frame.minY ?? 0.0 >= self.frame.height {
+                GameManager.shared.decreaseHealth()
+                self.getBlinked(self.playerImageView)
+                enemyPosition.removeValue(forKey: enemy)
+            }
+            if ((enemy.layer.presentation()?.frame.intersects(playerBullet?.layer.presentation()?.frame ?? .zero)) == true) {
+                if var enemyHealth = enemyPosition[enemy] {
+                    enemyHealth -= 1
+                    enemyPosition[enemy] = enemyHealth
+                    if enemyHealth <= 0 {
+                        getExplosion(enemy)
+                        gameViewController?.increaseScore(scoreLabel: scoreLabel)
+                    } else {
+                        getBlinked(enemy)
+                        playerBullet?.removeFromSuperview()
+                    }
                 }
             }
+        }
+    }
+    func getBlinked(_ shipImageView: UIImageView) {
+        UIView.animate(withDuration: 0.2, delay: .zero, options: .autoreverse) {
+            shipImageView.alpha = 0.3
+        } completion: { [weak shipImageView] _ in
+            shipImageView?.alpha = 1
         }
     }
 
