@@ -25,16 +25,20 @@ class GameView: UIView {
     }()
 
     private lazy var playButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: .tinted())
         let action = UIAction { [weak self] _ in
             guard let self else { return }
             self.startTimers()
             self.setupGesture()
             button.isHidden = true
         }
+        button.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = .systemFont(ofSize: 23, weight: .medium)
+            return outgoing
+        }
         button.setTitle("Играть", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.tintColor = UIColor(red: 44 / 255, green: 40 / 255, blue: 107 / 255, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(action, for: .touchUpInside)
         return button
@@ -46,9 +50,14 @@ class GameView: UIView {
             self?.restartGame()
             button.isHidden = true
         }
+        button.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = .systemFont(ofSize: 23, weight: .medium)
+            return outgoing
+        }
         button.setTitle("Переиграть", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.tintColor = UIColor(red: 44 / 255, green: 40 / 255, blue: 107 / 255, alpha: 1)
+        button.titleLabel?.font = .systemFont(ofSize: 23, weight: .medium)
         button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(action, for: .touchUpInside)
@@ -60,7 +69,7 @@ class GameView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Игра завершена"
         label.contentMode = .center
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 30)
         label.textColor = .white
         label.isHidden = true
         return label
@@ -109,7 +118,7 @@ extension GameView {
     func startTimers() {
         playerShotTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self, selector: #selector(shot), userInfo: nil, repeats: true)
         enemyTimer = Timer.scheduledTimer(timeInterval: 2.4, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
-        bossTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(createBoss), userInfo: nil, repeats: false)
+        bossTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(createBoss), userInfo: nil, repeats: false)
         collisionTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(handleCollision), userInfo: nil, repeats: true)
     }
 
@@ -121,7 +130,7 @@ extension GameView {
         addSubview(boss)
         NSLayoutConstraint.activate([
             boss.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
-                constant: GameManager.shared.getRandXPosition(screenBounds: self.bounds)),
+                constant: CGFloat.random(in: 60..<self.frame.width - 100)),
             boss.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -100)
         ])
         bossAnimator = UIViewPropertyAnimator(duration: 10, curve: .linear) {
@@ -144,7 +153,7 @@ extension GameView {
         enemy.contentMode = .scaleAspectFill
 
         let const = GameManager.shared.getRandXPosition(screenBounds: self.bounds)
-        enemyPosition[enemy] = 1
+        enemyPosition[enemy] = Int.random(in: 1...3)
 
         addSubview(enemy)
         NSLayoutConstraint.activate([
@@ -159,9 +168,9 @@ extension GameView {
             enemy.transform = moveTransform
         }
         enemyAnimator?.addCompletion({ _ in
-            GameManager.shared.decreaseHealth()
             enemy.removeFromSuperview()
             self.enemyPosition.removeValue(forKey: enemy)
+            GameManager.shared.decreaseHealth()
             self.gameViewController?.checkGame()
         })
         enemyAnimator?.startAnimation()
@@ -190,6 +199,7 @@ extension GameView {
             self.playerBullet?.removeFromSuperview()
             self.enemyPosition.removeValue(forKey: shipView)
         } completion: { _ in
+            self.enemyPosition.removeValue(forKey: shipView)
             shipView.removeFromSuperview()
         }
     }
@@ -248,8 +258,8 @@ extension GameView {
 
             playButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             playButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            playButton.widthAnchor.constraint(equalToConstant: 150),
-            playButton.heightAnchor.constraint(equalToConstant: 75),
+            playButton.widthAnchor.constraint(equalToConstant: 100),
+            playButton.heightAnchor.constraint(equalToConstant: 40),
 
             playerImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -100),
             playerImageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
@@ -264,8 +274,8 @@ extension GameView {
 
             restartButton.topAnchor.constraint(equalTo: gameOverLabel.bottomAnchor, constant: 10),
             restartButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            restartButton.widthAnchor.constraint(equalToConstant: 150),
-            restartButton.heightAnchor.constraint(equalToConstant: 75)
+            restartButton.widthAnchor.constraint(equalToConstant: 170),
+            restartButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }
