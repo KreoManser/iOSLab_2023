@@ -9,7 +9,7 @@ import UIKit
 
 class StartGameView: UIView {
     var credits: Int?
-    var gameManager: GameManager?
+    var player: Player?
     var gameController: StartGameViewController?
     lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Space"))
@@ -32,11 +32,11 @@ class StartGameView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    lazy var totalCreditsLabel: UILabel = {
+    lazy var resultBattleLabel: UILabel = {
         let label = UILabel()
-        label.text = "TotalCredits: \(String(describing: credits))"
+        label.text = "А я котик"
         label.textColor = .systemMint
-        label.font = UIFont.systemFont(ofSize: 40)
+        label.font = UIFont.systemFont(ofSize: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -56,11 +56,15 @@ class StartGameView: UIView {
     }()
     lazy var shopButton: UIButton = {
         let button = UIButton()
+        let action = UIAction {[weak self] _ in
+            self?.shopGame()
+        }
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Магазин", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 25)
         button.setTitleColor(.systemMint, for: .normal)
         button.backgroundColor = .gray
+        button.addAction(action, for: .touchUpInside)
         button.layer.cornerRadius = 20
         return button
     }()
@@ -70,16 +74,15 @@ class StartGameView: UIView {
         addSubview(backgroundImageView)
         addSubview(battelLabel1)
         addSubview(battelLabel2)
-        addSubview(totalCreditsLabel)
         addSubview(startPlayButton)
         addSubview(shopButton)
+        addSubview(resultBattleLabel)
         setupLayout()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
 extension StartGameView {
     func setupCreditsTotalCount(credits: Int) {
         self.credits = credits
@@ -87,6 +90,13 @@ extension StartGameView {
     }
     func startGame() {
         gameController?.startGameFunc()
+    }
+    func shopGame() {
+        gameController?.shopGameFunc()
+    }
+    func setupResultLabel(text: String) {
+        resultBattleLabel.text = text
+        setupLayout()
     }
     func setupLayout() {
         NSLayoutConstraint.activate([
@@ -106,12 +116,8 @@ extension StartGameView {
                 equalTo: battelLabel1.bottomAnchor, constant: 5),
             battelLabel2.centerXAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.centerXAnchor),
-            totalCreditsLabel.centerYAnchor.constraint(
-                equalTo: centerYAnchor),
-            totalCreditsLabel.centerXAnchor.constraint(
-                equalTo: centerXAnchor),
             startPlayButton.topAnchor.constraint(
-                equalTo: totalCreditsLabel.bottomAnchor, constant: 70),
+                equalTo: battelLabel2.bottomAnchor, constant: 140),
             startPlayButton.heightAnchor.constraint(
                 equalToConstant: 50),
             startPlayButton.widthAnchor.constraint(
@@ -125,8 +131,9 @@ extension StartGameView {
             shopButton.widthAnchor.constraint(
                 equalToConstant: 200),
             shopButton.centerXAnchor.constraint(
-                equalTo: centerXAnchor)
+                equalTo: centerXAnchor),
+            resultBattleLabel.topAnchor.constraint(equalTo: shopButton.bottomAnchor, constant: 20),
+            resultBattleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
-        totalCreditsLabel.text = "TotalCredits: \(credits ?? 10)"
     }
 }
