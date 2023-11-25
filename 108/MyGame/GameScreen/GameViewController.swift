@@ -37,7 +37,6 @@ class GameViewController: UIViewController {
         gameDataManager?.gameView = gameView
         gameView?.delegate = gameDataManager as? any CollisionDelegate
         view = gameView
-        view.backgroundColor = .brown
     }
     private func setupNav() {
         navigationItem.hidesBackButton = true
