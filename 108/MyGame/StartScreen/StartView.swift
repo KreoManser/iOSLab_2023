@@ -39,7 +39,7 @@ class StartView: UIView {
         ])
     }
     private func setUpButton() {
-        startButton.setTitle("START", for: .normal)
+        startButton.setTitle("LEVELONE", for: .normal)
         startButton.tintColor = .black
         startButton.setTitleColor(.white, for: .normal)
         startButton.setImage(UIImage(named: "startbutton"), for: .normal)

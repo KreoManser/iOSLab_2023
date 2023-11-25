@@ -66,7 +66,6 @@
 		DE4A8D5D2B04CA5800D1721A /* MyGame */ = {
 			isa = PBXGroup;
 			children = (
-				DE4A8D782B06180F00D1721A /* EndScreen */,
 				DE4A8D762B06178900D1721A /* StartScreen */,
 				DE4A8D752B06177900D1721A /* GameScreen */,
 				DE4A8D742B06171F00D1721A /* Resources */,
@@ -105,13 +104,6 @@
 				DEF4821C2B0CCEC700593971 /* StartViewController.swift */,
 			);
 			path = StartScreen;
-			sourceTree = "<group>";
-		};
-		DE4A8D782B06180F00D1721A /* EndScreen */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = EndScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

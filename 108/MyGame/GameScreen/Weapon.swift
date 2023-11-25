@@ -20,6 +20,7 @@ class Weapon: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     private func setUpBullet() {
+     //   addSubview(weapon)
         weapon.isHidden = true
      //   weapon = UIImageView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
     }

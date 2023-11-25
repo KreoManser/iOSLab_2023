@@ -28,7 +28,8 @@ class GameDataManager {
 //    for animator in alienAnimators {
 //            animator.pause() // or .stopAnimation(true) if you want to stop immediately
 //        }
-    func handleSpacecollision(bullet: UIImageView, target: UIImageView) {
+    func handleSpacecollision(bullet: Weapon, target: UIImageView) {
+        print("an alien was shot")
          if target == gameView?.spaceShip {
              score += 5
               gameView?.scoreLabel.text = "Score: \(score)"
@@ -39,11 +40,11 @@ class GameDataManager {
     }
 
     func handleAlienCollision(bullet: Weapon, target: UIImageView) {
+        print("spaceship was attacked")
         lives -= 1
         gameView?.liveCount.text = "Player'sHealth: \(lives)"
        delegate?.handleExplosion(at: target.center, target: target)
        bullet.removeFromSuperview()
        target.removeFromSuperview()
     }
-
 }
