@@ -27,6 +27,8 @@ class GameView: UIView {
     var invaderBullets: [UIImageView] = []
     var defenderBullet: UIImageView?
     var animator: UIViewPropertyAnimator?
+    var displayLink: CADisplayLink?
+    var lastUpdateTime: CFTimeInterval = 0.0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,9 +40,11 @@ class GameView: UIView {
     }
 
     func downwardMovementShip() {
+        self.displayLink = CADisplayLink(target: self, selector: #selector(startInvaderShooting))
+        self.displayLink?.preferredFramesPerSecond = 1
+        self.displayLink?.add(to: .main, forMode: .default)
         let heightScreen = UIScreen.main.bounds.height - 350
-        startInvaderShooting()
-        animator = UIViewPropertyAnimator(duration: 10.0, curve: .linear, animations: {
+        animator = UIViewPropertyAnimator(duration: 15.0, curve: .linear, animations: {
             self.invaderShips1.frame.origin.y += heightScreen
             self.invaderShips2.frame.origin.y += heightScreen
             self.invaderShips3.frame.origin.y += heightScreen
@@ -50,29 +54,40 @@ class GameView: UIView {
         })
         animator?.addCompletion { position in
             if position == .end {
-                //вызов алерт рестарт
+                self.displayLink?.remove(from: .main, forMode: .default)
+                // вызов алерт рестарт
                 print("Вы проиграли")
             }
         }
-
         animator?.startAnimation()
     }
 
-    func startInvaderShooting() {
-        for invaderShip in [invaderShips1, invaderShips2, invaderShips3, invaderShips4, invaderShips5, invaderShips6] {
+    @objc func startInvaderShooting() {
+        let currentTime = displayLink?.timestamp ?? 0.0
+        let deltaTime = currentTime - lastUpdateTime
+        for invaderShip in [self.invaderShips1, self.invaderShips2, self.invaderShips3, self.invaderShips4, self.invaderShips5, self.invaderShips6] {
             let bullet = UIImageView(image: UIImage.bulletsInvader)
-            bullet.frame = CGRect(x: invaderShip.frame.midX, y: invaderShip.frame.midY, width: 35, height: 35)
-                addSubview(bullet)
-                invaderBullets.append(bullet)
-            UIView.animate(withDuration: 2.0, delay: 0, options: .repeat, animations: {
-                bullet.frame.origin.y = UIScreen.main.bounds.height
-            }) { _ in
+            bullet.frame = CGRect(
+                x: (invaderShip.layer.presentation()?.frame.origin.x ?? 0) + invaderShip.frame.width / 2 - 17.5,
+                y: invaderShip.layer.presentation()?.frame.origin.y ?? 0, width: 35, height: 35
+            )
+            addSubview(bullet)
+            invaderBullets.append(bullet)
+
+            UIView.animate(withDuration: 5.0, delay: .zero, options: .curveLinear) {
+                bullet.frame.origin.y += UIScreen.main.bounds.height
+            } completion: { _ in
                 bullet.removeFromSuperview()
                 if let index = self.invaderBullets.firstIndex(of: bullet) {
                     self.invaderBullets.remove(at: index)
                 }
             }
         }
+        lastUpdateTime = currentTime
+    }
+
+    func DefenderShooting() {
+        
     }
 
     func addPanGestureToDefendership() {
