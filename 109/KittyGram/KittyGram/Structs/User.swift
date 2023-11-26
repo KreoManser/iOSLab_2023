@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User {
+struct User: Codable {
     let nickname: String
     var fullName: String
     var avatar: String
@@ -17,4 +17,5 @@ struct User {
     var profileDescription: String
     var subscriptions: [User] = []
     let password: String
+    var likedPostsId: [Int] = []
 }

@@ -28,4 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
+    func applicationWillTerminate(_ application: UIApplication) {
+        try? DataManager.shared.saveCurrentUser()
+    }
+
 }

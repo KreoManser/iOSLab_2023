@@ -15,6 +15,8 @@ class UserProfilePostsViewController: UIViewController {
 
     private let dataSource = UserProfilePostsTableViewDataSource()
 
+    private let dataManager = DataManager.shared
+
     // MARK: - Life cycle
     override func loadView() {
         view = pictureDetailView
@@ -53,7 +55,7 @@ extension UserProfilePostsViewController {
 
     func delete(indexPath: IndexPath) {
         Task {
-            await DataManager.shared.asyncDeletePost(index: indexPath.row)
+            await dataManager.asyncDeletePost(index: indexPath.row)
             pictureDetailView.reloadData()
         }
     }
@@ -63,11 +65,11 @@ extension UserProfilePostsViewController {
     }
 
     func getSearchedPostsConunt() -> Int {
-        return DataManager.shared.filteredPostsCount
+        return dataManager.filteredPostsCount
     }
 
     func searchPostsByName(_ name: String) {
-        DataManager.shared.syncSearchByName(name)
+        dataManager.syncSearchByName(name)
     }
 
 }

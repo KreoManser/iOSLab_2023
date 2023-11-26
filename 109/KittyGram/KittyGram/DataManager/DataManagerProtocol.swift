@@ -9,18 +9,11 @@ import Foundation
 
 protocol DataManagerProtocol {
 
-    func syncSetCurrentUser(_ user: User)
-    func asyncSetCurrentUser(_ user: User) async
-
     func syncGetUsers() -> [User]
-
     func asyncGetUsers() async -> [User]
 
     func syncGetUserPosts() -> [Post]
     func asyncGetUserPosts() async -> [Post]
-
-    func syncGetCurrentUser() -> User
-    func asyncGetCurrentUser() async -> User
 
     func syncDeletePost(index: Int)
     func asyncDeletePost(index: Int) async

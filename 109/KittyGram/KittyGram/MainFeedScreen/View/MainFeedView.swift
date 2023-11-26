@@ -21,7 +21,9 @@ class MainFeedView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layuot)
         collectionView.backgroundColor = .black
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(UserStoriesCollectionViewCell.self, forCellWithReuseIdentifier: UserStoriesCollectionViewCell.reuseIdentifier)
+        collectionView.register(
+            UserStoriesCollectionViewCell.self,
+            forCellWithReuseIdentifier: UserStoriesCollectionViewCell.reuseIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()

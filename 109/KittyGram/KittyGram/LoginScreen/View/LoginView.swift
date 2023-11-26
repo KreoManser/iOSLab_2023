@@ -149,7 +149,9 @@ extension LoginView {
             loginWithFacebookButton.topAnchor.constraint(equalTo: splitLabel.bottomAnchor, constant: 7),
             loginWithFacebookButton.heightAnchor.constraint(equalToConstant: 40),
             loginWithFacebookButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            loginWithFacebookButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            loginWithFacebookButton.trailingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.trailingAnchor,
+                constant: -30),
 
             footerStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -5),
             footerStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)

@@ -9,12 +9,12 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-    // MARK: - Lile cycle
-
+    // MARK: - Variables
     private lazy var loginView = LoginView(frame: .zero)
 
     private let loginHandler = LoginHandler()
 
+    // MARK: - Lile cycle
     override func loadView() {
         view = loginView
     }
@@ -28,25 +28,24 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController {
+
     func checkUser(_ login: String, _ password: String) {
         Task {
             if let user = await loginHandler.userVerification(login, password) {
-                let tabBarController = TabBarController()
+                DataManager.shared.currentUser = user
+                let tabBarController = TabBarViewController()
                 tabBarController.modalPresentationStyle = .fullScreen
-                await DataManager.shared.asyncSetCurrentUser(user)
                 self.present(tabBarController, animated: true)
 
             } else {
-
                 let alert = UIAlertController(
-                title: "Ой",
-                message: "Неправильный пользователь или пароль",
-                preferredStyle: .alert)
+                    title: "Ой",
+                    message: "Неправильный пользователь или пароль",
+                    preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ок", style: .cancel))
                 self.present(alert, animated: true)
 
             }
         }
     }
-
 }

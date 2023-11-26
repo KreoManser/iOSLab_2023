@@ -38,6 +38,9 @@ class UserStoriesCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
 
+    // MARK: - Variables
+    private let dataManager = DataManager.shared
+
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,7 +74,9 @@ extension UserStoriesCollectionViewCell {
 
             userNameLabel.topAnchor.constraint(equalTo: userAvatarImageView.bottomAnchor, constant: 10),
             userNameLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 2),
-            userNameLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -2),
+            userNameLabel.trailingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
+                constant: -2),
 
             plusImageView.trailingAnchor.constraint(equalTo: userAvatarImageView.trailingAnchor, constant: 2),
             plusImageView.bottomAnchor.constraint(equalTo: userAvatarImageView.bottomAnchor, constant: 2),
@@ -87,7 +92,8 @@ extension UserStoriesCollectionViewCell {
     }
 
     func configureCellForCurrentUser() {
-        userAvatarImageView.image = UIImage(named: DataManager.shared.syncGetCurrentUser().avatar)
+        guard let currentUser = dataManager.currentUser else { return }
+        userAvatarImageView.image = UIImage(named: currentUser.avatar)
         userNameLabel.text = "Ваша история"
     }
 

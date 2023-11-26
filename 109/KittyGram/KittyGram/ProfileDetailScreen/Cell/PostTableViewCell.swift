@@ -11,6 +11,11 @@ protocol PostTableAlertDelegate: AnyObject {
     func presentAlert(indexPath: IndexPath)
 }
 
+protocol PostLikeObserver: AnyObject {
+    func saveLikedPost(postId: Int)
+    func deleteLikedPost(postId: Int)
+}
+
 class PostTableViewCell: UITableViewCell {
     // MARK: - UI elements
     private lazy var userImageView: UIImageView = {
@@ -48,39 +53,65 @@ class PostTableViewCell: UITableViewCell {
         let button = UIButton()
         button.addAction(action, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "ellipsis")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
+        button.setImage(
+            UIImage(systemName: "ellipsis")?.withConfiguration(
+                UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
         button.imageView?.tintColor = .white
         return button
     }()
 
     private lazy var likeButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: PostButton.configureation)
+        let action = UIAction { [weak self] _ in
+
+            self?.animateLike()
+            guard let isLiked = self?.isLiked else { return }
+
+            if isLiked {
+                self?.observer?.deleteLikedPost(postId: self?.postId ?? -1)
+            } else {
+                self?.observer?.saveLikedPost(postId: self?.postId ?? -1)
+            }
+
+            self?.isLiked.toggle()
+        }
+        button.addAction(action, for: .touchUpInside)
+        button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "heart")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
+        button.setImage(
+            UIImage(systemName: "heart"), for: .normal)
         button.imageView?.tintColor = .white
         return button
     }()
 
     private lazy var commentButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: PostButton.configureation)
+        button.tintColor = .white
+
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "message")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
+        button.setImage(
+            UIImage(systemName: "message"), for: .normal)
         button.imageView?.tintColor = .white
         return button
     }()
 
     private lazy var shareButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: PostButton.configureation)
+        button.tintColor = .white
+
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "paperplane")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
+        button.setImage(
+            UIImage(systemName: "paperplane"), for: .normal)
         button.imageView?.tintColor = .white
         return button
     }()
 
     private lazy var favouriteButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: .plain())
+        button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "bookmark")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 22)), for: .normal)
+        button.setImage(
+            UIImage(systemName: "bookmark"), for: .normal)
         button.imageView?.tintColor = .white
         return button
     }()
@@ -112,10 +143,25 @@ class PostTableViewCell: UITableViewCell {
         return label
     }()
 
+    private lazy var buttonStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [likeButton, commentButton, shareButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 2
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+
     // MARK: - Variables
     weak var delegate: PostTableAlertDelegate?
 
+    weak var observer: PostLikeObserver?
+
     weak var superView: UITableView?
+
+    private var postId: Int = -1
+
+    private var isLiked: Bool = false
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -123,8 +169,8 @@ class PostTableViewCell: UITableViewCell {
 
         contentView.backgroundColor = .black
         addSubviews(subviews: userImageView, userNameTopLabel,
-        postImageView, deleteButton, likeButton, commentButton,
-        shareButton, favouriteButton, userNameBottomLabel, postDescriptionLabel, postDateBottomLabel)
+        postImageView, deleteButton, favouriteButton,
+        userNameBottomLabel, postDescriptionLabel, postDateBottomLabel, buttonStackView)
         configureUI()
     }
 
@@ -142,22 +188,33 @@ extension PostTableViewCell {
         subviews.forEach { contentView.addSubview($0) }
     }
 
-    func configureCellForProfile(post: Post, userName: String, avatar: String) {
+    func configureCellForProfile(post: Post, userName: String, avatar: String, isLiked: Bool) {
+        likeHandler(isLiked: isLiked)
+        configureCell(post: post, userName: userName, avatar: avatar)
         deleteButton.isHidden = false
-        userNameTopLabel.text = userName
-        userNameBottomLabel.text = userName
-        userImageView.image = UIImage(named: avatar)
-        postImageView.image = UIImage(named: post.imageName)
-        postDescriptionLabel.text = post.description
     }
 
-    func configureCellForMainFeed(post: Post, userName: String, avatar: String) {
+    func configureCellForMainFeed(post: Post, userName: String, avatar: String, isLiked: Bool) {
+        likeHandler(isLiked: isLiked)
+        configureCell(post: post, userName: userName, avatar: avatar)
         deleteButton.isHidden = true
+    }
+
+    private func configureCell(post: Post, userName: String, avatar: String) {
         userNameTopLabel.text = userName
         userNameBottomLabel.text = userName
         userImageView.image = UIImage(named: avatar)
         postImageView.image = UIImage(named: post.imageName)
         postDescriptionLabel.text = post.description
+        postId = post.id
+    }
+
+    private func likeHandler(isLiked: Bool) {
+        if isLiked {
+            self.isLiked = true
+            likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            likeButton.tintColor = .red
+        }
     }
 
     func getIndexPath() -> IndexPath {
@@ -166,7 +223,9 @@ extension PostTableViewCell {
 
     private func configureUI() {
         NSLayoutConstraint.activate([
-            userImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            userImageView.leadingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
+                constant: 10),
             userImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
             userImageView.widthAnchor.constraint(equalToConstant: 40),
             userImageView.heightAnchor.constraint(equalToConstant: 40),
@@ -174,36 +233,74 @@ extension PostTableViewCell {
             userNameTopLabel.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: 10),
             userNameTopLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
 
-            deleteButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
-            deleteButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            deleteButton.topAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            deleteButton.trailingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
+                constant: -10),
 
             postImageView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 20),
             postImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
             postImageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
             postImageView.heightAnchor.constraint(equalToConstant: contentView.frame.width),
 
-            likeButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            likeButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            buttonStackView.leadingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
+                constant: 10),
+            buttonStackView.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
 
-            commentButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            commentButton.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 15),
+            favouriteButton.topAnchor.constraint(
+                equalTo: postImageView.bottomAnchor, constant: 10),
+            favouriteButton.trailingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
+                constant: -5),
 
-            shareButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            shareButton.leadingAnchor.constraint(equalTo: commentButton.trailingAnchor, constant: 15),
+            userNameBottomLabel.topAnchor.constraint(
+                equalTo: likeButton.bottomAnchor, constant: 10),
+            userNameBottomLabel.leadingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
+                constant: 10),
 
-            favouriteButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            favouriteButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            postDescriptionLabel.topAnchor.constraint(
+                equalTo: userNameBottomLabel.bottomAnchor, constant: 10),
+            postDescriptionLabel.leadingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
+                constant: 10),
+            postDescriptionLabel.trailingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
+                constant: -10),
 
-            userNameBottomLabel.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 10),
-            userNameBottomLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-
-            postDescriptionLabel.topAnchor.constraint(equalTo: userNameBottomLabel.bottomAnchor, constant: 10),
-            postDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            postDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-
-            postDateBottomLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: 10),
-            postDateBottomLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            postDateBottomLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            postDateBottomLabel.topAnchor.constraint(
+                equalTo: postDescriptionLabel.bottomAnchor,
+                constant: 10),
+            postDateBottomLabel.leadingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
+                constant: 10),
+            postDateBottomLabel.bottomAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.bottomAnchor,
+                constant: -20)
         ])
+    }
+}
+
+extension PostTableViewCell {
+    private func animateLike() {
+        if !isLiked {
+            UIView.animate(withDuration: 0.1, animations: {
+                self.likeButton.imageView?.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                self.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.likeButton.tintColor = .red
+            }, completion: { _ in
+                self.likeButton.imageView?.transform = .identity
+            })
+        } else {
+            UIView.animate(withDuration: 0.1, animations: {
+                self.likeButton.imageView?.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                self.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                self.likeButton.tintColor = .white
+            }, completion: { _ in
+                self.likeButton.imageView?.transform = .identity
+            })
+        }
     }
 }

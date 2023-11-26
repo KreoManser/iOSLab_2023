@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Story {
-    let contents: [String] = []
+struct Story: Codable {
+    var contents: [String] = []
 }

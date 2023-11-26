@@ -80,7 +80,10 @@ extension UserProfilePostsView {
 extension UserProfilePostsView: PostTableAlertDelegate {
 
     func presentAlert(indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Удалить пост", message: "Вы действительно хотите удалить этот пост?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(
+            title: "Удалить пост",
+            message: "Вы действительно хотите удалить этот пост?",
+            preferredStyle: .actionSheet)
 
         alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: {  [weak self] _ in
             self?.controller?.delete(indexPath: indexPath)

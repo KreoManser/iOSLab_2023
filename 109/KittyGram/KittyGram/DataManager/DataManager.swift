@@ -7,11 +7,25 @@
 
 import Foundation
 
+enum UserError: Error {
+    case decodingFailder
+}
+
 public class DataManager: DataManagerProtocol {
+
+    let userDefaults = UserDefaults(suiteName: "KittyGram")
 
     private var filteredPosts: [Post] = []
 
-    private var currentUser: User = User(nickname: "", fullName: "", avatar: "", numberOfSubscribers: 0, profileDescription: "", password: "")
+    var currentUserKey: String {
+        return "currentUser"
+    }
+
+    var loginBoolKey: String {
+        return "loggedIn"
+    }
+
+    var currentUser: User?
 
     var user1 = User(
         nickname: "1k_mile",
@@ -56,15 +70,15 @@ public class DataManager: DataManagerProtocol {
         ]
 
         user2.posts = [
-            Post(id: 0, imageName: "cat1", description: "Крутой кот"),
-            Post(id: 1, imageName: "cat5", description: "сплю"),
-            Post(id: 2, imageName: "cat3", description: "Кот в кепке")
+            Post(id: 4, imageName: "cat1", description: "Крутой кот"),
+            Post(id: 5, imageName: "cat5", description: "сплю"),
+            Post(id: 6, imageName: "cat3", description: "Кот в кепке")
         ]
 
         user3.posts = [
-            Post(id: 0, imageName: "cat4", description: "крутой в очке"),
-            Post(id: 1, imageName: "cat3", description: "Кот в кепке"),
-            Post(id: 2, imageName: "cat1", description: "Крутой кот")
+            Post(id: 7, imageName: "cat4", description: "крутой в очке"),
+            Post(id: 8, imageName: "cat3", description: "Кот в кепке"),
+            Post(id: 9, imageName: "cat1", description: "Крутой кот")
         ]
 
         user1.subscriptions.append(user2)
@@ -78,15 +92,6 @@ public class DataManager: DataManagerProtocol {
     }
 
     // MARK: - Новые методы
-
-    func syncSetCurrentUser(_ user: User) {
-        currentUser = user
-    }
-
-    func asyncSetCurrentUser(_ user: User) async {
-        currentUser = user
-    }
-
     func syncGetUsers() -> [User] {
         return users
     }
@@ -96,27 +101,21 @@ public class DataManager: DataManagerProtocol {
     }
 
     func syncGetUserPosts() -> [Post] {
-        return currentUser.posts
+        guard let user = currentUser else { return [] }
+        return user.posts
     }
 
     func asyncGetUserPosts() async -> [Post] {
-        return currentUser.posts
-    }
-
-    func syncGetCurrentUser() -> User {
-        return currentUser
-    }
-
-    func asyncGetCurrentUser() async -> User {
-        return currentUser
+        guard let user = currentUser else { return [] }
+        return user.posts
     }
 
     func syncDeletePost(index: Int) {
-        currentUser.posts.remove(at: index)
+        currentUser?.posts.remove(at: index)
     }
 
     func asyncDeletePost(index: Int) async {
-        currentUser.posts.remove(at: index)
+        currentUser?.posts.remove(at: index)
     }
 
     func syncGetSearchedPosts() -> [Post] {
@@ -128,47 +127,95 @@ public class DataManager: DataManagerProtocol {
     }
 
     func syncSearchByName(_ name: String) {
-        filteredPosts = currentUser.posts.filter { $0.description.lowercased().contains(name.lowercased()) }
+        filteredPosts = currentUser?.posts.filter { $0.description.lowercased().contains(name.lowercased()) } ?? []
     }
 
     func asyncSearchByName(_ name: String) async {
-        filteredPosts = currentUser.posts.filter { $0.description.lowercased().contains(name.lowercased()) }
+        filteredPosts = currentUser?.posts.filter { $0.description.lowercased().contains(name.lowercased()) } ?? []
     }
 
     func syncGetUserSubscription() -> [User] {
-        return currentUser.subscriptions
+        guard let user = currentUser else { return [] }
+        return user.subscriptions
     }
 
     func asyncGetUserSubscription() async -> [User] {
-        return currentUser.subscriptions
+        guard let user = currentUser else { return [] }
+        return user.subscriptions
     }
 
     func syncGetUserSubscriptionPostsWithUser() -> [(User, Post)] {
-        let userPost: [(User, Post)] = currentUser.subscriptions.flatMap { user in
+        let userPost: [(User, Post)] = currentUser?.subscriptions.flatMap { user in
             return user.posts.map { post in
                 return (user, post)
             }
-        }
+        } ?? []
 
         return userPost
     }
 
     func asyncGetUserSubscriptionPostsWithUser() async -> [(User, Post)] {
-        let userPost: [(User, Post)] = currentUser.subscriptions.flatMap { user in
+        let userPost: [(User, Post)] = currentUser?.subscriptions.flatMap { user in
             return user.posts.map { post in
                 return (user, post)
             }
-        }
+        } ?? []
 
         return userPost
     }
 
     func synGetUserSubscriptionPosts() -> [Post] {
-        return currentUser.subscriptions.flatMap { $0.posts }
+        guard let user = currentUser else { return [] }
+        return user.subscriptions.flatMap { $0.posts }
     }
 
     func asynGetUserSubscriptionPosts() async -> [Post] {
-        return currentUser.subscriptions.flatMap { $0.posts }
+        guard let user = currentUser else { return [] }
+        return user.subscriptions.flatMap { $0.posts }
+    }
+
+    func checkUser() throws {
+        if currentUser == nil {
+            guard let userData = userDefaults?.data(forKey: currentUserKey) else { throw UserError.decodingFailder }
+            let decoder = JSONDecoder()
+            do {
+                currentUser = try decoder.decode(User.self, from: userData)
+            } catch {
+                print(error)
+            }
+        }
+    }
+
+    func logOutUser() {
+        currentUser = nil
+        userDefaults?.removeObject(forKey: currentUserKey)
+        userDefaults?.setValue(false, forKey: loginBoolKey)
+    }
+
+    func saveUser(user: User) throws {
+        let encoder = JSONEncoder()
+        let userData = try encoder.encode(user)
+        userDefaults?.setValue(userData, forKey: currentUserKey)
+    }
+
+    func saveCurrentUser() throws {
+        userDefaults?.removeObject(forKey: currentUserKey)
+        let encoder = JSONEncoder()
+        let userData = try encoder.encode(currentUser)
+        userDefaults?.setValue(userData, forKey: currentUserKey)
+    }
+
+}
+
+extension DataManager: PostLikeObserver {
+    func saveLikedPost(postId: Int) {
+        currentUser?.likedPostsId.append(postId)
+    }
+
+    func deleteLikedPost(postId: Int) {
+        guard let posts = currentUser?.likedPostsId else { return }
+        let index = posts.firstIndex(where: { $0 == postId })
+        currentUser?.likedPostsId.remove(at: index ?? -1)
     }
 
 }

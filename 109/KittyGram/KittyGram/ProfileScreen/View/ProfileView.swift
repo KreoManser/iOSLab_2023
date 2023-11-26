@@ -21,15 +21,24 @@ class ProfileView: UIView {
     private lazy var addPostButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "plus.app")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
+        button.setImage(
+            UIImage(systemName: "plus.app")?.withConfiguration(
+                UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
         button.imageView?.tintColor = .white
         return button
     }()
 
-    private lazy var userMenuButton: UIButton = {
+    private lazy var settingsButton: UIButton = {
         let button = UIButton()
+        let action = UIAction { [weak self] _ in
+            self?.controller?.presentSettingsScreen()
+        }
+
+        button.addAction(action, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "line.horizontal.3.circle")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
+        button.setImage(
+            UIImage(systemName: "line.horizontal.3.circle")?.withConfiguration(
+                UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
         button.imageView?.tintColor = .white
         return button
     }()
@@ -53,7 +62,8 @@ class ProfileView: UIView {
     }()
 
     private lazy var userStatistickStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [userPublicationsStackview, userSubscribersStackview, userSubscriptionsStackview])
+        let stackView = UIStackView(
+            arrangedSubviews: [userPublicationsStackview, userSubscribersStackview, userSubscriptionsStackview])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -153,8 +163,11 @@ class ProfileView: UIView {
         layuot.minimumInteritemSpacing = 0
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layuot)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(ProfilePostCollectionViewCell.self, forCellWithReuseIdentifier: ProfilePostCollectionViewCell.reuseIdentifier)
+        collectionView
+            .translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(
+            ProfilePostCollectionViewCell.self,
+            forCellWithReuseIdentifier: ProfilePostCollectionViewCell.reuseIdentifier)
         collectionView.delegate = self
         collectionView.backgroundColor = .black
         return collectionView
@@ -169,7 +182,7 @@ class ProfileView: UIView {
         super.init(frame: frame)
 
         backgroundColor = .black
-        addSubviews(subviews: userNicknameLabel, addPostButton, userMenuButton,
+        addSubviews(subviews: userNicknameLabel, addPostButton, settingsButton,
         userAvatarImageView, userNameLabel, userStatistickStackView, editUserInfoButton,
         postCollectionView)
         configureUI()
@@ -204,10 +217,10 @@ extension ProfileView {
             userAvatarImageView.heightAnchor.constraint(equalToConstant: 80),
             userAvatarImageView.widthAnchor.constraint(equalToConstant: 80),
 
-            userMenuButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -15),
-            userMenuButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            settingsButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -15),
+            settingsButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
 
-            addPostButton.trailingAnchor.constraint(equalTo: userMenuButton.leadingAnchor, constant: -10),
+            addPostButton.trailingAnchor.constraint(equalTo: settingsButton.leadingAnchor, constant: -10),
             addPostButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
 
             userNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),
@@ -215,7 +228,9 @@ extension ProfileView {
 
             userStatistickStackView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor, constant: 20),
             userStatistickStackView.leadingAnchor.constraint(equalTo: userAvatarImageView.trailingAnchor, constant: 20),
-            userStatistickStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            userStatistickStackView.trailingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.trailingAnchor,
+                constant: -20),
             userStatistickStackView.heightAnchor.constraint(equalToConstant: 80),
 
             editUserInfoButton.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 20),
