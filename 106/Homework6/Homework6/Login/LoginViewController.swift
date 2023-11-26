@@ -9,6 +9,16 @@ import UIKit
 
 class LoginViewController: UIViewController {
     private lazy var loginView = LoginView(frame: .zero)
+    let userDefaults: UserDefaults
+
+    init(userDefaults: UserDefaults = UserDefaults.standard) {
+        self.userDefaults = userDefaults
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func loadView() {
         view = loginView
@@ -26,12 +36,13 @@ extension LoginViewController {
             if DataManager.shared.checkData(login: login, password: password) {
                 if let user = await DataManager.shared.checkUsers(login, password) {
                     let tabBarController = TabBarController()
-                    tabBarController.modalPresentationStyle = .fullScreen
                     await DataManager.shared.asyncSetCurrentUser(user)
                     loginView.passwordTextField.text = .none
                     loginView.userNameTextField.text = .none
-                    self.present(tabBarController, animated: true)
+                    navigationController?.pushViewController(tabBarController, animated: true)
+                    navigationController?.isNavigationBarHidden = true
                 }
+                self.userDefaults.setValue(true, forKey: login)
             } else {
                 loginView.passwordTextField.text = .none
                 loginView.userNameTextField.text = .none

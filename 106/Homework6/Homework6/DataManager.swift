@@ -46,6 +46,7 @@ public class DataManager: DataManagerProtocol {
 
     private var posts: [Post] = []
     private var searchedPosts: [Post] = []
+    var likedPosts: [Int: Post] = [: ]
     var isSearching: Bool = false
 
     static let shared = DataManager()

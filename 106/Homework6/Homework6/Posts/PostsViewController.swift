@@ -57,7 +57,7 @@ extension PostsViewController {
         dismiss(animated: true)
     }
 
-    func getSearchedPostsConunt() -> Int {
+    func getSearchedPostsCount() -> Int {
         return DataManager.shared.searchedPostsCount
     }
 

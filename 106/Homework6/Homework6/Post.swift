@@ -12,4 +12,5 @@ struct Post {
     let imageName: String
     let description: String
     let date: String
+    var isLiked: Bool = false
 }

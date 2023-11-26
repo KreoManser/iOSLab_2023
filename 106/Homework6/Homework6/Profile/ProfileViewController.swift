@@ -78,8 +78,10 @@ extension ProfileViewController {
             title: "Выход",
             message: "Вы точно хотите выйти?",
             preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Выйти", style: .destructive, handler: { _ in
-            self.navigationController?.dismiss(animated: true)
+        alert.addAction(UIAlertAction(title: "Выйти", style: .destructive, handler: { [weak self] _ in
+            self?.tabBarController?.navigationController?.popToRootViewController(animated: true)
+            UserDefaults.standard.removeObject(forKey: DataManager.shared.syncGetCurrentUser().login)
+
         }))
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
         self.present(alert, animated: true)

@@ -55,7 +55,15 @@ class PostsTableViewCell: UITableViewCell {
     }()
 
     private lazy var likeButton: UIButton = {
+        var isLiked: Bool = false
+        let action = UIAction { [weak self] _ in
+            self?.animateLikeButton(isLiked)
+            UserDefaults.standard.setValue(!isLiked, forKey: "like")
+            isLiked.toggle()
+        }
+
         let button = UIButton()
+        button.addAction(action, for: .touchUpInside)
         button.setImage(UIImage(systemName: "heart")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 21)), for: .normal)
         button.imageView?.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -149,6 +157,9 @@ extension PostsTableViewCell {
         userNameLabel.text = userName
         userImageView.image = UIImage(named: avatar)
         postImageView.image = UIImage(named: post.imageName)
+        likeButton.imageView?.tintColor = post.isLiked ? .red : .black
+        let symbolName = post.isLiked ? "heart.fill" : "heart"
+        likeButton.setImage(UIImage(systemName: symbolName)?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 21)), for: .normal)
         postDescriptionLabel.text = post.description
         postDateLabel.text = post.date
     }
@@ -198,5 +209,17 @@ extension PostsTableViewCell {
             postDateLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             postDateLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
+    }
+}
+
+extension PostsTableViewCell {
+    private func animateLikeButton(_ isLiked: Bool) {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            let symbolName = isLiked ? "heart" : "heart.fill"
+            self?.likeButton.imageView?.addSymbolEffect(.scale)
+            self?.likeButton.setImage(UIImage(systemName: symbolName)?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 21)), for: .normal)
+            self?.likeButton.imageView?.tintColor = isLiked ? .black : .red
+            self?.likeButton.imageView?.removeAllSymbolEffects(options: .speed(0.1), animated: true)
+        }
     }
 }
