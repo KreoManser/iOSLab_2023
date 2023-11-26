@@ -28,10 +28,6 @@ class PublicationTableViewCell: UITableViewCell {
     }()
     lazy var postDeleteButton: UIButton = {
         let button = UIButton()
-        let action = UIAction { [weak self] _ in
-            let indexPath = self?.getIndexPath()
-            self?.delegate?.presentAllertVC(indexPath: indexPath!)
-        }
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "deleteIcon"), for: .normal)
         return button
@@ -88,6 +84,13 @@ class PublicationTableViewCell: UITableViewCell {
         addSubview(postCommentLabel)
         addSubview(postDateLabel)
         setupLayout()
+        setupButton()
+    }
+    func setupButton() {
+        let action = UIAction {_ in
+            self.postNameLabel.text = "ахпзцопщцз"
+        }
+        postDeleteButton.addAction(action, for: .touchUpInside)
     }
     func getIndexPath() -> IndexPath? {
             guard let superView = superView, let indexPath = superView.indexPath(for: self) else {

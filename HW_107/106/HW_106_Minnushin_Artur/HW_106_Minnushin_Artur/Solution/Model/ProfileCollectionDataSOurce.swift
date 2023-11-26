@@ -9,6 +9,9 @@ import UIKit
 
 class ProfileCollectionDataSource: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     var posts: [PostInfo] = []
+    func setupPosts(posts: [PostInfo]) {
+        self.posts = posts
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }

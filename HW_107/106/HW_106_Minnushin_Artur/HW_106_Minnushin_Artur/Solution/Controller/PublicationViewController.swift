@@ -11,6 +11,8 @@ class PublicationViewController: UIViewController {
     var indexPath: IndexPath?
     let publicationView = PublicationView(frame: .zero)
     let publicatiomDataSource = PublicationDataSource()
+    var user: User?
+    var delegate: GetData?
     override func viewDidLoad() {
         super.viewDidLoad()
         publicationView.setupDataSource(dataSource: publicatiomDataSource)

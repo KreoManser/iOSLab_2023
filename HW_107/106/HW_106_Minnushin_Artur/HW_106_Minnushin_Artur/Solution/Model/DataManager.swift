@@ -21,6 +21,7 @@ protocol DataManagerProtocol {
 }
 
 class DataManager: DataManagerProtocol {
+    var user: User?
     var posts: [PostInfo] = []
     var filteredPost: [PostInfo] = []
     let saveOpertionQueue = OperationQueue()
@@ -33,8 +34,9 @@ class DataManager: DataManagerProtocol {
     func syncSave(post: PostInfo) {
         posts.append(post)
     }
-    init() {
-        posts = DataBase().getData()
+    func setupUser(user: User) {
+        self.user = user
+        self.posts = user.posts
     }
     func asyncSave(post: PostInfo) {
         let saveOpertion = BlockOperation {

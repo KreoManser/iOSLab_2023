@@ -15,9 +15,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
+        let users = UserDataBase.sigelton.getData()
         let viewController = AuthorizationViewController()
-        let navigationVC = UINavigationController(rootViewController: viewController)
+        var navigationVC = UINavigationController(rootViewController: viewController)
         window?.rootViewController = navigationVC
+        users.forEach { user in
+            if UserDefaults.standard.bool(forKey: user.userName) {
+                DataManager.sigelton.setupUser(user: user)
+                navigationVC = UINavigationController(rootViewController: MainController(user: user))
+                window?.rootViewController = navigationVC
+                UserDefaults.standard.removeObject(forKey: user.userName)
+            }
+        }
         window?.makeKeyAndVisible()
     }
 

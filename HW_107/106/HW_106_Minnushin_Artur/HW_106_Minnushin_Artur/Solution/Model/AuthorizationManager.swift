@@ -14,12 +14,12 @@ protocol AuthorizationManagerProtocol {
 class AuthorizationManager: AuthorizationManagerProtocol {
     var currentUser: User!
     func asyncCheckAthorizationData(login: String,
-                                    password: String,
-                                    users: [User]) async -> (cheker: Bool, item: User?) {
+        password: String, users: [User]) async ->
+                                        (cheker: Bool, item: User?) {
         return await withCheckedContinuation {continuation in
             DispatchQueue.global().asyncAfter(deadline: .now()) {
                 var cheker: Bool = false
-                for item in 0...users.count-1 where users[item].userLogin == login
+                for item in 0...users.count - 1 where users[item].userLogin == login
                 && users[item].userPassword == password {
                     cheker = true
                     self.currentUser = users[item]

@@ -12,9 +12,9 @@ class PublicationDataSource: NSObject, UITableViewDelegate, UITableViewDataSourc
     let dataManager = DataManager.sigelton
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if dataManager.isSearching == false {
-            dataManager.syncGetAllPost().count
+            return dataManager.syncGetAllPost().count
         } else {
-            dataManager.syncGetAllFilteredPost().count
+            return dataManager.syncGetAllFilteredPost().count
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -26,10 +26,10 @@ class PublicationDataSource: NSObject, UITableViewDelegate, UITableViewDataSourc
         } else {
             item = dataManager.syncGetAllFilteredPost()[indexPath.row]
         }
-        cell.postAvatarImageView.image = UIImage(named: "avatar")
-        cell.postNameLabel.text = "Artur Minnushin"
+        cell.postAvatarImageView.image = UIImage(named: dataManager.user?.userAvatarImageName ?? "")
+        cell.postNameLabel.text = (dataManager.user?.userName ?? "")
         cell.postPhotoImageView.image = UIImage(named: item.postPhotoNmae)
-        cell.postCommentLabel.text = "\(cell.postNameLabel.text!): \(item.postComment)"
+        cell.postCommentLabel.text = "\(cell.postNameLabel.text ?? ""): \(dataManager.user?.userDescription ?? "")"
         cell.postDateLabel.text = "\(item.postDate)"
         cell.delegate = tableView.superview as? any AllertConnection
         cell.superView = tableView

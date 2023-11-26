@@ -7,13 +7,17 @@
 
 import UIKit
 
+protocol GetData: AnyObject {
+    func getData() -> User
+}
 class InstagramProfileViewController: UIViewController {
+    
     let dataSource = ProfileCollectionDataSource()
     let profileView = InstargramProfileView(frame: .zero)
     var user: User
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSource.posts = user.posts
+        dataSource.setupPosts(posts: user.posts)
         profileView.configureCollection(dataSource: dataSource)
         profileView.profileViewController = self
     }
@@ -34,7 +38,14 @@ class InstagramProfileViewController: UIViewController {
     }
     func publicationPresintation(indexPath: IndexPath) {
         let publicationVC = PublicationViewController(indexPath: indexPath)
+        publicationVC.delegate = self
         publicationVC.modalPresentationStyle = .overFullScreen
         present(publicationVC, animated: true)
+    }
+}
+
+extension InstagramProfileViewController: GetData {
+    func getData() -> User {
+        return user
     }
 }
