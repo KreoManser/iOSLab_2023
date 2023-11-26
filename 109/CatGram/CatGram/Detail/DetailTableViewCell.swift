@@ -13,7 +13,6 @@ protocol DetailTableViewCellDelegate: AnyObject {
 
 class DetailTableViewCell: UITableViewCell {
 
-    
     weak var delegate: DetailTableViewCellDelegate?
     var optionsTapped: ((_ alertContoller: UIAlertController) -> Void)?
     var animator: UIViewPropertyAnimator?
