@@ -15,6 +15,7 @@ class ProfileDataManager: NSObject {
     let deleteQueue = DispatchQueue(label: "deleteQueue")
     let findModelQueue = DispatchQueue(label: "findModelQueue")
     weak var navigationController: UINavigationController?
+    let userDefaults = UserDefaults.standard
     private override init() {
         super.init()
     }
@@ -24,7 +25,7 @@ class ProfileDataManager: NSObject {
     func setPhotos(user: User) {
         self.user = user
         let key = user.login
-        let photodict = DataSource.photosDictionary
+        _ = DataSource.photosDictionary
         for photos in DataSource.photosDictionary {
             if photos.key == key {
                 for photo in photos.value {

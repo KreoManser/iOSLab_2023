@@ -1,6 +1,6 @@
 import UIKit
 class ProfileView: UIView {
-    private lazy var menuButon: UIButton = UIButton()
+    private lazy var settingsButon: UIButton = UIButton()
     lazy var createContentButton: UIButton = UIButton()
     private lazy var accountsButton: UIButton = UIButton()
     private lazy var avatarImage: UIImageView = UIImageView()
@@ -18,6 +18,7 @@ class ProfileView: UIView {
     private lazy var subscribersStackView = UIStackView()
     private lazy var subscriptionsStackView = UIStackView()
     private lazy var dataAccountStackView = UIStackView()
+    private var settingsButtonActionClosure: (() -> Void)?
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 2
@@ -37,9 +38,16 @@ class ProfileView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    @objc private func settingsButtonTapped() {
+        print("1")
+        settingsButtonActionClosure?()
+    }
+    func setSettingsButtonActionClosure(_ closure: @escaping () -> Void) {
+        settingsButtonActionClosure = closure
+    }
     // MARK: ProfileView Setup
     private func setUp() {
-        setUpMenuButton()
+        setUpSettingsButton()
         setUpCreateContentButton()
         setUpAccountsButton()
         setUpAvatarImage()
@@ -65,9 +73,10 @@ class ProfileView: UIView {
             accountsButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10)
         ])
     }
-    private func setUpMenuButton() {
-        menuButon.setImage(.menu, for: .normal)
-        menuButon.translatesAutoresizingMaskIntoConstraints = false
+    private func setUpSettingsButton() {
+        settingsButon.setImage(.menu, for: .normal)
+        settingsButon.translatesAutoresizingMaskIntoConstraints = false
+        settingsButon.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
     }
     private func setUpCreateContentButton() {
         createContentButton.setImage(.createContent, for: .normal)
@@ -147,7 +156,7 @@ class ProfileView: UIView {
         setUpCountPublicationLabel()
         setUpPublicationLabel()
         topStackView.addArrangedSubview(createContentButton)
-        topStackView.addArrangedSubview(menuButon)
+        topStackView.addArrangedSubview(settingsButon)
         topStackView.axis = .horizontal
         topStackView.alignment = .fill
         topStackView.distribution = .fillEqually

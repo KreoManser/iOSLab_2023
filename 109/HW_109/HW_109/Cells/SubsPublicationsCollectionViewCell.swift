@@ -186,9 +186,13 @@ class SubsPublicationsCollectionViewCell: UICollectionViewCell {
     }
     @objc func likeButtonTapped() {
         if likeButton.currentImage == .unlike {
-            likeButton.setImage(.like, for: .normal)
+            UIView.transition(with: likeButton, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                  self.likeButton.setImage(UIImage(named: "like"), for: .normal)
+              })
         } else {
-            likeButton.setImage(.unlike, for: .normal)
+            UIView.transition(with: likeButton, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                  self.likeButton.setImage(UIImage(named: "unlike"), for: .normal)
+              })
         }
     }
 }

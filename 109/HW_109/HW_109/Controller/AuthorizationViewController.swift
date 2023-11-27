@@ -3,6 +3,7 @@ class AuthorizationViewController: UIViewController {
     let authorizationView = AuthorizationView()
     private let dataManager = ProfileDataManager.shared
     private let dataSource = DataSource()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpAuthorizationView()
@@ -23,6 +24,10 @@ class AuthorizationViewController: UIViewController {
                 && user.password ==  authorizationView.passwordTextField.text
         }
         if userExists {
+//            let loginAction = UIAction(title: "Log in") { _ in
+//
+//            }
+            self.dataManager.userDefaults.setValue(true, forKey: currentUser.login)
             setUpTabBar(user: currentUser)
         } else {
             print("Пользователь не найден")

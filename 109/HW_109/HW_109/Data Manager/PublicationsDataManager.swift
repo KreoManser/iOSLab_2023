@@ -10,6 +10,7 @@ class PublicationsDataManager: NSObject, PublicationCollectionViewCellDelegate, 
     var sortedPublications: [Photo] = []
     weak var deleteDelegate: PublicationCollectionViewCellDelegate?
     weak var updateDelegate: UpdatePublicationsDataManagerDelegate?
+    private let userDefaults = UserDefaults.standard
     private override init() {
         super.init()
     }

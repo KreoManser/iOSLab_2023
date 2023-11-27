@@ -23,6 +23,9 @@ class DataSource {
     )
     static var photosDictionary: [String: [Photo]] = [:]
     var userData: [User] = []
+    func getUsers() -> [User] {
+        return userData
+    }
     func addUsers() {
         userData.append(user1)
         userData.append(user2)

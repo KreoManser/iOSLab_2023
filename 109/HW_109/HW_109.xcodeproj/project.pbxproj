@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2A85C92A2B13658F00C5BDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C9292B13658F00C5BDC6 /* AppDelegate.swift */; };
 		2A85C92C2B13658F00C5BDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C92B2B13658F00C5BDC6 /* SceneDelegate.swift */; };
-		2A85C92E2B13658F00C5BDC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C92D2B13658F00C5BDC6 /* ViewController.swift */; };
 		2A85C9312B13658F00C5BDC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A85C92F2B13658F00C5BDC6 /* Main.storyboard */; };
 		2A85C9332B13659000C5BDC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A85C9322B13659000C5BDC6 /* Assets.xcassets */; };
 		2A85C9362B13659000C5BDC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A85C9342B13659000C5BDC6 /* LaunchScreen.storyboard */; };
@@ -39,13 +38,14 @@
 		2A85C9742B1369C200C5BDC6 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C9732B1369C200C5BDC6 /* ProfileView.swift */; };
 		2A85C9762B1369D300C5BDC6 /* PublicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C9752B1369D300C5BDC6 /* PublicationsView.swift */; };
 		2A85C9782B1369F300C5BDC6 /* SubscriptionPublicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C9772B1369F300C5BDC6 /* SubscriptionPublicationsView.swift */; };
+		2A85C97B2B13CC0300C5BDC6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C97A2B13CC0300C5BDC6 /* SettingsView.swift */; };
+		2A85C97D2B13CCBE00C5BDC6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C97C2B13CCBE00C5BDC6 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2A85C9262B13658F00C5BDC6 /* HW_109.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HW_109.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A85C9292B13658F00C5BDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A85C92B2B13658F00C5BDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2A85C92D2B13658F00C5BDC6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2A85C9302B13658F00C5BDC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A85C9322B13659000C5BDC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A85C9352B13659000C5BDC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -76,6 +76,8 @@
 		2A85C9732B1369C200C5BDC6 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2A85C9752B1369D300C5BDC6 /* PublicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationsView.swift; sourceTree = "<group>"; };
 		2A85C9772B1369F300C5BDC6 /* SubscriptionPublicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPublicationsView.swift; sourceTree = "<group>"; };
+		2A85C97A2B13CC0300C5BDC6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		2A85C97C2B13CCBE00C5BDC6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +120,6 @@
 				2A85C93D2B13659D00C5BDC6 /* Cells */,
 				2A85C9292B13658F00C5BDC6 /* AppDelegate.swift */,
 				2A85C92B2B13658F00C5BDC6 /* SceneDelegate.swift */,
-				2A85C92D2B13658F00C5BDC6 /* ViewController.swift */,
 				2A85C92F2B13658F00C5BDC6 /* Main.storyboard */,
 				2A85C9322B13659000C5BDC6 /* Assets.xcassets */,
 				2A85C9342B13659000C5BDC6 /* LaunchScreen.storyboard */,
@@ -145,6 +146,7 @@
 				2A85C94F2B13675700C5BDC6 /* ProfileViewController.swift */,
 				2A85C9512B13677600C5BDC6 /* PublicationsViewController.swift */,
 				2A85C9532B13679500C5BDC6 /* SubscriptionPublicationsViewController.swift */,
+				2A85C97C2B13CCBE00C5BDC6 /* SettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -205,6 +207,7 @@
 				2A85C9732B1369C200C5BDC6 /* ProfileView.swift */,
 				2A85C9752B1369D300C5BDC6 /* PublicationsView.swift */,
 				2A85C9772B1369F300C5BDC6 /* SubscriptionPublicationsView.swift */,
+				2A85C97A2B13CC0300C5BDC6 /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				2A85C9222B13658F00C5BDC6 /* Sources */,
 				2A85C9232B13658F00C5BDC6 /* Frameworks */,
 				2A85C9242B13658F00C5BDC6 /* Resources */,
+				2A85C9792B136D0200C5BDC6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -275,6 +279,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2A85C9792B136D0200C5BDC6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n swiftlint\n else \n echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\" \n exit 1\n fi  \n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2A85C9222B13658F00C5BDC6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -288,17 +314,18 @@
 				2A85C9702B13699400C5BDC6 /* User.swift in Sources */,
 				2A85C94C2B13670200C5BDC6 /* SubsPublicationsCollectionViewCell.swift in Sources */,
 				2A85C96C2B13696A00C5BDC6 /* DataManagerProtocol.swift in Sources */,
-				2A85C92E2B13658F00C5BDC6 /* ViewController.swift in Sources */,
 				2A85C92A2B13658F00C5BDC6 /* AppDelegate.swift in Sources */,
 				2A85C9722B1369AC00C5BDC6 /* AuthorizationView.swift in Sources */,
 				2A85C95C2B1367E700C5BDC6 /* SubscriptionPublicationsDataManager.swift in Sources */,
 				2A85C95E2B13680100C5BDC6 /* DataSource.swift in Sources */,
 				2A85C9582B1367C300C5BDC6 /* PublicationsDataManager.swift in Sources */,
 				2A85C9562B1367AF00C5BDC6 /* ProfileDataManager.swift in Sources */,
+				2A85C97B2B13CC0300C5BDC6 /* SettingsView.swift in Sources */,
 				2A85C94E2B13673700C5BDC6 /* AuthorizationViewController.swift in Sources */,
 				2A85C9602B13683000C5BDC6 /* CollectionViewCellExtension.swift in Sources */,
 				2A85C9542B13679500C5BDC6 /* SubscriptionPublicationsViewController.swift in Sources */,
 				2A85C95A2B1367D500C5BDC6 /* StoriesDataManager.swift in Sources */,
+				2A85C97D2B13CCBE00C5BDC6 /* SettingsViewController.swift in Sources */,
 				2A85C9642B13688200C5BDC6 /* ProfileCollectionViewExtension.swift in Sources */,
 				2A85C9622B13685200C5BDC6 /* DataManagerProtocolExtension.swift in Sources */,
 				2A85C9482B1366AD00C5BDC6 /* PublicationsCollectionViewCell.swift in Sources */,
@@ -460,6 +487,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HW_109/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -487,6 +515,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HW_109/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
