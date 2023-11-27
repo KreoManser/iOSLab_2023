@@ -87,30 +87,30 @@ class SupportFunctions {
     func createDefaultUsers() -> [User] {
         var url: URL? = URL(string: "https://clck.ru/36N9D6")
         var passwordHash = self.hashPassword("Evaklq")
-        var evaklq = User(iconUrl: url,
-            nick: "Evaklq", subers: 100,
-            subtions: 100, email: nil, number: nil,
-            passHash: passwordHash, posts: [],
-            destion: "evaklq cat account",
+        var evaklq = User(icon: url,
+            nick: "Evaklq", subr: 100,
+            subt: 100, ema: nil, num: nil,
+            pass: passwordHash, posts: [],
+            des: "evaklq cat account",
             link: "https://t.me/evaklq")
         createPosts(8, &evaklq)
 
         url = URL(string: "https://clck.ru/36PZms")
         passwordHash = self.hashPassword("Itis")
-        var itis = User(iconUrl: url, nick: "Itis",
-            subers: 100000, subtions: 1,
-            email: nil, number: nil,
-            passHash: passwordHash, posts: [],
-            destion: "itis is the best",
+        var itis = User(icon: url, nick: "Itis",
+            subr: 100000, subt: 1,
+            ema: nil, num: nil,
+            pass: passwordHash, posts: [],
+            des: "itis is the best",
             link: "https://t.me/evaklq")
         createPosts(5, &itis)
 
         url = URL(string: "https://clck.ru/36PZio")
         passwordHash = self.hashPassword("Fish cat")
-        var fishCat = User(iconUrl: url, nick: "Fish cat",
-            subers: 890, subtions: 0, email: nil,
-            number: nil, passHash: passwordHash,
-            posts: [], destion: "do you sell fishes?",
+        var fishCat = User(icon: url, nick: "Fish cat",
+            subr: 890, subt: 0, ema: nil,
+            num: nil, pass: passwordHash,
+            posts: [], des: "do you sell fishes?",
             link: "https://t.me/evaklq")
         createPosts(6, &fishCat)
         return [evaklq, itis, fishCat]

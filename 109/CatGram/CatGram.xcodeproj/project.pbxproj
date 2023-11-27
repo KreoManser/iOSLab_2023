@@ -16,7 +16,6 @@
 		04092C082AEF04DE004E4732 /* SupportFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04092C072AEF04DE004E4732 /* SupportFunctions.swift */; };
 		04092C0A2AEF108A004E4732 /* DetailPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04092C092AEF108A004E4732 /* DetailPostViewController.swift */; };
 		04092C0C2AEF132A004E4732 /* PostsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04092C0B2AEF132A004E4732 /* PostsManager.swift */; };
-		04092C0E2AEF13A6004E4732 /* MainViewDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04092C0D2AEF13A6004E4732 /* MainViewDataSourse.swift */; };
 		04092C142AEF1937004E4732 /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04092C132AEF1937004E4732 /* Sections.swift */; };
 		04092C162AEF1ECA004E4732 /* PostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04092C152AEF1ECA004E4732 /* PostViewCell.swift */; };
 		04092C182AEF2354004E4732 /* DetailPostViewDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04092C172AEF2354004E4732 /* DetailPostViewDataSourse.swift */; };
@@ -29,16 +28,17 @@
 		04C8F4332B13B61A00F97BA1 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8F4322B13B61A00F97BA1 /* FriendsViewController.swift */; };
 		04C8F4352B13B63500F97BA1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8F4342B13B63500F97BA1 /* SettingsViewController.swift */; };
 		04C8F4372B13B64700F97BA1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8F4362B13B64700F97BA1 /* SettingsView.swift */; };
+		04C8F4392B143E7B00F97BA1 /* UserLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8F4382B143E7B00F97BA1 /* UserLoginView.swift */; };
+		04C8F43B2B143ED700F97BA1 /* StoriesDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8F43A2B143ED700F97BA1 /* StoriesDataSourse.swift */; };
+		04C8F43D2B143F1200F97BA1 /* StoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8F43C2B143F1200F97BA1 /* StoriesManager.swift */; };
+		04C8F43F2B143F6A00F97BA1 /* StoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8F43E2B143F6A00F97BA1 /* StoryViewCell.swift */; };
+		04C8F4412B143F9800F97BA1 /* MainViewDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8F4402B143F9800F97BA1 /* MainViewDataSourse.swift */; };
 		04DCC56C2AF387890095B408 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC56B2AF387890095B408 /* UserManager.swift */; };
-		04DCC56E2AF38BD40095B408 /* UserLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC56D2AF38BD40095B408 /* UserLoginView.swift */; };
 		04DCC5702AF3A5C50095B408 /* UserLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC56F2AF3A5C50095B408 /* UserLoginViewController.swift */; };
 		04DCC5752AF6D3050095B408 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC5742AF6D3050095B408 /* NewsView.swift */; };
 		04DCC5772AF6D3130095B408 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC5762AF6D3130095B408 /* NewsViewController.swift */; };
 		04DCC5792AF6D9600095B408 /* NewsViewDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC5782AF6D9600095B408 /* NewsViewDataSourse.swift */; };
 		04DCC57B2AF80D1E0095B408 /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC57A2AF80D1E0095B408 /* NewsManager.swift */; };
-		04DCC5802AF853580095B408 /* StoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC57F2AF853580095B408 /* StoriesManager.swift */; };
-		04DCC5822AF857330095B408 /* StoriesDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC5812AF857330095B408 /* StoriesDataSourse.swift */; };
-		04DCC5842AF85DFB0095B408 /* StoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC5832AF85DFB0095B408 /* StoryViewCell.swift */; };
 		04DCC5862AF8613B0095B408 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCC5852AF8613B0095B408 /* Story.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +52,6 @@
 		04092C072AEF04DE004E4732 /* SupportFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportFunctions.swift; sourceTree = "<group>"; };
 		04092C092AEF108A004E4732 /* DetailPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostViewController.swift; sourceTree = "<group>"; };
 		04092C0B2AEF132A004E4732 /* PostsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsManager.swift; sourceTree = "<group>"; };
-		04092C0D2AEF13A6004E4732 /* MainViewDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewDataSourse.swift; sourceTree = "<group>"; };
 		04092C132AEF1937004E4732 /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
 		04092C152AEF1ECA004E4732 /* PostViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewCell.swift; sourceTree = "<group>"; };
 		04092C172AEF2354004E4732 /* DetailPostViewDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostViewDataSourse.swift; sourceTree = "<group>"; };
@@ -67,16 +66,17 @@
 		04C8F4322B13B61A00F97BA1 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		04C8F4342B13B63500F97BA1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		04C8F4362B13B64700F97BA1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		04C8F4382B143E7B00F97BA1 /* UserLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginView.swift; sourceTree = "<group>"; };
+		04C8F43A2B143ED700F97BA1 /* StoriesDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesDataSourse.swift; sourceTree = "<group>"; };
+		04C8F43C2B143F1200F97BA1 /* StoriesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesManager.swift; sourceTree = "<group>"; };
+		04C8F43E2B143F6A00F97BA1 /* StoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewCell.swift; sourceTree = "<group>"; };
+		04C8F4402B143F9800F97BA1 /* MainViewDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewDataSourse.swift; sourceTree = "<group>"; };
 		04DCC56B2AF387890095B408 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		04DCC56D2AF38BD40095B408 /* UserLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginView.swift; sourceTree = "<group>"; };
 		04DCC56F2AF3A5C50095B408 /* UserLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginViewController.swift; sourceTree = "<group>"; };
 		04DCC5742AF6D3050095B408 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		04DCC5762AF6D3130095B408 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		04DCC5782AF6D9600095B408 /* NewsViewDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewDataSourse.swift; sourceTree = "<group>"; };
 		04DCC57A2AF80D1E0095B408 /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
-		04DCC57F2AF853580095B408 /* StoriesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesManager.swift; sourceTree = "<group>"; };
-		04DCC5812AF857330095B408 /* StoriesDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesDataSourse.swift; sourceTree = "<group>"; };
-		04DCC5832AF85DFB0095B408 /* StoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewCell.swift; sourceTree = "<group>"; };
 		04DCC5852AF8613B0095B408 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,8 +96,8 @@
 			children = (
 				04092BFB2AEE36FD004E4732 /* MainView.swift */,
 				045971352AED99A20098F9A4 /* MainViewController.swift */,
-				04092C0D2AEF13A6004E4732 /* MainViewDataSourse.swift */,
 				04092BFD2AEE6022004E4732 /* PostCollectionViewCell.swift */,
+				04C8F4402B143F9800F97BA1 /* MainViewDataSourse.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -183,8 +183,8 @@
 		04DCC5712AF3A5E10095B408 /* UserLoginScreen */ = {
 			isa = PBXGroup;
 			children = (
-				04DCC56D2AF38BD40095B408 /* UserLoginView.swift */,
 				04DCC56F2AF3A5C50095B408 /* UserLoginViewController.swift */,
+				04C8F4382B143E7B00F97BA1 /* UserLoginView.swift */,
 			);
 			path = UserLoginScreen;
 			sourceTree = "<group>";
@@ -195,7 +195,7 @@
 				04092C0B2AEF132A004E4732 /* PostsManager.swift */,
 				04DCC56B2AF387890095B408 /* UserManager.swift */,
 				04DCC57A2AF80D1E0095B408 /* NewsManager.swift */,
-				04DCC57F2AF853580095B408 /* StoriesManager.swift */,
+				04C8F43C2B143F1200F97BA1 /* StoriesManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -206,8 +206,8 @@
 				04DCC5742AF6D3050095B408 /* NewsView.swift */,
 				04DCC5762AF6D3130095B408 /* NewsViewController.swift */,
 				04DCC5782AF6D9600095B408 /* NewsViewDataSourse.swift */,
-				04DCC5812AF857330095B408 /* StoriesDataSourse.swift */,
-				04DCC5832AF85DFB0095B408 /* StoryViewCell.swift */,
+				04C8F43A2B143ED700F97BA1 /* StoriesDataSourse.swift */,
+				04C8F43E2B143F6A00F97BA1 /* StoryViewCell.swift */,
 			);
 			path = NewsScreen;
 			sourceTree = "<group>";
@@ -315,30 +315,30 @@
 			files = (
 				045971362AED99A20098F9A4 /* MainViewController.swift in Sources */,
 				04092C142AEF1937004E4732 /* Sections.swift in Sources */,
-				04DCC5842AF85DFB0095B408 /* StoryViewCell.swift in Sources */,
+				04C8F43F2B143F6A00F97BA1 /* StoryViewCell.swift in Sources */,
 				04092C0C2AEF132A004E4732 /* PostsManager.swift in Sources */,
 				04092BFC2AEE36FD004E4732 /* MainView.swift in Sources */,
 				04092C062AEEFEC4004E4732 /* DetailPostView.swift in Sources */,
+				04C8F43D2B143F1200F97BA1 /* StoriesManager.swift in Sources */,
 				045971322AED99A20098F9A4 /* AppDelegate.swift in Sources */,
 				04DCC5792AF6D9600095B408 /* NewsViewDataSourse.swift in Sources */,
 				04092C042AEEB168004E4732 /* Comment.swift in Sources */,
 				04DCC57B2AF80D1E0095B408 /* NewsManager.swift in Sources */,
 				04092C002AEEB02C004E4732 /* Post.swift in Sources */,
 				04092C182AEF2354004E4732 /* DetailPostViewDataSourse.swift in Sources */,
-				04DCC5802AF853580095B408 /* StoriesManager.swift in Sources */,
-				04DCC56E2AF38BD40095B408 /* UserLoginView.swift in Sources */,
 				04C8F4312B13B60700F97BA1 /* FriendsView.swift in Sources */,
 				04092C162AEF1ECA004E4732 /* PostViewCell.swift in Sources */,
 				04092BFE2AEE6022004E4732 /* PostCollectionViewCell.swift in Sources */,
+				04C8F4412B143F9800F97BA1 /* MainViewDataSourse.swift in Sources */,
 				04C8F4332B13B61A00F97BA1 /* FriendsViewController.swift in Sources */,
 				04092C082AEF04DE004E4732 /* SupportFunctions.swift in Sources */,
 				04DCC5752AF6D3050095B408 /* NewsView.swift in Sources */,
-				04DCC5822AF857330095B408 /* StoriesDataSourse.swift in Sources */,
 				04DCC5702AF3A5C50095B408 /* UserLoginViewController.swift in Sources */,
+				04C8F43B2B143ED700F97BA1 /* StoriesDataSourse.swift in Sources */,
+				04C8F4392B143E7B00F97BA1 /* UserLoginView.swift in Sources */,
 				045971342AED99A20098F9A4 /* SceneDelegate.swift in Sources */,
 				04C8F4352B13B63500F97BA1 /* SettingsViewController.swift in Sources */,
 				04092C0A2AEF108A004E4732 /* DetailPostViewController.swift in Sources */,
-				04092C0E2AEF13A6004E4732 /* MainViewDataSourse.swift in Sources */,
 				04DCC5772AF6D3130095B408 /* NewsViewController.swift in Sources */,
 				04092C022AEEB098004E4732 /* User.swift in Sources */,
 				04DCC56C2AF387890095B408 /* UserManager.swift in Sources */,

@@ -20,17 +20,17 @@ class User: Codable {
     var link: String
     var posts: [Post]
 
-    init(iconUrl: URL?, nick: String, subers: Int, subtions: Int, email: String?, number: String?, passHash: String, posts: [Post], destion: String, link: String) {
-        self.iconUrl = iconUrl
+    init(icon: URL?, nick: String, subr: Int, subt: Int, ema: String?, num: String?, pass: String, posts: [Post], des: String, link: String) {
+        self.iconUrl = icon
         self.nick = nick
         self.amountOfPosts = posts.count
-        self.amountOfSubscribers = subers
-        self.amountOfSubscribtions = subtions
-        self.email = email
-        self.number = number
-        self.passwordHash = passHash
+        self.amountOfSubscribers = subr
+        self.amountOfSubscribtions = subt
+        self.email = ema
+        self.number = num
+        self.passwordHash = pass
         self.posts = posts
-        self.description = destion
+        self.description = des
         self.link = link
     }
 

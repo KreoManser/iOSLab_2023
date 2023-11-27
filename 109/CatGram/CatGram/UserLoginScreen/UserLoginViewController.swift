@@ -77,10 +77,10 @@ extension UserLoginViewController {
     }
     private func createUser(_ login: String, _ password: String) -> User {
         let passwordHash = support.hashPassword(password)
-        let user = User(iconUrl: nil, nick: login,
-            subers: 0, subtions: 0, email: nil,
-            number: nil, passHash: passwordHash,
-            posts: [], destion: "new user", link: "")
+        let user = User(icon: nil, nick: login,
+            subr: 0, subt: 0, ema: nil,
+            num: nil, pass: passwordHash,
+            posts: [], des: "new user", link: "")
         userManager.addUserAsync(user)
         return user
     }

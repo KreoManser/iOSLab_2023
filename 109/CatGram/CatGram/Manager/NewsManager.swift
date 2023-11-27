@@ -126,7 +126,6 @@ extension NewsManager: UpdateNewsProtocol {
         self.posts.removeAll { personalPostsForNews.contains($0) }
         self.personalPostsForNews = postsForNews
         self.posts += personalPostsForNews
-        saveNews(posts: posts)
     }
 }
 
