@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct Publication {
-    let id: UUID = UUID()
+    let id: String
     let userId: String
     let photo: UIImage?
     let text: String

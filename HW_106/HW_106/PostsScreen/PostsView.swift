@@ -24,7 +24,7 @@ class PostsView: UIView {
         super.init(frame: frame)
 
         setupLayout()
-
+        
     }
 
     required init?(coder: NSCoder) {

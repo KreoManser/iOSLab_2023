@@ -40,6 +40,7 @@ class PostsViewController: UIViewController {
         super.viewDidLoad()
 
         self.title = "Публикации"
+        self.navigationItem.backButtonTitle = "Back"
         view.backgroundColor = .white
     }
 }

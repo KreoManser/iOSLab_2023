@@ -18,6 +18,7 @@
 		2D53E30A2AF1099900004443 /* PostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D53E3092AF1099900004443 /* PostsTableViewCell.swift */; };
 		2D53E30D2AF23D6100004443 /* PostsViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D53E30C2AF23D6100004443 /* PostsViewDataSource.swift */; };
 		2D53E30F2AF2AD1800004443 /* DeleteAlertDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D53E30E2AF2AD1800004443 /* DeleteAlertDelegate.swift */; };
+		2D826DBE2B14D29900C6D27A /* LikesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D826DBD2B14D29900C6D27A /* LikesManager.swift */; };
 		2DA22BEE2AF796A000F943D7 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA22BED2AF796A000F943D7 /* UserDataManager.swift */; };
 		2DA22BF02AF796C600F943D7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA22BEF2AF796C600F943D7 /* User.swift */; };
 		2DA22BF32AF7A6B600F943D7 /* UserDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA22BF22AF7A6B600F943D7 /* UserDataManagerProtocol.swift */; };
@@ -51,6 +52,7 @@
 		2D53E3092AF1099900004443 /* PostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewCell.swift; sourceTree = "<group>"; };
 		2D53E30C2AF23D6100004443 /* PostsViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewDataSource.swift; sourceTree = "<group>"; };
 		2D53E30E2AF2AD1800004443 /* DeleteAlertDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAlertDelegate.swift; sourceTree = "<group>"; };
+		2D826DBD2B14D29900C6D27A /* LikesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesManager.swift; sourceTree = "<group>"; };
 		2DA22BED2AF796A000F943D7 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		2DA22BEF2AF796C600F943D7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2DA22BF22AF7A6B600F943D7 /* UserDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManagerProtocol.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				2DE743152AEEB5DA001B728A /* AppDelegate.swift */,
 				2DE743172AEEB5DA001B728A /* SceneDelegate.swift */,
 				2DE743332AF01585001B728A /* RoundImageView.swift */,
+				2D826DBD2B14D29900C6D27A /* LikesManager.swift */,
 				2DA22BF62AF7B68800F943D7 /* FeedManager */,
 				2DA22BF12AF7971300F943D7 /* UserManager */,
 				2DE743302AEEE30A001B728A /* PublicationManager */,
@@ -305,6 +308,7 @@
 				2DE7432B2AEED852001B728A /* Publication.swift in Sources */,
 				2D53E3062AF107DF00004443 /* PostsViewController.swift in Sources */,
 				2DA22BF82AF7BDD400F943D7 /* FeedDataManagerProtocol.swift in Sources */,
+				2D826DBE2B14D29900C6D27A /* LikesManager.swift in Sources */,
 				2DA22BF32AF7A6B600F943D7 /* UserDataManagerProtocol.swift in Sources */,
 				2D4813C62AF81EF8000796B3 /* FeedView.swift in Sources */,
 				2DE743342AF01585001B728A /* RoundImageView.swift in Sources */,

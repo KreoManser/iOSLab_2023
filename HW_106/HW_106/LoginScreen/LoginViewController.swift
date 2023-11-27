@@ -26,23 +26,52 @@ class LoginViewController: UIViewController {
         Task {
             if let user = await UserDataManager.shared.asyncGetUser(byLogin: login, byPassword: password) {
 
+                UserDefaults.standard.setValue(user.id, forKey: "logged_in")
+
                 let tabBarController = UITabBarController()
 
-                let profileViewController = ProfileViewController(user)
-                let feedViewController = FeedViewController(user)
+                let profileController = UINavigationController(rootViewController: ProfileViewController(user))
+                let feedController = UINavigationController(rootViewController: FeedViewController(user))
 
                 var profileImage = UIImage(named: "profileIcon")
                 var homeImage = UIImage(named: "homeIcon")
                 profileImage = profileImage?.resize(targetSize: CGSize(width: 30, height: 30))
                 homeImage = homeImage?.resize(targetSize: CGSize(width: 30, height: 30))
 
-                profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: profileImage, selectedImage: nil)
-                feedViewController.tabBarItem = UITabBarItem(title: "Лента", image: homeImage, selectedImage: nil)
+                profileController.tabBarItem = UITabBarItem(title: "Профиль", image: profileImage, selectedImage: nil)
+                feedController.tabBarItem = UITabBarItem(title: "Лента", image: homeImage, selectedImage: nil)
 
-                tabBarController.viewControllers = [profileViewController, feedViewController]
+                tabBarController.viewControllers = [profileController, feedController]
 
-                self.navigationController?.setViewControllers([tabBarController], animated: true)
+                UIApplication.shared.windows.first?.rootViewController = tabBarController
+                UIApplication.shared.windows.first?.makeKeyAndVisible()
             }
         }
+    }
+
+    func loginToAccount(with userId: String) async -> UITabBarController {
+
+        if let user = await UserDataManager.shared.asyncGetUser(byId: userId) {
+
+            UserDefaults.standard.setValue(user.id, forKey: "logged_in")
+
+            let tabBarController = UITabBarController()
+
+            let profileController = UINavigationController(rootViewController: ProfileViewController(user))
+            let feedController = UINavigationController(rootViewController: FeedViewController(user))
+
+            var profileImage = UIImage(named: "profileIcon")
+            var homeImage = UIImage(named: "homeIcon")
+            profileImage = profileImage?.resize(targetSize: CGSize(width: 30, height: 30))
+            homeImage = homeImage?.resize(targetSize: CGSize(width: 30, height: 30))
+
+            profileController.tabBarItem = UITabBarItem(title: "Профиль", image: profileImage, selectedImage: nil)
+            feedController.tabBarItem = UITabBarItem(title: "Лента", image: homeImage, selectedImage: nil)
+
+            tabBarController.viewControllers = [profileController, feedController]
+
+            return tabBarController
+        }
+        return UITabBarController()
     }
 }

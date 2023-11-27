@@ -56,8 +56,43 @@ class ProfileViewController: UIViewController {
 
         view.backgroundColor = .white
         self.title = "remy_fluffy"
-        self.navigationItem.backButtonTitle = ""
+        self.navigationItem.backButtonTitle = "Back"
+        setupNavigationBar()
+    }
 
+    func setupNavigationBar() {
+
+        let leaveAlertAction = UIAction { [weak self] _ in
+            self?.presentLeaveAlert()
+        }
+
+        let leaveButton = UIBarButtonItem(systemItem: .stop, primaryAction: leaveAlertAction)
+
+        navigationItem.rightBarButtonItem = leaveButton
+
+    }
+
+    func presentLeaveAlert() {
+
+        let alertController = UIAlertController(title: "Выйти из аккаунта",
+            message: "Вы действительно хотите выйти из аккаунта?", preferredStyle: .alert)
+
+        let leaveAction = UIAlertAction(title: "Выйти", style: .destructive) { _ in
+
+            UserDefaults.standard.removeObject(forKey: "logged_in")
+
+            let loginViewController = LoginViewController()
+
+            let navigationController = UINavigationController(rootViewController: loginViewController)
+
+            UIApplication.shared.windows.first?.rootViewController = navigationController
+            UIApplication.shared.windows.first?.makeKeyAndVisible()
+        }
+
+        alertController.addAction(leaveAction)
+        alertController.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+
+        present(alertController, animated: true, completion: nil)
     }
 }
 

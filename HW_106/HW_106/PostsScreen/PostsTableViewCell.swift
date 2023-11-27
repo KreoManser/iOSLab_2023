@@ -10,6 +10,9 @@ import UIKit
 class PostsTableViewCell: UITableViewCell {
 
     var indexPath: IndexPath?
+    var isLiked: Bool = false
+    var user: User?
+    var publication: Publication?
 
     weak var delegate: DeleteAlertDelegate?
 
@@ -53,6 +56,18 @@ class PostsTableViewCell: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "like")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20)), for: .normal)
+
+        let likeAction = UIAction { [weak self] _ in
+
+            guard let isLiked = self?.isLiked else { return }
+
+            if isLiked {
+                self?.dislikeWithAnimation()
+            } else {
+                self?.likeWithAnimation()
+            }
+        }
+        button.addAction(likeAction, for: .touchUpInside)
         return button
     }()
 
@@ -115,8 +130,63 @@ class PostsTableViewCell: UITableViewCell {
 
 extension PostsTableViewCell {
 
+    func likeWithAnimation() {
+
+        UIView.animate(withDuration: 0.2) {
+
+            let sizeTransform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.likeButton.transform = sizeTransform
+            self.likeButton.setImage(UIImage(named: "liked"), for: .normal)
+
+        } completion: { isFinished in
+            guard isFinished else { return }
+
+            UIView.animate(withDuration: 0.2) {
+
+                self.likeButton.transform = .identity
+                self.isLiked = true
+
+                guard let userId = self.user?.id else { return }
+                guard let publicationId = self.publication?.id else { return }
+
+                LikesManager.shared.save(userId: userId, publicationId: publicationId)
+            }
+        }
+    }
+
+    func likeWithoutAnimation() {
+
+        likeButton.setImage(UIImage(named: "liked"), for: .normal)
+        isLiked = true
+    }
+
+    func dislikeWithAnimation() {
+
+        UIView.animate(withDuration: 0.2) {
+
+            let sizeTransform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.likeButton.transform = sizeTransform
+            self.likeButton.setImage(UIImage(named: "like"), for: .normal)
+
+        } completion: { isFinished in
+            guard isFinished else { return }
+
+            UIView.animate(withDuration: 0.2) {
+
+                self.likeButton.transform = .identity
+                self.isLiked = false
+
+                guard let userId = self.user?.id else { return }
+                guard let publicationId = self.publication?.id else { return }
+
+                LikesManager.shared.remove(userId: userId, publicationId: publicationId)
+            }
+        }
+    }
+
     func configureCell(with post: Publication, _ user: User) {
 
+        self.publication = post
         DispatchQueue.main.async {
             self.postImage.image = post.photo
             self.descriptionLabel.text = post.text

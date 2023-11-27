@@ -12,11 +12,11 @@ protocol DataManagerProtocol {
     func syncSavePublication(_ publication: Publication)
     func asyncSavePublication(_ publication: Publication, completion: @escaping () -> Void)
 
-    func syncGetPublication(byId id: UUID) -> Publication?
-    func asyncGetPublication(byId id: UUID, completion: @escaping (Publication?) -> Void)
+    func syncGetPublication(byId id: String) -> Publication?
+    func asyncGetPublication(byId id: String, completion: @escaping (Publication?) -> Void)
 
-    func syncDeletePublication(byId id: UUID)
-    func asyncDeletePublication(byId id: UUID, completion: @escaping () -> Void)
+    func syncDeletePublication(byId id: String)
+    func asyncDeletePublication(byId id: String, completion: @escaping () -> Void)
 
     func syncGetAllPublications() -> [Publication]
     func asyncGetAllPublications(completion: @escaping ([Publication]) -> Void)

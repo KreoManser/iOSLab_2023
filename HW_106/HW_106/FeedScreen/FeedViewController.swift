@@ -27,6 +27,7 @@ class FeedViewController: UIViewController {
         view = feedView
         feedView.controller = self
         feedView.setupDataSourse(feedCollectionViewDataSource, feedTableViewDataSource)
+        feedTableViewDataSource.user = self.user
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +40,7 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        self.title = "Лента"
     }
 }
 
