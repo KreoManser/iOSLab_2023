@@ -28,7 +28,11 @@ class ProfileView: UIView {
 
     private lazy var profileMoreButton: UIButton = {
         let button = UIButton()
+        let action = UIAction { [weak self]_ in
+            self?.profileViewController?.settingsScreen()
+        }
         button.setImage(UIImage(named: "more"), for: .normal)
+        button.addAction(action, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

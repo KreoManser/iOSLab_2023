@@ -32,4 +32,10 @@ extension ProfileViewController {
         postController.modalPresentationStyle = .fullScreen
         present(postController, animated: true)
     }
+
+    func settingsScreen() {
+        let presentController = SettingsViewController()
+        presentController.modalPresentationStyle = .fullScreen
+        present(presentController, animated: true)
+    }
 }

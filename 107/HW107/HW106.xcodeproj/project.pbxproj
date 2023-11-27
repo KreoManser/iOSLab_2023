@@ -29,6 +29,8 @@
 		CE5B3CBB2AEED5EE00911C77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5B3CBA2AEED5EE00911C77 /* Assets.xcassets */; };
 		CE5B3CBE2AEED5EE00911C77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE5B3CBC2AEED5EE00911C77 /* LaunchScreen.storyboard */; };
 		CEFDBDE32B146218009C0806 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDE22B146218009C0806 /* TabBarViewController.swift */; };
+		CEFDBDEB2B14848B009C0806 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDEA2B14848B009C0806 /* SettingsViewController.swift */; };
+		CEFDBDED2B14851D009C0806 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDEC2B14851D009C0806 /* SettingsView.swift */; };
 		CEFE300B2AEF39E200E3DA19 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE300A2AEF39E200E3DA19 /* Post.swift */; };
 		CEFE30192AEF56C000E3DA19 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE30182AEF56C000E3DA19 /* ProfileCollectionViewCell.swift */; };
 		CEFE30242AEF69D900E3DA19 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE30232AEF69D900E3DA19 /* ProfileView.swift */; };
@@ -59,6 +61,8 @@
 		CE5B3CBD2AEED5EE00911C77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE5B3CBF2AEED5EE00911C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEFDBDE22B146218009C0806 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		CEFDBDEA2B14848B009C0806 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		CEFDBDEC2B14851D009C0806 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CEFE300A2AEF39E200E3DA19 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		CEFE30182AEF56C000E3DA19 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		CEFE30232AEF69D900E3DA19 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 		CEFDBDE82B147161009C0806 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CEFDBDEC2B14851D009C0806 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 		CEFDBDE92B147173009C0806 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CEFDBDEA2B14848B009C0806 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEFDBDEB2B14848B009C0806 /* SettingsViewController.swift in Sources */,
 				CE1039862AF88A97003EBB7B /* User.swift in Sources */,
 				CE1CE4CA2AFAFB9200258F0D /* LoginViewController.swift in Sources */,
 				CE1CE4ED2AFAFF2C00258F0D /* StoryCollectionViewCell.swift in Sources */,
@@ -408,6 +415,7 @@
 				CE1CE4CC2AFAFBD700258F0D /* LoginView.swift in Sources */,
 				CE1CE4E02AFAFDE900258F0D /* PostTableViewCell.swift in Sources */,
 				CE1CE4DB2AFAFD9500258F0D /* PostViewController.swift in Sources */,
+				CEFDBDED2B14851D009C0806 /* SettingsView.swift in Sources */,
 				CE1CE4E92AFAFEE700258F0D /* MainTableViewDataSource.swift in Sources */,
 				CEFDBDE32B146218009C0806 /* TabBarViewController.swift in Sources */,
 				CE1CE4D32AFAFC5700258F0D /* ProfileViewDataSource.swift in Sources */,
