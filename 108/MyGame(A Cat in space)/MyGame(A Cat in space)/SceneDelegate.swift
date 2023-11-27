@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
-        let navigationBar = UINavigationController(rootViewController: GameViewController())
+        let navigationBar = UINavigationController(rootViewController: MenuViewController())
         window?.rootViewController = navigationBar
         window?.makeKeyAndVisible()
     }

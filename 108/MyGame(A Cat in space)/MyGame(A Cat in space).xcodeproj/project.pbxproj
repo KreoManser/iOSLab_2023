@@ -17,6 +17,9 @@
 		626289BB2B069C08002E968D /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626289BA2B069C08002E968D /* Cat.swift */; };
 		626289BD2B069C34002E968D /* Alien.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626289BC2B069C34002E968D /* Alien.swift */; };
 		626289BF2B069C50002E968D /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626289BE2B069C50002E968D /* Projectile.swift */; };
+		62BFF8AE2B0CCB7D00F861D0 /* Difficulties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BFF8AD2B0CCB7D00F861D0 /* Difficulties.swift */; };
+		62BFF8B02B0D150F00F861D0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BFF8AF2B0D150F00F861D0 /* MenuViewController.swift */; };
+		62BFF8B22B0D152100F861D0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BFF8B12B0D152100F861D0 /* MenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		626289BA2B069C08002E968D /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
 		626289BC2B069C34002E968D /* Alien.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alien.swift; sourceTree = "<group>"; };
 		626289BE2B069C50002E968D /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		62BFF8AD2B0CCB7D00F861D0 /* Difficulties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulties.swift; sourceTree = "<group>"; };
+		62BFF8AF2B0D150F00F861D0 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		62BFF8B12B0D152100F861D0 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +72,7 @@
 			children = (
 				626289A22B0697D4002E968D /* AppDelegate.swift */,
 				626289A42B0697D4002E968D /* SceneDelegate.swift */,
+				62BFF8AD2B0CCB7D00F861D0 /* Difficulties.swift */,
 				626289C22B069CA0002E968D /* Controllers */,
 				626289C12B069C88002E968D /* Views */,
 				626289C02B069C5E002E968D /* Objects */,
@@ -91,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				626289B62B069A0A002E968D /* GameView.swift */,
+				62BFF8B12B0D152100F861D0 /* MenuView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -99,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				626289A62B0697D4002E968D /* GameViewController.swift */,
+				62BFF8AF2B0D150F00F861D0 /* MenuViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -182,10 +191,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				626289A72B0697D4002E968D /* GameViewController.swift in Sources */,
+				62BFF8B02B0D150F00F861D0 /* MenuViewController.swift in Sources */,
 				626289A32B0697D4002E968D /* AppDelegate.swift in Sources */,
 				626289BB2B069C08002E968D /* Cat.swift in Sources */,
+				62BFF8AE2B0CCB7D00F861D0 /* Difficulties.swift in Sources */,
 				626289B72B069A0A002E968D /* GameView.swift in Sources */,
 				626289BF2B069C50002E968D /* Projectile.swift in Sources */,
+				62BFF8B22B0D152100F861D0 /* MenuView.swift in Sources */,
 				626289A52B0697D4002E968D /* SceneDelegate.swift in Sources */,
 				626289BD2B069C34002E968D /* Alien.swift in Sources */,
 				626289B92B069A29002E968D /* Manager.swift in Sources */,
