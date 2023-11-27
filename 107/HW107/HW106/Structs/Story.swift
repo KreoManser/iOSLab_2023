@@ -1,6 +1,6 @@
 import Foundation
 
-struct Story {
+struct Story: Codable {
     let userName: String
     let imageName: String
 }

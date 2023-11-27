@@ -22,6 +22,14 @@ protocol DataManagerProtocol {
 }
 
 class DataManager: DataManagerProtocol {
+    var curUser: User? 
+    let userDefaults = UserDefaults(suiteName: "userDef")
+    var currentUserKey: String {
+        return "currentUser"
+    }
+    var loginBoolKey: String {
+        return "LoggedIn"
+    }
     private var allPosts: [Post] = []
     private var timerglotPosts: [Post] = [
     Post(id: 1, postImageName: "Image_2",
@@ -209,4 +217,54 @@ class DataManager: DataManagerProtocol {
     func getAllStories() -> [Story] {
         return allStories
     }
+}
+
+extension DataManager {
+    func checkUser() throws {
+        if curUser == nil {
+            guard let userData = userDefaults?.data(forKey: currentUserKey) else { throw UserError.userError }
+            let decoder = JSONDecoder()
+            do {
+                print(LoginDataManager.curUser)
+                print(DataManager.shared.curUser)
+                curUser = try decoder.decode(User.self, from: userData)
+            } catch {
+                print(error)
+            }
+        }
+    }
+
+    func logOutUser() {
+        curUser = nil
+        userDefaults?.removeObject(forKey: currentUserKey)
+        userDefaults?.setValue(false, forKey: loginBoolKey)
+    }
+
+    func saveUser(user: User) throws {
+        let encoder = JSONEncoder()
+        let userData = try encoder.encode(user)
+        curUser = user
+        LoginDataManager.curUser = user.login
+        userDefaults?.setValue(userData, forKey: currentUserKey)
+    }
+
+    func saveCurrentUser() throws {
+        userDefaults?.removeObject(forKey: currentUserKey)
+        let encoder = JSONEncoder()
+        let userData = try encoder.encode(curUser)
+        userDefaults?.setValue(userData, forKey: currentUserKey)
+    }
+
+    func saveLikedPost(postId: Int) {
+        curUser?.likedPosts.append(postId)
+    }
+
+    func deleteLikedPost(postId: Int) {
+        guard let posts = curUser?.likedPosts else { return }
+        curUser?.likedPosts.remove(at: posts.firstIndex(where: { $0 == postId }) ?? -1)
+    }
+}
+
+enum UserError: Error {
+    case userError
 }

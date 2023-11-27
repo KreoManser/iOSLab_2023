@@ -8,8 +8,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = LoginViewController()
-        window?.makeKeyAndVisible()
+        if DataManager.shared.userDefaults?.bool(forKey: "LoggedIn") ?? false {
+            window?.rootViewController = TabBarViewController()
+            window?.makeKeyAndVisible()
+        } else {
+            window?.rootViewController = LoginViewController()
+            window?.makeKeyAndVisible()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

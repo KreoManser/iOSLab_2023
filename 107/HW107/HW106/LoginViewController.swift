@@ -3,6 +3,7 @@ import UIKit
 class LoginViewController: UIViewController {
     private var loginView = LoginView(frame: .zero)
     private var loginDataManager = LoginDataManager()
+    private var dataManager = DataManager.shared
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,6 +41,12 @@ extension LoginViewController {
             self?.loginDataManager.userExist(login: login, password: password, comeletion: { user in
                 DispatchQueue.main.async {
                     if let user {
+                        do {
+                            try self?.dataManager.saveUser(user: user)
+                            self?.dataManager.userDefaults?.setValue(true, forKey: self?.dataManager.loginBoolKey ?? "NotLoggedIn")
+                        } catch {
+                            print(error)
+                        }
                         self?.curUserPostScreen(login: user.login, avatarImageName: user.avatarImageName)
                     } else {
                         let alert = UIAlertController(title: "Error",

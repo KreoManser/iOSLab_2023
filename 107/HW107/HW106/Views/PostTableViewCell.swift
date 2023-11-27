@@ -48,8 +48,22 @@ class PostTableViewCell: UITableViewCell {
 
     private lazy var postLikeButton: UIButton = {
         let button = UIButton()
+        let action = UIAction { [weak self] _ in
+
+            self?.animateLike()
+//            guard let isLiked = self?.isLiked else { return }
+//
+//            if isLiked {
+//                self?.observer?.deleteLikedPost(postId: self?.postId ?? -1)
+//            } else {
+//                self?.observer?.saveLikedPost(postId: self?.postId ?? -1)
+//            }
+//
+            self?.isLiked = !(self?.isLiked ?? false)
+        }
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .black
+        button.addAction(action, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -93,6 +107,7 @@ class PostTableViewCell: UITableViewCell {
 
     weak var delegate: PostTableAlertDelegate?
     weak var superView: UITableView?
+    private var isLiked: Bool = false
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -197,5 +212,21 @@ extension PostTableViewCell {
                 constant: 10),
             postDateLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -25)
         ])
+    }
+}
+
+extension PostTableViewCell {
+    private func animateLike() {
+        if isLiked {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.postLikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                self.postLikeButton.tintColor = .black
+            })
+        } else {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.postLikeButton.tintColor = .red
+            })
+        }
     }
 }

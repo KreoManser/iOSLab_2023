@@ -28,6 +28,7 @@
 		CE5B3CB62AEED5ED00911C77 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B3CB52AEED5ED00911C77 /* ProfileViewController.swift */; };
 		CE5B3CBB2AEED5EE00911C77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5B3CBA2AEED5EE00911C77 /* Assets.xcassets */; };
 		CE5B3CBE2AEED5EE00911C77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE5B3CBC2AEED5EE00911C77 /* LaunchScreen.storyboard */; };
+		CEFDBDE32B146218009C0806 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDE22B146218009C0806 /* TabBarViewController.swift */; };
 		CEFE300B2AEF39E200E3DA19 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE300A2AEF39E200E3DA19 /* Post.swift */; };
 		CEFE30192AEF56C000E3DA19 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE30182AEF56C000E3DA19 /* ProfileCollectionViewCell.swift */; };
 		CEFE30242AEF69D900E3DA19 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE30232AEF69D900E3DA19 /* ProfileView.swift */; };
@@ -57,6 +58,7 @@
 		CE5B3CBA2AEED5EE00911C77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE5B3CBD2AEED5EE00911C77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE5B3CBF2AEED5EE00911C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEFDBDE22B146218009C0806 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CEFE300A2AEF39E200E3DA19 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		CEFE30182AEF56C000E3DA19 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		CEFE30232AEF69D900E3DA19 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				CE1CE4C92AFAFB9200258F0D /* LoginViewController.swift */,
+				CEFDBDE22B146218009C0806 /* TabBarViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 		CE5B3CB02AEED5ED00911C77 /* HW106 */ = {
 			isa = PBXGroup;
 			children = (
+				CEFDBDE62B14714A009C0806 /* SettingsScreen */,
 				CE5B3CC62AEEDECF00911C77 /* AppLife */,
 				CE1039872AF88B68003EBB7B /* LoginScreen */,
 				CEFE300D2AEF3C1D00E3DA19 /* ProfileScreen */,
@@ -202,6 +206,37 @@
 				CE5B3CB32AEED5ED00911C77 /* SceneDelegate.swift */,
 			);
 			path = AppLife;
+			sourceTree = "<group>";
+		};
+		CEFDBDE62B14714A009C0806 /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CEFDBDE92B147173009C0806 /* Controllers */,
+				CEFDBDE82B147161009C0806 /* Views */,
+				CEFDBDE72B147156009C0806 /* Models */,
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
+		CEFDBDE72B147156009C0806 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CEFDBDE82B147161009C0806 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CEFDBDE92B147173009C0806 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		CEFE300C2AEF3BAB00E3DA19 /* PostScreen */ = {
@@ -374,6 +409,7 @@
 				CE1CE4E02AFAFDE900258F0D /* PostTableViewCell.swift in Sources */,
 				CE1CE4DB2AFAFD9500258F0D /* PostViewController.swift in Sources */,
 				CE1CE4E92AFAFEE700258F0D /* MainTableViewDataSource.swift in Sources */,
+				CEFDBDE32B146218009C0806 /* TabBarViewController.swift in Sources */,
 				CE1CE4D32AFAFC5700258F0D /* ProfileViewDataSource.swift in Sources */,
 				CE1CE4D12AFAFC2600258F0D /* LoginDataManager.swift in Sources */,
 				CE1CE4E22AFAFE1700258F0D /* PostTableViewDataSource.swift in Sources */,

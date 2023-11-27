@@ -33,7 +33,10 @@ class LoginDataManager: NSObject, LoginDataManagerProtocol, UITextFieldDelegate 
         return users.first(where: { $0.login == LoginDataManager.curUser }) ??
         User(id: 0, login: "", password: "", avatarImageName: "", description: "", subsCount: "", followsCount: "")
     }
-
+    func getCurUserSync() -> User {
+        return users.first(where: { $0.login == LoginDataManager.curUser }) ??
+        User(id: 0, login: "", password: "", avatarImageName: "", description: "", subsCount: "", followsCount: "")
+    }
     func getUsersName() -> [String] {
         return users.map { $0.login }
     }
