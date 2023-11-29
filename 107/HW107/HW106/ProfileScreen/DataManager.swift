@@ -22,7 +22,7 @@ protocol DataManagerProtocol {
 }
 
 class DataManager: DataManagerProtocol {
-    var curUser: User? 
+    var curUser: User?
     let userDefaults = UserDefaults(suiteName: "userDef")
     var currentUserKey: String {
         return "currentUser"
@@ -214,6 +214,7 @@ class DataManager: DataManagerProtocol {
     func getAllUsersPosts() -> [Post] {
         return allPosts
     }
+
     func getAllStories() -> [Story] {
         return allStories
     }
@@ -225,9 +226,8 @@ extension DataManager {
             guard let userData = userDefaults?.data(forKey: currentUserKey) else { throw UserError.userError }
             let decoder = JSONDecoder()
             do {
-                print(LoginDataManager.curUser)
-                print(DataManager.shared.curUser)
                 curUser = try decoder.decode(User.self, from: userData)
+                LoginDataManager.curUser = curUser?.login ?? ""
             } catch {
                 print(error)
             }
@@ -236,6 +236,7 @@ extension DataManager {
 
     func logOutUser() {
         curUser = nil
+        LoginDataManager.curUser = ""
         userDefaults?.removeObject(forKey: currentUserKey)
         userDefaults?.setValue(false, forKey: loginBoolKey)
     }
@@ -255,14 +256,16 @@ extension DataManager {
         userDefaults?.setValue(userData, forKey: currentUserKey)
     }
 
-    func saveLikedPost(postId: Int) {
-        curUser?.likedPosts.append(postId)
+    func saveLikedPost(post: Post) {
+        curUser?.likedPosts.append(post)
     }
 
-    func deleteLikedPost(postId: Int) {
+    func deleteLikedPost(post: Post) {
         guard let posts = curUser?.likedPosts else { return }
-        curUser?.likedPosts.remove(at: posts.firstIndex(where: { $0 == postId }) ?? -1)
+        curUser?.likedPosts.remove(at: posts.firstIndex(where: { $0 == post }) ?? -1)
     }
+
+    func checkIfLikedPost(post: Post) -> Bool { (curUser?.likedPosts.contains(where: { $0 == post })) ?? false }
 }
 
 enum UserError: Error {

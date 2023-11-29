@@ -7,7 +7,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        prepareProfile()
+        loginView.loginViewController = self
+        print(dataManager.userDefaults?.bool(forKey: "LoggedIn") ?? false)
     }
 
     override func loadView() {
@@ -35,27 +36,19 @@ extension LoginViewController {
         present(tabBarController, animated: true)
     }
 
-    func prepareProfile() {
-        loginView.passwordTextField.delegate = loginDataManager
-        loginView.loginButtonTapped = { [weak self] login, password in
-            self?.loginDataManager.userExist(login: login, password: password, comeletion: { user in
-                DispatchQueue.main.async {
-                    if let user {
-                        do {
-                            try self?.dataManager.saveUser(user: user)
-                            self?.dataManager.userDefaults?.setValue(true, forKey: self?.dataManager.loginBoolKey ?? "NotLoggedIn")
-                        } catch {
-                            print(error)
-                        }
-                        self?.curUserPostScreen(login: user.login, avatarImageName: user.avatarImageName)
-                    } else {
-                        let alert = UIAlertController(title: "Error",
-                        message: "Please check input login and password. Try again!", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-                        self?.present(alert, animated: true)
-                    }
-                }
-            })
+    func prepareProfile(login: String, password: String) {
+        Task {
+            if await loginDataManager.userExist(login: login, password: password) {
+                let tabBarController = TabBarViewController()
+                tabBarController.modalPresentationStyle = .fullScreen
+                self.present(tabBarController, animated: true)
+            } else {
+                loginView.passwordTextField.text = ""
+                let alert = UIAlertController(title: "Error",
+                message: "Please check input login and password. Try again!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                present(alert, animated: true)
+            }
         }
     }
 }

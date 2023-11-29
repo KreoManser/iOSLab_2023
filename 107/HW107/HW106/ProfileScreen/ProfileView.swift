@@ -74,7 +74,7 @@ class ProfileView: UIView {
     }()
 
     private lazy var subsLabel: UILabel = profileInfoLabel("Subs", weight: .regular)
-    private lazy var subsCountLabel: UILabel = profileInfoLabel("122", weight: .medium)
+    private lazy var subsCountLabel: UILabel = profileInfoLabel("\(LoginDataManager.loginShared.getCountOfFriends())", weight: .medium)
 
     private lazy var subsStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [subsCountLabel, subsLabel])
@@ -115,6 +115,7 @@ class ProfileView: UIView {
         super.init(frame: frame)
 
         setupLayouts()
+        setupGesture()
     }
 
     required init?(coder: NSCoder) {
@@ -167,6 +168,14 @@ extension ProfileView {
         ])
     }
 
+    func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        self.subsCountLabel.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        self.profileViewController?.subsScreen()
+    }
     func setupDataSource(_ dataSource: UICollectionViewDataSource) {
         profileCollectionView.dataSource = dataSource
     }
@@ -180,6 +189,7 @@ extension ProfileView {
         let label = UILabel()
         label.text = text
         label.font = .systemFont(ofSize: 15, weight: weight)
+        label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
@@ -188,7 +198,7 @@ extension ProfileView {
         profileImageView.image = UIImage(named: user.avatarImageName)
         profileNameLabel.text = user.login
         profileUserInformationLabel.text = user.description
-        subsCountLabel.text = user.subsCount
+        subsCountLabel.text = "\(LoginDataManager.loginShared.getCountOfFriends())"
         followsCountLabel.text = user.followsCount
     }
 }

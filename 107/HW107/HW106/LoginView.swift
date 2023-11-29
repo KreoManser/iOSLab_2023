@@ -36,10 +36,14 @@ class LoginView: UIView {
 
     private lazy var logInButton: UIButton = {
         let button = UIButton()
+        let action = UIAction { [weak self] _ in
+            self?.loginViewController?.prepareProfile(login: self?.loginTextField.text ?? "", password: self?.passwordTextField.text ?? "")
+        }
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.setTitle("Log in", for: .normal)
         button.backgroundColor = .systemGray
+        button.addAction(action, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -54,13 +58,12 @@ class LoginView: UIView {
         return button
     }()
 
-    var loginButtonTapped: ((_ login: String, _ password: String) -> Void)?
+    weak var loginViewController: LoginViewController?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         setupLayouts()
-        setupActions()
     }
 
     required init?(coder: NSCoder) {
@@ -100,15 +103,6 @@ extension LoginView {
             signUpButton.heightAnchor.constraint(equalToConstant: 50),
             signUpButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
         ])
-    }
-
-    func setupActions() {
-        let loginAction = UIAction(handler: { [weak self] _ in
-            self?.loginButtonTapped?(self?.loginTextField.text ?? "", self?.passwordTextField.text ?? "")
-            self?.passwordTextField.text = ""
-            self?.loginTextField.text = ""
-        })
-        logInButton.addAction(loginAction, for: .touchUpInside)
     }
 }
 

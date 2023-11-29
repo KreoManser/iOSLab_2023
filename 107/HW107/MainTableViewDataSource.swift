@@ -11,7 +11,7 @@ class MainPostsTableViewDataSource: NSObject, UITableViewDataSource {
         as? PostTableViewCell
         guard let cell = cell else { return UITableViewCell() }
         let post = DataManager.shared.getAllUsersPosts()[indexPath.row]
-        cell.configureMainScreenPostCell(post)
+        cell.configureMainScreenPostCell(post, isLiked: DataManager.shared.checkIfLikedPost(post: post))
         return cell
     }
 }

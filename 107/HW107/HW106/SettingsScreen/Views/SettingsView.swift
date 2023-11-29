@@ -1,41 +1,51 @@
 import UIKit
 
 class SettingsView: UIView {
-    private lazy var goBackButton: UIButton = {
-        let button = UIButton()
-        let action = UIAction { [weak self] _ in
-            self?.settingsViewController?.dismiss(animated: true)
-        }
-        button.setTitle("Go to Profile", for: .normal)
-        button.backgroundColor = .darkGray
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
-        button.addAction(action, for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    private lazy var appearenceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Dark mode"
-        label.font = .systemFont(ofSize: 20, weight: .medium)
-        label.textColor = .black
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    private lazy var appearenceSwitcher: UISwitch = {
-        let mySwitch = UISwitch()
-        mySwitch.translatesAutoresizingMaskIntoConstraints = false
-        return mySwitch
-    }()
-
     private lazy var appearenceStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [appearenceLabel, appearenceSwitcher])
+        let stack = UIStackView(arrangedSubviews: [getSettingsLabel(text: "Dark mode"), getSettingsSwitcher()])
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         stack.alignment = .fill
-//        stack.spacing = 100
+        stack.spacing = 85
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+    private lazy var languageStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [getSettingsLabel(text: "Russian language"), getSettingsSwitcher()])
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
+        stack.spacing = 85
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+    private lazy var muteStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [getSettingsLabel(text: "Mute messages"), getSettingsSwitcher()])
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
+        stack.spacing = 85
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+    private lazy var numberOfMessagesStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [getSettingsLabel(text: "Number of messages"), getSettingsSwitcher()])
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
+        stack.spacing = 85
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+    private lazy var settingsStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [appearenceStackView, languageStackView, muteStackView, numberOfMessagesStackView])
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.spacing = 10
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -46,9 +56,11 @@ class SettingsView: UIView {
             self?.settingsViewController?.logOutUser()
         }
         button.setTitle("Log Out", for: .normal)
-        button.backgroundColor = .darkGray
+        button.backgroundColor = .systemGray.withAlphaComponent(0.7)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
         button.addAction(action, for: .touchUpInside)
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -59,6 +71,7 @@ class SettingsView: UIView {
         super.init(frame: frame)
 
         setupLayouts()
+        setupGesture()
     }
 
     required init?(coder: NSCoder) {
@@ -69,24 +82,49 @@ class SettingsView: UIView {
 extension SettingsView {
     func setupLayouts() {
         backgroundColor = .white
-        addSubview(goBackButton)
-        addSubview(appearenceStackView)
+        addSubview(settingsStackView)
         addSubview(logOutButton)
 
         NSLayoutConstraint.activate([
-            goBackButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40),
-            goBackButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            goBackButton.widthAnchor.constraint(equalToConstant: 150),
-            goBackButton.heightAnchor.constraint(equalToConstant: 40),
-
-            appearenceStackView.topAnchor.constraint(equalTo: goBackButton.bottomAnchor, constant: 10),
-            appearenceStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            appearenceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 150),
-
             logOutButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30),
             logOutButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             logOutButton.heightAnchor.constraint(equalToConstant: 40),
-            logOutButton.widthAnchor.constraint(equalToConstant: 150)
+            logOutButton.widthAnchor.constraint(equalToConstant: 150),
+
+            settingsStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
+            settingsStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            settingsStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 150)
         ])
+    }
+}
+
+extension SettingsView {
+    func getSettingsLabel(text: String) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.textColor = .black
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+
+    func getSettingsSwitcher() -> UISwitch {
+        let mySwitch = UISwitch()
+        mySwitch.translatesAutoresizingMaskIntoConstraints = false
+        return mySwitch
+    }
+
+    func setupGesture() {
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+
+        swipeGesture.direction = .right
+        self.addGestureRecognizer(swipeGesture)
+    }
+
+    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer) {
+        if sender.direction == .right {
+            settingsViewController?.dismiss(animated: true)
+        }
     }
 }

@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-struct Post: Codable {
+struct Post: Codable, Equatable {
     let id: Int
     let postImageName: String
     let postDescription: String

@@ -38,4 +38,10 @@ extension ProfileViewController {
         presentController.modalPresentationStyle = .fullScreen
         present(presentController, animated: true)
     }
+
+    func subsScreen() {
+        let presentController = FriendViewController()
+        presentController.modalPresentationStyle = .fullScreen
+        present(presentController, animated: true)
+    }
 }

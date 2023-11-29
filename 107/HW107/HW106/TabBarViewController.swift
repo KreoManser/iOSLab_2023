@@ -1,9 +1,10 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
+    let dataManager = DataManager.shared
     override func viewDidLoad() {
         super.viewDidLoad()
-        try? DataManager.shared.checkUser()
+        try? dataManager.checkUser()
         curUserPostScreen()
     }
 }

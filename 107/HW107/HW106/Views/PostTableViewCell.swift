@@ -95,6 +95,7 @@ class PostTableViewCell: UITableViewCell {
     weak var delegate: PostTableAlertDelegate?
     weak var superView: UITableView?
     private var isLiked: Bool = false
+    private var post: Post?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -119,7 +120,7 @@ extension PostTableViewCell {
         return String(describing: self)
     }
 
-    func configureCell(_ post: Post) {
+    func configureCell(_ post: Post, isLiked: Bool) {
         postImageView.image = UIImage(named: post.postImageName)
         postDescriptionLabel.text = post.postDescription
         postDateLabel.text = post.postDate
@@ -128,9 +129,15 @@ extension PostTableViewCell {
             postNameLabel.text = user.login
             postAvatarImageView.image = UIImage(named: user.avatarImageName)
         }
+        self.post = post
+        if isLiked {
+            self.isLiked = true
+            postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            postLikeButton.tintColor = .red
+        }
     }
 
-    func configureMainScreenPostCell(_ post: Post) {
+    func configureMainScreenPostCell(_ post: Post, isLiked: Bool) {
         postDeleteButton.isHidden = true
         postImageView.image = UIImage(named: post.postImageName)
         postDescriptionLabel.text = post.postDescription
@@ -138,6 +145,12 @@ extension PostTableViewCell {
         let index = Int.random(in: 0..<LoginDataManager.loginShared.getUsersName().count)
         postAvatarImageView.image = UIImage(named: LoginDataManager.loginShared.getUsersAvatarImageName()[index])
         postNameLabel.text = LoginDataManager.loginShared.getUsersName()[index]
+        self.post = post
+        if isLiked {
+            self.isLiked = true
+            postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            postLikeButton.tintColor = .red
+        }
     }
 
     func setupLayouts() {
@@ -227,5 +240,11 @@ extension PostTableViewCell {
     @objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
         animateLike()
         self.isLiked.toggle()
+        if isLiked {
+            DataManager.shared.saveLikedPost(post: self.post ?? Post(id: -1, postImageName: "", postDescription: "", postDate: ""))
+        } else {
+            DataManager.shared.deleteLikedPost(post: self.post ?? Post(id: -1, postImageName: "", postDescription: "", postDate: ""))
+        }
+        try? DataManager.shared.saveCurrentUser()
     }
 }

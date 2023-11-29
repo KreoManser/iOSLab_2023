@@ -2,8 +2,10 @@ import Foundation
 import UIKit
 
 protocol LoginDataManagerProtocol {
-    func userExist(login: String, password: String, comeletion: @escaping (User?) -> Void)
+    func userExist(login: String, password: String) async -> Bool
     func getCurUser() async -> User
+    func getCountOfFriends() -> Int
+    func getFriends() -> [User]
 }
 
 class LoginDataManager: NSObject, LoginDataManagerProtocol, UITextFieldDelegate {
@@ -21,12 +23,17 @@ class LoginDataManager: NSObject, LoginDataManagerProtocol, UITextFieldDelegate 
         return user
     }
 
-    func userExist(login: String, password: String, comeletion: @escaping (User?) -> Void) {
-        Task {
-            let user = await asyncCheckUser(login: login, password: password)
-            LoginDataManager.curUser = user?.login ?? ""
-            comeletion(user)
+    func userExist(login: String, password: String) async -> Bool {
+        if let user = await asyncCheckUser(login: login, password: password) {
+            do {
+                try DataManager.shared.saveUser(user: user)
+                DataManager.shared.userDefaults?.setValue(true, forKey: DataManager.shared.loginBoolKey)
+                return true
+            } catch {
+                print(error)
+            }
         }
+        return false
     }
 
     func getCurUser() async -> User {
@@ -44,4 +51,8 @@ class LoginDataManager: NSObject, LoginDataManagerProtocol, UITextFieldDelegate 
     func getUsersAvatarImageName() -> [String] {
         return users.map { $0.avatarImageName }
     }
+
+    func getCountOfFriends() -> Int { users.count - 1 }
+
+    func getFriends() -> [User] { users.filter { $0.login != LoginDataManager.curUser }}
 }

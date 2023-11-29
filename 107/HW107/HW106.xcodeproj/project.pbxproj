@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE03E7962B179B5E0094FB8E /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03E7952B179B5E0094FB8E /* FriendTableViewCell.swift */; };
+		CE03E7982B179E690094FB8E /* FriendTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03E7972B179E690094FB8E /* FriendTableViewDataSource.swift */; };
+		CE03E79A2B17A2280094FB8E /* FriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03E7992B17A2280094FB8E /* FriendView.swift */; };
+		CE03E79C2B17A4060094FB8E /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03E79B2B17A4060094FB8E /* FriendViewController.swift */; };
 		CE1039862AF88A97003EBB7B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1039852AF88A97003EBB7B /* User.swift */; };
 		CE1CE4062AFA4FF200258F0D /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CE4052AFA4FF200258F0D /* Story.swift */; };
 		CE1CE4CA2AFAFB9200258F0D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CE4C92AFAFB9200258F0D /* LoginViewController.swift */; };
@@ -37,6 +41,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE03E7952B179B5E0094FB8E /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
+		CE03E7972B179E690094FB8E /* FriendTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewDataSource.swift; sourceTree = "<group>"; };
+		CE03E7992B17A2280094FB8E /* FriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendView.swift; sourceTree = "<group>"; };
+		CE03E79B2B17A4060094FB8E /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
 		CE1039852AF88A97003EBB7B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CE1CE4052AFA4FF200258F0D /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		CE1CE4C92AFAFB9200258F0D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +87,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE03E7912B179B210094FB8E /* FriendsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CE03E7942B179B470094FB8E /* Models */,
+				CE03E7932B179B3E0094FB8E /* Views */,
+				CE03E7922B179B310094FB8E /* Controllers */,
+			);
+			path = FriendsScreen;
+			sourceTree = "<group>";
+		};
+		CE03E7922B179B310094FB8E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE03E79B2B17A4060094FB8E /* FriendViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CE03E7932B179B3E0094FB8E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE03E7952B179B5E0094FB8E /* FriendTableViewCell.swift */,
+				CE03E7992B17A2280094FB8E /* FriendView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE03E7942B179B470094FB8E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE03E7972B179E690094FB8E /* FriendTableViewDataSource.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CE1039872AF88B68003EBB7B /* LoginScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,8 +232,9 @@
 		CE5B3CB02AEED5ED00911C77 /* HW106 */ = {
 			isa = PBXGroup;
 			children = (
-				CEFDBDE62B14714A009C0806 /* SettingsScreen */,
+				CE03E7912B179B210094FB8E /* FriendsScreen */,
 				CE5B3CC62AEEDECF00911C77 /* AppLife */,
+				CEFDBDE62B14714A009C0806 /* SettingsScreen */,
 				CE1039872AF88B68003EBB7B /* LoginScreen */,
 				CEFE300D2AEF3C1D00E3DA19 /* ProfileScreen */,
 				CE1CE4072AFA510800258F0D /* MainScreen */,
@@ -401,17 +445,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEFDBDEB2B14848B009C0806 /* SettingsViewController.swift in Sources */,
+				CE03E7982B179E690094FB8E /* FriendTableViewDataSource.swift in Sources */,
 				CE1039862AF88A97003EBB7B /* User.swift in Sources */,
 				CE1CE4CA2AFAFB9200258F0D /* LoginViewController.swift in Sources */,
 				CE1CE4ED2AFAFF2C00258F0D /* StoryCollectionViewCell.swift in Sources */,
 				CE5B3CB62AEED5ED00911C77 /* ProfileViewController.swift in Sources */,
 				CE1CE4E72AFAFEC700258F0D /* StoriesCollectionViewDataSource.swift in Sources */,
+				CE03E79C2B17A4060094FB8E /* FriendViewController.swift in Sources */,
 				CE1CE4062AFA4FF200258F0D /* Story.swift in Sources */,
+				CE03E7962B179B5E0094FB8E /* FriendTableViewCell.swift in Sources */,
 				CE1CE4D52AFAFC9D00258F0D /* DataManager.swift in Sources */,
 				CE1CE4E52AFAFE6E00258F0D /* MainViewController.swift in Sources */,
 				CE1CE4EB2AFAFF0400258F0D /* MainView.swift in Sources */,
 				CE1CE4DE2AFAFDD000258F0D /* PostView.swift in Sources */,
 				CEFE30192AEF56C000E3DA19 /* ProfileCollectionViewCell.swift in Sources */,
+				CE03E79A2B17A2280094FB8E /* FriendView.swift in Sources */,
 				CE1CE4CC2AFAFBD700258F0D /* LoginView.swift in Sources */,
 				CE1CE4E02AFAFDE900258F0D /* PostTableViewCell.swift in Sources */,
 				CE1CE4DB2AFAFD9500258F0D /* PostViewController.swift in Sources */,

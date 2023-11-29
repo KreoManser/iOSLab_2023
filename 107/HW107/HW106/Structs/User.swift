@@ -8,5 +8,5 @@ struct User: Codable {
     let description: String
     let subsCount: String
     let followsCount: String
-    var likedPosts: [Int] = []
+    var likedPosts: [Post] = []
 }

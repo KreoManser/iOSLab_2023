@@ -23,7 +23,7 @@ class PostTableViewDataSource: NSObject, UITableViewDataSource {
 
         cell.delegate = tableView.superview as? any PostTableAlertDelegate
         cell.superView = tableView
-        cell.configureCell(post)
+        cell.configureCell(post, isLiked: DataManager.shared.checkIfLikedPost(post: post))
 
         return cell
     }
