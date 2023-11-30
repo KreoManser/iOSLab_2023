@@ -8,14 +8,15 @@
 import Foundation
 import UIKit
 
-protocol AuthorizationManagerProtocol {
+protocol LoginManagerProtocol {
     func asyncCheckAthorizationData(login: String, password: String, users: [User]) async -> (cheker: Bool, item: User?)
 }
-class AuthorizationManager: AuthorizationManagerProtocol {
+class LoginManager: LoginManagerProtocol {
     var currentUser: User!
     func asyncCheckAthorizationData(login: String,
-        password: String, users: [User]) async ->
-                                        (cheker: Bool, item: User?) {
+                                    password: String,
+                                    users: [User])
+    async -> (cheker: Bool, item: User?) {
         return await withCheckedContinuation {continuation in
             DispatchQueue.global().asyncAfter(deadline: .now()) {
                 var cheker: Bool = false

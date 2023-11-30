@@ -7,15 +7,14 @@
 
 import UIKit
 
-class AuthorizationViewController: UIViewController {
+class LoginViewController: UIViewController {
     var userDefaults: UserDefaults
     let userDataBase = UserDataBase.sigelton
     let dataManager = DataManager.sigelton
-    var authorizationView = AuthorizationView(frame: .zero)
-    var tabBarVc: MainController?
+    var authorizationView = LoginView(frame: .zero)
+    var tabBarVc: TabBarViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(userDefaults.bool(forKey: "Artur Minnushin"))
         authorizationView.authorizationVC = self
     }
     init() {
@@ -30,20 +29,21 @@ class AuthorizationViewController: UIViewController {
     }
     func loginInProfile(login: String, pasword: String) {
         Task {
-            let checkAthorizationData = await AuthorizationManager().asyncCheckAthorizationData(
+            let checkAthorizationData = await LoginManager().asyncCheckAthorizationData(
                 login: login, password: pasword,
                 users: userDataBase.getData())
             if checkAthorizationData.cheker == true {
-                self.userDefaults.setValue(true, forKey:
-                    "\(checkAthorizationData.item!.userName)")
-                print("\(checkAthorizationData.item!.userName)")
-                print(userDefaults.bool(forKey: "\(checkAthorizationData.item!.userName)"))
-                dataManager.setupUser(user: checkAthorizationData.item!)
-                tabBarVc = MainController(user: checkAthorizationData.item!)
-                present(tabBarVc!, animated: true)
+                presentVc(user: checkAthorizationData.item!)
             } else {
                 authorizationView.presentAllertVC()
             }
         }
+    }
+    func presentVc(user: User) {
+        userDefaults.setValue(true, forKey:
+            "\(user.userName)")
+        dataManager.setupUser(user: user)
+        tabBarVc = TabBarViewController()
+        present(tabBarVc!, animated: true)
     }
 }

@@ -7,8 +7,8 @@
 
 import UIKit
 
-class AuthorizationView: UIView {
-    var authorizationVC: AuthorizationViewController?
+class LoginView: UIView {
+    var authorizationVC: LoginViewController?
     lazy var authorizationLogo: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +84,7 @@ class AuthorizationView: UIView {
         ])
     }
     func loginInVC() {
-        authorizationVC?.loginInProfile(login: loginTextField.text!, pasword: loginTextField.text!)
+        authorizationVC?.loginInProfile(login: loginTextField.text!, pasword: paswordTextField.text!)
     }
     func presentAllertVC() {
         let alertVC = UIAlertController(title: "Упс...",

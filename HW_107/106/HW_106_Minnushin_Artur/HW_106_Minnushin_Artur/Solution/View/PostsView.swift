@@ -7,8 +7,9 @@
 
 import UIKit
 
-class PublicationView: UIView {
-    weak var publicationViewController: PublicationViewController?
+class PostsView: UIView {
+    weak var publicationViewController: PostsViewController?
+    var dataManager = DataManager.sigelton
     lazy var publicationSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -19,12 +20,13 @@ class PublicationView: UIView {
     }()
     lazy var publicationTableView: UITableView = {
         let tableVC = UITableView()
-        tableVC.register(PublicationTableViewCell.self, forCellReuseIdentifier: "tableCell")
+        tableVC.register(PostsTableViewCell.self, forCellReuseIdentifier: "tableCell")
         tableVC.translatesAutoresizingMaskIntoConstraints = false
         return tableVC
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .white
         addSubview(publicationTableView)
         addSubview(publicationSearchBar)
         setupLayout()
@@ -35,17 +37,17 @@ class PublicationView: UIView {
     }
     func setupLayout() {
         NSLayoutConstraint.activate([
-            publicationSearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            publicationSearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             publicationSearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             publicationSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            publicationTableView.topAnchor.constraint(equalTo: publicationSearchBar.bottomAnchor, constant: 10),
+            publicationTableView.topAnchor.constraint(equalTo: publicationSearchBar.bottomAnchor, constant: 20),
             publicationSearchBar.heightAnchor.constraint(equalToConstant: 30),
             publicationTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
             publicationTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             publicationTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-    func setupDataSource(dataSource: PublicationDataSource) {
+    func setupDataSource(dataSource: PostsDataSource) {
         publicationTableView.dataSource = dataSource
     }
     func reloadData() {
@@ -64,27 +66,36 @@ class PublicationView: UIView {
     }
 }
 
-extension PublicationView: UISearchBarDelegate {
+extension PostsView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             publicationViewController?.searchPostsByName(name: searchText)
             guard let text = searchBar.text else { return }
             if text.isEmpty {
-                DataManager.sigelton.isSearching = false
+                dataManager.isSearching = false
             } else {
-                DataManager.sigelton.isSearching = true
+                dataManager.isSearching = true
             }
             reloadData()
         }
 }
 
-extension PublicationView: AllertConnection {
+extension PostsView: AllertConnection {
+    func deleteLikeFunc(indexPath: IndexPath) {
+        self.publicationViewController?.deleteLikedPost(indexPath: indexPath)
+        self.reloadData()
+    }
+    func addLikeFunc(indexPath: IndexPath) {
+        self.publicationViewController?.addLikedPost(indexPath: indexPath)
+        self.reloadData()
+    }
     func presentAllertVC(indexPath: IndexPath) {
         let alertVC = UIAlertController(title: "Внимание",
             message: "Вы уверены что хотите удлаить этот пост?",
             preferredStyle: .actionSheet)
         let deleteAlertButton = UIAlertAction(title: "Удалить",
-            style: .destructive, handler: { [weak self] _ in self?.publicationViewController?.deletePost(
-                indexPath: indexPath)})
+            style: .destructive, handler: { [weak self] _ in
+                self?.publicationViewController?.deletePost(indexPath: indexPath)
+                self?.reloadData()})
         let cancelAlertButton = UIAlertAction(title: "Отмена", style: .cancel)
         alertVC.addAction(deleteAlertButton)
         alertVC.addAction(cancelAlertButton)

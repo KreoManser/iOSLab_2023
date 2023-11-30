@@ -8,18 +8,15 @@
 import UIKit
 
 class ProfileCollectionDataSource: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    var posts: [PostInfo] = []
-    func setupPosts(posts: [PostInfo]) {
-        self.posts = posts
-    }
+    let dataManager = DataManager.sigelton
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+        return dataManager.syncGetAllPost().count
     }
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
-                    for: indexPath) as? CollectionViewCell else { return UICollectionViewCell()}
-        let item = posts[indexPath.row]
+                    for: indexPath) as? ProfileCollectionViewCell else { return UICollectionViewCell()}
+        let item = dataManager.syncGetAllPost()[indexPath.row]
         cell.imageView.image = UIImage(named: item.postPhotoNmae)
         return cell
     }

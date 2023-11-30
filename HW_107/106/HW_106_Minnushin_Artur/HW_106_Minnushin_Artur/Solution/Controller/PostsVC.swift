@@ -7,12 +7,12 @@
 
 import UIKit
 
-class PublicationViewController: UIViewController {
+class PostsViewController: UIViewController {
     var indexPath: IndexPath?
-    let publicationView = PublicationView(frame: .zero)
-    let publicatiomDataSource = PublicationDataSource()
-    var user: User?
-    var delegate: GetData?
+    let publicationView = PostsView(frame: .zero)
+    let publicatiomDataSource = PostsDataSource()
+    var dataManger = DataManager.sigelton
+    var deleagte: UpdateData?
     override func viewDidLoad() {
         super.viewDidLoad()
         publicationView.setupDataSource(dataSource: publicatiomDataSource)
@@ -36,10 +36,17 @@ class PublicationViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     func deletePost(indexPath: IndexPath) {
-        DataManager.sigelton.syncDelete(indexPath: indexPath.row + 1)
+        dataManger.asyncDelete(indexPath: indexPath.row)
         publicationView.reloadData()
+        deleagte?.updateData()
     }
     func searchPostsByName(name: String) {
-        DataManager.sigelton.asyncSearchByName(postName: name)
+        dataManger.asyncSearchByName(postName: name)
+    }
+    func addLikedPost(indexPath: IndexPath) {
+        dataManger.syncSaveLikedPost(indexPath: indexPath.row)
+    }
+    func deleteLikedPost(indexPath: IndexPath) {
+        dataManger.syncDeleteLikePost(indexPath: indexPath.row)
     }
 }
