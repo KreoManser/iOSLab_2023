@@ -154,7 +154,7 @@ class UserDataBase {
              userDescription: "Меня сложно найти, лего потреять и не возмжно убить",
              posts:
                 [
-                    PostInfo(postID: 1, userPostId: 3, postPhotoNmae: "Photo13",
+                    PostInfo(postID: 1, userPostId: 3, postPhotoNmae: "Photo3",
                              postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 1"),
                     PostInfo(postID: 2, userPostId: 4, postPhotoNmae: "Photo3",
                              postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 2"),
