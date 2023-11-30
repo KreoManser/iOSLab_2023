@@ -49,8 +49,11 @@ class DataManager: DataManagerProtocol {
         saveOpertionQueue.addOperation(saveOpertion)
     }
     func syncSaveLikedPost(indexPath: Int) {
-        let post: PostInfo = posts[indexPath]
-        likedPost.append(post)
+        print(posts[indexPath])
+        print("--------------")
+        posts[indexPath].isLiked = true
+        likedPost.append(posts[indexPath])
+        print(likedPost)
     }
     func asyncSaveLikedPost(indexPath: Int) {
         let saveLikedPost = BlockOperation {
@@ -117,10 +120,12 @@ class DataManager: DataManagerProtocol {
     }
     func syncDeleteLikePost(indexPath: Int) {
         for index in 0...likedPost.count - 1 where posts[indexPath].postID == likedPost[index].postID {
-            if posts[indexPath].postID == likedPost[index].postID {
-                likedPost.remove(at: index)
-                break
-            }
+            print("Удаляем")
+            print(posts[index])
+            posts[indexPath].isLiked = false
+            print(likedPost[index].isLiked)
+            likedPost.remove(at: index)
+            break
         }
     }
     func asyncDeleteLikePost(indexPath: Int) {

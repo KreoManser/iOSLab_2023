@@ -55,6 +55,12 @@ class PostsTableViewCell: UITableViewCell {
         button.addAction(action, for: .touchUpInside)
         return button
     }()
+    lazy var postKilkeCountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 10)
+        return label
+    }()
     lazy var postShringImageView: UIImageView = {
         let image = UIImageView(image: UIImage(named: "Share"))
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -105,11 +111,13 @@ class PostsTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func setUpLikeButton() {
-        if isLikedCheker == true {
+    func setUpLikeButton(cheker: Bool) {
+        if cheker == true {
             postLikeButton.setImage(UIImage(named: "isLikeIcon"), for: .normal)
+            isLikedCheker = true
         } else {
             postLikeButton.setImage(UIImage(named: "LikeIcon"), for: .normal)
+            isLikedCheker = false
         }
     }
     func setupLayout() {
@@ -186,7 +194,6 @@ extension PostsTableViewCell {
         } else {
             self.postLikeButton.setImage(UIImage(named: "LikeIcon"), for: .normal)
             self.delegate?.deleteLikeFunc(indexPath: indexPath)
-            self.isLikedCheker = false
         }
     }
 }

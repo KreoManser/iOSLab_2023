@@ -33,20 +33,7 @@ class PostsDataSource: NSObject, UITableViewDelegate, UITableViewDataSource {
         cell.postDateLabel.text = "\(item.postDate.getDataInString())"
         cell.delegate = tableView.superview as? any AllertConnection
         cell.superView = tableView
-        let likedPost = dataManager.syncGetLikedPosts()
-        if likedPost.count > 1 {
-            for index in 0...likedPost.count - 1  where item.postID == likedPost[index].postID {
-                cell.isLikedCheker = true
-                cell.setUpLikeButton()
-            }
-        } else if likedPost.count == 1, item.postID == likedPost[0].postID {
-            print(item.postID == likedPost[0].postID)
-            cell.isLikedCheker = true
-            cell.setUpLikeButton()
-        } else {
-            cell.isLikedCheker = false
-            cell.setUpLikeButton()
-        }
+        cell.setUpLikeButton(cheker: item.isLiked)
         return cell
     }
 }
