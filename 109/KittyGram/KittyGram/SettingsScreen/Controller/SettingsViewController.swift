@@ -14,6 +14,8 @@ class SettingsViewController: UIViewController {
 
     private let dataManager = DataManager.shared
 
+    private let dataSource = SettingButtonsTableViewDataSource()
+
     // MARK: - Lifecycle
     override func loadView() {
         view = settingsView
@@ -21,15 +23,12 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         settingsView.controller = self
+        settingsView.setupDataSource(dataSource: dataSource)
     }
 
 }
 
 extension SettingsViewController {
-
-    func dismissController() {
-        dismiss(animated: true)
-    }
 
     func logOutUser() {
         dataManager.logOutUser()

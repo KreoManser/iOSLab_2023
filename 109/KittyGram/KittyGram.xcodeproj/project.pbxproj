@@ -15,6 +15,10 @@
 		275384CB2B13D3760009A531 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275384CA2B13D3760009A531 /* SettingsViewController.swift */; };
 		275384CD2B13D3880009A531 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275384CC2B13D3880009A531 /* SettingsView.swift */; };
 		275384D02B13E3960009A531 /* PostButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275384CF2B13E3960009A531 /* PostButton.swift */; };
+		278473F42B1A646F006A5AE6 /* ButtonsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278473F32B1A646F006A5AE6 /* ButtonsHandler.swift */; };
+		278473F62B1A64A1006A5AE6 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278473F52B1A64A1006A5AE6 /* SettingButton.swift */; };
+		278473F82B1A6693006A5AE6 /* SettingButtonsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278473F72B1A6693006A5AE6 /* SettingButtonsTableViewDataSource.swift */; };
+		278473FB2B1A67A4006A5AE6 /* SettingButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278473FA2B1A67A4006A5AE6 /* SettingButtonTableViewCell.swift */; };
 		27CF52242B0D5B1A00B45BDF /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF52232B0D5B1A00B45BDF /* Post.swift */; };
 		27CF52262B0D5B2800B45BDF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF52252B0D5B2800B45BDF /* User.swift */; };
 		27CF52282B0D5B4000B45BDF /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF52272B0D5B4000B45BDF /* Story.swift */; };
@@ -50,6 +54,10 @@
 		275384CA2B13D3760009A531 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		275384CC2B13D3880009A531 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		275384CF2B13E3960009A531 /* PostButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostButton.swift; sourceTree = "<group>"; };
+		278473F32B1A646F006A5AE6 /* ButtonsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsHandler.swift; sourceTree = "<group>"; };
+		278473F52B1A64A1006A5AE6 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
+		278473F72B1A6693006A5AE6 /* SettingButtonsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButtonsTableViewDataSource.swift; sourceTree = "<group>"; };
+		278473FA2B1A67A4006A5AE6 /* SettingButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButtonTableViewCell.swift; sourceTree = "<group>"; };
 		27CF52232B0D5B1A00B45BDF /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		27CF52252B0D5B2800B45BDF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		27CF52272B0D5B4000B45BDF /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
@@ -133,6 +141,7 @@
 		275384C62B13D3430009A531 /* SettingsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				278473F92B1A6785006A5AE6 /* Cell */,
 				275384C92B13D35D0009A531 /* Controller */,
 				275384C82B13D3590009A531 /* View */,
 				275384C72B13D3530009A531 /* Model */,
@@ -143,6 +152,9 @@
 		275384C72B13D3530009A531 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				278473F32B1A646F006A5AE6 /* ButtonsHandler.swift */,
+				278473F52B1A64A1006A5AE6 /* SettingButton.swift */,
+				278473F72B1A6693006A5AE6 /* SettingButtonsTableViewDataSource.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -169,6 +181,14 @@
 				275384CF2B13E3960009A531 /* PostButton.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		278473F92B1A6785006A5AE6 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				278473FA2B1A67A4006A5AE6 /* SettingButtonTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		27CF521D2B0D5A9700B45BDF /* DataManager */ = {
@@ -453,6 +473,7 @@
 				27CF52432B0D5D1600B45BDF /* UserStoriesCollectionViewDataSource.swift in Sources */,
 				27CF52472B0D5D9D00B45BDF /* LoginView.swift in Sources */,
 				27CF52492B0D5DD000B45BDF /* LoginHandler.swift in Sources */,
+				278473F42B1A646F006A5AE6 /* ButtonsHandler.swift in Sources */,
 				271990012B0D57BF00F70DE6 /* AppDelegate.swift in Sources */,
 				27CF525B2B0D5F6C00B45BDF /* ProfileViewController.swift in Sources */,
 				271990032B0D57BF00F70DE6 /* SceneDelegate.swift in Sources */,
@@ -461,7 +482,9 @@
 				27CF525D2B0D5F8400B45BDF /* UserProfilePostsCollectionViewDataSource.swift in Sources */,
 				27CF52382B0D5BE300B45BDF /* DataManagerProtocol.swift in Sources */,
 				27CF52572B0D5F0800B45BDF /* ProfilePostCollectionViewCell.swift in Sources */,
+				278473F82B1A6693006A5AE6 /* SettingButtonsTableViewDataSource.swift in Sources */,
 				272AF6192B1381DE009A0037 /* TabBarViewController.swift in Sources */,
+				278473FB2B1A67A4006A5AE6 /* SettingButtonTableViewCell.swift in Sources */,
 				27CF52412B0D5CFA00B45BDF /* MainFeedUserPostsTableViewDataSource.swift in Sources */,
 				27CF52362B0D5BD500B45BDF /* DataManager.swift in Sources */,
 				27CF523F2B0D5CD400B45BDF /* MainFeedViewController.swift in Sources */,
@@ -469,6 +492,7 @@
 				27CF52242B0D5B1A00B45BDF /* Post.swift in Sources */,
 				27CF52282B0D5B4000B45BDF /* Story.swift in Sources */,
 				27CF523B2B0D5C4200B45BDF /* UserStoriesCollectionViewCell.swift in Sources */,
+				278473F62B1A64A1006A5AE6 /* SettingButton.swift in Sources */,
 				275384CD2B13D3880009A531 /* SettingsView.swift in Sources */,
 				27CF523D2B0D5C7500B45BDF /* MainFeedView.swift in Sources */,
 				27CF52512B0D5E9300B45BDF /* UserProfilePostsViewController.swift in Sources */,

@@ -9,50 +9,15 @@ import UIKit
 
 class SettingsView: UIView {
     // MARK: - UI elements
-    private lazy var goBackButton: UIButton = {
-        let button = UIButton(configuration: .plain())
-        button.translatesAutoresizingMaskIntoConstraints = false
-
-        let action = UIAction { [weak self] _ in
-            self?.controller?.dismissController()
-        }
-
-        button.addAction(action, for: .touchDown)
-        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        return button
-    }()
-
-    private lazy var changeThemeButton: UIButton = {
-        let button = UIButton(configuration: .filled())
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Сменить тему", for: .normal)
-        return button
-    }()
-
-    private lazy var logOutButton: UIButton = {
-        let button = UIButton(configuration: .filled())
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(
-            UIImage(systemName: "door.left.hand.open"),
-            for: .normal)
-        button.setTitle("Выйти из аккаунта", for: .normal)
-
-        let action = UIAction { [weak self] _ in
-            self?.controller?.logOutUser()
-        }
-
-        button.addAction(action, for: .touchDown)
-
-        return button
-    }()
-
-    private lazy var buttonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [changeThemeButton, logOutButton])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 15
-        return stackView
+    private lazy var settingButtonsTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(
+            SettingButtonTableViewCell.self,
+            forCellReuseIdentifier: SettingButtonTableViewCell.reuseIdentifier)
+        tableView.backgroundColor = .black
+        tableView.estimatedRowHeight = 40
+        return tableView
     }()
 
     // MARK: - Variables
@@ -61,13 +26,16 @@ class SettingsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
-        addSubviews(
-            subviews: goBackButton, buttonStackView)
+        addSubviews(subviews: settingButtonsTableView)
         configureUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupDataSource(dataSource: UITableViewDataSource) {
+        settingButtonsTableView.dataSource = dataSource
     }
 
 }
@@ -79,11 +47,10 @@ extension SettingsView {
 
     private func configureUI() {
         NSLayoutConstraint.activate([
-            goBackButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            goBackButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5),
-
-            buttonStackView.topAnchor.constraint(equalTo: goBackButton.bottomAnchor, constant: 20),
-            buttonStackView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
+            settingButtonsTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            settingButtonsTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            settingButtonsTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            settingButtonsTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
