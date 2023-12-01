@@ -14,8 +14,8 @@ protocol PostTableViewCellDelegate: AnyObject {
 class PostTableViewCell: UITableViewCell {
 
     var optionsTapped: ((_ alertController: UIAlertController, _ author: String) -> Void)?
-    var likeTapped: (() -> Void)?
-    var unlikeTapped: (() -> Void)?
+    var likeTapped: (() -> Int)?
+    var unlikeTapped: (() -> Int)?
 
     weak var delegate: PostTableViewCellDelegate?
 
@@ -24,6 +24,7 @@ class PostTableViewCell: UITableViewCell {
 
     lazy var nameLabel: UILabel = UILabel()
     lazy var captionLabel: UILabel = UILabel()
+    lazy var likeLabel: UILabel = UILabel()
     lazy var dateLabel: UILabel = UILabel()
 
     lazy var favoriteButton: UIButton = UIButton()
@@ -50,16 +51,18 @@ class PostTableViewCell: UITableViewCell {
         setUpOptionButton()
         setUpButtonsStackView()
         setUpFavoriteButton()
+        setUpLikeLabel()
         setUpCaptionLabel()
         setUpDateLabel()
     }
 
-    func configure(with post: PostModel, isLiked: Bool) {
+    func configure(with post: PostModel, likeCount: Int, isLiked: Bool) {
         logoImageView.image = post.author.logo
         nameLabel.text = post.author.name
         postImageView.image = post.postImage
         captionLabel.text = post.caption
         dateLabel.text = post.date
+        likeLabel.text = "Нравится: \(likeCount)"
         if isLiked {
             likeButton.setImage(UIImage(named: "likeIconRed"), for: .normal)
         } else {
@@ -168,12 +171,12 @@ class PostTableViewCell: UITableViewCell {
             UIView.transition(with: likeButton, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 self.likeButton.setImage(UIImage(named: "likeIconRed"), for: .normal)
             })
-            likeTapped?()
+            likeLabel.text = "Нравится: \(likeTapped?() ?? 0)"
         } else {
             UIView.transition(with: likeButton, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 self.likeButton.setImage(UIImage(named: "likeIcon"), for: .normal)
             })
-            unlikeTapped?()
+            likeLabel.text = "Нравится: \(unlikeTapped?() ?? 0)"
         }
 
     }
@@ -211,6 +214,19 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
 
+    private func setUpLikeLabel() {
+        addSubview(likeLabel)
+        likeLabel.translatesAutoresizingMaskIntoConstraints = false
+        likeLabel.textColor = .darkText
+        likeLabel.font = UIFont.systemFont(ofSize: 14)
+
+        NSLayoutConstraint.activate([
+            likeLabel.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: 10),
+            likeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            likeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+    }
+
     private func setUpCaptionLabel() {
         addSubview(captionLabel)
         captionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -218,7 +234,7 @@ class PostTableViewCell: UITableViewCell {
         captionLabel.font = UIFont.systemFont(ofSize: 14)
 
         NSLayoutConstraint.activate([
-            captionLabel.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: 10),
+            captionLabel.topAnchor.constraint(equalTo: likeLabel.bottomAnchor, constant: 5),
             captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])

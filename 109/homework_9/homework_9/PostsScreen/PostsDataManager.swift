@@ -20,10 +20,12 @@ class PostsDataManager: NSObject, UITableViewDataSource, UITableViewDelegate, Po
     private let profileDataManager = ProfileDataManager.shared
     private let userDefaults = UserDefaults.standard
     private var likedArray: [String] = []
+    private var likeCountDictionary: [String: Int] = [:]
 
     override init() {
         super.init()
         likedArray = getAllLikedPosts()
+        likeCountDictionary = getLikeCountDictionary()
         if postsArray.isEmpty {
             getPosts(dataManager: profileDataManager)
         }
@@ -59,18 +61,34 @@ class PostsDataManager: NSObject, UITableViewDataSource, UITableViewDelegate, Po
 
         cell.likeTapped = { [weak self] in
             self?.likedArray.append(post.caption)
+            self?.updateLikeCount(caption: post.caption, increase: true)
             self?.saveLikedPosts()
+            return self?.likeCountDictionary[post.caption] ?? 0
         }
 
         cell.unlikeTapped = { [weak self] in
             self?.likedArray.removeAll(where: {$0 == post.caption})
+            self?.updateLikeCount(caption: post.caption, increase: false)
             self?.saveLikedPosts()
+            return self?.likeCountDictionary[post.caption] ?? 0
         }
 
-        cell.configure(with: post, isLiked: self.likedArray.contains(where: {$0 == post.caption}))
+        cell.configure(with: post, likeCount: likeCountDictionary[post.caption] ?? 0, isLiked: self.likedArray.contains(where: {$0 == post.caption}))
         cell.delegate = self
 
         return cell
+    }
+
+    private func updateLikeCount(caption: String, increase: Bool) {
+        if let count = likeCountDictionary[caption] {
+            if increase {
+                likeCountDictionary[caption] = count + 1
+            } else {
+                likeCountDictionary[caption] = count - 1
+            }
+        } else {
+            likeCountDictionary[caption] = increase ? 1 : 0
+        }
     }
 
     func getAuthUser() -> User? {
@@ -86,6 +104,7 @@ class PostsDataManager: NSObject, UITableViewDataSource, UITableViewDelegate, Po
 
     private func saveLikedPosts() {
         userDefaults.set(likedArray, forKey: getAuthUser()?.login ?? "")
+        userDefaults.set(likeCountDictionary, forKey: "likeCountDictionary")
     }
 
     private func getAllLikedPosts() -> [String] {
@@ -93,8 +112,13 @@ class PostsDataManager: NSObject, UITableViewDataSource, UITableViewDelegate, Po
         return posts
     }
 
+    private func getLikeCountDictionary() -> [String: Int] {
+        guard let likeCountDictionary = userDefaults.dictionary(forKey: "likeCountDictionary") as? [String: Int] else {return [:]}
+        return likeCountDictionary
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
+        return 420
     }
 
     private func getPosts(dataManager: ProfileDataManager) {
