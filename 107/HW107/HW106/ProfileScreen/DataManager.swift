@@ -262,7 +262,7 @@ extension DataManager {
 
     func deleteLikedPost(post: Post) {
         guard let posts = curUser?.likedPosts else { return }
-        curUser?.likedPosts.remove(at: posts.firstIndex(where: { $0 == post }) ?? -1)
+        curUser?.likedPosts.remove(at: posts.firstIndex(where: { $0 == post }) ?? 0)
     }
 
     func checkIfLikedPost(post: Post) -> Bool { (curUser?.likedPosts.contains(where: { $0 == post })) ?? false }

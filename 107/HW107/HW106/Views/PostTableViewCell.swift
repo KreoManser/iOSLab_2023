@@ -79,6 +79,15 @@ class PostTableViewCell: UITableViewCell {
         return button
     }()
 
+    private lazy var likeCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.textColor = .black
+        label.textAlignment = .left
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     private lazy var postDeleteButton: UIButton = {
         let action = UIAction { [weak self] _ in
             guard let index = self?.getIndexPath() else { return }
@@ -134,6 +143,9 @@ extension PostTableViewCell {
             self.isLiked = true
             postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             postLikeButton.tintColor = .red
+            likeCountLabel.isHidden = false
+            guard let user = DataManager.shared.curUser else { return }
+            likeCountLabel.text = "Нравится \(String(describing: user.likedPosts.reduce(0) { $1 == post ? $0 + 1 : $0 }))"
         }
     }
 
@@ -150,6 +162,9 @@ extension PostTableViewCell {
             self.isLiked = true
             postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             postLikeButton.tintColor = .red
+            likeCountLabel.isHidden = false
+            guard let user = DataManager.shared.curUser else { return }
+            likeCountLabel.text = "Нравится \(String(describing: user.likedPosts.reduce(0) { $1 == post ? $0 + 1 : $0 }))"
         }
     }
 
@@ -162,6 +177,7 @@ extension PostTableViewCell {
         contentView.addSubview(postShareButton)
         contentView.addSubview(postFavouriteButton)
         contentView.addSubview(postImageView)
+        contentView.addSubview(likeCountLabel)
         contentView.addSubview(postDescriptionLabel)
         contentView.addSubview(postDateLabel)
 
@@ -202,7 +218,14 @@ extension PostTableViewCell {
             postFavouriteButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
                 constant: -10),
 
-            postDescriptionLabel.topAnchor.constraint(equalTo: postLikeButton.bottomAnchor, constant: 5),
+            likeCountLabel.topAnchor.constraint(equalTo: postLikeButton.bottomAnchor, constant: 2),
+            likeCountLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
+                constant: 10),
+            likeCountLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
+                constant: -10),
+            likeCountLabel.heightAnchor.constraint(equalToConstant: 12),
+
+            postDescriptionLabel.topAnchor.constraint(equalTo: likeCountLabel.bottomAnchor, constant: 5),
             postDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
                 constant: 10),
             postDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
@@ -222,11 +245,13 @@ extension PostTableViewCell {
             UIView.animate(withDuration: 0.2, animations: {
                 self.postLikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 self.postLikeButton.tintColor = .black
+                self.likeCountLabel.isHidden = true
             })
         } else {
             UIView.animate(withDuration: 0.2, animations: {
                 self.postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 self.postLikeButton.tintColor = .red
+                self.likeCountLabel.isHidden = false
             })
         }
     }
@@ -245,6 +270,8 @@ extension PostTableViewCell {
         } else {
             DataManager.shared.deleteLikedPost(post: self.post ?? Post(id: -1, postImageName: "", postDescription: "", postDate: ""))
         }
+        guard let user = DataManager.shared.curUser else { return }
+        likeCountLabel.text = "Нравится \(user.likedPosts.reduce(0) { $1 == post ? $0 + 1 : $0 })"
         try? DataManager.shared.saveCurrentUser()
     }
 }

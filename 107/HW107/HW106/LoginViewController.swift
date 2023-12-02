@@ -37,18 +37,16 @@ extension LoginViewController {
     }
 
     func prepareProfile(login: String, password: String) {
-        Task {
-            if await loginDataManager.userExist(login: login, password: password) {
-                let tabBarController = TabBarViewController()
-                tabBarController.modalPresentationStyle = .fullScreen
-                self.present(tabBarController, animated: true)
-            } else {
-                loginView.passwordTextField.text = ""
-                let alert = UIAlertController(title: "Error",
-                message: "Please check input login and password. Try again!", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-                present(alert, animated: true)
-            }
+        if loginDataManager.userExistSync(login: login, password: password) {
+            let tabBarController = TabBarViewController()
+            tabBarController.modalPresentationStyle = .fullScreen
+            self.present(tabBarController, animated: true)
+        } else {
+            loginView.passwordTextField.text = ""
+            let alert = UIAlertController(title: "Error",
+            message: "Please check input login and password. Try again!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            present(alert, animated: true)
         }
     }
 }

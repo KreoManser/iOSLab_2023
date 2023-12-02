@@ -23,8 +23,26 @@ class LoginDataManager: NSObject, LoginDataManagerProtocol, UITextFieldDelegate 
         return user
     }
 
+    private func checkUser(login: String, password: String) -> User? {
+        guard let user = users.first(where: { $0.login == login && $0.password == password }) else { return nil }
+        return user
+    }
+
     func userExist(login: String, password: String) async -> Bool {
         if let user = await asyncCheckUser(login: login, password: password) {
+            do {
+                try DataManager.shared.saveUser(user: user)
+                DataManager.shared.userDefaults?.setValue(true, forKey: DataManager.shared.loginBoolKey)
+                return true
+            } catch {
+                print(error)
+            }
+        }
+        return false
+    }
+
+    func userExistSync(login: String, password: String) -> Bool {
+        if let user = checkUser(login: login, password: password) {
             do {
                 try DataManager.shared.saveUser(user: user)
                 DataManager.shared.userDefaults?.setValue(true, forKey: DataManager.shared.loginBoolKey)
