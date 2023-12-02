@@ -23,7 +23,6 @@ class ProfileTimelineView: UIView, UICollectionViewDelegateFlowLayout {
         super.init(frame: frame)
         backgroundColor = .white
         setupLayout()
-        collectionView.delegate = self
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

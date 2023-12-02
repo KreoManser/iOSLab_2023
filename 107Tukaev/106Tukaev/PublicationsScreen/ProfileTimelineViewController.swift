@@ -13,12 +13,14 @@ class ProfileTimelineViewController: UIViewController {
         return ProfileTimelineView(frame: .zero)
     }()
     private var indexPath: IndexPath
+    private var userId: Int
     private var dataSource: ProfileTimelineDataSource?
 
     override func loadView() {
         view = customView
     }
-    init(indexPath: IndexPath) {
+    init(indexPath: IndexPath, userId: Int) {
+        self.userId = userId
         self.indexPath = indexPath
         super.init(nibName: nil, bundle: nil)
 
@@ -28,13 +30,9 @@ class ProfileTimelineViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        customView.scroll(indexPath)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSource = ProfileTimelineDataSource()
+        dataSource = ProfileTimelineDataSource(userId: userId)
         if let source = dataSource {
             customView.setupDataSource(source)
         }
@@ -52,7 +50,7 @@ extension ProfileTimelineViewController {
     }
 
     func acyncDelete(id: Int) {
-        dataSource?.dataManager.syncDelete(id: id)
+        dataSource?.dataManagerPublication.syncDelete(id: id)
         customView.reloadData()
     }
 }

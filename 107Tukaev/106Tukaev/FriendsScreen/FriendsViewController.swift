@@ -1,37 +1,46 @@
 //
-//  ViewController.swift
-//  106Tukaev
+//  FriendsViewController.swift
+//  107Tukaev
 //
-//  Created by surexnx on 29.10.2023.
+//  Created by surexnx on 30.11.2023.
 //
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class FriendsViewController: UIViewController {
 
-    private lazy var profileView: ProfileView = {
+    private lazy var customViev: ProfileView = {
         return ProfileView(frame: .zero)
     }()
+    private let userId: Int
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let source = dataSource {
-            profileView.setupDataSource(dataSource: source)
-        }
-        profileView.reloadData()
+    private var dataSource: FriendsDataSource?
+
+    init(userId: Int) {
+        dataSource = FriendsDataSource(userId: userId)
+        self.userId = userId
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        view = customViev
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        profileView.reloadData()
+        customViev.reloadData()
     }
 
-    private var dataSource: PublicationsDataSource?
-
-    override func loadView() {
-        view = profileView
-        profileView.delegate = self
-        dataSource = PublicationsDataSource()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let source = dataSource {
+            customViev.setupDataSource(dataSource: source)
+        }
+        customViev.delegate = self
+        customViev.reloadData()
         setupNavigation()
     }
 
@@ -39,7 +48,7 @@ class ProfileViewController: UIViewController {
         let action: UIAction = UIAction { _ in
 
         }
-        let user = dataSource?.getUser()
+        let user = dataSource?.dataManagerUser.syncSearch(by: userId)
         let button = UIBarButtonItem(title: user?.userLogin, image: nil, primaryAction: action)
         button.tintColor = .black
         button.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 22)], for: .normal)
@@ -47,7 +56,6 @@ class ProfileViewController: UIViewController {
         let buttonAdd = UIBarButtonItem(image: UIImage(systemName: "plus.app"), primaryAction: nil)
 
         let menuItem1 = UIAction(title: "Настройки") {_ in
-            self.navigationController?.pushViewController(SettingsViewController(), animated: false)
         }
 
         let menu = UIMenu(children: [menuItem1])
@@ -55,9 +63,9 @@ class ProfileViewController: UIViewController {
         self.navigationItem.rightBarButtonItems = [buttonButer, buttonAdd]
     }
 }
-extension ProfileViewController: ClickCellDelegate {
+extension FriendsViewController: ClickCellDelegate {
     func clickCell(indexPath: IndexPath) {
-        let publicationViewController = ProfileTimelineViewController(indexPath: indexPath, userId: dataSource?.getUser().id ?? 0)
+        let publicationViewController = ProfileTimelineViewController(indexPath: indexPath, userId: userId)
         navigationController?.pushViewController(publicationViewController, animated: false)
     }
 }

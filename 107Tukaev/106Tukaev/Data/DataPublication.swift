@@ -43,7 +43,7 @@ class DataPublication {
     func setLikes(_ newData: [ObtainData]) {
         for likes in newData {
             if let index = publications.firstIndex(where: { $0.userId == likes.userId && $0.id == likes.publId }) {
-                publications[index].setLikes(likes: likes.likes)
+                publications[index].setLikes(likes: likes.likesUsers)
             }
         }
     }
@@ -70,5 +70,5 @@ class DataPublication {
 struct ObtainData: Codable {
     var userId: Int
     var publId: Int
-    var likes: Int
+    var likesUsers: [Int]
 }

@@ -25,7 +25,7 @@ class DataManagerPublication: DataManagerProtocol {
 
     func save() {
         var data: [ObtainData] = []
-        publications.forEach({ data.append(ObtainData(userId: $0.userId, publId: $0.id, likes: $0.likes)) })
+        publications.forEach({ data.append(ObtainData(userId: $0.userId, publId: $0.id, likesUsers: $0.likesUsers)) })
 
         saveUsers(data)
     }
@@ -57,10 +57,18 @@ class DataManagerPublication: DataManagerProtocol {
         self.publications.append(publication)
     }
 
-    func addLike(id: Int) {
+    func addLike(id: Int, userId: Int) -> Int {
         if let index = publications.firstIndex(where: { $0.id == id }) {
-            publications[index].addLike()
+            return publications[index].addLikeUser(userId: userId)
         }
+        return 0
+    }
+
+    func likeDisplay(id: Int, userId: Int) -> Bool {
+        if let index = publications.firstIndex(where: { $0.id == id }) {
+            return publications[index].likeDisplay(userId: userId)
+        }
+        return false
     }
 
     func asyncSet(_ essence: Publication) async {
@@ -109,7 +117,7 @@ class DataManagerPublication: DataManagerProtocol {
         }
     }
 
-    func syncGetPublicationByUserId() -> [Publication] {
+    func syncGetSelfPublication() -> [Publication] {
         return self.publications.filter { $0.userId == self.user?.id }
     }
 
@@ -140,5 +148,17 @@ class DataManagerPublication: DataManagerProtocol {
             publications += self.publications.filter { $0.userId == id }
         }
         return publications
+    }
+
+    func getPublicationsByUserId(userId: Int) -> [Publication] {
+        return publications.filter({ $0.userId == userId})
+    }
+
+    func selfUser(user: User) -> Bool {
+        let userId = self.user?.id
+        if userId == user.id {
+            return true
+        }
+        return false
     }
 }

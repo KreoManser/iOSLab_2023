@@ -40,16 +40,21 @@ class TimelineDataSource: NSObject, UICollectionViewDataSource, UICollectionView
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: withReuseIdentifier, for: indexPath) as? TimelineCollectionViewCell
 
             if let cell = cell {
+                cell.pushDelegate = collectionView.superview as? any ProfilePushDelegate
                 let publication = dataManagerPublication.syncGetSubsriptionPublication()[indexPath.row]
                 cell.delegate = collectionView.superview as? any AlertDelegate
-                cell.doubleTap = {
-                    self.dataManagerPublication.addLike(id: publication.id)
-                }
                 if let user = dataManagerUser.syncSearch(by: publication.userId) {
                     cell.setupUser(user: user)
+
+                    let likePressed = self.dataManagerPublication.likeDisplay(id: publication.id, userId: self.dataManagerPublication.getUser().id)
+                    cell.pressedLikeBtn(like: likePressed)
+
                     cell.doubleTap = {
-                        print("double Taaaap")
-                        self.dataManagerPublication.addLike(id: publication.id)
+                        let like = self.dataManagerPublication.likeDisplay(id: publication.id, userId: self.dataManagerPublication.getUser().id)
+                        cell.pressedLikeBtn(like: !like)
+
+                        let countLike = self.dataManagerPublication.addLike(id: publication.id, userId: self.dataManagerPublication.getUser().id)
+                        cell.addLike(likes: countLike)
                         self.dataManagerPublication.save()
                     }
                 }

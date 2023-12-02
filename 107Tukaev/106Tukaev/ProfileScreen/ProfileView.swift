@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ClickCellDelegate: AnyObject {
+    func clickCell(indexPath: IndexPath)
+}
+
 class ProfileView: UIView, UICollectionViewDelegateFlowLayout {
 
     private lazy var collectionView: UICollectionView = {
@@ -19,7 +23,7 @@ class ProfileView: UIView, UICollectionViewDelegateFlowLayout {
         return colleсtionView
     }()
 
-    func setupDataSource(dataSource: PublicationsDataSource) {
+    func setupDataSource(dataSource: UICollectionViewDataSource) {
         collectionView.dataSource = dataSource
     }
 
@@ -41,7 +45,7 @@ class ProfileView: UIView, UICollectionViewDelegateFlowLayout {
         collectionView.reloadData()
     }
 
-    weak var controller: ProfileViewController?
+    weak var delegate: ClickCellDelegate?
 
     private func setupLayout() {
         addSubviews(collectionView)
@@ -59,7 +63,7 @@ extension ProfileView {
         if indexPath.section == 1 {
             var index = indexPath
             index.section = 0
-            controller?.cliclCell(indexPath: index)
+            delegate?.clickCell(indexPath: index)
         }
     }
     func collectionView(

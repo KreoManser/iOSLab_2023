@@ -11,9 +11,14 @@ protocol AlertDelegate: AnyObject {
     func didPressAlert(id: Int)
 }
 
+protocol ProfilePushDelegate: AnyObject {
+    func didPressImage(userId: Int)
+}
+
 class TimelineCollectionViewCell: UICollectionViewCell {
 
-    var likes: Int = 0
+    private var likes: Int = 0
+    private var userId: Int?
 
     private lazy var userImage: UIImageView = {
         var image = UIImageView()
@@ -57,7 +62,6 @@ class TimelineCollectionViewCell: UICollectionViewCell {
     private lazy var likeButton: UIButton = {
         var action = UIAction {[weak self] _ in
             self?.doubleTap?()
-            self?.addLike()
         }
         var button = UIButton(type: .system, primaryAction: action)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -104,6 +108,7 @@ class TimelineCollectionViewCell: UICollectionViewCell {
     }()
 
     weak var delegate: AlertDelegate?
+    weak var pushDelegate: ProfilePushDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -112,18 +117,28 @@ class TimelineCollectionViewCell: UICollectionViewCell {
         setupLayout()
         contentView.backgroundColor = .white
 
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
-        doubleTapGesture.numberOfTapsRequired = 2
-        publicationImage.isUserInteractionEnabled = true
-        publicationImage.addGestureRecognizer(doubleTapGesture)
+        setupImageGesture()
     }
 
     @objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
             likeAnimate()
             doubleTap?()
-            addLike()
         }
+    }
+    @objc func handleTap() {
+        pushDelegate?.didPressImage(userId: userId ?? 0)
+    }
+
+    func setupImageGesture() {
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        publicationImage.isUserInteractionEnabled = true
+        publicationImage.addGestureRecognizer(doubleTapGesture)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        userImage.addGestureRecognizer(tapGesture)
+        userImage.isUserInteractionEnabled = true
     }
 
     func likeAnimate() {
@@ -169,19 +184,26 @@ class TimelineCollectionViewCell: UICollectionViewCell {
         publicationDate.text = dateFormat.string(from: publication.date)
         publicationDesription.text = publication.description
         self.id = publication.id
-        likes = publication.likes
+        self.userId = publication.userId
+        likes = publication.likesUsers.count
         numbersOfLike.text = "нравится: " + String(likes)
     }
 
-    func addLike() {
-        likes += 1
+    func addLike(likes: Int) {
+        self.likes += likes
         numbersOfLike.text = "нравится: " + String(likes)
+    }
+
+    func pressedLikeBtn(like: Bool) {
+        if like {
+            likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        } else {
+            likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
     }
 
     private func setupButton() {
         likeButton.tintColor = .red
-        likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        likeButton.setImage(UIImage(systemName: "heart.fill"), for: .highlighted)
         shareButton.setImage(UIImage(systemName: "paperplane"), for: .normal)
         commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         favoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)

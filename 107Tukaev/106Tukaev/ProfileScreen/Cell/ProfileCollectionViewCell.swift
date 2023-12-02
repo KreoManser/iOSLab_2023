@@ -136,7 +136,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     }()
 
     lazy var buttonVerticalStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [professionalPanelButton, buttonHorizontalStackView])
+        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -167,23 +167,37 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         subscriptionsLabel.text = "Подписки"
         subscriptionsLabel.font = UIFont.systemFont(ofSize: 12)
 
-        editProfileButton.setTitle("Редактировать профиль", for: .normal)
-
-        shareProfileButton.setTitle("Поделиться профилем", for: .normal)
-
-        professionalPanelButton.setTitle("Профессиональная Панель", for: .normal)
-
         userImage.image = UIImage(named: "user")
     }
 
     private func addSubviews(_ subview: UIView...) {
         subview.forEach { contentView.addSubview($0) }
     }
-    func configureCell(with user: User) {
+    func configureCell(with user: User, selfUser: Bool) {
         self.publicationNumLabel.text = String(user.publicationsCount)
         self.subscribersNumLabel.text = String(user.subsribersCount)
         self.subscriptionsNumLabel.text = String(user.subcriptionCount)
         self.nameLabel.text = user.userName
+
+        if selfUser {
+            setupSelfProfile()
+        } else {
+            setupFriendsProfile()
+        }
+    }
+
+    func setupSelfProfile() {
+        buttonVerticalStackView.addArrangedSubview(professionalPanelButton)
+        buttonVerticalStackView.addArrangedSubview(buttonHorizontalStackView)
+        editProfileButton.setTitle("Редактировать профиль", for: .normal)
+        shareProfileButton.setTitle("Поделиться профилем", for: .normal)
+        professionalPanelButton.setTitle("Профессиональная Панель", for: .normal)
+    }
+
+    func setupFriendsProfile() {
+        buttonVerticalStackView.addArrangedSubview(buttonHorizontalStackView)
+        editProfileButton.setTitle("Подписаться", for: .normal)
+        shareProfileButton.setTitle("Сообщение", for: .normal)
     }
 
     private func setupLayout() {

@@ -13,7 +13,7 @@ struct Publication: Hashable, Identifiable {
     var description: String
     var images: [UIImage?]
     var date: Date
-    var likes: Int
+    var likesUsers: [Int]
 
     init(_ id: Int, _ userId: Int, _ description: String, _ images: [UIImage?], _ date: Date) {
         self.id = id
@@ -21,14 +21,27 @@ struct Publication: Hashable, Identifiable {
         self.description = description
         self.images = images
         self.date = date
-        self.likes = 0
+        self.likesUsers = []
     }
 
-    mutating func addLike() {
-        likes += 1
+    mutating func addLikeUser(userId: Int) -> Int {
+        if !likesUsers.contains(userId) {
+            likesUsers.append(userId)
+        } else {
+            likesUsers.removeAll(where: { $0 == userId })
+        }
+        return likesUsers.count
     }
 
-    mutating func setLikes(likes: Int) {
-        self.likes = likes
+    func likeDisplay(userId: Int) -> Bool {
+        if !likesUsers.contains(userId) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    mutating func setLikes(likes: [Int]) {
+        self.likesUsers = likes
     }
 }

@@ -86,3 +86,10 @@ extension TimelineView {
         return 4
     }
 }
+
+extension TimelineView: ProfilePushDelegate {
+    func didPressImage(userId: Int) {
+        controller?.navigationController?.pushViewController(FriendsViewController(userId: userId), animated: false)
+    }
+
+}

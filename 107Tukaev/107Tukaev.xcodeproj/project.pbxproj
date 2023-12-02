@@ -38,6 +38,8 @@
 		7894EF552AF8079400B8C67E /* TimelineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7894EF542AF8079400B8C67E /* TimelineDataSource.swift */; };
 		7894EF5C2AF81DCF00B8C67E /* DataUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7894EF5B2AF81DCF00B8C67E /* DataUsers.swift */; };
 		7894EF5E2AF85D2800B8C67E /* HistoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7894EF5D2AF85D2800B8C67E /* HistoryDataSource.swift */; };
+		78F3AB892B1921C400B6E343 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F3AB882B1921C400B6E343 /* FriendsViewController.swift */; };
+		78F3AB8C2B19220C00B6E343 /* FriendsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F3AB8B2B19220C00B6E343 /* FriendsDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +76,8 @@
 		7894EF542AF8079400B8C67E /* TimelineDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineDataSource.swift; sourceTree = "<group>"; };
 		7894EF5B2AF81DCF00B8C67E /* DataUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUsers.swift; sourceTree = "<group>"; };
 		7894EF5D2AF85D2800B8C67E /* HistoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataSource.swift; sourceTree = "<group>"; };
+		78F3AB882B1921C400B6E343 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		78F3AB8B2B19220C00B6E343 /* FriendsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,7 @@
 		7877B1582AEEDA01008EA698 /* 106Tukaev */ = {
 			isa = PBXGroup;
 			children = (
+				78F3AB8A2B1921CA00B6E343 /* FriendsScreen */,
 				788CABA82B1703C00089D255 /* SettingsScreen */,
 				7894EF562AF81AE600B8C67E /* TimeLineScreen */,
 				7894EF412AF3AD3400B8C67E /* AuthScreen */,
@@ -220,6 +225,15 @@
 				7894EF462AF3B1DB00B8C67E /* DataManagerUser.swift */,
 			);
 			path = DataManager;
+			sourceTree = "<group>";
+		};
+		78F3AB8A2B1921CA00B6E343 /* FriendsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				78F3AB882B1921C400B6E343 /* FriendsViewController.swift */,
+				78F3AB8B2B19220C00B6E343 /* FriendsDataSource.swift */,
+			);
+			path = FriendsScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,6 +337,7 @@
 				7894EF4D2AF7F3E000B8C67E /* TimelineView.swift in Sources */,
 				7877B16F2AEEEE2E008EA698 /* Publication.swift in Sources */,
 				7877B1712AEEEF75008EA698 /* PublicationsDataSource.swift in Sources */,
+				78F3AB8C2B19220C00B6E343 /* FriendsDataSource.swift in Sources */,
 				7894EF4F2AF7F40F00B8C67E /* HistoryTimelineCollectionViewCell.swift in Sources */,
 				7894EF5E2AF85D2800B8C67E /* HistoryDataSource.swift in Sources */,
 				783A33B92AF2A1FC0024E3F2 /* ProfileTimelineView.swift in Sources */,
@@ -331,6 +346,7 @@
 				7894EF432AF3AD6600B8C67E /* AuthView.swift in Sources */,
 				7877B15C2AEEDA01008EA698 /* SceneDelegate.swift in Sources */,
 				7894EF4B2AF7E66700B8C67E /* TimelineViewController.swift in Sources */,
+				78F3AB892B1921C400B6E343 /* FriendsViewController.swift in Sources */,
 				7894EF402AF3A18000B8C67E /* AuthViewController.swift in Sources */,
 				7894EF552AF8079400B8C67E /* TimelineDataSource.swift in Sources */,
 				788CABA72B1703B40089D255 /* SettingsView.swift in Sources */,
