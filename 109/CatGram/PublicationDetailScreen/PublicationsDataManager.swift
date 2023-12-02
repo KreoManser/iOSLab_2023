@@ -11,6 +11,7 @@ import UIKit
 class PublicationsDataManager: NSObject, UITableViewDataSource,
     UITableViewDelegate, PublicationsCellDelegate,
     UISearchBarDelegate {
+    static let shared = PublicationsDataManager()
 
     private var profileDatamanager = ProfileDataManager.shared
     var publicationDatamanager = ProfileDataManager.shared
@@ -20,11 +21,19 @@ class PublicationsDataManager: NSObject, UITableViewDataSource,
     var reloadtableView: (() -> Void)?
     var showdeleteOptionTapped: ((_ alertController: UIAlertController ) -> Void)?
     var searchPost: (([Publications]) -> Void)?
+    var userDefaults = UserDefaults.standard
+
+    var likedPost: [Publications] = [] {
+        didSet {
+            saveLikedPosts(likedPost)
+        }
+    }
 
     override init() {
         super.init()
         if postCopy.isEmpty {
             getPosts()
+            likedPost = loadLikedPosts()
             print(postCopy)
         } else {
             print("unable to call function")
@@ -125,7 +134,50 @@ class PublicationsDataManager: NSObject, UITableViewDataSource,
         }
     }
 
-        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            self.reloadtableView?()
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.reloadtableView?()
+    }
+
+    private func saveLikedPosts(_ posts: [Publications]) {
+        do {
+            let encoder = JSONEncoder()
+            let encondedData = try encoder.encode(posts)
+            userDefaults.setValue(encondedData, forKey: Keys.likedPosts)
+            reloadtableView?()
+        } catch {
+            print("saving error")
         }
+    }
+
+    func loadLikedPosts() -> [Publications] {
+        guard let userdata = userDefaults.data(forKey: Keys.likedPosts) else {
+            print("userdata is empty")
+            return [] }
+
+        do {
+            let decoder = JSONDecoder()
+            let likedpost = try decoder.decode([Publications].self, from: userdata)
+            print("likedpost retrieved")
+            return likedpost
+        } catch {
+            print("error loading")
+        }
+        return []
+    }
+
+    func handleDoubleTap(for post: Publications) {
+        if isPostLiked(post: post) {
+            removePostFromLikedPosts(post: post)
+        } else {
+            print("post not unliked")
+        }
+    }
+    func removePostFromLikedPosts(post: Publications) {
+        likedPost.removeAll { $0.caption == post.caption }
+    }
+
+    private func isPostLiked(post: Publications) -> Bool {
+        return likedPost.contains { $0.caption == post.caption }
+    }
+
     }

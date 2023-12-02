@@ -13,7 +13,7 @@ class SettingsView: UIView {
     lazy var darkThemeSwitch: UISwitch = UISwitch()
     lazy var logoutButton: UIButton = UIButton()
     var logoutTapped: (() -> Void)?
-    var didTapSegment1: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSwitch()
@@ -46,7 +46,6 @@ class SettingsView: UIView {
         NSLayoutConstraint.activate([
             onOffLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30),
             onOffLabel.leadingAnchor.constraint(equalTo: darkThemeSwitch.trailingAnchor, constant: -50)
-
         ])
 
     }

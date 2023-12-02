@@ -17,6 +17,7 @@ struct Feed: Codable {
     let date: String
     let category: String
     var isLiked: Bool = false
+    var likeCount: Int = 0
 }
 extension Feed {
     enum CodingKeys: String, CodingKey {

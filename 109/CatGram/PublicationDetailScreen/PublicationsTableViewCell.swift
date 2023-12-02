@@ -58,6 +58,7 @@ class PublicationsTableViewCell: UITableViewCell {
     private lazy var likeButton: UIButton = {
         let subView = UIButton()
         subView.translatesAutoresizingMaskIntoConstraints = false
+        subView.addTarget(self, action: #selector(likedButtonTapped), for: .touchUpInside)
         subView.setImage(UIImage(named: "like"), for: .normal)
         return subView
     }()
@@ -93,23 +94,39 @@ class PublicationsTableViewCell: UITableViewCell {
         subView.translatesAutoresizingMaskIntoConstraints = false
         return subView
     }()
-
+    private lazy var likeCount: UILabel = {
+        let subView = UILabel()
+        subView.font = UIFont.systemFont(ofSize: 10)
+        subView.translatesAutoresizingMaskIntoConstraints = false
+        return subView
+    }()
     weak var delegate: PublicationsCellDelegate?
 
+    var post: Publications?
+    let userDefaults =  UserDefaults.standard
+    var publicationDatamanager = PublicationsDataManager.shared
+    var profiledataManager =  ProfileDataManager.shared
+    var likedPosts: [Publications]  =  []
+    var doubleTapGesture: UITapGestureRecognizer?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()
+        addDoubleTapGesture()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureCell(with post: Publications) {
-        avatarImageView.image = post.avatar
-        userName.text = post.userName
-        postImageView.image = post.photo
-        caption.text = post.caption
-        dateLabel.text = post.date
+    func configureCell(with postPub: Publications) {
+        post = postPub
+        avatarImageView.image = post?.avatar
+        userName.text = post?.userName
+        postImageView.image = post?.photo
+        caption.text = post?.caption
+        dateLabel.text = post?.date
+
+        updateUI()
     }
 
     private func setUpAvatarImage() {
@@ -169,11 +186,21 @@ class PublicationsTableViewCell: UITableViewCell {
         ])
     }
 
+    private func setUpLikeCountLabel() {
+        addSubview(likeCount)
+        likeCount.isHidden = true
+        NSLayoutConstraint.activate([
+            likeCount.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 5),
+            likeCount.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
+        ])
+
+    }
+
     private func setUpCaption() {
         addSubview(caption)
 
         NSLayoutConstraint.activate([
-            caption.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 5),
+            caption.topAnchor.constraint(equalTo: likeCount.bottomAnchor, constant: 5),
             caption.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
         ])
     }
@@ -213,6 +240,7 @@ class PublicationsTableViewCell: UITableViewCell {
         setUpPostImageView()
         setUpMainStackView()
         setUpFavButton()
+        setUpLikeCountLabel()
         setUpCaption()
         setUpCommentLabel()
         setUpDateLabel()
@@ -220,6 +248,69 @@ class PublicationsTableViewCell: UITableViewCell {
     }
     @objc func showAlertButtonTapped() {
         delegate?.didTapOptionDisclosure(at: self.tag)
+    }
+
+    private func addDoubleTapGesture() {
+        doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTapGesture!.numberOfTapsRequired = 2
+        likeButton.addGestureRecognizer(doubleTapGesture!)
+    }
+
+    @objc private func handleDoubleTap() {
+        guard var post = post else { return }
+        publicationDatamanager.handleDoubleTap(for: post)
+        likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        likeButton.tintColor = .black
+        post.likeCount -= 1
+        likeCount.isHidden = true
+    }
+
+    @objc private func likedButtonTapped() {
+        likeButton.isEnabled = true
+        post?.isFav = true
+            guard var post = post else {
+                print("Post nil")
+                return
+            }
+            if post.isFav == true {
+                print("post in profile liked")
+                publicationDatamanager.likedPost.append(post)
+                likeCount.isHidden = false
+                post.likeCount += 1
+                print("Liked posts: \(publicationDatamanager.likedPost)")
+            } else {
+                publicationDatamanager.likedPost.removeAll { $0.id == post.id }
+                likeCount.isHidden = true
+            }
+            animateLikeButton()
+            updateUI()
+    }
+
+    private func animateLikeButton() {
+        UIView.animate(withDuration: 1.0) {
+            print("heart turning red")
+            self.likeButton.tintColor = .red
+            self.likeButton.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        } completion: { isFinished in
+            guard isFinished else {return}
+            self.likeButton.transform = .identity
+        }
+    }
+
+    private func updateUI() {
+            if let postId = post?.caption, publicationDatamanager.likedPost.contains(where: { $0.caption == postId }) {
+                print("UI updated - Liked")
+                likeCount.isHidden = false
+                post?.likeCount += 1
+                likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                likeButton.tintColor = .systemRed
+            } else {
+                print("UI updated - Not Liked")
+                likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                likeButton.tintColor = .black
+                likeCount.isHidden = true
+            }
+        likeCount.text = "\(post?.likeCount ?? 0) like(s)"
     }
 
 }

@@ -79,6 +79,13 @@ class FeedTableViewCell: UITableViewCell {
         subView.translatesAutoresizingMaskIntoConstraints = false
         return subView
     }()
+    private lazy var likeCount: UILabel = {
+        let subView = UILabel()
+        subView.font = UIFont.systemFont(ofSize: 10)
+        subView.translatesAutoresizingMaskIntoConstraints = false
+        return subView
+    }()
+
     var post: Feed?
     let userDefaults =  UserDefaults.standard
     var feedDatamanager = FeedDataManager.shared
@@ -102,8 +109,9 @@ class FeedTableViewCell: UITableViewCell {
         postImageView.image = feedPost.photo
         caption.text = feedPost.caption
         dateLabel.text = feedPost.date
-
+      //  likeCount.text = "\(post?.likeCount ?? 0 ) like(s)" // if null default value will be equal to 0
         updateUI()
+
     }
 
     private func setUpAvatarImage() {
@@ -159,10 +167,18 @@ class FeedTableViewCell: UITableViewCell {
         ])
     }
 
+    private func setUpLikeCountLabel() {
+        addSubview(likeCount)
+        likeCount.isHidden = true
+        NSLayoutConstraint.activate([
+            likeCount.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 5),
+            likeCount.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
+        ])
+    }
     private func setUpCaption() {
         addSubview(caption)
         NSLayoutConstraint.activate([
-            caption.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 5),
+            caption.topAnchor.constraint(equalTo: likeCount.bottomAnchor, constant: 5),
             caption.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
         ])
     }
@@ -182,15 +198,18 @@ class FeedTableViewCell: UITableViewCell {
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
         ])
     }
+
     private func setUp() {
         setUpAvatarImage()
         setUpUserName()
         setUpPostImageView()
         setUpMainStackView()
         setUpFavButton()
+        setUpLikeCountLabel()
         setUpCaption()
         setUpCommentLabel()
         setUpDateLabel()
+
     }
     private func addDoubleTapGesture() {
         doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
@@ -199,27 +218,34 @@ class FeedTableViewCell: UITableViewCell {
     }
 
     @objc private func handleDoubleTap() {
-        guard let post = post else { return }
+        guard var post = post else { return }
         feedDatamanager.handleDoubleTap(for: post)
         likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         likeButton.tintColor = .black
+        post.likeCount -= 1
+        likeCount.isHidden = true
     }
+
     @objc private func likedButtonTapped() {
         likeButton.isEnabled = true
         post?.isLiked = true
-            guard let post = post else {
+            guard var post = post else {
                 print("Post nil")
                 return
             }
             if post.isLiked == true {
                 print("post liked")
                 feedDatamanager.likedPosts.append(post)
+                likeCount.isHidden = false
+                post.likeCount += 1
                 print("Liked posts: \(feedDatamanager.likedPosts)")
             } else {
                 feedDatamanager.likedPosts.removeAll { $0.id == post.id }
+                likeCount.isHidden = true
+
             }
-            animateLikeButton()
-            updateUI()
+        animateLikeButton()
+        updateUI()
     }
     private func animateLikeButton() {
         UIView.animate(withDuration: 1.0) {
@@ -234,13 +260,21 @@ class FeedTableViewCell: UITableViewCell {
     private func updateUI() {
             if let postId = post?.caption, feedDatamanager.likedPosts.contains(where: { $0.caption == postId }) {
                 print("UI updated - Liked")
+                likeCount.isHidden = false
+                post?.likeCount += 1
                 likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 likeButton.tintColor = .systemRed
+                print("like count incremented ")
             } else {
                 print("UI updated - Not Liked")
                 likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 likeButton.tintColor = .black
+                likeCount.isHidden = true
+
             }
+        // I have to update the like count immediately after 
+      //  incrementing it so it can be called in the configure cell function.
+            likeCount.text = "\(post?.likeCount ?? 0) like(s)"
     }
 }
 

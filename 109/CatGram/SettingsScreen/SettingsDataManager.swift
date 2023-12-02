@@ -13,70 +13,69 @@ enum Theme: String {
     case dark
 }
 class SettingsDataManager: NSObject {
-    static let shared = SettingsDataManager()
-    var isDarkMode: Bool?
-    var userDefaults = UserDefaults.standard
-
-    private(set) var currentTheme: Theme = .light {
-           didSet {
-               applyTheme()
-           }
-       }
-    override init() {
-        super.init()
-        self.saveThemePreference()
-    }
-
-    func toggleTheme() {
-        currentTheme = (currentTheme == .light) ? .dark: .light
-        saveThemePreference()
-    }
-
-    private func saveThemePreference() {
-        userDefaults.setValue(currentTheme.rawValue, forKey: Keys.themePreference)
-    }
-
-//    func applyTheme() {
-//        let windowScenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
-//        switch currentTheme {
-//        case .light:
-//            windowScenes.forEach { windowScene in
-//                windowScene.windows.forEach { window in
-//                    window.rootViewController?.view.backgroundColor = .white
-//                }
-//        }
-//        case .dark:
-//            windowScenes.forEach { windowScene in
-//                windowScene.windows.forEach { window in
-//                    window.rootViewController?.view.backgroundColor = .black
-//                }
-//            }
+//    static let shared = SettingsDataManager()
+//    var isDarkMode: Bool?
+//    var userDefaults = UserDefaults.standard
+//
+//    private(set) var currentTheme: Theme = .light {
+//        didSet {
+//           toggleTheme()
 //        }
 //    }
+//    override init() {
+//        super.init()
+//        self.saveThemePreference()
+//    }
+//
+//    func toggleTheme() {
+//        let windowScenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+//        if isDarkMode == true {
+//            currentTheme = .dark
+//            windowScenes.forEach { windowScene in
+//                windowScene.windows.forEach { window in
+//                    window.overrideUserInterfaceStyle = .dark
+//                }
+//            }
+//        } else {
+//                    currentTheme = .light
+//                    windowScenes.forEach { windowScene in
+//                        windowScene.windows.forEach { window in
+//                            window.overrideUserInterfaceStyle = .light
+//                        }
+//                    }
+//                }
+//
+//        }
+//    private func saveThemePreference() {
+//        userDefaults.setValue(currentTheme.rawValue, forKey: Keys.themePreference)
+//    }
 
-    func applyTheme() {
-        let theme = currentTheme
-        let sharedApplication = UIApplication.shared
-
-        switch theme {
-        case .light:
-            if let windowScene = sharedApplication.connectedScenes.first as? UIWindowScene {
-                windowScene.windows.forEach { window in
-                    if let rootViewController = window.rootViewController as? FeedViewController {
-                        rootViewController.view.backgroundColor = .white
-
-                    }
-                }
+    static let shared = SettingsDataManager()
+        var isDarkMode: Bool {
+            didSet {
+                applyTheme()
             }
-        case .dark:
-            if let windowScene = sharedApplication.connectedScenes.first as? UIWindowScene {
+        }
+        var userDefaults = UserDefaults.standard
+
+        override init() {
+            self.isDarkMode = userDefaults.bool(forKey: Keys.isDarkMode)
+            super.init()
+        }
+
+        func toggleTheme() {
+            isDarkMode.toggle()
+            userDefaults.set(isDarkMode, forKey: Keys.isDarkMode)
+        }
+
+        private func applyTheme() {
+            let theme = isDarkMode ? Theme.dark : Theme.light
+            let windowScenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+
+            windowScenes.forEach { windowScene in
                 windowScene.windows.forEach { window in
-                    if let rootViewController = window.rootViewController as? FeedViewController {
-                        rootViewController.view.backgroundColor = .black
-                    }
+                    window.overrideUserInterfaceStyle = theme == .dark ? .dark : .light
                 }
             }
         }
-    }
-
 }

@@ -10,6 +10,7 @@ import UIKit
 
 class ProfileDataManager: NSObject, DataManaging, UICollectionViewDataSource {
     static let shared = ProfileDataManager()
+    var publicationdatamanger: PublicationsDataManager?
 
     var posts: [Post] = [
         Post(id: UUID(), caption: "Are you kitten me?",
@@ -32,6 +33,7 @@ class ProfileDataManager: NSObject, DataManaging, UICollectionViewDataSource {
     /// closure to notify the viewcontroller that the image was tapped
     var didTapImage: ((_ indexPath: IndexPath) -> Void)?
     var reloadcollectionData: (() -> Void)?
+    var userDefaults = UserDefaults.standard
 
     override init() {}
 
@@ -88,11 +90,11 @@ extension ProfileDataManager: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return retrievePost().count
     }
-func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
     -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-        withReuseIdentifier: ProfileCollectionViewCell.reuseidentifier,
-        for: indexPath) as? ProfileCollectionViewCell else {
+            withReuseIdentifier: ProfileCollectionViewCell.reuseidentifier,
+            for: indexPath) as? ProfileCollectionViewCell else {
             return UICollectionViewCell()}
         let posts = retrievePost()
         let post = posts[indexPath.row]
@@ -100,10 +102,12 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
         cell.contentMode = .scaleAspectFill
         return cell
     }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-          didTapImage?(indexPath)
+        didTapImage?(indexPath)
     }
 }
+
 extension ProfileDataManager: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

@@ -8,11 +8,10 @@
 import Foundation
 
 struct Keys {
-    static let prefersDarkmode = "prefersDarkmode"
-    static let lightdarkmode = "preferslightmode"
+    static let isDarkMode = "prefersDarkmode"
     static let themePreference = "preferredtheme"
     static let loggedUser = "CurrentUser"
     static let isUserLoggedIn =  "loggedin"
     static let likedPosts = "likedPosts"
-
+    static let likeCount = "likecount"
 }

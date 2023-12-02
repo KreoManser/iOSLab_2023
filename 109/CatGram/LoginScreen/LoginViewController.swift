@@ -62,7 +62,6 @@ class LoginViewController: UIViewController {
         if let tabViewController = navigationController?.viewControllers.first(where: { $0 is TabViewController }) {
            navigationController?.popToViewController(tabViewController, animated: true)
         } else {
-
             let tabViewController = TabViewController()
             navigationController?.pushViewController(tabViewController, animated: true)
         }
