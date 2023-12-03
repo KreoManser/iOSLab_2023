@@ -9,18 +9,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions) {
             guard let windowScene = (scene as? UIWindowScene) else { return }
             let authorizationViewController = AuthorizationViewController()
-            let dataSource = DataSource()
-            dataSource.addUsers()
-            var key = ""
-            var currentUser = User(id: "", login: "", password: "", avatar: UIImage(), fullName: "")
-            let users = dataSource.getUsers()
-            for user in users where UserDefaults.standard.bool(forKey: user.login) {
-                key = user.login
-                currentUser = user
-            }
-            if UserDefaults.standard.bool(forKey: key) {
-                window?.rootViewController = UINavigationController(rootViewController: authorizationViewController)
-                authorizationViewController.setUpTabBar(user: currentUser)
+            if UserDefaults.standard.bool(forKey: "user") {
+                do {
+                    DataSource.shared.addUsers()
+                    let decoder = JSONDecoder()
+                    guard let encodedUser = UserDefaults.standard.data(forKey: "userData") else { return }
+                    let user = try decoder.decode(User.self, from: encodedUser)
+                    window?.rootViewController = UINavigationController(rootViewController: authorizationViewController)
+                    authorizationViewController.setUpTabBar(user: user)
+                } catch {
+                    print("Error decoding user data: \(error.localizedDescription)")
+                }
             } else {
                 let navigationController = UINavigationController(rootViewController: authorizationViewController)
                 navigationController.isNavigationBarHidden = true
@@ -28,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.window?.rootViewController = navigationController
                 self.window?.makeKeyAndVisible()
             }
-        }
+    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -53,8 +52,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
+        ProfileDataManager.shared.setLikedPhotosInUserDefaults()
     }
 }

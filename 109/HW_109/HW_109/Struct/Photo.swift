@@ -6,4 +6,7 @@ struct Photo {
     let comment: String
     let author: String
     let avatar: UIImage
+    let day: String
+    let month: String
+    let year: String
 }

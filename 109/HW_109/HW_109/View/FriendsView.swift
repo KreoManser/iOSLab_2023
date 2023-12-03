@@ -1,6 +1,5 @@
 import UIKit
-
-class SettingsView: UIView {
+class FriendsView: UIView {
     lazy var table: UITableView = UITableView()
     override init(frame: CGRect) {
         super.init(frame: frame)

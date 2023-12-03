@@ -3,7 +3,6 @@ class AuthorizationViewController: UIViewController {
     let authorizationView = AuthorizationView()
     private let dataManager = ProfileDataManager.shared
     private let dataSource = DataSource()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpAuthorizationView()
@@ -16,25 +15,24 @@ class AuthorizationViewController: UIViewController {
         authorizationView.enterButton.addTarget(self, action: #selector(enterButtonTapped), for: .touchUpInside)
     }
     @objc func enterButtonTapped() {
-        var currentUser = User(id: "", login: "", password: "", avatar: UIImage(), fullName: "")
         dataSource.addUsers()
+        var currentUser = User(id: "", login: "", password: "", avatar: UIImage(), fullName: "")
         let userExists = dataSource.userData.contains { user in
             currentUser = user
             return user.login == authorizationView.loginTextField.text
                 && user.password ==  authorizationView.passwordTextField.text
         }
         if userExists {
-//            let loginAction = UIAction(title: "Log in") { _ in
-//
-//            }
-            self.dataManager.userDefaults.setValue(true, forKey: currentUser.login)
+            self.dataManager.setUserInUserDefaults(user: currentUser)
             setUpTabBar(user: currentUser)
         } else {
             print("Пользователь не найден")
         }
     }
     func setUpTabBar(user: User) {
+        FriendsDataManager.shared.setData(currentUser: user)
         let profileViewController = ProfileViewController()
+        profileViewController.dataManager.updateLikesFromUserDefaults()
         profileViewController.dataManager.setPhotos(user: user)
         let subPublicationsViewController = SubscriptionPublicationsViewController()
         let originalImage = UIImage(resource: .home2)

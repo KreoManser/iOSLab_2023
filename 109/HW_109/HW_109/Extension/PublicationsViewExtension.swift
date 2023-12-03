@@ -24,7 +24,8 @@ extension PublicationsDataManager: UICollectionViewDelegateFlowLayout, UICollect
         else {
             return UICollectionViewCell()
         }
-        cell.configure(with: photo)
+        let count = dataManager.getCountLike(photoId: photo.id)
+        cell.configure(with: photo, count: count)
         cell.delegate = self
         cell.alert = { [weak self] alertController in
             self?.funcButtonTapped?(alertController)

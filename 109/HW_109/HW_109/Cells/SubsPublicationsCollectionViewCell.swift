@@ -1,7 +1,11 @@
 import UIKit
-
+protocol SubsPublicationsCellDelegate: AnyObject {
+    func setLikeInData(photo: Photo)
+    func removeLikeFromData(photo: Photo)
+}
 class SubsPublicationsCollectionViewCell: UICollectionViewCell {
     var alert: ((_ alertController: UIAlertController) -> Void)?
+    weak var delegate: SubsPublicationsCellDelegate?
     lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -13,6 +17,7 @@ class SubsPublicationsCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     lazy var likeButton: UIButton = UIButton()
+    lazy var likeLabel: UILabel = UILabel()
     lazy var messageButton: UIButton = UIButton()
     lazy var shareButton: UIButton = UIButton()
     lazy var subStackview: UIStackView = UIStackView()
@@ -20,6 +25,8 @@ class SubsPublicationsCollectionViewCell: UICollectionViewCell {
     lazy var commentLabel: UILabel = UILabel()
     lazy var commentAccountNameLabel: UILabel = UILabel()
     lazy var dateLabel: UILabel = UILabel()
+    var currentPhoto: Photo?
+    var likeCount = 0
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -34,12 +41,25 @@ class SubsPublicationsCollectionViewCell: UICollectionViewCell {
         setUpSubStackView()
         setUpFuncButton()
         setUpBookmarkButton()
+        setUpLikeLabel()
         setUpCommentAccountNameLabel()
         setUpCommentLabel()
         setUpDateLabel()
 
     }
     /// Label
+    private func setUpLikeLabel() {
+        contentView.addSubview(likeLabel)
+        likeLabel.translatesAutoresizingMaskIntoConstraints = false
+        likeLabel.textColor = .white
+        likeLabel.font = UIFont(name: "systemFont", size: 14)
+        NSLayoutConstraint.activate([
+            likeLabel.topAnchor.constraint(equalTo: subStackview.bottomAnchor, constant: -6),
+            likeLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor, constant: 16),
+            likeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4),
+            likeLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.1)
+        ])
+    }
     private func setUpAccountNameLabel() {
         contentView.addSubview(accountNameLabel)
         accountNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -57,8 +77,8 @@ class SubsPublicationsCollectionViewCell: UICollectionViewCell {
         commentAccountNameLabel.textColor = .white
         commentAccountNameLabel.font = UIFont(name: "boldSystemFont", size: 12)
         NSLayoutConstraint.activate([
-            commentAccountNameLabel.topAnchor.constraint(equalTo: subStackview.bottomAnchor),
-            commentAccountNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
+            commentAccountNameLabel.topAnchor.constraint(equalTo: likeLabel.bottomAnchor, constant: -26),
+            commentAccountNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor, constant: 16),
             commentAccountNameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
             commentAccountNameLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.1)
         ])
@@ -69,8 +89,8 @@ class SubsPublicationsCollectionViewCell: UICollectionViewCell {
         commentLabel.textColor = .white
         commentLabel.font = UIFont(name: "boldSystemFont", size: 8)
         NSLayoutConstraint.activate([
-            commentLabel.topAnchor.constraint(equalTo: subStackview.bottomAnchor),
-            commentLabel.leadingAnchor.constraint(equalTo: commentAccountNameLabel.trailingAnchor, constant: 6),
+            commentLabel.topAnchor.constraint(equalTo: likeLabel.bottomAnchor, constant: -26),
+            commentLabel.leadingAnchor.constraint(equalTo: commentAccountNameLabel.trailingAnchor),
             commentLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8),
             commentLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.1)
         ])
@@ -78,12 +98,11 @@ class SubsPublicationsCollectionViewCell: UICollectionViewCell {
     private func setUpDateLabel() {
         contentView.addSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.text = "6дн. назад"
         dateLabel.textColor = .systemGray
         dateLabel.font = UIFont(name: "systemFont", size: 16)
         NSLayoutConstraint.activate([
-            dateLabel.topAnchor.constraint(equalTo: commentAccountNameLabel.bottomAnchor, constant: -6),
-            dateLabel.leadingAnchor.constraint(equalTo: commentAccountNameLabel.leadingAnchor, constant: 5),
+            dateLabel.topAnchor.constraint(equalTo: commentAccountNameLabel.bottomAnchor, constant: -16),
+            dateLabel.leadingAnchor.constraint(equalTo: commentAccountNameLabel.leadingAnchor),
             dateLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8),
             dateLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.06)
         ])
@@ -172,24 +191,44 @@ class SubsPublicationsCollectionViewCell: UICollectionViewCell {
             bookmarkButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05)
         ])
     }
-    func configure(with photo: Photo) {
+    func configure(with photo: Photo, count: Int) {
+        currentPhoto = photo
+        likeCount = count
         mainImageView.image = photo.image
         avatarImageView.image = photo.avatar
         accountNameLabel.text = photo.author
+        likeLabel.text = "Нравится: \(likeCount)"
+        dateLabel.text = "\(photo.day) \(photo.month) \(photo.year).г"
         commentAccountNameLabel.text = photo.author
         commentLabel.text = photo.comment
-        likeButton.setImage(.unlike, for: .normal)
+        if photo.like {
+            likeButton.setImage(.like, for: .normal)
+        } else {
+            likeButton.setImage(.unlike, for: .normal)
+        }
         addTargetForButton(photo: photo)
     }
     func addTargetForButton(photo: Photo) {
         likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
     }
     @objc func likeButtonTapped() {
-        if likeButton.currentImage == .unlike {
+        if currentPhoto?.like == false {
+            likeCount += 1
+            likeLabel.text = "Нравится: \(likeCount)"
+            currentPhoto?.like = true
+            if let unwrappedPhoto = currentPhoto {
+                self.delegate?.setLikeInData(photo: unwrappedPhoto)
+            }
             UIView.transition(with: likeButton, duration: 0.5, options: .transitionCrossDissolve, animations: {
                   self.likeButton.setImage(UIImage(named: "like"), for: .normal)
               })
         } else {
+            likeCount -= 1
+            likeLabel.text = "Нравится: \(likeCount)"
+            currentPhoto?.like = false
+            if let unwrappedPhoto = currentPhoto {
+                self.delegate?.removeLikeFromData(photo: unwrappedPhoto)
+            }
             UIView.transition(with: likeButton, duration: 0.5, options: .transitionCrossDissolve, animations: {
                   self.likeButton.setImage(UIImage(named: "unlike"), for: .normal)
               })

@@ -15,10 +15,11 @@ extension SubscriptionPublicationsDataManager: UICollectionViewDelegateFlowLayou
             else {
                 return UICollectionViewCell()
             }
-            cell.configure(with: photo)
+            let count = dataManager.getCountLike(photoId: photo.id)
+            cell.configure(with: photo, count: count)
+            cell.delegate = self
             return cell
         }
-    /// метод sizeForItemAt снёс как вы показывали, не понимаю почему ошибка осталась
     func collectionView(_ collectionView: UICollectionView, layout
                         collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

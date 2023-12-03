@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A344C1C2B18D3040053A712 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A344C1B2B18D3040053A712 /* SettingsTableViewCell.swift */; };
+		2A344C1E2B18D8B30053A712 /* SettingsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A344C1D2B18D8B30053A712 /* SettingsDataManager.swift */; };
+		2A344C202B18D9660053A712 /* SettingsDataManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A344C1F2B18D9660053A712 /* SettingsDataManagerExtension.swift */; };
+		2A344C222B1CC80B0053A712 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A344C212B1CC80B0053A712 /* FriendsViewController.swift */; };
+		2A344C242B1CC8290053A712 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A344C232B1CC8290053A712 /* FriendsView.swift */; };
+		2A344C262B1CC8780053A712 /* FriendsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A344C252B1CC8780053A712 /* FriendsDataManager.swift */; };
+		2A344C282B1CE98B0053A712 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A344C272B1CE98B0053A712 /* FriendsTableViewCell.swift */; };
+		2A344C2A2B1CEC5A0053A712 /* FriendsDataManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A344C292B1CEC5A0053A712 /* FriendsDataManagerExtension.swift */; };
 		2A85C92A2B13658F00C5BDC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C9292B13658F00C5BDC6 /* AppDelegate.swift */; };
 		2A85C92C2B13658F00C5BDC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85C92B2B13658F00C5BDC6 /* SceneDelegate.swift */; };
 		2A85C9312B13658F00C5BDC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A85C92F2B13658F00C5BDC6 /* Main.storyboard */; };
@@ -43,6 +51,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A344C1B2B18D3040053A712 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		2A344C1D2B18D8B30053A712 /* SettingsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataManager.swift; sourceTree = "<group>"; };
+		2A344C1F2B18D9660053A712 /* SettingsDataManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataManagerExtension.swift; sourceTree = "<group>"; };
+		2A344C212B1CC80B0053A712 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		2A344C232B1CC8290053A712 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		2A344C252B1CC8780053A712 /* FriendsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDataManager.swift; sourceTree = "<group>"; };
+		2A344C272B1CE98B0053A712 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
+		2A344C292B1CEC5A0053A712 /* FriendsDataManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDataManagerExtension.swift; sourceTree = "<group>"; };
 		2A85C9262B13658F00C5BDC6 /* HW_109.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HW_109.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A85C9292B13658F00C5BDC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A85C92B2B13658F00C5BDC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +151,8 @@
 				2A85C9472B1366AD00C5BDC6 /* PublicationsCollectionViewCell.swift */,
 				2A85C9492B1366D000C5BDC6 /* StoriesCollectionViewCell.swift */,
 				2A85C94B2B13670200C5BDC6 /* SubsPublicationsCollectionViewCell.swift */,
+				2A344C1B2B18D3040053A712 /* SettingsTableViewCell.swift */,
+				2A344C272B1CE98B0053A712 /* FriendsTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -147,6 +165,7 @@
 				2A85C9512B13677600C5BDC6 /* PublicationsViewController.swift */,
 				2A85C9532B13679500C5BDC6 /* SubscriptionPublicationsViewController.swift */,
 				2A85C97C2B13CCBE00C5BDC6 /* SettingsViewController.swift */,
+				2A344C212B1CC80B0053A712 /* FriendsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -158,6 +177,8 @@
 				2A85C9572B1367C300C5BDC6 /* PublicationsDataManager.swift */,
 				2A85C9592B1367D500C5BDC6 /* StoriesDataManager.swift */,
 				2A85C95B2B1367E700C5BDC6 /* SubscriptionPublicationsDataManager.swift */,
+				2A344C1D2B18D8B30053A712 /* SettingsDataManager.swift */,
+				2A344C252B1CC8780053A712 /* FriendsDataManager.swift */,
 			);
 			path = "Data Manager";
 			sourceTree = "<group>";
@@ -179,6 +200,8 @@
 				2A85C9652B1368B000C5BDC6 /* PublicationsViewExtension.swift */,
 				2A85C9672B1368DA00C5BDC6 /* StoriesCollectionViewExtension.swift */,
 				2A85C9692B13690500C5BDC6 /* SubscriptionPublicationsCollectionViewExtension.swift */,
+				2A344C1F2B18D9660053A712 /* SettingsDataManagerExtension.swift */,
+				2A344C292B1CEC5A0053A712 /* FriendsDataManagerExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -208,6 +231,7 @@
 				2A85C9752B1369D300C5BDC6 /* PublicationsView.swift */,
 				2A85C9772B1369F300C5BDC6 /* SubscriptionPublicationsView.swift */,
 				2A85C97A2B13CC0300C5BDC6 /* SettingsView.swift */,
+				2A344C232B1CC8290053A712 /* FriendsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -306,10 +330,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A344C242B1CC8290053A712 /* FriendsView.swift in Sources */,
 				2A85C9782B1369F300C5BDC6 /* SubscriptionPublicationsView.swift in Sources */,
 				2A85C96A2B13690500C5BDC6 /* SubscriptionPublicationsCollectionViewExtension.swift in Sources */,
 				2A85C9742B1369C200C5BDC6 /* ProfileView.swift in Sources */,
+				2A344C1C2B18D3040053A712 /* SettingsTableViewCell.swift in Sources */,
+				2A344C222B1CC80B0053A712 /* FriendsViewController.swift in Sources */,
+				2A344C282B1CE98B0053A712 /* FriendsTableViewCell.swift in Sources */,
 				2A85C9522B13677600C5BDC6 /* PublicationsViewController.swift in Sources */,
+				2A344C262B1CC8780053A712 /* FriendsDataManager.swift in Sources */,
 				2A85C94A2B1366D000C5BDC6 /* StoriesCollectionViewCell.swift in Sources */,
 				2A85C9702B13699400C5BDC6 /* User.swift in Sources */,
 				2A85C94C2B13670200C5BDC6 /* SubsPublicationsCollectionViewCell.swift in Sources */,
@@ -321,8 +350,10 @@
 				2A85C9582B1367C300C5BDC6 /* PublicationsDataManager.swift in Sources */,
 				2A85C9562B1367AF00C5BDC6 /* ProfileDataManager.swift in Sources */,
 				2A85C97B2B13CC0300C5BDC6 /* SettingsView.swift in Sources */,
+				2A344C202B18D9660053A712 /* SettingsDataManagerExtension.swift in Sources */,
 				2A85C94E2B13673700C5BDC6 /* AuthorizationViewController.swift in Sources */,
 				2A85C9602B13683000C5BDC6 /* CollectionViewCellExtension.swift in Sources */,
+				2A344C2A2B1CEC5A0053A712 /* FriendsDataManagerExtension.swift in Sources */,
 				2A85C9542B13679500C5BDC6 /* SubscriptionPublicationsViewController.swift in Sources */,
 				2A85C95A2B1367D500C5BDC6 /* StoriesDataManager.swift in Sources */,
 				2A85C97D2B13CCBE00C5BDC6 /* SettingsViewController.swift in Sources */,
@@ -331,6 +362,7 @@
 				2A85C9482B1366AD00C5BDC6 /* PublicationsCollectionViewCell.swift in Sources */,
 				2A85C9502B13675700C5BDC6 /* ProfileViewController.swift in Sources */,
 				2A85C9462B13664400C5BDC6 /* ProfileCollectionViewCell.swift in Sources */,
+				2A344C1E2B18D8B30053A712 /* SettingsDataManager.swift in Sources */,
 				2A85C92C2B13658F00C5BDC6 /* SceneDelegate.swift in Sources */,
 				2A85C96E2B13697F00C5BDC6 /* Photo.swift in Sources */,
 				2A85C9762B1369D300C5BDC6 /* PublicationsView.swift in Sources */,

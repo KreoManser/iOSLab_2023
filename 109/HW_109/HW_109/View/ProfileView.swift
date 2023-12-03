@@ -15,8 +15,8 @@ class ProfileView: UIView {
     private lazy var animatedBarView: UIImageView = UIImageView()
     private lazy var topStackView = UIStackView()
     private lazy var publicationStackView = UIStackView()
-    private lazy var subscribersStackView = UIStackView()
-    private lazy var subscriptionsStackView = UIStackView()
+    lazy var subscribersStackView = UIStackView()
+    lazy var subscriptionsStackView = UIStackView()
     private lazy var dataAccountStackView = UIStackView()
     private var settingsButtonActionClosure: (() -> Void)?
     lazy var collectionView: UICollectionView = {

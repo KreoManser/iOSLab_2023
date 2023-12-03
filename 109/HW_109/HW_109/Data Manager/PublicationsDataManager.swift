@@ -35,12 +35,29 @@ class PublicationsDataManager: NSObject, PublicationCollectionViewCellDelegate, 
                 let photos = await dataManager.asyncFind(model: searchText)
                 self.sortedPublications = []
                 for photo in photos {
-                    self.sortedPublications.append(Photo(
-                        id: photo.id, image: photo.image,
-                        like: photo.like, comment: photo.comment, author: photo.author, avatar: photo.avatar))
+                    self.sortedPublications.append(
+                        Photo(
+                        id: photo.id,
+                        image: photo.image,
+                        like: photo.like,
+                        comment: photo.comment,
+                        author: photo.author,
+                        avatar: photo.avatar,
+                        day: photo.day,
+                        month: photo.month,
+                        year: photo.year))
                 }
                 self.updateUI()
             }
+        }
+    }
+    func setLikeInData(photo: Photo) {
+        dataManager.likeCount[dataManager.user?.login ?? "", default: []].append(photo.id)
+    }
+    func removeLikeFromData(photo: Photo) {
+        if var authorLikes = dataManager.likeCount[photo.author], let index = authorLikes.firstIndex(of: photo.id) {
+            authorLikes.remove(at: index)
+            dataManager.likeCount[photo.author] = authorLikes
         }
     }
 }
