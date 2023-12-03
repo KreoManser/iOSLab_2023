@@ -15,8 +15,9 @@ class SettingsView: UIView {
         tableView.register(
             SettingButtonTableViewCell.self,
             forCellReuseIdentifier: SettingButtonTableViewCell.reuseIdentifier)
-        tableView.backgroundColor = .black
+        tableView.backgroundColor = UIColor.customBlack
         tableView.estimatedRowHeight = 40
+        tableView.isScrollEnabled = false
         return tableView
     }()
 
@@ -25,7 +26,7 @@ class SettingsView: UIView {
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .black
+        backgroundColor = UIColor.customBlack
         addSubviews(subviews: settingButtonsTableView)
         configureUI()
     }
@@ -47,7 +48,7 @@ extension SettingsView {
 
     private func configureUI() {
         NSLayoutConstraint.activate([
-            settingButtonsTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            settingButtonsTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),
             settingButtonsTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             settingButtonsTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             settingButtonsTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)

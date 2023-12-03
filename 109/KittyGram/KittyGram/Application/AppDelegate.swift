@@ -29,7 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        try? DataManager.shared.saveCurrentUser()
+        do {
+            try DataManager.shared.saveData()
+        } catch {
+            print("ex")
+        }
+
     }
 
 }

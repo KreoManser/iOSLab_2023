@@ -32,10 +32,12 @@ class UserProfilePostsTableViewDataSource: NSObject, UITableViewDataSource {
 
         guard let currentUser = dataManager.currentUser else { return PostTableViewCell() }
         guard let isLiked = dataManager.currentUser?.likedPostsId.contains(post.id) else { return UITableViewCell() }
-        cell.configureCellForProfile(
+        cell.configureCell(
             post: post,
             userName: currentUser.nickname,
-            avatar: currentUser.avatar, isLiked: isLiked)
+            avatar: currentUser.avatar,
+            isLiked: isLiked,
+            configureFor: .profile)
 
         return cell
     }

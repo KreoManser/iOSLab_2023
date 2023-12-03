@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum PostLocation {
+    case profile
+    case main
+}
+
 protocol PostTableAlertDelegate: AnyObject {
     func presentAlert(indexPath: IndexPath)
 }
@@ -63,17 +68,21 @@ class PostTableViewCell: UITableViewCell {
     private lazy var likeButton: UIButton = {
         let button = UIButton(configuration: PostButton.configureation)
         let action = UIAction { [weak self] _ in
-
-            self?.animateLike()
-            guard let isLiked = self?.isLiked else { return }
+            guard let self = self else { return }
+            self.animateLike()
 
             if isLiked {
-                self?.observer?.deleteLikedPost(postId: self?.postId ?? -1)
+                self.observer?.deleteLikedPost(postId: self.postId )
+                self.likesCounter -= 1
+                self.likeCounterLabel.text = "Нравится: \(self.likesCounter)"
+
             } else {
-                self?.observer?.saveLikedPost(postId: self?.postId ?? -1)
+                self.likesCounter += 1
+                self.likeCounterLabel.text = "Нравится: \(self.likesCounter)"
+                self.observer?.saveLikedPost(postId: self.postId )
             }
 
-            self?.isLiked.toggle()
+            self.isLiked.toggle()
         }
         button.addAction(action, for: .touchUpInside)
         button.tintColor = .white
@@ -116,6 +125,14 @@ class PostTableViewCell: UITableViewCell {
         return button
     }()
 
+    private lazy var likeCounterLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        return label
+    }()
+
     private lazy var userNameBottomLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -128,7 +145,7 @@ class PostTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         label.numberOfLines = 0
         return label
@@ -163,6 +180,8 @@ class PostTableViewCell: UITableViewCell {
 
     private var isLiked: Bool = false
 
+    private var likesCounter: Int = 0
+
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -170,7 +189,8 @@ class PostTableViewCell: UITableViewCell {
         contentView.backgroundColor = .black
         addSubviews(subviews: userImageView, userNameTopLabel,
         postImageView, deleteButton, favouriteButton,
-        userNameBottomLabel, postDescriptionLabel, postDateBottomLabel, buttonStackView)
+        userNameBottomLabel, postDescriptionLabel, postDateBottomLabel,
+        buttonStackView, likeCounterLabel)
         configureUI()
     }
 
@@ -186,39 +206,6 @@ extension PostTableViewCell {
 
     private func addSubviews(subviews: UIView...) {
         subviews.forEach { contentView.addSubview($0) }
-    }
-
-    func configureCellForProfile(post: Post, userName: String, avatar: String, isLiked: Bool) {
-        likeHandler(isLiked: isLiked)
-        configureCell(post: post, userName: userName, avatar: avatar)
-        deleteButton.isHidden = false
-    }
-
-    func configureCellForMainFeed(post: Post, userName: String, avatar: String, isLiked: Bool) {
-        likeHandler(isLiked: isLiked)
-        configureCell(post: post, userName: userName, avatar: avatar)
-        deleteButton.isHidden = true
-    }
-
-    private func configureCell(post: Post, userName: String, avatar: String) {
-        userNameTopLabel.text = userName
-        userNameBottomLabel.text = userName
-        userImageView.image = UIImage(named: avatar)
-        postImageView.image = UIImage(named: post.imageName)
-        postDescriptionLabel.text = post.description
-        postId = post.id
-    }
-
-    private func likeHandler(isLiked: Bool) {
-        if isLiked {
-            self.isLiked = true
-            likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            likeButton.tintColor = .red
-        }
-    }
-
-    func getIndexPath() -> IndexPath {
-        return (superView?.indexPath(for: self) ?? IndexPath(row: 0, section: 0))
     }
 
     private func configureUI() {
@@ -255,17 +242,22 @@ extension PostTableViewCell {
                 equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
                 constant: -5),
 
+            likeCounterLabel.leadingAnchor.constraint(
+                equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
+                constant: 10),
+            likeCounterLabel.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 10),
+
             userNameBottomLabel.topAnchor.constraint(
-                equalTo: likeButton.bottomAnchor, constant: 10),
+                equalTo: likeCounterLabel.bottomAnchor, constant: 3),
             userNameBottomLabel.leadingAnchor.constraint(
                 equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
                 constant: 10),
 
             postDescriptionLabel.topAnchor.constraint(
-                equalTo: userNameBottomLabel.bottomAnchor, constant: 10),
+                equalTo: likeCounterLabel.bottomAnchor, constant: 3),
             postDescriptionLabel.leadingAnchor.constraint(
-                equalTo: contentView.safeAreaLayoutGuide.leadingAnchor,
-                constant: 10),
+                equalTo: userNameBottomLabel.trailingAnchor,
+                constant: 5),
             postDescriptionLabel.trailingAnchor.constraint(
                 equalTo: contentView.safeAreaLayoutGuide.trailingAnchor,
                 constant: -10),
@@ -284,6 +276,46 @@ extension PostTableViewCell {
 }
 
 extension PostTableViewCell {
+
+    func configureCell(post: Post, userName: String, avatar: String, isLiked: Bool, configureFor: PostLocation) {
+        likeHandler(isLiked: isLiked)
+        configureCell(post: post, userName: userName, avatar: avatar)
+        likesCounter = post.likes
+        likeCounterLabel.text = "Нравится: \(post.likes)"
+        switch configureFor {
+        case .profile:
+            deleteButton.isHidden = false
+        case .main:
+            deleteButton.isHidden = true
+        }
+
+    }
+
+    private func configureCell(post: Post, userName: String, avatar: String) {
+        userNameTopLabel.text = userName
+        userNameBottomLabel.text = userName
+        userImageView.image = UIImage(named: avatar)
+        postImageView.image = UIImage(named: post.imageName)
+        postDescriptionLabel.text = post.description
+        postId = post.id
+    }
+
+    private func likeHandler(isLiked: Bool) {
+        if isLiked {
+            self.isLiked = true
+            likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            likeButton.tintColor = .red
+        }
+    }
+
+}
+
+extension PostTableViewCell {
+
+    func getIndexPath() -> IndexPath {
+        return superView?.indexPath(for: self) ?? IndexPath(row: 0, section: 0)
+    }
+
     private func animateLike() {
         if !isLiked {
             UIView.animate(withDuration: 0.1, animations: {
@@ -303,4 +335,5 @@ extension PostTableViewCell {
             })
         }
     }
+
 }

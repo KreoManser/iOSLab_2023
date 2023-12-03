@@ -11,7 +11,7 @@ class ButtonsHandler {
 
     let settingsButton: [SettingButton] = [
         SettingButton(imageName: "microbe", title: "Сменить тему"),
-        SettingButton(imageName: "door.left.hand.open", title: "Выйти из аккакнта")
+        SettingButton(imageName: "door.left.hand.open", title: "Выйти из аккаунта")
     ]
 
     private init() { }

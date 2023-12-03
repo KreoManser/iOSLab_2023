@@ -27,7 +27,7 @@ class SettingButtonTableViewCell: UITableViewCell {
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .black
+        contentView.backgroundColor = UIColor.customBlack
         addSubviews(subviews: buttonImageView, titleLabel)
         configureUI()
     }
@@ -57,11 +57,11 @@ extension SettingButtonTableViewCell {
     private func configureUI() {
         NSLayoutConstraint.activate([
             buttonImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            buttonImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
+            buttonImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             buttonImageView.widthAnchor.constraint(equalToConstant: 20),
             buttonImageView.heightAnchor.constraint(equalToConstant: 20),
 
-            titleLabel.leadingAnchor.constraint(equalTo: buttonImageView.trailingAnchor, constant: 5),
+            titleLabel.leadingAnchor.constraint(equalTo: buttonImageView.trailingAnchor, constant: 10),
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)])
     }

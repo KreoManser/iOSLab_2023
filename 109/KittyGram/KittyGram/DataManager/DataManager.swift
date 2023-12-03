@@ -25,31 +25,11 @@ public class DataManager: DataManagerProtocol {
         return "loggedIn"
     }
 
+    var usersKey: String {
+        return "users"
+    }
+
     var currentUser: User?
-
-    var user1 = User(
-        nickname: "1k_mile",
-        fullName: "Kamil Kh",
-        avatar: "Avatar",
-        numberOfSubscribers: 123,
-        profileDescription: "Я крутой",
-        password: "kamil")
-
-    var user2 = User(
-        nickname: "CatMas",
-        fullName: "CatMas kad",
-        avatar: "cat1",
-        numberOfSubscribers: 44,
-        profileDescription: "Я абиба",
-        password: "1234")
-
-    var user3 = User(
-        nickname: "Abiba",
-        fullName: "Abiba bombom",
-        avatar: "cat7",
-        numberOfSubscribers: 95,
-        profileDescription: "Я боба",
-        password: "12345")
 
     private var users: [User] = []
 
@@ -63,32 +43,7 @@ public class DataManager: DataManagerProtocol {
 
     private init() {
 
-        user1.posts = [
-            Post(id: 0, imageName: "cat8", description: "Просто кот"),
-            Post(id: 1, imageName: "cat6", description: "Кот делает селфи"),
-            Post(id: 2, imageName: "cat4", description: "Милые коты")
-        ]
-
-        user2.posts = [
-            Post(id: 4, imageName: "cat1", description: "Крутой кот"),
-            Post(id: 5, imageName: "cat5", description: "сплю"),
-            Post(id: 6, imageName: "cat3", description: "Кот в кепке")
-        ]
-
-        user3.posts = [
-            Post(id: 7, imageName: "cat4", description: "крутой в очке"),
-            Post(id: 8, imageName: "cat3", description: "Кот в кепке"),
-            Post(id: 9, imageName: "cat1", description: "Крутой кот")
-        ]
-
-        user1.subscriptions.append(user2)
-        user1.subscriptions.append(user3)
-        user2.subscriptions.append(user1)
-        user3.subscriptions.append(user2)
-
-        users.append(user1)
-        users.append(user2)
-        users.append(user3)
+        getUsersData()
     }
 
     // MARK: - Новые методы
@@ -198,16 +153,96 @@ public class DataManager: DataManagerProtocol {
         userDefaults?.setValue(userData, forKey: currentUserKey)
     }
 
-    func saveCurrentUser() throws {
+    func saveData() throws {
         userDefaults?.removeObject(forKey: currentUserKey)
         let encoder = JSONEncoder()
         let userData = try encoder.encode(currentUser)
         userDefaults?.setValue(userData, forKey: currentUserKey)
+
+        userDefaults?.removeObject(forKey: usersKey)
+        let usersData = try encoder.encode(users)
+        userDefaults?.setValue(usersData, forKey: usersKey)
+    }
+
+    private func getUsersData() {
+        let userData = userDefaults?.data(forKey: usersKey)
+        if userData == nil {
+            setupUsers()
+            let encoder = JSONEncoder()
+            let usersData = try? encoder.encode(users)
+            userDefaults?.setValue(usersData, forKey: usersKey)
+        } else {
+            let decoder = JSONDecoder()
+            let usersData = userDefaults?.data(forKey: usersKey)
+            guard let usersData = usersData else { return }
+            do {
+                users = try decoder.decode([User].self, from: usersData)
+            } catch {
+                print("Users decode error")
+            }
+
+        }
+    }
+
+    private func setupUsers() {
+        print("setup users")
+        var user1 = User(
+            nickname: "1k_mile",
+            fullName: "Kamil Kh",
+            avatar: "Avatar",
+            numberOfSubscribers: 123,
+            profileDescription: "Я крутой",
+            password: "kamil")
+
+        var user2 = User(
+            nickname: "CatMas",
+            fullName: "CatMas kad",
+            avatar: "cat1",
+            numberOfSubscribers: 44,
+            profileDescription: "Я абиба",
+            password: "1234")
+
+        var user3 = User(
+            nickname: "Abiba",
+            fullName: "Abiba bombom",
+            avatar: "cat7",
+            numberOfSubscribers: 95,
+            profileDescription: "Я боба",
+            password: "12345")
+
+        user1.posts = [
+            Post(id: 0, imageName: "cat8", description: "Просто кот", likes: 1),
+            Post(id: 1, imageName: "cat6", description: "Кот делает селфи", likes: 1),
+            Post(id: 2, imageName: "cat4", description: "Милые коты", likes: 1)
+        ]
+
+        user2.posts = [
+            Post(id: 4, imageName: "cat1", description: "Крутой rjт", likes: 1),
+            Post(id: 5, imageName: "cat5", description: "сплю", likes: 1),
+            Post(id: 6, imageName: "cat3", description: "Кот в кепке", likes: 1)
+        ]
+
+        user3.posts = [
+            Post(id: 7, imageName: "cat4", description: "кот в очке", likes: 1),
+            Post(id: 8, imageName: "cat3", description: "Кот в кепке", likes: 1),
+            Post(id: 9, imageName: "cat1", description: "Крутой кт", likes: 1)
+        ]
+
+        user1.subscriptions.append(user2)
+        user1.subscriptions.append(user3)
+        user2.subscriptions.append(user1)
+        user3.subscriptions.append(user2)
+
+        users.append(user1)
+        users.append(user2)
+        users.append(user3)
+
     }
 
 }
 
 extension DataManager: PostLikeObserver {
+
     func saveLikedPost(postId: Int) {
         currentUser?.likedPostsId.append(postId)
     }

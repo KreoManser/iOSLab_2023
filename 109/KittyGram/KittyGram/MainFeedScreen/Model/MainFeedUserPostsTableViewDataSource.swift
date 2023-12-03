@@ -27,11 +27,13 @@ class MainFeedUserPostsTableViewDataSource: NSObject, UITableViewDataSource {
         cell.observer = DataManager.shared
         let post = dataManager.syncGetUserSubscriptionPostsWithUser()[indexPath.row]
         guard let isLiked = dataManager.currentUser?.likedPostsId.contains(post.1.id) else { return UITableViewCell() }
-        cell.configureCellForMainFeed(
+
+        cell.configureCell(
             post: post.1,
             userName: post.0.nickname,
             avatar: post.0.avatar,
-            isLiked: isLiked)
+            isLiked: isLiked,
+            configureFor: .main)
 
         return cell
     }
