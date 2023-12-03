@@ -40,7 +40,11 @@ class DataManager: DataManagerProtocol {
     }
 
     func syncGetCurrentUserPosts() -> [PictureModel] {
-        return dataSource.filter { $0.nickname == self.currentUser.userName }
+        return dataSource.filter { $0.nickname == self.getCurrentUser().userName }
+    }
+
+    func getCurrentUser() -> User {
+        return UserManager.shared.syncGetUserByName(username: UserDefaults.standard.string(forKey: "current_user") ?? "UsualCat")
     }
 
     func syncGetModel(_ picture: PictureModel) {
@@ -84,6 +88,19 @@ class DataManager: DataManagerProtocol {
         operationQueue.addOperation(deleteOperation)
     }
 
+    func obtainPosts() -> [PictureModel] {
+        guard let userData = UserDefaults.standard.data(forKey: "liked") else { return [] }
+
+        do {
+            let decoder = JSONDecoder()
+            let posts = try decoder.decode([PictureModel].self, from: userData)
+            return posts
+        } catch {
+            print("\(error)")
+        }
+        return []
+    }
+
     func syncSearchModel(_ name: String) {
         if let i = dataSource.firstIndex(where: { $0.text == name }) {
             print("\(dataSource[i]) is our post")
@@ -103,15 +120,21 @@ class DataManager: DataManagerProtocol {
         operationQueue.addOperation(deleteOperation)
     }
 
+    func getCurrentUserLikedPosts() -> [PictureModel] {
+        let emptyLikes: [PictureModel] = []
+        return (UserDefaults.standard.array(forKey: "liked_posts") ?? nil) as? [PictureModel] ?? emptyLikes
+    }
+
     private init () {
+        currentUser = UserManager.shared.syncGetUserByName(username: UserDefaults.standard.string(forKey: "current_user") ?? "UsualCat")
         dataSource = []
         let instaImage = UIImage(named: "myava") ?? UIImage()
         let instaPicture = UIImage(named: "myava") ?? UIImage()
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "ТоповыйКотэ", picture: instaPicture, text: "Моя топовая ава"))
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава"))
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава"))
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава"))
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава"))
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "123", picture: instaPicture, text: "Моя топов1ая ава"))
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая а2ва"))
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава2"))
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава11"))
+        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава22"))
         currentUser = User(userName: "default", avatar: "default", password: "adsadaasdasdasdadadadadasd", profileDescription: "default")
     }
 

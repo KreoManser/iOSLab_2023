@@ -8,6 +8,17 @@
 import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource {
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+
+        DataManager.OurDataManager.currentUser = UserManager.shared.syncGetUserByName(username: UserDefaults.standard.string(forKey: "current_user") ?? "UsualCat")
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datasource.count
     }
@@ -25,7 +36,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
     var datasource = DataManager.OurDataManager.syncGetCurrentUserPosts()
 
     lazy var profilePic: UIImageView = {
-        var picture = UIImageView(image: UIImage(named: DataManager.OurDataManager.currentUser.avatar))
+        var picture = UIImageView(image: UIImage(named: DataManager.OurDataManager.currentUser.avatar ))
         picture.translatesAutoresizingMaskIntoConstraints = false
         picture.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         return picture
@@ -138,7 +149,9 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         addSubViews()
         setupUI()
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: DataManager.OurDataManager.currentUser.userName, style: .plain, target: self, action: nil)
+        let curUser = DataManager.OurDataManager.getCurrentUser()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: curUser.userName, style: .plain, target: self, action: nil)
+        print(navigationItem.leftBarButtonItem?.title)
         navigationItem.title = ""
         navigationItem.leftBarButtonItem?.tintColor = .black
         navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24)], for: [])

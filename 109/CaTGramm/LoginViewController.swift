@@ -58,6 +58,8 @@ class LoginViewController: UIViewController {
         return textField
     }()
 
+    let userDefaults = UserDefaults.standard
+
     private lazy var loginButton: UIButton = {
         let action = UIAction(title: "login") { (_) in
             self.checkPassword()
@@ -85,9 +87,11 @@ extension LoginViewController {
     private func checkPassword() {
         var result = false
         Task {
-            result = await UserManager.shared.asyncAuthUsers(userName: loginTextField.text ?? "a", password: passwordTextField.text ?? "a")
+            result = UserManager.shared.syncAuthUsers(userName: loginTextField.text ?? "a", password: passwordTextField.text ?? "a")
             if result {
+                self.userDefaults.setValue(loginTextField.text, forKey: "current_user")
                 DataManager.OurDataManager.currentUser = UserManager.shared.syncGetUserByName(username: loginTextField.text ?? "ТоповыйКотэ")
+                self.userDefaults.setValue(true, forKey: "logged")
                 self.navigationController?.pushViewController(MenuTabBarController(), animated: true)
             } else {
                 self.errorLabel.isHidden = false

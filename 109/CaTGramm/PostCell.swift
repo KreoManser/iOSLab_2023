@@ -68,6 +68,14 @@ class PostCell: UITableViewCell {
 
     private lazy var favouriteButton = TempButton.createFavButton()
 
+    private lazy var likesCounter: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "0"
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }()
+
     private lazy var userNameBottomLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -107,7 +115,8 @@ class PostCell: UITableViewCell {
         contentView.backgroundColor = .white
         addSubviews(subviews: userImageView, userNameTopLabel,
         postImageView, deleteButton, likeButton, commentButton,
-        shareButton, favouriteButton, userNameBottomLabel, postDescriptionLabel, postDateBottomLabel)
+        shareButton, favouriteButton, userNameBottomLabel, postDescriptionLabel, postDateBottomLabel, likesCounter)
+        self.likeButton.imageView?.tintColor = .black
         configureUI()
     }
 
@@ -122,40 +131,27 @@ extension PostCell {
         subviews.forEach { contentView.addSubview($0) }
     }
 
-    func configureCell(_ post: PictureModel) {
-        self.userImageView.image = post.avatar
-        self.userNameTopLabel.text = post.nickname
-        self.postImageView.image = post.picture
-        self.userNameBottomLabel.text = post.nickname
-        self.postDescriptionLabel.text = post.text
-        self.postDateBottomLabel.text = "\(post.date)"
-    }
-
-    func getIndexPath() -> IndexPath {
-        return (superView?.indexPath(for: self) ?? IndexPath(row: 0, section: 0))
-    }
-
     private func configureUI() {
         self.backgroundColor = .white
         NSLayoutConstraint.activate([
-            userImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            userImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            userImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            userImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             userImageView.widthAnchor.constraint(equalToConstant: 40),
             userImageView.heightAnchor.constraint(equalToConstant: 40),
 
             userNameTopLabel.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: 10),
-            userNameTopLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            userNameTopLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
 
-            deleteButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
-            deleteButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
 
             postImageView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 5),
-            postImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-            postImageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
+            postImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            postImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             postImageView.heightAnchor.constraint(equalToConstant: contentView.frame.width),
 
             likeButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            likeButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            likeButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
 
             commentButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
             commentButton.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 15),
@@ -164,18 +160,87 @@ extension PostCell {
             shareButton.leadingAnchor.constraint(equalTo: commentButton.trailingAnchor, constant: 15),
 
             favouriteButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            favouriteButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            favouriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
 
-            userNameBottomLabel.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 10),
-            userNameBottomLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            likesCounter.trailingAnchor.constraint(equalTo: favouriteButton.leadingAnchor, constant: -10),
+            likesCounter.centerYAnchor.constraint(equalTo: favouriteButton.centerYAnchor),
+
+            userNameBottomLabel.topAnchor.constraint(equalTo: shareButton.bottomAnchor, constant: 10),
+            userNameBottomLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
 
             postDescriptionLabel.topAnchor.constraint(equalTo: userNameBottomLabel.bottomAnchor, constant: 10),
-            postDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            postDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            postDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            postDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
 
             postDateBottomLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: 10),
-            postDateBottomLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            postDateBottomLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            postDateBottomLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            postDateBottomLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
+    }
+
+    func configureCell(_ post: PictureModel) {
+
+        if DataManager.OurDataManager.getCurrentUser().likedPosts.contains(where: { $0.text == post.text }) {
+            likesCounter.text = "1"
+        } else {
+            likesCounter.text = "0"
+        }
+
+        let myAction = UIAction(title: "Like") { _ in
+            print("liked")
+            if DataManager.OurDataManager.getCurrentUser().likedPosts.contains(where: { $0.text == post.text }) {
+                self.likesCounter.text = "0"
+                print("disliked")
+                UIView.animate(withDuration: 1.0, delay: .zero, animations: {
+                    self.likeButton.imageView?.tintColor = .black
+                })
+                self.likeButton.imageView?.tintColor = .black
+                self.likeButton.tintColor = .black
+                DataManager.OurDataManager.getCurrentUser().likedPosts.removeAll(where: { $0.text == post.text })
+            } else {
+                self.likesCounter.text = "1"
+                UIView.animate(withDuration: 1.0, delay: .zero, animations: {
+                    self.likeButton.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                    self.likeButton.imageView?.tintColor = .systemRed
+                }, completion: { _ in
+                    UIView.animate(withDuration: 1.0, delay: .zero, animations: {
+                        self.likeButton.transform = .identity
+                    })
+                })
+                self.likeButton.imageView?.tintColor = .systemRed
+                DataManager.OurDataManager.getCurrentUser().likedPosts.append(post)
+            }
+            self.saveLikedPosts()
+        }
+        self.likeButton.addAction(myAction, for: .touchDown)
+        self.userImageView.image = post.avatar
+        self.userNameTopLabel.text = post.nickname
+        self.postImageView.image = post.picture
+        self.userNameBottomLabel.text = post.nickname
+        self.postDescriptionLabel.text = post.text
+        self.postDateBottomLabel.text = "\(post.date)"
+        if DataManager.OurDataManager.getCurrentUser().likedPosts.contains(where: { $0.text == post.text }) {
+            self.likeButton.imageView?.tintColor = .red
+            print("da")
+            DataManager.OurDataManager.getCurrentUser().likedPosts.append(post)
+        }
+    }
+
+    func saveLikedPosts() {
+        for post in DataManager.OurDataManager.getCurrentUser().likedPosts {
+            print(post.text)
+        }
+        do {
+            let encoder = JSONEncoder()
+            let likedPosts = try encoder.encode(DataManager.OurDataManager.getCurrentUser().likedPosts)
+            UserDefaults.standard.setValue(likedPosts, forKey: "liked")
+            print(likedPosts)
+        } catch {
+            print("\(error)")
+        }
+    }
+
+    func getIndexPath() -> IndexPath {
+        return (superView?.indexPath(for: self) ?? IndexPath(row: 0, section: 0))
     }
 }

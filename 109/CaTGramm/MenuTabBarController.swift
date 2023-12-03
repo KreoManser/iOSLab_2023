@@ -11,7 +11,8 @@ class MenuTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: DataManager.OurDataManager.currentUser.userName, style: .plain, target: self, action: nil)
+        let curUser = DataManager.OurDataManager.getCurrentUser()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: curUser.userName, style: .plain, target: self, action: nil)
         navigationItem.leftBarButtonItem?.tintColor = .black
         navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24)], for: [])
         generateTabBar()

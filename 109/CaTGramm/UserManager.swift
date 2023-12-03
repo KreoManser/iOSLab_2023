@@ -9,7 +9,7 @@ import Foundation
 
 class UserManager: UserManagerProtocol {
 
-    private static var firstUser = User(userName: "ТоповыйКотэ", avatar: "myava", password: "Topcot", profileDescription: "я самый топовый кот города Казань")
+    private static var firstUser = User(userName: "123", avatar: "myava", password: "123", profileDescription: "я самый топовый кот города Казань")
     static var secondUser = User(userName: "InglishKot", avatar: "myava", password: "Engcot", profileDescription: "i am inglish cot london is capital of gret britan")
     static var thirdUser = User(userName: "UsualCat", avatar: "myava", password: "Usualcot", profileDescription: "just usual cat with no friends")
 
@@ -33,6 +33,17 @@ class UserManager: UserManagerProtocol {
 
             OperationQueue().addOperation(checkOperation)
         }
+    }
+
+    func syncAuthUsers(userName: String, password: String) -> Bool {
+        var flag = false
+        if let i = self.users.firstIndex(where: { $0.userName == userName }) {
+            if self.users[i].password == password {
+                print("good pass!")
+                flag = true
+            }
+        }
+        return flag
     }
 
     func syncGetUserByName(username: String) -> User {
