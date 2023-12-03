@@ -31,6 +31,7 @@ class PostsDataSource: NSObject, UITableViewDelegate, UITableViewDataSource {
         cell.postPhotoImageView.image = UIImage(named: item.postPhotoNmae)
         cell.postCommentLabel.text = "\(cell.postNameLabel.text ?? ""): \(item.postComment )"
         cell.postDateLabel.text = "\(item.postDate.getDataInString())"
+        cell.postLikeCountLabel.text = "Лайков: \(item.counterLikes)"
         cell.delegate = tableView.superview as? any AllertConnection
         cell.superView = tableView
         cell.setUpLikeButton(cheker: item.isLiked)

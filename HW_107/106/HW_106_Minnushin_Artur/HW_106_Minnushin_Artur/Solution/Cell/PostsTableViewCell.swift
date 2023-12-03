@@ -55,10 +55,11 @@ class PostsTableViewCell: UITableViewCell {
         button.addAction(action, for: .touchUpInside)
         return button
     }()
-    lazy var postKilkeCountLabel: UILabel = {
+    lazy var postLikeCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.text = "Лайков: 0"
         return label
     }()
     lazy var postShringImageView: UIImageView = {
@@ -103,6 +104,7 @@ class PostsTableViewCell: UITableViewCell {
         addSubview(postCommentImageView)
         addSubview(postCommentLabel)
         addSubview(postDateLabel)
+        addSubview(postLikeCountLabel)
         setupLayout()
     }
     func getIndexPath() -> IndexPath {
@@ -153,7 +155,11 @@ class PostsTableViewCell: UITableViewCell {
             postFavoritesImageView.heightAnchor.constraint(equalToConstant: 25),
             postFavoritesImageView.trailingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            postCommentLabel.topAnchor.constraint(equalTo: postLikeButton.bottomAnchor, constant: 10),
+            postLikeCountLabel.topAnchor.constraint(
+                equalTo: postLikeButton.bottomAnchor, constant: 5),
+            postLikeCountLabel.leadingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            postCommentLabel.topAnchor.constraint(equalTo: postLikeCountLabel.bottomAnchor, constant: 5),
             postCommentLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             postCommentLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
             postDateLabel.topAnchor.constraint(equalTo: postCommentLabel.bottomAnchor, constant: 10),

@@ -17,7 +17,8 @@ struct User {
     let userCountFolowing: Int
     let userCountFolowers: Int
     let userDescription: String
-    let posts: [PostInfo]
+    var posts: [PostInfo]
+    var likePosts: [PostInfo]
 }
 
 struct PostInfo {
@@ -112,7 +113,7 @@ class UserDataBase {
                     PostInfo(postID: 14, userPostId: 1, isLiked: false, counterLikes: 0, postPhotoNmae: "Photo1",
                              postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 14"),
                     PostInfo(postID: 15, userPostId: 1, isLiked: false, counterLikes: 0, postPhotoNmae: "Photo1",
-                             postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 15")]),
+                             postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 15")], likePosts: []),
         User(userLogin: "2", userPassword: "2",
              userId: 2, userName: "Timofei Brisovix",
              userAvatarImageName: "avatar2", userCountPosts: 10,
@@ -148,7 +149,7 @@ class UserDataBase {
                     PostInfo(postID: 14, userPostId: 2, isLiked: false, counterLikes: 0, postPhotoNmae: "Photo2",
                              postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 14"),
                     PostInfo(postID: 15, userPostId: 2, isLiked: false, counterLikes: 0, postPhotoNmae: "Photo2",
-                             postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 15")]),
+                             postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 15")], likePosts: []),
         User(userLogin: "login3", userPassword: "pasword3",
              userId: 3, userName: "Bond, Cat Bond",
              userAvatarImageName: "avatar3", userCountPosts: 10,
@@ -185,7 +186,7 @@ class UserDataBase {
                     PostInfo(postID: 14, userPostId: 3, isLiked: false, counterLikes: 0, postPhotoNmae: "Photo3",
                              postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 14"),
                     PostInfo(postID: 15, userPostId: 3, isLiked: false, counterLikes: 0, postPhotoNmae: "Photo3",
-                             postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 15")])]
+                             postDate: MyDate(day: 1, mounth: 1, year: 2020), postComment: "пост 15")], likePosts: [])]
     func getData() -> [User] {
         return users
     }

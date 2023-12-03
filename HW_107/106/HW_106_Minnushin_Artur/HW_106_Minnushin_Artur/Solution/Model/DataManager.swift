@@ -35,6 +35,7 @@ class DataManager: DataManagerProtocol {
     func setupUser(user: User) {
         self.user = user
         self.posts = user.posts
+        self.likedPost = user.likePosts
     }
     func syncSave(post: PostInfo) {
         posts.append(post)
@@ -49,16 +50,15 @@ class DataManager: DataManagerProtocol {
         saveOpertionQueue.addOperation(saveOpertion)
     }
     func syncSaveLikedPost(indexPath: Int) {
-        print(posts[indexPath])
-        print("--------------")
-        posts[indexPath].isLiked = true
-        likedPost.append(posts[indexPath])
-        print(likedPost)
+        user?.posts[indexPath].isLiked = true
+        user?.posts[indexPath].counterLikes += 1
+        user?.likePosts.append(posts[indexPath])
     }
     func asyncSaveLikedPost(indexPath: Int) {
         let saveLikedPost = BlockOperation {
-            let post: PostInfo = self.posts[indexPath]
-            self.likedPost.append(post)
+            self.posts[indexPath].isLiked = true
+            self.posts[indexPath].counterLikes += 1
+            self.likedPost.append(self.user!.posts[indexPath])
         }
         saveLikedPost.completionBlock = {
             print("Отмеченый пост сохранен")
@@ -66,7 +66,7 @@ class DataManager: DataManagerProtocol {
         saveOperationLikedQueue.addOperation(saveLikedPost)
     }
     func syncGetAllPost() -> [PostInfo] {
-        return posts
+        return user!.posts
     }
     func syncGetAllFilteredPost() -> [PostInfo] {
         return filteredPost
@@ -107,11 +107,11 @@ class DataManager: DataManagerProtocol {
         searchIdOpertionQueue.addOperation(searchByIdOpertion)
     }
     func syncDelete(indexPath: Int) {
-        posts.remove(at: indexPath)
+        self.user?.posts.remove(at: indexPath)
     }
     func asyncDelete(indexPath: Int) {
         let deleateOperation = BlockOperation {
-            self.posts.remove(at: indexPath)
+            self.user?.posts.remove(at: indexPath)
         }
         deleateOperation.completionBlock = {
             print("Пост успешно удален")
@@ -119,18 +119,23 @@ class DataManager: DataManagerProtocol {
         deleateOpertionQueue.addOperation(deleateOperation)
     }
     func syncDeleteLikePost(indexPath: Int) {
-        for index in 0...likedPost.count - 1 where posts[indexPath].postID == likedPost[index].postID {
-            print("Удаляем")
-            print(posts[index])
-            posts[indexPath].isLiked = false
-            print(likedPost[index].isLiked)
-            likedPost.remove(at: index)
+        for index in 0...user!.likePosts.count - 1
+        where user?.posts[indexPath].postID == user!.likePosts[index].postID {
+            user!.posts[indexPath].isLiked = false
+            user!.posts[indexPath].counterLikes -= 1
+            user?.likePosts.remove(at: index)
             break
         }
     }
     func asyncDeleteLikePost(indexPath: Int) {
         let deleteLikePost = BlockOperation {
-            self.likedPost.remove(at: indexPath)
+            for index in 0...self.user!.likePosts.count - 1
+            where self.user?.posts[indexPath].postID == self.user!.likePosts[index].postID {
+                self.user!.posts[indexPath].isLiked = false
+                self.user!.posts[indexPath].counterLikes -= 1
+                self.user?.likePosts.remove(at: index)
+                break
+            }
         }
         deleteLikePost.completionBlock = {
             print("Добавленый пост удален")

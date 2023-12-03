@@ -27,6 +27,10 @@
 		1485BD112AF7F20700C8AF42 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD102AF7F20700C8AF42 /* LoginView.swift */; };
 		1485BD132AF7F23500C8AF42 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD122AF7F23500C8AF42 /* LoginManager.swift */; };
 		1485BD152AF83FD800C8AF42 /* UserDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1485BD142AF83FD800C8AF42 /* UserDataBase.swift */; };
+		14C21A6C2B19CEE50034BC89 /* NewsLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C21A6B2B19CEE50034BC89 /* NewsLineView.swift */; };
+		14C21A6E2B19CF150034BC89 /* NewsLineVС.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C21A6D2B19CF150034BC89 /* NewsLineVС.swift */; };
+		14C21A712B19CF4F0034BC89 /* NewsLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C21A702B19CF4F0034BC89 /* NewsLineTableViewCell.swift */; };
+		14C21A732B19CF680034BC89 /* NewsLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C21A722B19CF680034BC89 /* NewsLineCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +56,10 @@
 		1485BD102AF7F20700C8AF42 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		1485BD122AF7F23500C8AF42 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		1485BD142AF83FD800C8AF42 /* UserDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataBase.swift; sourceTree = "<group>"; };
+		14C21A6B2B19CEE50034BC89 /* NewsLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineView.swift; sourceTree = "<group>"; };
+		14C21A6D2B19CF150034BC89 /* NewsLineVС.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsLineVС.swift"; sourceTree = "<group>"; };
+		14C21A702B19CF4F0034BC89 /* NewsLineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineTableViewCell.swift; sourceTree = "<group>"; };
+		14C21A722B19CF680034BC89 /* NewsLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +80,7 @@
 				1485BD042AF4218300C8AF42 /* PostsView.swift */,
 				1485BD102AF7F20700C8AF42 /* LoginView.swift */,
 				144DFC102B174AED00F6761B /* SettingsView.swift */,
+				14C21A6B2B19CEE50034BC89 /* NewsLineView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -96,6 +105,7 @@
 				1465F73C2AEE59FC00B455F7 /* ProfileVC.swift */,
 				144DFC0D2B13EB0C00F6761B /* TabBarVC.swift */,
 				144DFC122B174B0D00F6761B /* SettingsVC.swift */,
+				14C21A6D2B19CF150034BC89 /* NewsLineVС.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -105,6 +115,8 @@
 			children = (
 				1465F7702AF16BD100B455F7 /* ProfleCollectionViewCell.swift */,
 				1485BD062AF421BE00C8AF42 /* PostsTableViewCell.swift */,
+				14C21A702B19CF4F0034BC89 /* NewsLineTableViewCell.swift */,
+				14C21A722B19CF680034BC89 /* NewsLineCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -266,6 +278,7 @@
 				1485BD132AF7F23500C8AF42 /* LoginManager.swift in Sources */,
 				144DFC112B174AED00F6761B /* SettingsView.swift in Sources */,
 				1465F7742AF16CDA00B455F7 /* ProfileCollectioDataSource.swift in Sources */,
+				14C21A6C2B19CEE50034BC89 /* NewsLineView.swift in Sources */,
 				1485BD032AF4213700C8AF42 /* PostsVC.swift in Sources */,
 				1485BD052AF4218300C8AF42 /* PostsView.swift in Sources */,
 				1485BD0F2AF7F1E200C8AF42 /* LoginVC.swift in Sources */,
@@ -273,8 +286,11 @@
 				1465F7392AEE59FC00B455F7 /* AppDelegate.swift in Sources */,
 				1465F73B2AEE59FC00B455F7 /* SceneDelegate.swift in Sources */,
 				1485BCF82AF3EACD00C8AF42 /* ProfileView.swift in Sources */,
+				14C21A712B19CF4F0034BC89 /* NewsLineTableViewCell.swift in Sources */,
 				1465F76C2AF1014B00B455F7 /* DataManager.swift in Sources */,
 				1485BD112AF7F20700C8AF42 /* LoginView.swift in Sources */,
+				14C21A732B19CF680034BC89 /* NewsLineCollectionViewCell.swift in Sources */,
+				14C21A6E2B19CF150034BC89 /* NewsLineVС.swift in Sources */,
 				1485BD092AF4221600C8AF42 /* PostsDataSource.swift in Sources */,
 				144DFC132B174B0D00F6761B /* SettingsVC.swift in Sources */,
 			);
