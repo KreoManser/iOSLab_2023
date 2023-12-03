@@ -77,5 +77,14 @@ extension ListOfPostsViewController: PostTableViewCellDelegate {
         }
         delegate?.reloadArrayAfterDeletingFromList(self, didDeletePost: post)
         tableView.reloadData()
+//        print("№№№№№№№count of posts in profile table view\(posts)")
+
+    }
+}
+extension ListOfPostsViewController: ProfilePostLikeDataManagerDelegate {
+    func reloadArrayAfterLiking(_ dataManager: DataManager) {
+        posts = dataManager.syncGetPosts()
+        tableView.reloadData()
+        print("!!!!!!!!count of posts in profile table view\(posts)")
     }
 }

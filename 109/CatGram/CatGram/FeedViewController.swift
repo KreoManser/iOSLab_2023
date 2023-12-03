@@ -113,3 +113,9 @@ extension FeedViewController: FeedTableViewCellDelegate {
 //            print("########## posts in FeedVC after 2): \(posts.count)")
 //        }
 }
+extension FeedViewController: FeedPostLikeDataManagerDelegate {
+    func reloadArrayAfterLiking(_ dataManager: DataManager) {
+        posts = dataManager.syncGetPosts()
+        tableView.reloadData()
+    }
+}

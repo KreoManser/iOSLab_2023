@@ -1,10 +1,20 @@
 import Foundation
 import UIKit
 
+protocol ProfilePostLikeDataManagerDelegate: AnyObject {
+    func reloadArrayAfterLiking(_ dataManager: DataManager)
+}
+protocol FeedPostLikeDataManagerDelegate: AnyObject {
+    func reloadArrayAfterLiking(_ dataManager: DataManager)
+}
+
 class DataManager: DataManagerProtocol {
 
     private let userDefaults = UserDefaults.standard
     private let usersKey = "saved_users"
+
+    weak var profileDelegate: ProfilePostLikeDataManagerDelegate?
+    weak var feedDelegate: FeedPostLikeDataManagerDelegate?
 
     private var users: [User]
     private var posts: [Post]
@@ -66,6 +76,29 @@ class DataManager: DataManagerProtocol {
         return users.first(where: { $0.login == log })
     }
 
+//    функция для лайка
+    func toLikePost(post: Post) {
+        userDefaults.setValue(true, forKey: String(post.id))
+        for index in posts.indices {
+            if posts[index] == post {
+                posts[index].countOfLikes += 1
+                print("count of posts in data manager\(posts)")
+                profileDelegate?.reloadArrayAfterLiking(self)
+                feedDelegate?.reloadArrayAfterLiking(self)
+            }
+        }
+    }
+    func toUnlikePost(post: Post) {
+        userDefaults.setValue(false, forKey: String(post.id))
+        for index in posts.indices {
+            if posts[index] == post {
+                posts[index].countOfLikes -= 1
+                profileDelegate?.reloadArrayAfterLiking(self)
+                feedDelegate?.reloadArrayAfterLiking(self)
+            }
+        }
+    }
+
     func syncGetUsers() -> [User] {
         getUsersSemaphore.wait()
         let currentUsers = users
@@ -116,6 +149,7 @@ class DataManager: DataManagerProtocol {
         getPostsSemaphore.signal()
         return currentPosts
     }
+    
     func asyncGetPosts() async -> [Post] {
         return await withCheckedContinuation { continuation in
             let getPostsOperation = BlockOperation {

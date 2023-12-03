@@ -15,6 +15,15 @@ class FeedTableViewCell: UITableViewCell {
 
     static let feedCellReuseIdentifier = "FeedCell"
 
+    lazy var likeImageView: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(named: "beforeLike")
+        image.contentMode = .scaleAspectFill
+        image.isUserInteractionEnabled = true
+        return image
+    }()
+
 // элементы публикации
     lazy var avatarImageView: UIImageView = {
         let image = UIImageView()
@@ -91,12 +100,36 @@ class FeedTableViewCell: UITableViewCell {
         alertController.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
         self.viewController?.present(alertController, animated: true, completion: nil)
     }
+    // анимация лайка
+    @objc func likeAnimate(_ gesture: UITapGestureRecognizer) {
+        guard let unrPost = post else {return}
+        if likeImageView.image == UIImage(named: "beforeLike") {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.likeImageView.image = UIImage(named: "afterLike")
+            }, completion: { _ in
+                self.dataManager.toLikePost(post: unrPost)
+                print("from feed table view cell")}
+            )
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.likeImageView.image = UIImage(named: "beforeLike")
+            }, completion: { _ in
+                self.dataManager.toUnlikePost(post: unrPost)
+                print("from feed table view cell")}
+            )
+        }
+    }
+    func setupGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(likeAnimate(_:)))
+        likeImageView.addGestureRecognizer(tapGesture)
+    }
 
 // инициализатор внутренний
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         dateFormatter.dateFormat = "dd/MM/yyyy"
         setupLayout()
+        setupGestureRecognizer()
     }
 // инициализатор ячейки вне
     func configureCell(with post: Post, user: User, viewController: UIViewController) {
@@ -130,6 +163,7 @@ class FeedTableViewCell: UITableViewCell {
         contentView.addSubview(postButton)
         contentView.addSubview(countOfLikesLabel)
         contentView.addSubview(dateLabel)
+        contentView.addSubview(likeImageView)
 
         NSLayoutConstraint.activate([
             postImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
@@ -152,9 +186,14 @@ class FeedTableViewCell: UITableViewCell {
             postButton.heightAnchor.constraint(equalToConstant: 40.0),
             postButton.widthAnchor.constraint(equalToConstant: 50.0),
 
-            countOfLikesLabel.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 5),
+            likeImageView.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
+            likeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            likeImageView.heightAnchor.constraint(equalToConstant: 22.0),
+            likeImageView.widthAnchor.constraint(equalToConstant: 22.0),
+
+            countOfLikesLabel.topAnchor.constraint(equalTo: likeImageView.bottomAnchor, constant: 5),
             countOfLikesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            countOfLikesLabel.heightAnchor.constraint(equalToConstant: 30.0),
+            countOfLikesLabel.heightAnchor.constraint(equalToConstant: 25.0),
             countOfLikesLabel.widthAnchor.constraint(equalToConstant: 60.0),
 
             captionLabel.topAnchor.constraint(equalTo: countOfLikesLabel.bottomAnchor, constant: 5),
