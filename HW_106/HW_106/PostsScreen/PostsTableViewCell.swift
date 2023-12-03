@@ -95,6 +95,14 @@ class PostsTableViewCell: UITableViewCell {
         return button
     }()
 
+    private lazy var likesCountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "Нравится: 0"
+        return label
+    }()
+
     private lazy var nameUnderPostLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -150,6 +158,8 @@ extension PostsTableViewCell {
                 guard let publicationId = self.publication?.id else { return }
 
                 LikesManager.shared.save(userId: userId, publicationId: publicationId)
+                guard let publication = self.publication else { return }
+                self.likesCountLabel.text = "Нравится: \(publication.getLikesCount())"
             }
         }
     }
@@ -180,6 +190,8 @@ extension PostsTableViewCell {
                 guard let publicationId = self.publication?.id else { return }
 
                 LikesManager.shared.remove(userId: userId, publicationId: publicationId)
+                guard let publication = self.publication else { return }
+                self.likesCountLabel.text = "Нравится: \(publication.getLikesCount())"
             }
         }
     }
@@ -198,6 +210,7 @@ extension PostsTableViewCell {
             self.avatarImage.image = user.avatarImage
             self.nameLabel.text = user.login
             self.nameUnderPostLabel.text = user.login
+            self.likesCountLabel.text = "Нравится: \(post.getLikesCount())"
         }
     }
 
@@ -211,6 +224,7 @@ extension PostsTableViewCell {
         contentView.addSubview(chatButton)
         contentView.addSubview(sendButton)
         contentView.addSubview(bookmarkButton)
+        contentView.addSubview(likesCountLabel)
         contentView.addSubview(nameUnderPostLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(dateLabel)
@@ -254,8 +268,11 @@ extension PostsTableViewCell {
             bookmarkButton.heightAnchor.constraint(equalToConstant: 30),
             bookmarkButton.widthAnchor.constraint(equalToConstant: 30),
 
-            nameUnderPostLabel.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 5),
-            nameUnderPostLabel.leadingAnchor.constraint(equalTo: likeButton.leadingAnchor),
+            likesCountLabel.leadingAnchor.constraint(equalTo: likeButton.leadingAnchor),
+            likesCountLabel.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 10),
+
+            nameUnderPostLabel.topAnchor.constraint(equalTo: likesCountLabel.bottomAnchor, constant: 5),
+            nameUnderPostLabel.leadingAnchor.constraint(equalTo: likesCountLabel.leadingAnchor),
 
             descriptionLabel.leadingAnchor.constraint(equalTo: nameUnderPostLabel.trailingAnchor, constant: 5),
             descriptionLabel.topAnchor.constraint(equalTo: nameUnderPostLabel.topAnchor),

@@ -14,4 +14,8 @@ struct Publication {
     let photo: UIImage?
     let text: String
     let date: Date = Date()
+
+    func getLikesCount() -> Int {
+        return LikesManager.shared.getLikesCount(publicationId: self.id)
+    }
 }

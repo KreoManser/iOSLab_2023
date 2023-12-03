@@ -51,7 +51,7 @@ extension FeedView: UICollectionViewDelegateFlowLayout, UITableViewDelegate, Del
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 550
+        return 570
     }
 
     func reloadData() {

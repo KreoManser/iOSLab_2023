@@ -24,7 +24,6 @@ class PostsView: UIView {
         super.init(frame: frame)
 
         setupLayout()
-        
     }
 
     required init?(coder: NSCoder) {
@@ -49,7 +48,7 @@ extension PostsView: UITableViewDelegate, DeleteAlertDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 550
+        return 570
     }
 
     func setupDataSource(_ dataSource: UITableViewDataSource) {

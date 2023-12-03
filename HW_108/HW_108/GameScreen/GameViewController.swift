@@ -110,7 +110,7 @@ class GameViewController: UIViewController {
         for alien in gameView.aliens {
             if alien.isAlive && bullet.frame.intersects(alien.view.frame) {
 
-                gameView.scoreLabel.text = incrementString(num: gameView.scoreLabel.text ?? "0")
+//                gameView.scoreLabel.text = incrementString(num: gameView.scoreLabel.text ?? "0")
 
                 UIView.animate(withDuration: 0.5) {
 

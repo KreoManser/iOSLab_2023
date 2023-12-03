@@ -36,11 +36,11 @@ class PostsViewDataSource: NSObject, UITableViewDataSource {
 
         let publication = publications[indexPath.row]
 
-        cell.configureCell(with: publication, user)
-
         if LikesManager.shared.isLiked(userId: user.id, publicationId: publication.id) {
             cell.likeWithoutAnimation()
         }
+
+        cell.configureCell(with: publication, user)
 
         return cell
     }

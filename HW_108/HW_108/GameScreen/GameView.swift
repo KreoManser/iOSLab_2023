@@ -88,12 +88,12 @@ extension GameView {
         addSubview(alien3.view)
         addSubview(alien4.view)
         addSubview(spaceshipImageView)
-        addSubview(scoreLabel)
+        // addSubview(scoreLabel)
 
         NSLayoutConstraint.activate([
 
-            scoreLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            scoreLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            scoreLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+//            scoreLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             spaceshipImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             spaceshipImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
