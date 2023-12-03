@@ -10,6 +10,7 @@ import UIKit
 class MainView: UIView {
     // MARK: - Declaration objects
     weak var controller: MainViewController?
+    var labelTapAction: (() -> Void)?
     private let support = SupportFunctions()
     private var link = ""
     private var currentUser = User()
@@ -39,7 +40,11 @@ class MainView: UIView {
         support.createAmountLabel("100")
     }()
     lazy var amountOfSubscriptionsLabel: UILabel = {
-        support.createAmountLabel("200")
+        let label = support.createAmountLabel("200")
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
+        label.addGestureRecognizer(tapGesture)
+        return label
     }()
     lazy var publicationsLabel: UILabel = {
         support.createDescriptionLabel("Publications")
@@ -48,7 +53,11 @@ class MainView: UIView {
         support.createDescriptionLabel("Subscribers")
     }()
     lazy var subscriptionsLabel: UILabel = {
-        support.createDescriptionLabel("Subscriptions")
+        let label = support.createDescriptionLabel("Subscriptions")
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
+        label.addGestureRecognizer(tapGesture)
+        return label
     }()
     lazy var nameLabel: UILabel = {
         support.createAmountLabel("Name")
@@ -145,6 +154,10 @@ extension MainView {
         if let url = URL(string: self.link) {
             UIApplication.shared.open(url)
         }
+    }
+
+    @objc private func labelTapped() {
+        labelTapAction?()
     }
 }
 

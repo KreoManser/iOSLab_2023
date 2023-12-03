@@ -84,6 +84,14 @@ class PostViewCell: UITableViewCell {
         let button = support.createButtonWithImage(UIImage(systemName: "bookmark") ?? UIImage())
         return button
     }()
+    private lazy var likeCounterLabel: UILabel = {
+        let label = support.createDescriptionLabel("Amount of likes: ")
+        return label
+    }()
+    private lazy var likeAmountLabel: UILabel = {
+        let label = support.createDescriptionLabel("0")
+        return label
+    }()
     private lazy var descriptionLabel: UILabel = {
         let label = support.createDescriptionLabel("This is me")
         return label
@@ -121,6 +129,7 @@ extension PostViewCell {
         } else {
             likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         }
+        likeAmountLabel.text = String(post.amountOfLikes)
     }
     func setAdditionalButton(isPersonalPost: Bool) {
         if !isPersonalPost {
@@ -157,6 +166,8 @@ extension PostViewCell {
         let actionsStackView = support.createSV([likeButton, commentButton, shareButton], axis: .horizontal, align: .fill)
         actionsStackView.spacing = 5
         let descriptionStackView = support.createSV([descriptionLabel, dateLabel], align: .fill)
+        let likesStackView = support.createSV([likeCounterLabel, likeAmountLabel], axis: .horizontal, align: .leading)
+        likesStackView.spacing = 4
 
         contentView.addSubview(iconImage)
         contentView.addSubview(nickLabel)
@@ -164,6 +175,7 @@ extension PostViewCell {
         contentView.addSubview(photoOfPost)
         contentView.addSubview(actionsStackView)
         contentView.addSubview(saveButton)
+        contentView.addSubview(likesStackView)
         contentView.addSubview(descriptionStackView)
 
         NSLayoutConstraint.activate([
@@ -190,8 +202,11 @@ extension PostViewCell {
             saveButton.topAnchor.constraint(equalTo: photoOfPost.bottomAnchor, constant: 10),
             saveButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -5),
 
+            likesStackView.topAnchor.constraint(equalTo: actionsStackView.bottomAnchor, constant: 10),
+            likesStackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+
             descriptionStackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            descriptionStackView.topAnchor.constraint(equalTo: actionsStackView.bottomAnchor, constant: 5),
+            descriptionStackView.topAnchor.constraint(equalTo: likesStackView.bottomAnchor, constant: 3),
             descriptionStackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }

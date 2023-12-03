@@ -35,6 +35,9 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         mainView.controller = self
         mainView.setButtonAction()
+        mainView.labelTapAction = { [weak self] in
+            self?.handleLabelTap()
+        }
         setDataSourse(mainView.postsCollectionView)
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +78,10 @@ extension MainViewController {
             self.present(editVC, animated: true)
         }
         return action
+    }
+    private func handleLabelTap() {
+        let friendsScreen = FriendsViewController()
+        self.present(friendsScreen, animated: true, completion: nil)
     }
 }
 

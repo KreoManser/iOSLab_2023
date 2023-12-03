@@ -146,8 +146,16 @@ class PostsManager: PostsManagerProtocol {
 
     func likePostAsync(_ index: Int) {
         let operation = BlockOperation {
-            self.posts[index].isLike = !self.posts[index].isLike
+            if self.posts[index].isLike {
+                self.posts[index].isLike = false
+                self.posts[index].amountOfLikes -= 1
+            } else {
+                self.posts[index].isLike = true
+                self.posts[index].amountOfLikes += 1
+            }
+
             self.delegateUser?.updateLike(posts: self.posts)
+            self.delegateNews?.updateNews(posts: self.posts)
         }
         operation.completionBlock = {
             print("у поста по индексу \(index) изменён лайк асинк")

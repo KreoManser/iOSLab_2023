@@ -8,13 +8,28 @@
 import UIKit
 
 class FriendsView: UIView {
+    lazy var friendsTableView: UITableView = UITableView()
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .white
+        setupLayouts()
     }
-    */
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupLayouts() {
+        addSubview(friendsTableView)
+        friendsTableView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            friendsTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            friendsTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            friendsTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            friendsTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
+        ])
+    }
 
 }

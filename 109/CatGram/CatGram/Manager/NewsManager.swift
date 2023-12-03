@@ -37,7 +37,7 @@ class NewsManager: NewsManagerProtocol {
         if userDefaults.bool(forKey: "is_log_user") && !getNews().isEmpty {
             var count = self.userManager.users.count - 1
             let news = getNews()
-            let user = getUset()
+            let user = self.userManager.loginedUser ?? User()
             posts = news
 
             while count != 0 {
@@ -103,11 +103,20 @@ class NewsManager: NewsManagerProtocol {
     func likePostAsync(_ index: Int) {
         let operation = BlockOperation {
             let post = self.posts[index]
-            let isLike = !self.posts[index].isLike
-            self.personalPosts[self.personalPosts.firstIndex(of: post) ?? 0].isLike = isLike
-            self.personalPostsForNews[self.personalPostsForNews.firstIndex(of: post) ?? 0].isLike = isLike
-            self.posts[index].isLike = isLike
-            self.delegate?.updateLike(posts: self.personalPosts)
+            let updatePersonal = self.personalPosts
+            if post.isLike {
+                self.posts[index].isLike = false
+                self.posts[index].amountOfLikes -= 1
+                updatePersonal[self.personalPosts.firstIndex(of: post) ?? 0].isLike = false
+                updatePersonal[self.personalPosts.firstIndex(of: post) ?? 0].amountOfLikes -= 1
+            } else {
+                self.posts[index].isLike = true
+                self.posts[index].amountOfLikes += 1
+                updatePersonal[self.personalPosts.firstIndex(of: post) ?? 0].isLike = true
+                updatePersonal[self.personalPosts.firstIndex(of: post) ?? 0].amountOfLikes += 1
+            }
+
+            self.delegate?.updateLike(posts: updatePersonal)
             self.saveNews(posts: self.posts)
         }
         operation.completionBlock = {
@@ -126,6 +135,7 @@ extension NewsManager: UpdateNewsProtocol {
         self.posts.removeAll { personalPostsForNews.contains($0) }
         self.personalPostsForNews = postsForNews
         self.posts += personalPostsForNews
+        saveNews(posts: self.posts)
     }
 }
 
@@ -160,17 +170,5 @@ extension NewsManager {
             print("fail in decode \(error)")
         }
         return []
-    }
-    private func getUset() -> User {
-        guard let userData = userDefaults.data(forKey: userKey) else { return User() }
-
-        do {
-            let decoder = JSONDecoder()
-            let user = try decoder.decode(User.self, from: userData)
-            return user
-        } catch {
-            print("fail in decode \(error)")
-        }
-        return User()
     }
 }
