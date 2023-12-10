@@ -18,6 +18,7 @@ class SettingsView: UIView {
         tableView.backgroundColor = UIColor.customBlack
         tableView.estimatedRowHeight = 40
         tableView.isScrollEnabled = false
+        tableView.delegate = self
         return tableView
     }()
 
@@ -53,5 +54,13 @@ extension SettingsView {
             settingButtonsTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             settingButtonsTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+extension SettingsView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 1 {
+            controller?.logOutUser()
+        }
     }
 }

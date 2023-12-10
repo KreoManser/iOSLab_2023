@@ -48,4 +48,8 @@ extension LoginViewController {
             }
         }
     }
+
+    func dismissToRegistrationController() {
+        dismiss(animated: true)
+    }
 }

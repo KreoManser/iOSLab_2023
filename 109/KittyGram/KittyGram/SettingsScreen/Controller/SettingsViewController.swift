@@ -31,6 +31,17 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController {
 
     func logOutUser() {
+//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//            let window = windowScene.windows.first,
+//            var rootViewController = window.rootViewController {
+//
+//            while let presentedViewController = rootViewController.presentedViewController {
+//                rootViewController = presentedViewController
+//            }
+//
+//            rootViewController.dismiss(animated: false, completion: nil)
+//        }
+
         dataManager.logOutUser()
         let presentContoller = LoginViewController()
         presentContoller.modalPresentationStyle = .fullScreen

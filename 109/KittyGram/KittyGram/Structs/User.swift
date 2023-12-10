@@ -14,7 +14,7 @@ struct User: Codable {
     var posts: [Post] = []
     var story: Story = Story()
     var numberOfSubscribers: Int
-    var profileDescription: String 
+    var profileDescription: String
     var subscriptions: [User] = []
     let password: String
     var likedPostsId: [Int] = []

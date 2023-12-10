@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270ABB9F2B260142003D9637 /* KittyGramCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 270ABB9D2B260142003D9637 /* KittyGramCoreData.xcdatamodeld */; };
+		270ABBA62B260CC1003D9637 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270ABBA52B260CC1003D9637 /* RegistrationViewController.swift */; };
+		270ABBA82B260CD9003D9637 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270ABBA72B260CD9003D9637 /* RegistrationView.swift */; };
 		271990012B0D57BF00F70DE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271990002B0D57BF00F70DE6 /* AppDelegate.swift */; };
 		271990032B0D57BF00F70DE6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271990022B0D57BF00F70DE6 /* SceneDelegate.swift */; };
 		2719900A2B0D57C000F70DE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 271990092B0D57C000F70DE6 /* Assets.xcassets */; };
@@ -44,6 +47,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		270ABB9E2B260142003D9637 /* KittyGramCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KittyGramCoreData.xcdatamodel; sourceTree = "<group>"; };
+		270ABBA52B260CC1003D9637 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		270ABBA72B260CD9003D9637 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		27198FFD2B0D57BF00F70DE6 /* KittyGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KittyGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		271990002B0D57BF00F70DE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		271990022B0D57BF00F70DE6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +99,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		270ABBA02B260159003D9637 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		270ABBA12B260C6E003D9637 /* RegistrationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				270ABBA42B260C9B003D9637 /* View */,
+				270ABBA32B260C95003D9637 /* Controller */,
+				270ABBA22B260C8E003D9637 /* Model */,
+			);
+			path = RegistrationScreen;
+			sourceTree = "<group>";
+		};
+		270ABBA22B260C8E003D9637 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		270ABBA32B260C95003D9637 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				270ABBA52B260CC1003D9637 /* RegistrationViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		270ABBA42B260C9B003D9637 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				270ABBA72B260CD9003D9637 /* RegistrationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		27198FF42B0D57BF00F70DE6 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +158,8 @@
 		27198FFF2B0D57BF00F70DE6 /* KittyGram */ = {
 			isa = PBXGroup;
 			children = (
+				270ABBA12B260C6E003D9637 /* RegistrationScreen */,
+				270ABBA02B260159003D9637 /* Models */,
 				275384CE2B13E37B0009A531 /* Helpers */,
 				275384C62B13D3430009A531 /* SettingsScreen */,
 				27CF52222B0D5B0600B45BDF /* Structs */,
@@ -125,6 +173,7 @@
 				2719900B2B0D57C000F70DE6 /* LaunchScreen.storyboard */,
 				2719900E2B0D57C000F70DE6 /* Info.plist */,
 				272AF6182B1381DE009A0037 /* TabBarViewController.swift */,
+				270ABB9D2B260142003D9637 /* KittyGramCoreData.xcdatamodeld */,
 			);
 			path = KittyGram;
 			sourceTree = "<group>";
@@ -476,6 +525,7 @@
 				278473F42B1A646F006A5AE6 /* ButtonsHandler.swift in Sources */,
 				271990012B0D57BF00F70DE6 /* AppDelegate.swift in Sources */,
 				27CF525B2B0D5F6C00B45BDF /* ProfileViewController.swift in Sources */,
+				270ABBA62B260CC1003D9637 /* RegistrationViewController.swift in Sources */,
 				271990032B0D57BF00F70DE6 /* SceneDelegate.swift in Sources */,
 				27CF524B2B0D5DE000B45BDF /* LoginHandlerProtocol.swift in Sources */,
 				27CF52552B0D5EEF00B45BDF /* UserProfilePostsTableViewDataSource.swift in Sources */,
@@ -491,11 +541,13 @@
 				27CF52262B0D5B2800B45BDF /* User.swift in Sources */,
 				27CF52242B0D5B1A00B45BDF /* Post.swift in Sources */,
 				27CF52282B0D5B4000B45BDF /* Story.swift in Sources */,
+				270ABBA82B260CD9003D9637 /* RegistrationView.swift in Sources */,
 				27CF523B2B0D5C4200B45BDF /* UserStoriesCollectionViewCell.swift in Sources */,
 				278473F62B1A64A1006A5AE6 /* SettingButton.swift in Sources */,
 				275384CD2B13D3880009A531 /* SettingsView.swift in Sources */,
 				27CF523D2B0D5C7500B45BDF /* MainFeedView.swift in Sources */,
 				27CF52512B0D5E9300B45BDF /* UserProfilePostsViewController.swift in Sources */,
+				270ABB9F2B260142003D9637 /* KittyGramCoreData.xcdatamodeld in Sources */,
 				275384CB2B13D3760009A531 /* SettingsViewController.swift in Sources */,
 				275384D02B13E3960009A531 /* PostButton.swift in Sources */,
 				27CF524F2B0D5E8500B45BDF /* PostTableViewCell.swift in Sources */,
@@ -714,6 +766,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		270ABB9D2B260142003D9637 /* KittyGramCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				270ABB9E2B260142003D9637 /* KittyGramCoreData.xcdatamodel */,
+			);
+			currentVersion = 270ABB9E2B260142003D9637 /* KittyGramCoreData.xcdatamodel */;
+			path = KittyGramCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 27198FF52B0D57BF00F70DE6 /* Project object */;
 }
