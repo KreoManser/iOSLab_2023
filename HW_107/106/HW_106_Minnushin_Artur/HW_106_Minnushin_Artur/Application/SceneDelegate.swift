@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         let data = DataManager.sigelton
-        let users = UserDataBase.sigelton.getData()
+        let users = CoreDataManager.shared.obtaineSavedData()
         var checker = false
         users.forEach { user in
             if UserDefaults.standard.bool(forKey: user.userName) {
@@ -29,5 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window?.rootViewController = LoginViewController()
         }
         window?.makeKeyAndVisible()
+    }
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        CoreDataManager.shared.saveContext()
     }
 }

@@ -13,6 +13,7 @@ protocol UpdateData: AnyObject {
 class ProfileViewController: UIViewController {
     let dataSource = ProfileCollectionDataSource()
     let profileView = ProfileView(frame: .zero)
+    let coreDataManger = CoreDataManager.shared
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: true)

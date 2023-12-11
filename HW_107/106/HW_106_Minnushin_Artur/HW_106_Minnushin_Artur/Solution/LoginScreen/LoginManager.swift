@@ -9,24 +9,26 @@ import Foundation
 import UIKit
 
 protocol LoginManagerProtocol {
-    func asyncCheckAthorizationData(login: String, password: String, users: [User]) async -> (cheker: Bool, item: User?)
+    func asyncCheckAthorizationData(login: String, 
+                                    password: String)
+    async -> (cheker: Bool, item: User)
 }
 class LoginManager: LoginManagerProtocol {
-    var currentUser: User!
+    var coreDataManager = CoreDataManager.shared
     func asyncCheckAthorizationData(login: String,
-                                    password: String,
-                                    users: [User])
-    async -> (cheker: Bool, item: User?) {
+                                    password: String)
+    async -> (cheker: Bool, item: User) {
         return await withCheckedContinuation {continuation in
             DispatchQueue.global().asyncAfter(deadline: .now()) {
+                let users = self.coreDataManager.obtaineSavedData()
+                var user = User()
                 var cheker: Bool = false
                 for item in 0...users.count - 1 where users[item].userLogin == login
                 && users[item].userPassword == password {
                     cheker = true
-                    self.currentUser = users[item]
+                    continuation.resume(returning: (cheker, users[item]))
                     break
                 }
-                continuation.resume(returning: (cheker, self.currentUser))
             }
         }
     }

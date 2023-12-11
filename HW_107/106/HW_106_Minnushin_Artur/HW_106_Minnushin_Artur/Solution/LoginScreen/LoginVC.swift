@@ -30,10 +30,9 @@ class LoginViewController: UIViewController {
     func loginInProfile(login: String, pasword: String) {
         Task {
             let checkAthorizationData = await LoginManager().asyncCheckAthorizationData(
-                login: login, password: pasword,
-                users: userDataBase.getData())
+                login: login, password: pasword)
             if checkAthorizationData.cheker == true {
-                presentVc(user: checkAthorizationData.item!)
+                presentVc(user: checkAthorizationData.item)
             } else {
                 authorizationView.presentAllertVC()
             }

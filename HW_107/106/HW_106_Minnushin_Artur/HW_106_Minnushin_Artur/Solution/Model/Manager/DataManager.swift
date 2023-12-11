@@ -23,6 +23,7 @@ class DataManager: DataManagerProtocol {
     var posts: [PostInfo] = []
     var likedPost: [PostInfo] = []
     var filteredPost: [PostInfo] = []
+    var postNewsLine: [PostInfo] = []
     let saveOperationLikedQueue = OperationQueue()
     let saveOpertionQueue = OperationQueue()
     let getOpertionQueue =  OperationQueue()
@@ -31,11 +32,12 @@ class DataManager: DataManagerProtocol {
     let deleateOpertionQueue = OperationQueue()
     let deleteLikeOpertionQueue = OperationQueue()
     static let sigelton = DataManager()
+    let users = UserDataBase.sigelton
     var isSearching = false
     func setupUser(user: User) {
         self.user = user
-        self.posts = user.posts
-        self.likedPost = user.likePosts
+//        self.posts = user.posts
+//        self.likedPost = user.likePosts
     }
     func syncSave(post: PostInfo) {
         posts.append(post)
@@ -50,15 +52,15 @@ class DataManager: DataManagerProtocol {
         saveOpertionQueue.addOperation(saveOpertion)
     }
     func syncSaveLikedPost(indexPath: Int) {
-        user?.posts[indexPath].isLiked = true
-        user?.posts[indexPath].counterLikes += 1
-        user?.likePosts.append(posts[indexPath])
+//        user?.posts[indexPath].isLiked = true
+//        user?.posts[indexPath].counterLikes += 1
+//        user?.likePosts.append(posts[indexPath])
     }
     func asyncSaveLikedPost(indexPath: Int) {
         let saveLikedPost = BlockOperation {
             self.posts[indexPath].isLiked = true
             self.posts[indexPath].counterLikes += 1
-            self.likedPost.append(self.user!.posts[indexPath])
+//            self.likedPost.append(self.user!.posts[indexPath])
         }
         saveLikedPost.completionBlock = {
             print("Отмеченый пост сохранен")
@@ -66,7 +68,8 @@ class DataManager: DataManagerProtocol {
         saveOperationLikedQueue.addOperation(saveLikedPost)
     }
     func syncGetAllPost() -> [PostInfo] {
-        return user!.posts
+//        return user!.posts
+        return []
     }
     func syncGetAllFilteredPost() -> [PostInfo] {
         return filteredPost
@@ -107,11 +110,11 @@ class DataManager: DataManagerProtocol {
         searchIdOpertionQueue.addOperation(searchByIdOpertion)
     }
     func syncDelete(indexPath: Int) {
-        self.user?.posts.remove(at: indexPath)
+//        self.user?.posts.remove(at: indexPath)
     }
     func asyncDelete(indexPath: Int) {
         let deleateOperation = BlockOperation {
-            self.user?.posts.remove(at: indexPath)
+//            self.user?.posts.remove(at: indexPath)
         }
         deleateOperation.completionBlock = {
             print("Пост успешно удален")
@@ -119,23 +122,23 @@ class DataManager: DataManagerProtocol {
         deleateOpertionQueue.addOperation(deleateOperation)
     }
     func syncDeleteLikePost(indexPath: Int) {
-        for index in 0...user!.likePosts.count - 1
-        where user?.posts[indexPath].postID == user!.likePosts[index].postID {
-            user!.posts[indexPath].isLiked = false
-            user!.posts[indexPath].counterLikes -= 1
-            user?.likePosts.remove(at: index)
-            break
-        }
+//        for index in 0...user!.likePosts.count - 1
+//        where user?.posts[indexPath].postID == user!.likePosts[index].postID {
+//            user!.posts[indexPath].isLiked = false
+//            user!.posts[indexPath].counterLikes -= 1
+//            user?.likePosts.remove(at: index)
+//            break
+//        }
     }
     func asyncDeleteLikePost(indexPath: Int) {
         let deleteLikePost = BlockOperation {
-            for index in 0...self.user!.likePosts.count - 1
-            where self.user?.posts[indexPath].postID == self.user!.likePosts[index].postID {
-                self.user!.posts[indexPath].isLiked = false
-                self.user!.posts[indexPath].counterLikes -= 1
-                self.user?.likePosts.remove(at: index)
-                break
-            }
+//            for index in 0...self.user!.likePosts.count - 1
+//            where self.user?.posts[indexPath].postID == self.user!.likePosts[index].postID {
+//                self.user!.posts[indexPath].isLiked = false
+//                self.user!.posts[indexPath].counterLikes -= 1
+//                self.user?.likePosts.remove(at: index)
+//                break
+//            }
         }
         deleteLikePost.completionBlock = {
             print("Добавленый пост удален")
@@ -144,5 +147,53 @@ class DataManager: DataManagerProtocol {
     }
     func syncGetLikedPosts() -> [PostInfo] {
         return self.likedPost
+    }
+    func getUserByID(id: Int) -> User {
+        var postUser: User = user!
+//        for userItem in users.getData() where userItem.userId == id {
+//            postUser = userItem
+//            break
+//        }
+        return postUser
+    }
+    func getAllPostsFriends() {
+        var postsFriend: [PostInfo] = []
+        let users = UserDataBase.sigelton.getData()
+        for user in users {
+            postsFriend += user.posts
+        }
+        let lenght = postsFriend.count - 1
+        for counterStep in 0..<lenght {
+            for counterBubleSort in 0..<lenght - counterStep {
+                if postsFriend[counterBubleSort].postDate.year <
+                    postsFriend[counterBubleSort + 1].postDate.year ||
+                    postsFriend[counterBubleSort].postDate.mounth >
+                    postsFriend[counterBubleSort + 1].postDate.mounth &&
+                    postsFriend[counterBubleSort].postDate.year ==
+                    postsFriend[counterBubleSort + 1].postDate.year ||
+                    postsFriend[counterBubleSort].postDate.day >
+                    postsFriend[counterBubleSort + 1].postDate.day &&
+                    postsFriend[counterBubleSort].postDate.mounth ==
+                    postsFriend[counterBubleSort + 1].postDate.mounth &&
+                    postsFriend[counterBubleSort].postDate.year ==
+                    postsFriend[counterBubleSort + 1].postDate.year {
+                    let temp = postsFriend[counterBubleSort]
+                    postsFriend[counterBubleSort] = postsFriend[counterBubleSort + 1]
+                    postsFriend[counterBubleSort + 1] = temp }
+            }
+        }
+        postNewsLine = postsFriend
+    }
+    func deletePostsById(postId: Int, postUserid: Int) {
+        for counter in 0..<posts.count-1 where posts[counter].postID == postId {
+//            user!.posts.remove(at: counter)
+            for counter1 in 0..<postNewsLine.count-1
+            where postNewsLine[counter1].postID == postId &&
+            postNewsLine[counter1].userPostId == postUserid {
+                postNewsLine.remove(at: counter1)
+                break
+            }
+            break
+        }
     }
 }

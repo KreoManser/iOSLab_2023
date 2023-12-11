@@ -11,6 +11,7 @@ import UIKit
 class PostsDataSource: NSObject, UITableViewDelegate, UITableViewDataSource {
     let dataManager = DataManager.sigelton
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("re")
         if dataManager.isSearching == false {
             return dataManager.syncGetAllPost().count
         } else {
