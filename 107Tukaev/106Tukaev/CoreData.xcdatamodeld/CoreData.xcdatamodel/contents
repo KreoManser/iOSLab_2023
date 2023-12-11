@@ -20,7 +20,7 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" attributeType="String"/>
         <attribute name="login" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
         <attribute name="password" attributeType="String"/>
         <relationship name="likes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Like" inverseName="user" inverseEntity="Like"/>
         <relationship name="publications" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Publication" inverseName="user" inverseEntity="Publication"/>

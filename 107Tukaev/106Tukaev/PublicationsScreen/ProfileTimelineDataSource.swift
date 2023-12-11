@@ -26,10 +26,10 @@ class ProfileTimelineDataSource: NSObject, UICollectionViewDataSource, UICollect
         let withIdentificator = TimelineCollectionViewCell.reuseIdentificator
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: withIdentificator, for: indexPath) as? TimelineCollectionViewCell
         if let cell = cell {
+            let user = self.user
             if user == dataManager.authUser {
                 cell.delegate = collectionView.superview as? any AlertDelegate
             }
-            let user = self.user
             let publication = dataManager.getUserPubl(user: user)[indexPath.row]
             cell.setupUser(user: user)
             let likePressed = self.dataManager.likeTap(publ: publication)

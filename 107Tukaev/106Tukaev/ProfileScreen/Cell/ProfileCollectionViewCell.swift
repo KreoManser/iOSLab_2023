@@ -80,10 +80,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     }()
 
     lazy var editProfileButton: UIButton = {
-        var action = UIAction {_ in
-            self.subDelegate?.subscribe(user: self.user ?? User())
-        }
-        var button = UIButton(type: .system, primaryAction: action)
+        var button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         button.setTitleColor(.white, for: .normal)
@@ -204,8 +201,12 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     }
 
     func setupFriendsProfile() {
+        let action = UIAction {_ in
+            self.subDelegate?.subscribe(user: self.user ?? User())
+        }
         buttonVerticalStackView.addArrangedSubview(buttonHorizontalStackView)
         editProfileButton.setTitle("Подписаться", for: .normal)
+        editProfileButton.addAction(action, for: .touchUpInside)
         shareProfileButton.setTitle("Сообщение", for: .normal)
     }
 

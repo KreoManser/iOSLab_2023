@@ -12,6 +12,10 @@
 		783A33B92AF2A1FC0024E3F2 /* ProfileTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783A33B82AF2A1FC0024E3F2 /* ProfileTimelineView.swift */; };
 		783A33BC2AF2A26D0024E3F2 /* TimelineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783A33BB2AF2A26D0024E3F2 /* TimelineCollectionViewCell.swift */; };
 		783A33BE2AF2B65C0024E3F2 /* ProfileTimelineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783A33BD2AF2B65C0024E3F2 /* ProfileTimelineDataSource.swift */; };
+		784BD4F62B2701960097507F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784BD4F52B2701960097507F /* SearchViewController.swift */; };
+		784BD4F92B2701D30097507F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784BD4F82B2701D30097507F /* SearchView.swift */; };
+		784BD4FB2B2701FF0097507F /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784BD4FA2B2701FF0097507F /* SearchCollectionViewCell.swift */; };
+		784BD4FD2B2706840097507F /* SearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784BD4FC2B2706840097507F /* SearchDataSource.swift */; };
 		7877B15A2AEEDA01008EA698 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7877B1592AEEDA01008EA698 /* AppDelegate.swift */; };
 		7877B15C2AEEDA01008EA698 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7877B15B2AEEDA01008EA698 /* SceneDelegate.swift */; };
 		7877B15E2AEEDA01008EA698 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7877B15D2AEEDA01008EA698 /* ProfileViewController.swift */; };
@@ -53,6 +57,10 @@
 		783A33B82AF2A1FC0024E3F2 /* ProfileTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTimelineView.swift; sourceTree = "<group>"; };
 		783A33BB2AF2A26D0024E3F2 /* TimelineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCollectionViewCell.swift; sourceTree = "<group>"; };
 		783A33BD2AF2B65C0024E3F2 /* ProfileTimelineDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTimelineDataSource.swift; sourceTree = "<group>"; };
+		784BD4F52B2701960097507F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		784BD4F82B2701D30097507F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		784BD4FA2B2701FF0097507F /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		784BD4FC2B2706840097507F /* SearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataSource.swift; sourceTree = "<group>"; };
 		7877B1562AEEDA01008EA698 /* 107Tukaev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 107Tukaev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7877B1592AEEDA01008EA698 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7877B15B2AEEDA01008EA698 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +139,17 @@
 			path = PublicationsScreen;
 			sourceTree = "<group>";
 		};
+		784BD4F72B2701A80097507F /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				784BD4F52B2701960097507F /* SearchViewController.swift */,
+				784BD4F82B2701D30097507F /* SearchView.swift */,
+				784BD4FC2B2706840097507F /* SearchDataSource.swift */,
+				784BD4FA2B2701FF0097507F /* SearchCollectionViewCell.swift */,
+			);
+			path = SearchView;
+			sourceTree = "<group>";
+		};
 		7877B14D2AEEDA01008EA698 = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +169,7 @@
 		7877B1582AEEDA01008EA698 /* 106Tukaev */ = {
 			isa = PBXGroup;
 			children = (
+				784BD4F72B2701A80097507F /* SearchView */,
 				78DC5B912B228B3F007C1D1B /* Models */,
 				78DC5B792B21AD7C007C1D1B /* RegistrationScreen */,
 				78F3AB8A2B1921CA00B6E343 /* FriendsScreen */,
@@ -356,12 +376,15 @@
 				78F3AB892B1921C400B6E343 /* FriendsViewController.swift in Sources */,
 				7894EF402AF3A18000B8C67E /* AuthViewController.swift in Sources */,
 				78DC5BAC2B2292FE007C1D1B /* CoreDataManager.swift in Sources */,
+				784BD4F92B2701D30097507F /* SearchView.swift in Sources */,
 				7894EF552AF8079400B8C67E /* TimelineDataSource.swift in Sources */,
 				78DC5B802B2262E1007C1D1B /* CoreData.xcdatamodeld in Sources */,
 				788CABA72B1703B40089D255 /* SettingsView.swift in Sources */,
 				78DC5BA62B228D53007C1D1B /* Image+CoreDataClass.swift in Sources */,
 				7877B1752AEFC1C0008EA698 /* ProfileView.swift in Sources */,
+				784BD4FD2B2706840097507F /* SearchDataSource.swift in Sources */,
 				78DC5BA52B228D53007C1D1B /* Like+CoreDataProperties.swift in Sources */,
+				784BD4F62B2701960097507F /* SearchViewController.swift in Sources */,
 				78DC5BA42B228D53007C1D1B /* Like+CoreDataClass.swift in Sources */,
 				78DC5BA32B228D53007C1D1B /* User+CoreDataProperties.swift in Sources */,
 				7877B1732AEFB537008EA698 /* PublicationCollectionViewCell.swift in Sources */,
@@ -369,6 +392,7 @@
 				783A33B32AF1C6BF0024E3F2 /* ProfileCollectionViewCell.swift in Sources */,
 				78DC5BA82B228D53007C1D1B /* Publication+CoreDataClass.swift in Sources */,
 				783A33BC2AF2A26D0024E3F2 /* TimelineCollectionViewCell.swift in Sources */,
+				784BD4FB2B2701FF0097507F /* SearchCollectionViewCell.swift in Sources */,
 				788CABA52B17039F0089D255 /* SettingsViewController.swift in Sources */,
 				7894EF3E2AF3A12500B8C67E /* TapBarController.swift in Sources */,
 				78DC5BA22B228D53007C1D1B /* User+CoreDataClass.swift in Sources */,

@@ -165,7 +165,7 @@ class TimelineCollectionViewCell: UICollectionViewCell {
     var id: UUID?
 
     func setupUser(user: User) {
-        userImage.image = UIImage(named: user.image ?? "user")
+        userImage.image = UIImage(named: user.image)
         userLogin.text = user.login
         self.user = user
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileTimelineView: UIView, UICollectionViewDelegateFlowLayout {
+class ProfileTimelineView: UIView {
 
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -52,7 +52,7 @@ class ProfileTimelineView: UIView, UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension ProfileTimelineView {
+extension ProfileTimelineView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)

@@ -15,10 +15,10 @@ extension User {
         return NSFetchRequest<User>(entityName: "User")
     }
 
-    @NSManaged public var login: String?
-    @NSManaged public var password: String?
-    @NSManaged public var name: String?
-    @NSManaged public var image: String?
+    @NSManaged public var login: String
+    @NSManaged public var password: String
+    @NSManaged public var name: String
+    @NSManaged public var image: String
     @NSManaged public var id: UUID?
     @NSManaged public var publications: Set<Publication>
     @NSManaged public var subscription: Set<User>

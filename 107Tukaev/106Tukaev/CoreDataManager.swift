@@ -124,7 +124,7 @@ class CoreDataManager {
     }
 
     func subscribeToUser(toUser: User) {
-        if (authUser?.subscription.contains(where: { $0.login == toUser.login })) != nil {
+        if (authUser?.subscription.contains(where: { $0.login == toUser.login })) == true {
             authUser?.removeFromSubscription(toUser)
         } else {
             authUser?.addToSubscription(toUser)
@@ -153,56 +153,43 @@ class CoreDataManager {
         }
     }
 
-func deletePubl(_ publId: UUID) throws {
-    if let user = obtainSavedData().first(where: { $0.publications.contains { $0.id == publId } }) {
-        if let publToDelete = user.publications.first(where: { $0.id == publId }) {
-            viewContext.delete(publToDelete)
-            if viewContext.hasChanges {
-                try viewContext.save()
-            }
-        }
-    }
-}
-    func likeTap(publ: Publication) -> Bool {
-        var likeBool = false
-        obtainSavedData().forEach { user in
-            if user.login == publ.user.login {
-                user.publications.forEach { publ in
-                    if publ.id == publ.id {
-                        if publ.likes.first(where: { $0.user == authUser }) != nil {
-                            likeBool = false
-                        } else {
-                            likeBool = true
-                        }
-                    }
+    func deletePubl(_ publId: UUID) throws {
+        if let user = obtainSavedData().first(where: { $0.publications.contains { $0.id == publId } }) {
+            if let publToDelete = user.publications.first(where: { $0.id == publId }) {
+                viewContext.delete(publToDelete)
+                if viewContext.hasChanges {
+                    try viewContext.save()
                 }
             }
         }
-        return likeBool
+    }
+
+    func likeTap(publ: Publication) -> Bool {
+
+        if publ.likes.contains(where: { $0.user == self.authUser }) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    func searchUser(searchPrefix: String) -> [User] {
+        let users = obtainSavedData().filter { $0.login.lowercased().hasPrefix(searchPrefix.lowercased()) && $0 != self.authUser }
+        return users
     }
 
     func addLike(publ: Publication) -> Bool {
-        var likeBool = false
-        obtainSavedData().forEach { user in
-            if user.login == publ.user.login {
-                user.publications.forEach { publ in
-                    if publ.id == publ.id {
-                        if let like = publ.likes.first(where: { $0.user == authUser }) {
-                            publ.removeFromLikes(like)
-                            likeBool = false
-                            updateSelfUser()
-                        } else {
-                            let like = createLike(user: authUser ?? User())
-                            publ.addToLikes(like)
-                            likeBool = true
-                            updateSelfUser()
-                        }
-                    }
-                }
-            }
+
+        if let like = publ.likes.first(where: { $0.user == self.authUser }) {
+            publ.removeFromLikes(like)
+            updateSelfUser()
+            return false
+        } else {
+            let like = createLike(user: authUser ?? User())
+            publ.addToLikes(like)
+            updateSelfUser()
+            return true
         }
-        saveContext()
-        return likeBool
     }
 
     func getSelfPublSubscription() -> [Publication] {
