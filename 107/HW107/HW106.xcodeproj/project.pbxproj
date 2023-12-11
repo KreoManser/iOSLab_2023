@@ -32,6 +32,9 @@
 		CE5B3CB62AEED5ED00911C77 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B3CB52AEED5ED00911C77 /* ProfileViewController.swift */; };
 		CE5B3CBB2AEED5EE00911C77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5B3CBA2AEED5EE00911C77 /* Assets.xcassets */; };
 		CE5B3CBE2AEED5EE00911C77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE5B3CBC2AEED5EE00911C77 /* LaunchScreen.storyboard */; };
+		CEDFCF1C2B26B74900F9405F /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEDFCF1A2B26B74900F9405F /* CoreData.xcdatamodeld */; };
+		CEDFCF6B2B26C4BB00F9405F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDFCF6A2B26C4BB00F9405F /* SignUpView.swift */; };
+		CEDFCF6D2B26C77700F9405F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDFCF6C2B26C77700F9405F /* SignUpViewController.swift */; };
 		CEFDBDE32B146218009C0806 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDE22B146218009C0806 /* TabBarViewController.swift */; };
 		CEFDBDEB2B14848B009C0806 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDEA2B14848B009C0806 /* SettingsViewController.swift */; };
 		CEFDBDED2B14851D009C0806 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDEC2B14851D009C0806 /* SettingsView.swift */; };
@@ -68,6 +71,9 @@
 		CE5B3CBA2AEED5EE00911C77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE5B3CBD2AEED5EE00911C77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE5B3CBF2AEED5EE00911C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEDFCF1B2B26B74900F9405F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		CEDFCF6A2B26C4BB00F9405F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		CEDFCF6C2B26C77700F9405F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CEFDBDE22B146218009C0806 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CEFDBDEA2B14848B009C0806 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CEFDBDEC2B14851D009C0806 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -232,6 +238,8 @@
 		CE5B3CB02AEED5ED00911C77 /* HW106 */ = {
 			isa = PBXGroup;
 			children = (
+				CEDFCF2D2B26BE8900F9405F /* CoreDataModels */,
+				CEDFCF662B26C44500F9405F /* SignUpScreen */,
 				CE03E7912B179B210094FB8E /* FriendsScreen */,
 				CE5B3CC62AEEDECF00911C77 /* AppLife */,
 				CEFDBDE62B14714A009C0806 /* SettingsScreen */,
@@ -243,6 +251,7 @@
 				CE5B3CBA2AEED5EE00911C77 /* Assets.xcassets */,
 				CE5B3CBC2AEED5EE00911C77 /* LaunchScreen.storyboard */,
 				CE5B3CBF2AEED5EE00911C77 /* Info.plist */,
+				CEDFCF1A2B26B74900F9405F /* CoreData.xcdatamodeld */,
 			);
 			path = HW106;
 			sourceTree = "<group>";
@@ -254,6 +263,46 @@
 				CE5B3CB32AEED5ED00911C77 /* SceneDelegate.swift */,
 			);
 			path = AppLife;
+			sourceTree = "<group>";
+		};
+		CEDFCF2D2B26BE8900F9405F /* CoreDataModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreDataModels;
+			sourceTree = "<group>";
+		};
+		CEDFCF662B26C44500F9405F /* SignUpScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CEDFCF692B26C49400F9405F /* Controllers */,
+				CEDFCF682B26C48C00F9405F /* Views */,
+				CEDFCF672B26C48300F9405F /* Models */,
+			);
+			path = SignUpScreen;
+			sourceTree = "<group>";
+		};
+		CEDFCF672B26C48300F9405F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CEDFCF682B26C48C00F9405F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEDFCF6A2B26C4BB00F9405F /* SignUpView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CEDFCF692B26C49400F9405F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEDFCF6C2B26C77700F9405F /* SignUpViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		CEFDBDE62B14714A009C0806 /* SettingsScreen */ = {
@@ -454,6 +503,7 @@
 				CE03E79C2B17A4060094FB8E /* FriendViewController.swift in Sources */,
 				CE1CE4062AFA4FF200258F0D /* Story.swift in Sources */,
 				CE03E7962B179B5E0094FB8E /* FriendTableViewCell.swift in Sources */,
+				CEDFCF6D2B26C77700F9405F /* SignUpViewController.swift in Sources */,
 				CE1CE4D52AFAFC9D00258F0D /* DataManager.swift in Sources */,
 				CE1CE4E52AFAFE6E00258F0D /* MainViewController.swift in Sources */,
 				CE1CE4EB2AFAFF0400258F0D /* MainView.swift in Sources */,
@@ -461,6 +511,7 @@
 				CEFE30192AEF56C000E3DA19 /* ProfileCollectionViewCell.swift in Sources */,
 				CE03E79A2B17A2280094FB8E /* FriendView.swift in Sources */,
 				CE1CE4CC2AFAFBD700258F0D /* LoginView.swift in Sources */,
+				CEDFCF1C2B26B74900F9405F /* CoreData.xcdatamodeld in Sources */,
 				CE1CE4E02AFAFDE900258F0D /* PostTableViewCell.swift in Sources */,
 				CE1CE4DB2AFAFD9500258F0D /* PostViewController.swift in Sources */,
 				CEFDBDED2B14851D009C0806 /* SettingsView.swift in Sources */,
@@ -470,6 +521,7 @@
 				CE1CE4D12AFAFC2600258F0D /* LoginDataManager.swift in Sources */,
 				CE1CE4E22AFAFE1700258F0D /* PostTableViewDataSource.swift in Sources */,
 				CEFE30242AEF69D900E3DA19 /* ProfileView.swift in Sources */,
+				CEDFCF6B2B26C4BB00F9405F /* SignUpView.swift in Sources */,
 				CE5B3CB22AEED5ED00911C77 /* AppDelegate.swift in Sources */,
 				CE5B3CB42AEED5ED00911C77 /* SceneDelegate.swift in Sources */,
 				CEFE300B2AEF39E200E3DA19 /* Post.swift in Sources */,
@@ -678,6 +730,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CEDFCF1A2B26B74900F9405F /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CEDFCF1B2B26B74900F9405F /* Model.xcdatamodel */,
+			);
+			currentVersion = CEDFCF1B2B26B74900F9405F /* Model.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CE5B3CA62AEED5ED00911C77 /* Project object */;
 }

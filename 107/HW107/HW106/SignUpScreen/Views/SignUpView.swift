@@ -1,15 +1,15 @@
 import UIKit
 
-class LoginView: UIView {
+class SignUpView: UIView {
     private lazy var welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "Welcome to CatGram!"
+        label.text = "Sign up for CatGram!"
         label.font = .systemFont(ofSize: 35, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private lazy var loginTextField: UITextField = {
+    lazy var loginTextField: UITextField = {
         let field = UITextField()
         field.placeholder = "Login"
         field.font = .systemFont(ofSize: 25)
@@ -34,37 +34,38 @@ class LoginView: UIView {
         return field
     }()
 
-    private lazy var logInButton: UIButton = {
-        let button = UIButton()
-        let action = UIAction { [weak self] _ in
-            self?.loginViewController?.prepareProfile(login: self?.loginTextField.text ?? "", password: self?.passwordTextField.text ?? "")
-        }
-        button.layer.cornerRadius = 10
-        button.clipsToBounds = true
-        button.setTitle("Log in", for: .normal)
-        button.backgroundColor = .systemGray
-        button.addAction(action, for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
     private lazy var signUpButton: UIButton = {
-        let action = UIAction { [weak self] _ in
-            let presentController = SignUpViewController()
-            presentController.modalPresentationStyle = .fullScreen
-            self?.loginViewController?.present(presentController, animated: false)
-        }
         let button = UIButton()
+        let action = UIAction { [weak self] _ in
+            guard let login = self?.loginTextField.text else { return }
+            guard let password = self?.passwordTextField.text else { return }
+            self?.signUpViewController?.signUpUser(login, password)
+        }
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        button.setTitle("Sign up", for: .normal)
+        button.setTitle("Sign Up", for: .normal)
         button.backgroundColor = .systemGray
         button.addAction(action, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
-    weak var loginViewController: LoginViewController?
+    private lazy var loginButton: UIButton = {
+        let button = UIButton()
+        let action = UIAction { [weak self] _ in
+            let presentController = LoginViewController()
+            presentController.modalPresentationStyle = .fullScreen
+            self?.signUpViewController?.present(presentController, animated: false)
+        }
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.setTitle("Sign In", for: .normal)
+        button.backgroundColor = .systemGray
+        button.addAction(action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    weak var signUpViewController: SignUpViewController?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,13 +78,14 @@ class LoginView: UIView {
     }
 }
 
-extension LoginView {
+extension SignUpView {
     func setupLayouts() {
+        backgroundColor = .white
         addSubview(welcomeLabel)
         addSubview(loginTextField)
         addSubview(passwordTextField)
-        addSubview(logInButton)
         addSubview(signUpButton)
+        addSubview(loginButton)
 
         NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 75),
@@ -99,22 +101,15 @@ extension LoginView {
             passwordTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -15),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
 
-            logInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 200),
-            logInButton.widthAnchor.constraint(equalToConstant: 300),
-            logInButton.heightAnchor.constraint(equalToConstant: 50),
-            logInButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-
-            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 10),
+            signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 200),
             signUpButton.widthAnchor.constraint(equalToConstant: 300),
             signUpButton.heightAnchor.constraint(equalToConstant: 50),
-            signUpButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
-        ])
-    }
-}
+            signUpButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
 
-extension UITextField {
-    func indent(size: CGFloat) {
-        self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
-        self.leftViewMode = .always
+            loginButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 10),
+            loginButton.widthAnchor.constraint(equalToConstant: 300),
+            loginButton.heightAnchor.constraint(equalToConstant: 50),
+            loginButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
+        ])
     }
 }
