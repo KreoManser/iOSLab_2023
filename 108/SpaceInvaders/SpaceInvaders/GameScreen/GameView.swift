@@ -86,9 +86,6 @@ class GameView: UIView {
         lastUpdateTime = currentTime
     }
 
-    func DefenderShooting() {
-        
-    }
 
     func addPanGestureToDefendership() {
         defendershipPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleDefendershipPan(_:)))
