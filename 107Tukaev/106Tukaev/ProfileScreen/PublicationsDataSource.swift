@@ -30,7 +30,7 @@ class PublicationsDataSource: NSObject, UICollectionViewDataSource, UICollection
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: withReuseIdentifier, for: indexPath) as? ProfileCollectionViewCell
             if let cell = cell {
                 let user = dataManager.authUser ?? User()
-                cell.configureCell(with: user, selfUser: true)
+                cell.configureSelfCell(with: user)
                 return cell
             }
             return UICollectionViewCell()

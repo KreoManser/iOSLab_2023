@@ -13,7 +13,9 @@ class CoreDataManager {
     var obtainUsers: [User] = []
     var authUser: User?
 
-    private init() {}
+    private init() {
+        createObtainDefaultData()
+    }
 
     var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
@@ -95,32 +97,32 @@ class CoreDataManager {
         return like
     }
 
-    func obtainDefaultData() -> [User] {
-        var users: [User] = []
+    func createObtainDefaultData() {
+        if obtainSavedData().isEmpty {
+            let image1 = createImage(nameImage: "user")
+            let image2 = createImage(nameImage: "Cat")
+            let image3 = createImage(nameImage: "Cat")
+            let image4 = createImage(nameImage: "user")
+            let publ1 = createPubl(description: "1")
+            publ1.addToImages(image1)
+            let publ2 = createPubl(description: "2")
+            publ2.addToImages(image2)
+            let publ3 = createPubl(description: "3")
+            publ3.addToImages(image3)
+            let publ4 = createPubl(description: "4")
+            publ4.addToImages(image4)
 
-        let image1 = createImage(nameImage: "user")
-        let image2 = createImage(nameImage: "Cat")
-        let image3 = createImage(nameImage: "Cat")
-        let publ1 = createPubl(description: "1")
-        publ1.addToImages(image1)
-        let publ2 = createPubl(description: "2")
-        publ2.addToImages(image2)
-        let publ3 = createPubl(description: "3")
-        publ3.addToImages(image3)
-
-        let user1 = createUser(login: "admin1", pass: "123", name: "Aidar")
-        let user2 = createUser(login: "admin2", pass: "123", name: "Alina")
-        let user3 = createUser(login: "admin3", pass: "123", name: "Artur")
-        user1.addToPublications(publ1)
-        user1.addToPublications(publ2)
-        user2.addToPublications(publ3)
-        user1.addToSubscription(user2)
-        user2.addToSubscribers(user1)
-
-        users.append(user1)
-        users.append(user2)
-        users.append(user3)
-        return users
+            let user1 = createUser(login: "admin1", pass: "123", name: "Aidar")
+            let user2 = createUser(login: "admin2", pass: "123", name: "Alina")
+            let user3 = createUser(login: "admin3", pass: "123", name: "Artur")
+            user1.addToPublications(publ1)
+            user1.addToPublications(publ2)
+            user2.addToPublications(publ3)
+            user1.addToSubscription(user2)
+            user2.addToSubscribers(user1)
+            user3.addToPublications(publ4)
+            saveContext()
+        }
     }
 
     func subscribeToUser(toUser: User) {
@@ -143,6 +145,7 @@ class CoreDataManager {
             self.authUser = result?.first(where: { $0.login == authUser.login })
         }
         return result ?? []
+
     }
 
     func deleteUser(_ user: User) throws {
@@ -235,13 +238,8 @@ class CoreDataManager {
     }
 
     func authCheck(login: String, pass: String) -> Bool {
-        let data: [User]
+        let data = obtainSavedData()
 
-        if !obtainSavedData().isEmpty {
-            data = obtainSavedData()
-        } else {
-            data = obtainDefaultData()
-        }
         authUser = data.first(where: { $0.login == login && $0.password == pass})
         if authUser != nil {
             return true
@@ -280,5 +278,15 @@ class CoreDataManager {
     func updateSelfUser() {
         authUser = obtainSavedData().first(where: { $0.login == authUser?.login })
         saveContext()
+    }
+
+    func getSubBut(user: User) -> Bool? {
+        if user.subscribers.contains(where: { $0 == authUser }) {
+            return true
+        }
+
+        if user.subscription.contains(where: { $0 == authUser }) {
+            return false
+        } else { return nil }
     }
 }

@@ -179,20 +179,12 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     private func addSubviews(_ subview: UIView...) {
         subview.forEach { contentView.addSubview($0) }
     }
-    func configureCell(with user: User, selfUser: Bool) {
+    func configureSelfCell(with user: User) {
 
         self.publicationNumLabel.text = String(user.publications.count)
         self.subscribersNumLabel.text = String(user.subscribers.count)
         self.subscriptionsNumLabel.text = String(user.subscription.count)
         self.nameLabel.text = user.name
-        if selfUser {
-            setupSelfProfile()
-        } else {
-            setupFriendsProfile()
-        }
-    }
-
-    func setupSelfProfile() {
         buttonVerticalStackView.addArrangedSubview(professionalPanelButton)
         buttonVerticalStackView.addArrangedSubview(buttonHorizontalStackView)
         editProfileButton.setTitle("Редактировать профиль", for: .normal)
@@ -200,14 +192,30 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         professionalPanelButton.setTitle("Профессиональная Панель", for: .normal)
     }
 
-    func setupFriendsProfile() {
+    var subTap: (() -> Void)?
+
+    func configureFriendCell(with user: User) {
         let action = UIAction {_ in
             self.subDelegate?.subscribe(user: self.user ?? User())
+            self.subTap?()
         }
+        self.publicationNumLabel.text = String(user.publications.count)
+        self.subscribersNumLabel.text = String(user.subscribers.count)
+        self.subscriptionsNumLabel.text = String(user.subscription.count)
+        self.nameLabel.text = user.name
         buttonVerticalStackView.addArrangedSubview(buttonHorizontalStackView)
-        editProfileButton.setTitle("Подписаться", for: .normal)
         editProfileButton.addAction(action, for: .touchUpInside)
         shareProfileButton.setTitle("Сообщение", for: .normal)
+    }
+
+    func setupSub(subBut: Bool?) {
+        if subBut == nil {
+            editProfileButton.setTitle("Подписаться", for: .normal)
+        } else if subBut == false {
+            editProfileButton.setTitle("Подписаться в ответ", for: .normal)
+        } else {
+            editProfileButton.setTitle("Подписка", for: .normal)
+        }
     }
 
     private func setupLayout() {

@@ -27,9 +27,14 @@ class FriendsDataSource: NSObject, UICollectionViewDataSource, UICollectionViewD
             let withReuseIdentifier = ProfileCollectionViewCell.reuseIdentificator
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: withReuseIdentifier, for: indexPath) as? ProfileCollectionViewCell
             if let cell = cell {
+                let subBut = dataManager.getSubBut(user: user)
                 cell.user = user
                 cell.subDelegate = collectionView.superview as? any SubscribeDelegate
-                cell.configureCell(with: user, selfUser: false)
+                cell.setupSub(subBut: subBut)
+                cell.subTap = {
+                    cell.setupSub(subBut: subBut)
+                }
+                cell.configureFriendCell(with: user)
                 return cell
             }
             return UICollectionViewCell()
