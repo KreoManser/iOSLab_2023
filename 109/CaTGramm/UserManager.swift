@@ -6,32 +6,41 @@
 //
 
 import Foundation
+import CoreData
 
 class UserManager: UserManagerProtocol {
 
-    private static var firstUser = User(userName: "123", avatar: "myava", password: "123", profileDescription: "я самый топовый кот города Казань")
-    static var secondUser = User(userName: "InglishKot", avatar: "myava", password: "Engcot", profileDescription: "i am inglish cot london is capital of gret britan")
-    static var thirdUser = User(userName: "UsualCat", avatar: "myava", password: "Usualcot", profileDescription: "just usual cat with no friends")
+    var viewContext = CoreDataManager.shared.viewContext
 
-    var users = [firstUser, secondUser, thirdUser]
+    lazy var firstUser: User = {
+        var firstUser = User(context: viewContext)
+        firstUser.userName = "123"
+        firstUser.avatar = "myava"
+        firstUser.password = "123"
+        firstUser.profileDescription = "descrip"
+        return firstUser
+    }()
 
-    func asyncAuthUsers(userName: String, password: String) async -> Bool {
-        var flag = false
-        let checkOperation = BlockOperation {
-            print("async login started")
-        }
-        return await withCheckedContinuation { continuation in
-            checkOperation.completionBlock = { [weak self] in
-                if let i = self?.users.firstIndex(where: { $0.userName == userName }) {
-                    if self?.users[i].password == password {
-                        print("good pass!")
-                        flag = true
-                    }
-                }
-                continuation.resume(returning: flag)
+    lazy var users: [User] = {
+        var users: [User] = []
+        users.append(contentsOf: getAllUsers())
+        users.append(firstUser)
+        return users
+    }()
+
+    private func getAllUsers() -> [User] {
+        var allUsers: [User] = []
+        allUsers.append(contentsOf: CoreDataManager.shared.obtainSavedUsers())
+        return allUsers
+    }
+
+    func updateUsers() {
+        var allUsers: [User] = []
+        allUsers.append(contentsOf: CoreDataManager.shared.obtainSavedUsers())
+        for user in allUsers {
+            if !users.contains(where: {$0.userName == user.userName}) {
+                users.append(user)
             }
-
-            OperationQueue().addOperation(checkOperation)
         }
     }
 

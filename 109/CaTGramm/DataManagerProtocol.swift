@@ -8,12 +8,12 @@
 import Foundation
 
 protocol DataManagerProtocol {
-    func syncSave(_ picture: PictureModel)
-    func asyncSave(_ picture: PictureModel)
-    func syncGetModel(_ picture: PictureModel)
-    func asyncGetModel(_ picture: PictureModel)
-    func syncDeleteModel(_ picture: PictureModel)
-    func asyncDeleteModel(_ picture: PictureModel)
+    func syncSave(_ picture: Post)
+    func asyncSave(_ picture: Post)
+    func syncGetModel(_ picture: Post)
+    func asyncGetModel(_ picture: Post)
+    func syncDeleteModel(_ picture: Post)
+    func asyncDeleteModel(_ picture: Post)
     func syncSearchModel(_ name: String)
     func asyncSearchModel(_ name: String)
 }

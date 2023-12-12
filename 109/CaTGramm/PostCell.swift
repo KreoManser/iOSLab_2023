@@ -133,54 +133,52 @@ extension PostCell {
 
     private func configureUI() {
         self.backgroundColor = .white
-        NSLayoutConstraint.activate([
-            userImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            userImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            userImageView.widthAnchor.constraint(equalToConstant: 40),
-            userImageView.heightAnchor.constraint(equalToConstant: 40),
+        userImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        userImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        userImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        userImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
 
-            userNameTopLabel.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: 10),
-            userNameTopLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+        userNameTopLabel.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: 10).isActive = true
+        userNameTopLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
 
-            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+        deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
 
-            postImageView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 5),
-            postImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            postImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            postImageView.heightAnchor.constraint(equalToConstant: contentView.frame.width),
+        postImageView.topAnchor.constraint(equalTo: userImageView.bottomAnchor, constant: 5).isActive = true
+        postImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        postImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        postImageView.heightAnchor.constraint(equalToConstant: contentView.frame.width).isActive = true
 
-            likeButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            likeButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+        likeButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10).isActive = true
+        likeButton.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor).isActive = true
 
-            commentButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            commentButton.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 15),
+        commentButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10).isActive = true
+        commentButton.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 15).isActive = true
 
-            shareButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            shareButton.leadingAnchor.constraint(equalTo: commentButton.trailingAnchor, constant: 15),
+        shareButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10).isActive = true
+        shareButton.leadingAnchor.constraint(equalTo: commentButton.trailingAnchor, constant: 15).isActive = true
 
-            favouriteButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
-            favouriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+        favouriteButton.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10).isActive = true
+        favouriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
 
-            likesCounter.trailingAnchor.constraint(equalTo: favouriteButton.leadingAnchor, constant: -10),
-            likesCounter.centerYAnchor.constraint(equalTo: favouriteButton.centerYAnchor),
+        likesCounter.trailingAnchor.constraint(equalTo: favouriteButton.leadingAnchor, constant: -10).isActive = true
+        likesCounter.centerYAnchor.constraint(equalTo: favouriteButton.centerYAnchor).isActive = true
 
-            userNameBottomLabel.topAnchor.constraint(equalTo: shareButton.bottomAnchor, constant: 10),
-            userNameBottomLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+        userNameBottomLabel.topAnchor.constraint(equalTo: shareButton.bottomAnchor, constant: 10).isActive = true
+        userNameBottomLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
 
-            postDescriptionLabel.topAnchor.constraint(equalTo: userNameBottomLabel.bottomAnchor, constant: 10),
-            postDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            postDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+        postDescriptionLabel.topAnchor.constraint(equalTo: userNameBottomLabel.bottomAnchor, constant: 10).isActive = true
+        postDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        postDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
 
-            postDateBottomLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: 10),
-            postDateBottomLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            postDateBottomLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
-        ])
+        postDateBottomLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: 10).isActive = true
+        postDateBottomLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        postDateBottomLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
     }
 
-    func configureCell(_ post: PictureModel) {
+    func configureCell(_ post: Post) {
 
-        if DataManager.OurDataManager.getCurrentUser().likedPosts.contains(where: { $0.text == post.text }) {
+        if DataManager.OurDataManager.getCurrentUser().likes.contains(where: { $0.post == post }) {
             likesCounter.text = "1"
         } else {
             likesCounter.text = "0"
@@ -188,7 +186,7 @@ extension PostCell {
 
         let myAction = UIAction(title: "Like") { _ in
             print("liked")
-            if DataManager.OurDataManager.getCurrentUser().likedPosts.contains(where: { $0.text == post.text }) {
+            if DataManager.OurDataManager.getCurrentUser().likes.contains(where: { $0.post == post }) {
                 self.likesCounter.text = "0"
                 print("disliked")
                 UIView.animate(withDuration: 1.0, delay: .zero, animations: {
@@ -196,7 +194,7 @@ extension PostCell {
                 })
                 self.likeButton.imageView?.tintColor = .black
                 self.likeButton.tintColor = .black
-                DataManager.OurDataManager.getCurrentUser().likedPosts.removeAll(where: { $0.text == post.text })
+                DataManager.OurDataManager.getCurrentUser().likes = DataManager.OurDataManager.getCurrentUser().likes.filter { $0.post == post }
             } else {
                 self.likesCounter.text = "1"
                 UIView.animate(withDuration: 1.0, delay: .zero, animations: {
@@ -208,36 +206,21 @@ extension PostCell {
                     })
                 })
                 self.likeButton.imageView?.tintColor = .systemRed
-                DataManager.OurDataManager.getCurrentUser().likedPosts.append(post)
+                var likedItem = Like(context: CoreDataManager.shared.viewContext)
+                likedItem.post = post
+                likedItem.likeId = UUID()
+                likedItem.likeDate = Date()
+                likedItem.user = DataManager.OurDataManager.getCurrentUser()
+                DataManager.OurDataManager.getCurrentUser().likes.insert(likedItem)
             }
-            self.saveLikedPosts()
         }
         self.likeButton.addAction(myAction, for: .touchDown)
-        self.userImageView.image = post.avatar
+        self.userImageView.image = UIImage(named: post.avatar)
         self.userNameTopLabel.text = post.nickname
-        self.postImageView.image = post.picture
+        self.postImageView.image = UIImage(named: post.picture)
         self.userNameBottomLabel.text = post.nickname
         self.postDescriptionLabel.text = post.text
         self.postDateBottomLabel.text = "\(post.date)"
-        if DataManager.OurDataManager.getCurrentUser().likedPosts.contains(where: { $0.text == post.text }) {
-            self.likeButton.imageView?.tintColor = .red
-            print("da")
-            DataManager.OurDataManager.getCurrentUser().likedPosts.append(post)
-        }
-    }
-
-    func saveLikedPosts() {
-        for post in DataManager.OurDataManager.getCurrentUser().likedPosts {
-            print(post.text)
-        }
-        do {
-            let encoder = JSONEncoder()
-            let likedPosts = try encoder.encode(DataManager.OurDataManager.getCurrentUser().likedPosts)
-            UserDefaults.standard.setValue(likedPosts, forKey: "liked")
-            print(likedPosts)
-        } catch {
-            print("\(error)")
-        }
     }
 
     func getIndexPath() -> IndexPath {

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class LoginViewController: UIViewController {
+class RegistrationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
     private lazy var errorLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Неверный логин или пароль!"
+        label.text = "Заполните все поля!"
         label.textColor = .red
         label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
@@ -42,7 +42,7 @@ class LoginViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Ваш никнейм",
+            string: "Придумайте никнейм",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
         )
         textField.textColor = .black
@@ -55,7 +55,7 @@ class LoginViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Ваш пароль",
+            string: "Придумайте пароль",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
         )
         textField.textColor = .black
@@ -68,45 +68,43 @@ class LoginViewController: UIViewController {
 
     private lazy var loginButton: UIButton = {
         let action = UIAction(title: "login") { (_) in
-            self.checkPassword()
+            self.navigationController?.popToRootViewController(animated: true)
         }
-        let button = UIButton(configuration: .filled())
+        var button = UIButton(configuration: .filled())
         button.addAction(action, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Войти", for: .normal)
+        button.setTitle("Есть аккаунт", for: .normal)
         return button
     }()
 
     private lazy var registerButton: UIButton = {
-        let button = UIButton(configuration: .filled())
-        let action = UIAction(title: "reg") { _ in
-            self.navigationController?.pushViewController(RegistrationViewController(), animated: true)
-        }
-        button.addAction(action, for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Нет аккаунта", for: .normal)
-        return button
-    }()
-}
-
-extension LoginViewController {
-    private func addSubviews(subviews: UIView...) {
-        subviews.forEach { view.addSubview($0) }
-    }
-
-    private func checkPassword() {
-        var result = false
-        Task {
-            result = UserManager.shared.syncAuthUsers(userName: loginTextField.text ?? "a", password: passwordTextField.text ?? "a")
-            if result {
-                self.userDefaults.setValue(loginTextField.text, forKey: "current_user")
-                DataManager.OurDataManager.currentUser = UserManager.shared.syncGetUserByName(username: loginTextField.text ?? "ТоповыйКотэ")
-                self.userDefaults.setValue(true, forKey: "logged")
-                self.navigationController?.pushViewController(MenuTabBarController(), animated: true)
+        let action = UIAction(title: "login") { (_) in
+            if self.loginTextField.text != "" && self.passwordTextField.text != "" {
+                var user = User(context: CoreDataManager.shared.viewContext)
+                user.likes = Set<Like>()
+                user.avatar = "myava"
+                user.userName = self.loginTextField.text ?? ""
+                user.password = self.passwordTextField.text ?? ""
+                user.profileDescription = "descrip"
+                user.posts = Set<Post>()
+                UserManager.shared.updateUsers()
+                CoreDataManager.shared.saveContext()
+                self.navigationController?.popToRootViewController(animated: true)
             } else {
                 self.errorLabel.isHidden = false
             }
         }
+        var button = UIButton(configuration: .filled())
+        button.addAction(action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Зарегистрироваться", for: .normal)
+        return button
+    }()
+}
+
+extension RegistrationViewController {
+    private func addSubviews(subviews: UIView...) {
+        subviews.forEach { view.addSubview($0) }
     }
 
     private func configureUI() {

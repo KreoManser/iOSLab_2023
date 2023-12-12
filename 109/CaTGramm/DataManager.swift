@@ -10,18 +10,18 @@ import UIKit
 
 class DataManager: DataManagerProtocol {
 
-    var dataSource: [PictureModel]
+    var dataSource: [Post]
 
     var currentUser: User
 
-    func syncSave(_ picture: PictureModel) {
+    func syncSave(_ picture: Post) {
         if let i = dataSource.firstIndex(where: { $0.id == picture.id }) {
             dataSource[i] = picture
             print("picture saved sync")
         }
     }
 
-    func asyncSave(_ picture: PictureModel) {
+    func asyncSave(_ picture: Post) {
         let operationQueue = OperationQueue()
         let saveOperation = BlockOperation {
             print("async saving started")
@@ -35,11 +35,11 @@ class DataManager: DataManagerProtocol {
         operationQueue.addOperation(saveOperation)
     }
 
-    func syncGetAllPosts() -> [PictureModel] {
+    func syncGetAllPosts() -> [Post] {
         return dataSource
     }
 
-    func syncGetCurrentUserPosts() -> [PictureModel] {
+    func syncGetCurrentUserPosts() -> [Post] {
         return dataSource.filter { $0.nickname == self.getCurrentUser().userName }
     }
 
@@ -47,13 +47,13 @@ class DataManager: DataManagerProtocol {
         return UserManager.shared.syncGetUserByName(username: UserDefaults.standard.string(forKey: "current_user") ?? "UsualCat")
     }
 
-    func syncGetModel(_ picture: PictureModel) {
+    func syncGetModel(_ picture: Post) {
         if let i = dataSource.firstIndex(where: { $0.id == picture.id }) {
             print("\(i) is the index of this picture")
         }
     }
 
-    func asyncGetModel(_ picture: PictureModel) {
+    func asyncGetModel(_ picture: Post) {
         let operationQueue = OperationQueue()
         let getOperation = BlockOperation {
             print("async getting started")
@@ -66,7 +66,7 @@ class DataManager: DataManagerProtocol {
         operationQueue.addOperation(getOperation)
     }
 
-    func syncDeleteModel(_ picture: PictureModel) {
+    func syncDeleteModel(_ picture: Post) {
         if let i = dataSource.firstIndex(where: { $0.id == picture.id }) {
             dataSource.remove(at: i)
             print("picture deleted sync")
@@ -74,7 +74,7 @@ class DataManager: DataManagerProtocol {
         }
     }
 
-    func asyncDeleteModel(_ picture: PictureModel) {
+    func asyncDeleteModel(_ picture: Post) {
         let operationQueue = OperationQueue()
         let deleteOperation = BlockOperation {
             print("async deleting started")
@@ -86,19 +86,6 @@ class DataManager: DataManagerProtocol {
             }
         }
         operationQueue.addOperation(deleteOperation)
-    }
-
-    func obtainPosts() -> [PictureModel] {
-        guard let userData = UserDefaults.standard.data(forKey: "liked") else { return [] }
-
-        do {
-            let decoder = JSONDecoder()
-            let posts = try decoder.decode([PictureModel].self, from: userData)
-            return posts
-        } catch {
-            print("\(error)")
-        }
-        return []
     }
 
     func syncSearchModel(_ name: String) {
@@ -128,14 +115,29 @@ class DataManager: DataManagerProtocol {
     private init () {
         currentUser = UserManager.shared.syncGetUserByName(username: UserDefaults.standard.string(forKey: "current_user") ?? "UsualCat")
         dataSource = []
-        let instaImage = UIImage(named: "myava") ?? UIImage()
-        let instaPicture = UIImage(named: "myava") ?? UIImage()
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "123", picture: instaPicture, text: "Моя топов1ая ава"))
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая а2ва"))
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава2"))
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава11"))
-        dataSource.append(PictureModel(avatar: instaImage, nickname: "topovaya_murmurka", picture: instaPicture, text: "Моя топовая ава22"))
-        currentUser = User(userName: "default", avatar: "default", password: "adsadaasdasdasdadadadadasd", profileDescription: "default")
+        let post = Post(context: CoreDataManager.shared.viewContext)
+        post.user = UserManager.shared.syncGetUserByName(username: "123")
+        post.date = Date()
+        post.likes = Set<Like>()
+        post.avatar = "myava"
+        post.picture = "myava"
+        post.nickname = post.user.userName
+        post.text = "моя топ ава)"
+        post.id = UUID()
+        dataSource.append(post)
+    }
+
+    func createPost(avatar: String, nickname: String, picture: String, text: String) -> Post {
+        let post = Post(context: CoreDataManager.shared.viewContext)
+        post.user = getCurrentUser()
+        post.date = Date()
+        post.likes = Set<Like>()
+        post.avatar = "myava"
+        post.picture = "myava"
+        post.nickname = post.user.userName
+        post.text = "моя топ ава)"
+        post.id = UUID()
+        return post
     }
 
     public static var OurDataManager = DataManager()

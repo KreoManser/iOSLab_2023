@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  CaTGramm
+//  CoreDataModel
 //
-//  Created by Rustem on 28.10.2023.
+//  Created by Rustem on 11.12.2023.
 //
 
 import UIKit
@@ -15,12 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UINavigationController(rootViewController: LoginViewController())
-        window.makeKeyAndVisible()
-        self.window = window
+        guard let _ = (scene as? UIWindowScene) else { return }
     }
+
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -49,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        CoreDataManager.shared.saveContext()
+        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
 }

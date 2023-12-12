@@ -29,7 +29,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         }
         let picture = self.datasource[indexPath.row].picture
 
-        cell.configureCell(picture)
+        cell.configureCell(UIImage(named: picture) ?? UIImage())
         return cell
     }
 
@@ -129,6 +129,20 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         return button
     }()
 
+    lazy var exitButton: UIButton = {
+        var button = UIButton(type: .custom)
+        let action = UIAction(title: "exit") { _ in
+            UserDefaults.standard.setValue(false, forKey: "logged")
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        button.addAction(action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "eraser.fill"), for: .normal)
+        button.setTitle("Выйти", for: .normal)
+        button.tintColor = .systemRed
+        return button
+    }()
+
     func reloadData() {
         self.datasource = DataManager.OurDataManager.syncGetCurrentUserPosts()
         self.collectionView.reloadData()
@@ -169,6 +183,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         view.addSubview(subbedLabel)
         view.addSubview(collectionView)
         view.addSubview(editUserInfoButton)
+        view.addSubview(exitButton)
     }
     func setupUI() {
         NSLayoutConstraint.activate([
@@ -199,7 +214,11 @@ class ViewController: UIViewController, UICollectionViewDataSource {
             editUserInfoButton.topAnchor.constraint(equalTo: cityInfo.bottomAnchor, constant: 20),
             editUserInfoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
             editUserInfoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            exitButton.topAnchor.constraint(equalTo: subbedLabel.bottomAnchor, constant: 15),
+            exitButton.centerXAnchor.constraint(equalTo: subbedCounter.centerXAnchor),
+            exitButton.widthAnchor.constraint(equalToConstant: 30),
+            exitButton.heightAnchor.constraint(equalToConstant: 30)
         ])
 
         profilePic.layer.masksToBounds = true

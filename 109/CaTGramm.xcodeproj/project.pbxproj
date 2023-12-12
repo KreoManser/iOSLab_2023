@@ -19,6 +19,15 @@
 		0A8ECC202AEF369800692787 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8ECC1F2AEF369800692787 /* DetailViewController.swift */; };
 		0A8ECC222AF2DF9300692787 /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8ECC212AF2DF9300692787 /* TempButton.swift */; };
 		0A8ECC242AF2E63200692787 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8ECC232AF2E63200692787 /* PostCell.swift */; };
+		0AB592412B2780DF00426E3D /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5923F2B2780DF00426E3D /* CoreDataModel.xcdatamodeld */; };
+		0AB5924B2B2783C000426E3D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5924A2B2783C000426E3D /* CoreDataManager.swift */; };
+		0AB5925E2B27D15E00426E3D /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB592582B27D15E00426E3D /* User+CoreDataClass.swift */; };
+		0AB5925F2B27D15E00426E3D /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB592592B27D15E00426E3D /* User+CoreDataProperties.swift */; };
+		0AB592602B27D15E00426E3D /* Like+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5925A2B27D15E00426E3D /* Like+CoreDataClass.swift */; };
+		0AB592612B27D15E00426E3D /* Like+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5925B2B27D15E00426E3D /* Like+CoreDataProperties.swift */; };
+		0AB592622B27D15E00426E3D /* Post+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5925C2B27D15E00426E3D /* Post+CoreDataClass.swift */; };
+		0AB592632B27D15E00426E3D /* Post+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5925D2B27D15E00426E3D /* Post+CoreDataProperties.swift */; };
+		0AB592652B27F68300426E3D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB592642B27F68300426E3D /* RegistrationViewController.swift */; };
 		0AED4EE62AF800A100831C61 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AED4EE52AF800A100831C61 /* LoginViewController.swift */; };
 		0AED4EE82AF8026000831C61 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AED4EE72AF8026000831C61 /* User.swift */; };
 		0AED4EEA2AF818A000831C61 /* UserManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AED4EE92AF818A000831C61 /* UserManagerProtocol.swift */; };
@@ -42,6 +51,15 @@
 		0A8ECC1F2AEF369800692787 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0A8ECC212AF2DF9300692787 /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
 		0A8ECC232AF2E63200692787 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		0AB592402B2780DF00426E3D /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		0AB5924A2B2783C000426E3D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		0AB592582B27D15E00426E3D /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		0AB592592B27D15E00426E3D /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		0AB5925A2B27D15E00426E3D /* Like+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Like+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		0AB5925B2B27D15E00426E3D /* Like+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Like+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		0AB5925C2B27D15E00426E3D /* Post+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Post+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		0AB5925D2B27D15E00426E3D /* Post+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Post+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		0AB592642B27F68300426E3D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		0AED4EE52AF800A100831C61 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0AED4EE72AF8026000831C61 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0AED4EE92AF818A000831C61 /* UserManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerProtocol.swift; sourceTree = "<group>"; };
@@ -80,11 +98,20 @@
 		0A8ECBFF2AEC811800692787 /* CaTGramm */ = {
 			isa = PBXGroup;
 			children = (
+				0AB592582B27D15E00426E3D /* User+CoreDataClass.swift */,
+				0AB592592B27D15E00426E3D /* User+CoreDataProperties.swift */,
+				0AB5925A2B27D15E00426E3D /* Like+CoreDataClass.swift */,
+				0AB5925B2B27D15E00426E3D /* Like+CoreDataProperties.swift */,
+				0AB5925C2B27D15E00426E3D /* Post+CoreDataClass.swift */,
+				0AB5925D2B27D15E00426E3D /* Post+CoreDataProperties.swift */,
+				0AB5924A2B2783C000426E3D /* CoreDataManager.swift */,
+				0AB5923F2B2780DF00426E3D /* CoreDataModel.xcdatamodeld */,
 				0A8ECC002AEC811800692787 /* AppDelegate.swift */,
 				0A8ECC022AEC811800692787 /* SceneDelegate.swift */,
 				0A8ECC042AEC811800692787 /* ViewController.swift */,
 				0A8ECC1F2AEF369800692787 /* DetailViewController.swift */,
 				0AED4EE52AF800A100831C61 /* LoginViewController.swift */,
+				0AB592642B27F68300426E3D /* RegistrationViewController.swift */,
 				0AED4EEF2AF8241C00831C61 /* UserManager.swift */,
 				0A8ECC152AEC9E8F00692787 /* DataManagerProtocol.swift */,
 				0A8ECC1B2AEEED7A00692787 /* DataManager.swift */,
@@ -194,21 +221,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB592612B27D15E00426E3D /* Like+CoreDataProperties.swift in Sources */,
 				0A8ECC1E2AEEF47800692787 /* PictureCell.swift in Sources */,
 				0A8ECC222AF2DF9300692787 /* TempButton.swift in Sources */,
 				0A8ECC1A2AEEBD1800692787 /* PictureModel.swift in Sources */,
+				0AB5925E2B27D15E00426E3D /* User+CoreDataClass.swift in Sources */,
 				0A8ECC052AEC811800692787 /* ViewController.swift in Sources */,
 				0A8ECC1C2AEEED7A00692787 /* DataManager.swift in Sources */,
 				0A8ECC012AEC811800692787 /* AppDelegate.swift in Sources */,
 				0AED4EF02AF8241C00831C61 /* UserManager.swift in Sources */,
 				0A8ECC032AEC811800692787 /* SceneDelegate.swift in Sources */,
+				0AB592412B2780DF00426E3D /* CoreDataModel.xcdatamodeld in Sources */,
 				0AED4EEA2AF818A000831C61 /* UserManagerProtocol.swift in Sources */,
+				0AB5924B2B2783C000426E3D /* CoreDataManager.swift in Sources */,
 				0A8ECC162AEC9E9000692787 /* DataManagerProtocol.swift in Sources */,
+				0AB592652B27F68300426E3D /* RegistrationViewController.swift in Sources */,
 				0AED4EE82AF8026000831C61 /* User.swift in Sources */,
 				0A8ECC202AEF369800692787 /* DetailViewController.swift in Sources */,
+				0AB592602B27D15E00426E3D /* Like+CoreDataClass.swift in Sources */,
+				0AB592632B27D15E00426E3D /* Post+CoreDataProperties.swift in Sources */,
+				0AB592622B27D15E00426E3D /* Post+CoreDataClass.swift in Sources */,
 				0AED4EEE2AF81B6800831C61 /* MenuTabBarController.swift in Sources */,
 				0A8ECC242AF2E63200692787 /* PostCell.swift in Sources */,
 				0AED4EEC2AF81ADF00831C61 /* PostlineViewController.swift in Sources */,
+				0AB5925F2B27D15E00426E3D /* User+CoreDataProperties.swift in Sources */,
 				0AED4EE62AF800A100831C61 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +453,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0AB5923F2B2780DF00426E3D /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0AB592402B2780DF00426E3D /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 0AB592402B2780DF00426E3D /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0A8ECBF52AEC811800692787 /* Project object */;
 }
