@@ -15,12 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let data = DataManager.sigelton
+        let data = CoreDataManager.shared
         let users = CoreDataManager.shared.obtaineSavedData()
         var checker = false
         users.forEach { user in
             if UserDefaults.standard.bool(forKey: user.userName) {
-                data.setupUser(user: user)
+                data.updateAuthorizationUser(user: user)
                 window?.rootViewController = TabBarViewController()
                 checker = true
             }

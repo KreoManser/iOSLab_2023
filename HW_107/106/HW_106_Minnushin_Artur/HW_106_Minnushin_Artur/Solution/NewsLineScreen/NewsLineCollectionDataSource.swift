@@ -8,18 +8,18 @@
 import UIKit
 
 class NewsLineCollectionDataSource: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    let usersDataBase = UserDataBase.sigelton
+    let coreDataManager = CoreDataManager.shared
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return usersDataBase.getData().count
+        return coreDataManager.obtaineSavedData().count
     }
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "newsLineCollectionCell",
             for: indexPath) as? NewsLineCollectionViewCell else {return UICollectionViewCell()}
-        let item = usersDataBase.getData()[indexPath.row]
+        let item = coreDataManager.obtaineSavedData()[indexPath.row]
         cell.contentView.layer.masksToBounds = true
-        cell.avatarImageView.image = UIImage(named: item.userAvatarImageName)
+        cell.avatarImageView.image = UIImage(named: item.userAvatarImageName!)
         cell.nameLabel.text = item.userName
         return cell
     }

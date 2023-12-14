@@ -14,7 +14,7 @@
         <attribute name="counterLikes" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isLiked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="postComment" attributeType="String"/>
-        <attribute name="postDate" attributeType="String"/>
+        <attribute name="postDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="postID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="postPhotoNmae" attributeType="String"/>
         <attribute name="userPostId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

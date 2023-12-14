@@ -34,11 +34,6 @@ class DataManager: DataManagerProtocol {
     static let sigelton = DataManager()
     let users = UserDataBase.sigelton
     var isSearching = false
-    func setupUser(user: User) {
-        self.user = user
-//        self.posts = user.posts
-//        self.likedPost = user.likePosts
-    }
     func syncSave(post: PostInfo) {
         posts.append(post)
     }
@@ -149,11 +144,7 @@ class DataManager: DataManagerProtocol {
         return self.likedPost
     }
     func getUserByID(id: Int) -> User {
-        var postUser: User = user!
-//        for userItem in users.getData() where userItem.userId == id {
-//            postUser = userItem
-//            break
-//        }
+        let postUser: User = user!
         return postUser
     }
     func getAllPostsFriends() {

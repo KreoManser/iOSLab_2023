@@ -10,7 +10,7 @@ import UIKit
 class SettingsViewController: UIViewController {
     let settingsView = SettingsView(frame: .zero)
     let userDefaults = UserDefaults.standard
-    let dataManager = DataManager.sigelton
+    let dataManager = CoreDataManager.shared
     override func viewDidLoad() {
         settingsView.settingsVC = self
         super.viewDidLoad()
@@ -24,8 +24,7 @@ class SettingsViewController: UIViewController {
     func accountLogOut() {
         let navController = UINavigationController( rootViewController: LoginViewController() )
         view.addSubview( navController.view )
-        userDefaults.removeObject(forKey: dataManager.user!.userName)
-        dataManager.likedPost = []
+        userDefaults.removeObject(forKey: dataManager.getAuthorizationUser().userName)
         addChild( navController )
         navController.didMove( toParent: self)
     }

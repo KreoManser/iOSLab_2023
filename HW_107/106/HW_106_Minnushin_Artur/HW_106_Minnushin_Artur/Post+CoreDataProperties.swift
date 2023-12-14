@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Post {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Post> {
@@ -19,7 +18,7 @@ extension Post {
     @NSManaged public var counterLikes: Int32
     @NSManaged public var isLiked: Bool
     @NSManaged public var postComment: String?
-    @NSManaged public var postDate: String?
+    @NSManaged public var postDate: Date
     @NSManaged public var postID: Int64
     @NSManaged public var postPhotoNmae: String?
     @NSManaged public var userPostId: Int64
@@ -27,6 +26,5 @@ extension Post {
 
 }
 
-extension Post : Identifiable {
-
+extension Post: Identifiable {
 }

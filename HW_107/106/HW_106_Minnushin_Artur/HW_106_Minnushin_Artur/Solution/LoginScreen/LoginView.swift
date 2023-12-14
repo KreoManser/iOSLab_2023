@@ -90,8 +90,14 @@ class LoginView: UIView {
         let alertVC = UIAlertController(title: "Упс...",
             message: "Неверный логин или пароль. Как вспомнишь, приходи :)",
             preferredStyle: .alert)
+        let registrationAlertButton = UIAlertAction(title: "Регистрация",
+                                                    style: .destructive,
+                                                    handler: { [weak self] _ in
+            self?.authorizationVC?.presentRegistrationVC()
+        })
         let cancelAlertButton = UIAlertAction(title: "Отмена", style: .cancel)
         alertVC.addAction(cancelAlertButton)
+        alertVC.addAction(registrationAlertButton)
         authorizationVC?.present(alertVC, animated: true)
     }
 }

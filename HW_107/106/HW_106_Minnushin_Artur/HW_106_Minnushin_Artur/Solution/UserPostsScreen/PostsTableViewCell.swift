@@ -8,15 +8,15 @@
 import UIKit
 
 protocol AllertConnection: AnyObject {
-    func presentAllertVC(indexPath: IndexPath)
-    func deleteLikeFunc(indexPath: IndexPath)
-    func addLikeFunc(indexPath: IndexPath)
+    func presentAllertVC(postId: Int, userId: Int)
+    func tapLikeButton(postId: Int, userId: Int)
 }
 
 class PostsTableViewCell: UITableViewCell {
-    var superView: UITableView?
     var delegate: AllertConnection?
     var isLikedCheker: Bool?
+    var postId: Int?
+    var userId: Int?
     lazy var postPhotoImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ class PostsTableViewCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "deleteIcon"), for: .normal)
         let action = UIAction { _ in
-            self.delegate?.presentAllertVC(indexPath: self.getIndexPath())
+            self.delegate?.presentAllertVC(postId: self.postId!, userId: self.userId!)
         }
         button.addAction(action, for: .touchUpInside)
         return button
@@ -50,7 +50,7 @@ class PostsTableViewCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "LikeIcon"), for: .normal)
         let action = UIAction { _ in
-            self.likeAnimation(indexPath: self.getIndexPath())
+            self.likeAnimation()
         }
         button.addAction(action, for: .touchUpInside)
         return button
@@ -106,9 +106,6 @@ class PostsTableViewCell: UITableViewCell {
         addSubview(postDateLabel)
         addSubview(postLikeCountLabel)
         setupLayout()
-    }
-    func getIndexPath() -> IndexPath {
-        return superView?.indexPath(for: self) ?? IndexPath(row: 0, section: 0)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -170,7 +167,7 @@ class PostsTableViewCell: UITableViewCell {
 }
 
 extension PostsTableViewCell {
-    func likeAnimation(indexPath: IndexPath) {
+    func likeAnimation() {
         if isLikedCheker == false {
             self.isLikedCheker = true
             self.postLikeButton.setImage(UIImage(named: "isLikeIcon"), for: .normal)
@@ -194,12 +191,12 @@ extension PostsTableViewCell {
             })
             animator.addCompletion({_ in
                 likeImageViewAnimate.removeFromSuperview()
-                self.delegate?.addLikeFunc(indexPath: indexPath)
+                self.delegate?.tapLikeButton(postId: self.postId!, userId: self.userId!)
             })
             animator.startAnimation()
         } else {
             self.postLikeButton.setImage(UIImage(named: "LikeIcon"), for: .normal)
-            self.delegate?.deleteLikeFunc(indexPath: indexPath)
+            self.delegate?.tapLikeButton(postId: self.postId!, userId: self.userId!)
         }
     }
 }

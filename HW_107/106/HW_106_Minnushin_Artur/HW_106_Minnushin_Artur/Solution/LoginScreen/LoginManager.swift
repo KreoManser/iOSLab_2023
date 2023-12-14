@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol LoginManagerProtocol {
-    func asyncCheckAthorizationData(login: String, 
+    func asyncCheckAthorizationData(login: String,
                                     password: String)
     async -> (cheker: Bool, item: User)
 }
@@ -21,7 +21,6 @@ class LoginManager: LoginManagerProtocol {
         return await withCheckedContinuation {continuation in
             DispatchQueue.global().asyncAfter(deadline: .now()) {
                 let users = self.coreDataManager.obtaineSavedData()
-                var user = User()
                 var cheker: Bool = false
                 for item in 0...users.count - 1 where users[item].userLogin == login
                 && users[item].userPassword == password {

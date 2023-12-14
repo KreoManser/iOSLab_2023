@@ -9,8 +9,7 @@ import UIKit
 
 protocol AllertConnectionNewsLine: AnyObject {
     func presentAllertVC(postId: Int, postUserId: Int)
-    func deleteLikeFunc(ostID: Int, postUserId: Int)
-    func addLikeFunc(ostID: Int, postUserId: Int)
+    func tapLikeButton(postId: Int, userId: Int)
 }
 
 class NewsLineTableViewCell: UITableViewCell {
@@ -196,10 +195,12 @@ extension NewsLineTableViewCell {
             })
             animator.addCompletion({_ in
                 likeImageViewAnimate.removeFromSuperview()
+                self.delegate?.tapLikeButton(postId: self.postID, userId: self.postUserID)
             })
             animator.startAnimation()
         } else {
             self.postLikeButton.setImage(UIImage(named: "LikeIcon"), for: .normal)
+            self.delegate?.tapLikeButton(postId: self.postID, userId: self.postUserID)
         }
     }
 }

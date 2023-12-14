@@ -9,32 +9,26 @@ import Foundation
 import UIKit
 
 class PostsDataSource: NSObject, UITableViewDelegate, UITableViewDataSource {
-    let dataManager = DataManager.sigelton
+    let dataManager = CoreDataManager.shared
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("re")
-        if dataManager.isSearching == false {
-            return dataManager.syncGetAllPost().count
-        } else {
-            return dataManager.syncGetAllFilteredPost().count
-        }
+        return dataManager.getPostsAuthorizationUser().count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "tableCell", for: indexPath) as? PostsTableViewCell else { fatalError() }
-        let item: PostInfo
-        if dataManager.isSearching == false {
-            item = dataManager.syncGetAllPost()[indexPath.row]
-        } else {
-            item = dataManager.syncGetAllFilteredPost()[indexPath.row]
-        }
-        cell.postAvatarImageView.image = UIImage(named: dataManager.user?.userAvatarImageName ?? "")
-        cell.postNameLabel.text = (dataManager.user?.userName ?? "")
-        cell.postPhotoImageView.image = UIImage(named: item.postPhotoNmae)
-        cell.postCommentLabel.text = "\(cell.postNameLabel.text ?? ""): \(item.postComment )"
-        cell.postDateLabel.text = "\(item.postDate.getDataInString())"
+        let item = dataManager.getPostsAuthorizationUser()[indexPath.row]
+        let user = dataManager.getAuthorizationUser()
+        cell.userId = Int(user.userId)
+        cell.postId = Int(item.postID)
+        cell.postAvatarImageView.image = UIImage(named: user.userAvatarImageName!)
+        cell.postNameLabel.text = (user.userName)
+        cell.postPhotoImageView.image = UIImage(named: item.postPhotoNmae!)
+        cell.postCommentLabel.text = "\(cell.postNameLabel.text ?? ""): \(item.postComment ?? "" )"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        cell.postDateLabel.text = dateFormatter.string(from: item.postDate)
         cell.postLikeCountLabel.text = "Лайков: \(item.counterLikes)"
         cell.delegate = tableView.superview as? any AllertConnection
-        cell.superView = tableView
         cell.setUpLikeButton(cheker: item.isLiked)
         return cell
     }

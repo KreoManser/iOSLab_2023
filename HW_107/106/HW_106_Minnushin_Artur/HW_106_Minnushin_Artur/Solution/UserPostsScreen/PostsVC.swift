@@ -12,6 +12,7 @@ class PostsViewController: UIViewController {
     let publicationView = PostsView(frame: .zero)
     let publicatiomDataSource = PostsDataSource()
     var dataManger = DataManager.sigelton
+    var coreDataManager = CoreDataManager.shared
     var deleagte: UpdateData?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,18 +36,12 @@ class PostsViewController: UIViewController {
     func dismisPublicationVC() {
         dismiss(animated: true, completion: nil)
     }
-    func deletePost(indexPath: IndexPath) {
-        dataManger.asyncDelete(indexPath: indexPath.row)
+    func deletePost(postId: Int, userId: Int) {
+        coreDataManager.deletePostById(userId: userId, postId: postId)
         publicationView.reloadData()
         deleagte?.updateData()
     }
-    func searchPostsByName(name: String) {
-        dataManger.asyncSearchByName(postName: name)
-    }
-    func addLikedPost(indexPath: IndexPath) {
-        dataManger.syncSaveLikedPost(indexPath: indexPath.row)
-    }
-    func deleteLikedPost(indexPath: IndexPath) {
-        dataManger.syncDeleteLikePost(indexPath: indexPath.row)
+    func tapLikeButton(postId: Int, userId: Int) {
+        coreDataManager.tapLikeButtonFunc(userId: userId, postId: postId)
     }
 }

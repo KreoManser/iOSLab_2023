@@ -10,6 +10,7 @@ import UIKit
 class ProfileView: UIView {
     weak var profileViewController: ProfileViewController?
     let dataManager = DataManager.sigelton
+    let coreDataManger = CoreDataManager.shared
     let user: User
     lazy var avatarImage: UIImageView = {
         let image = UIImageView()
@@ -114,7 +115,7 @@ class ProfileView: UIView {
         subTitle.text = "\(String(describing: user.userDescription))"
     }
     override init(frame: CGRect) {
-        user = dataManager.user!
+        user = coreDataManger.getAuthorizationUser()
         super.init(frame: frame)
         backgroundColor = .white
         addSubview(avatarImage)

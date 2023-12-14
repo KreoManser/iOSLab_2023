@@ -191,5 +191,4 @@ class UserDataBase {
     func getData() -> [User1] {
         return users
     }
-    
 }

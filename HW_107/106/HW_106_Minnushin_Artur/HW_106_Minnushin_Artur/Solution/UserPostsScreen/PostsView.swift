@@ -9,7 +9,6 @@ import UIKit
 
 class PostsView: UIView {
     weak var publicationViewController: PostsViewController?
-    var dataManager = DataManager.sigelton
     lazy var publicationSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -68,33 +67,22 @@ class PostsView: UIView {
 
 extension PostsView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            publicationViewController?.searchPostsByName(name: searchText)
-            guard let text = searchBar.text else { return }
-            if text.isEmpty {
-                dataManager.isSearching = false
-            } else {
-                dataManager.isSearching = true
-            }
             reloadData()
         }
 }
 
 extension PostsView: AllertConnection {
-    func deleteLikeFunc(indexPath: IndexPath) {
-        self.publicationViewController?.deleteLikedPost(indexPath: indexPath)
+    func tapLikeButton(postId: Int, userId: Int) {
+        self.publicationViewController?.tapLikeButton(postId: postId, userId: userId)
         self.reloadData()
     }
-    func addLikeFunc(indexPath: IndexPath) {
-        self.publicationViewController?.addLikedPost(indexPath: indexPath)
-        self.reloadData()
-    }
-    func presentAllertVC(indexPath: IndexPath) {
+    func presentAllertVC(postId: Int, userId: Int) {
         let alertVC = UIAlertController(title: "Внимание",
             message: "Вы уверены что хотите удлаить этот пост?",
             preferredStyle: .actionSheet)
         let deleteAlertButton = UIAlertAction(title: "Удалить",
             style: .destructive, handler: { [weak self] _ in
-                self?.publicationViewController?.deletePost(indexPath: indexPath)
+                self?.publicationViewController?.deletePost(postId: postId, userId: userId)
                 self?.reloadData()})
         let cancelAlertButton = UIAlertAction(title: "Отмена", style: .cancel)
         alertVC.addAction(deleteAlertButton)

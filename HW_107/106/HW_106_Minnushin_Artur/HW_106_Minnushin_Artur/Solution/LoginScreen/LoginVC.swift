@@ -9,10 +9,10 @@ import UIKit
 
 class LoginViewController: UIViewController {
     var userDefaults: UserDefaults
-    let userDataBase = UserDataBase.sigelton
-    let dataManager = DataManager.sigelton
+    let coreDataManger = CoreDataManager.shared
     var authorizationView = LoginView(frame: .zero)
     var tabBarVc: TabBarViewController?
+    var registrationVC: RegistrationViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
         authorizationView.authorizationVC = self
@@ -32,17 +32,26 @@ class LoginViewController: UIViewController {
             let checkAthorizationData = await LoginManager().asyncCheckAthorizationData(
                 login: login, password: pasword)
             if checkAthorizationData.cheker == true {
-                presentVc(user: checkAthorizationData.item)
+                presentProfileVC(user: checkAthorizationData.item)
             } else {
                 authorizationView.presentAllertVC()
             }
         }
+        if coreDataManger.checkAuth(login: login, password: pasword) {
+            presentProfileVC(user: coreDataManger.authorizationUser!)
+        } else {
+            authorizationView.presentAllertVC()
+        }
     }
-    func presentVc(user: User) {
+    func presentProfileVC(user: User) {
         userDefaults.setValue(true, forKey:
             "\(user.userName)")
-        dataManager.setupUser(user: user)
         tabBarVc = TabBarViewController()
         present(tabBarVc!, animated: true)
+    }
+    func presentRegistrationVC() {
+        registrationVC = RegistrationViewController()
+        registrationVC?.modalPresentationStyle = .overFullScreen
+        present(registrationVC!, animated: true)
     }
 }

@@ -21,7 +21,7 @@ class TabBarViewController: UITabBarController {
         modalPresentationStyle = .overFullScreen
         self.viewControllers = [
             UINavigationController(rootViewController: profileVC),
-            //UINavigationController(rootViewController: newsLineVC)
+            UINavigationController(rootViewController: newsLineVC)
         ]
     }
     required init?(coder: NSCoder) {

@@ -10,6 +10,7 @@ import UIKit
 class NewsLineView: UIView {
     weak var newsLineVC: NewsLineViewController?
     let dataManager = DataManager.sigelton
+    let coreDataManager = CoreDataManager.shared
     lazy var newsLineLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,8 +85,12 @@ extension NewsLineView: UICollectionViewDelegateFlowLayout, UICollectionViewDele
 }
 
 extension NewsLineView: AllertConnectionNewsLine {
+    func tapLikeButton(postId: Int, userId: Int) {
+        self.newsLineVC?.tapLikeButton(postId: postId, userId: userId)
+        self.reloadData()
+    }
     func presentAllertVC(postId: Int, postUserId: Int) {
-        if postUserId == dataManager.user!.userId {
+        if postUserId == coreDataManager.getAuthorizationUser().userId {
             let alertVC = UIAlertController(title: "Внимание",
                 message: "Вы уверены что хотите удлаить этот пост?",
                 preferredStyle: .actionSheet)
@@ -106,9 +111,5 @@ extension NewsLineView: AllertConnectionNewsLine {
             alertVC.addAction(cancelAlertButton)
             newsLineVC?.present(alertVC, animated: true)
         }
-    }
-    func deleteLikeFunc(ostID: Int, postUserId: Int) {
-    }
-    func addLikeFunc(ostID: Int, postUserId: Int) {
     }
 }

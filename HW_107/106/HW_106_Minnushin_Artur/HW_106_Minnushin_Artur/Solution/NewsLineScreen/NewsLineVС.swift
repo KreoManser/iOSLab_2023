@@ -11,21 +11,34 @@ class NewsLineViewController: UIViewController {
     let newsLineView = NewsLineView(frame: .zero)
     let newsLineCollDataSoutce = NewsLineCollectionDataSource()
     let newsLineTableDataSoutce = NewsLineTableDataSource()
-    var dataManger = DataManager.sigelton
+    let coreDataManager = CoreDataManager.shared
     var delegate: UpdateData?
+    var myTimer: Timer!
     override func viewDidLoad() {
         super.viewDidLoad()
         newsLineView.newsLineVC = self
         newsLineView.setupDataSourse(
             collectiondataSource: newsLineCollDataSoutce,
             tableDataSource: newsLineTableDataSoutce)
+        self.myTimer = Timer(timeInterval: 1.0,
+                             target: self,
+                             selector: #selector(refresh),
+                             userInfo: nil, repeats: true)
+                RunLoop.main.add(self.myTimer, forMode: .default)
     }
     override func loadView() {
         view = newsLineView
     }
     func deletePost(postId: Int, postUserId: Int) {
-        dataManger.deletePostsById(postId: postId, postUserid: postUserId)
+        coreDataManager.deletePostById(userId: postUserId, postId: postId)
         newsLineView.reloadData()
         delegate?.updateData()
+    }
+    func tapLikeButton(postId: Int, userId: Int) {
+        coreDataManager.tapLikeButtonFunc(userId: userId, postId: postId)
+    }
+    @objc
+    func refresh() {
+        newsLineView.reloadData()
     }
 }
