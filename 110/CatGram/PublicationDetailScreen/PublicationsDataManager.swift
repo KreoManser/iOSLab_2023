@@ -10,13 +10,13 @@ import UIKit
 
 class PublicationsDataManager: NSObject, UITableViewDataSource,
     UITableViewDelegate, PublicationsCellDelegate,
-    UISearchBarDelegate {
+                               UISearchBarDelegate {
     static let shared = PublicationsDataManager()
 
     private var profileDatamanager = ProfileDataManager.shared
     var publicationDatamanager = ProfileDataManager.shared
     var coreDataManager = CoreDataManager.shared
-    private var  postCopy: [Post] = []
+    private var  postCopy: [Posts] = []
     private var filteredPostsArray: [Publications] = []
     private var publications: [Publications] = []
     var reloadtableView: (() -> Void)?
@@ -69,18 +69,23 @@ class PublicationsDataManager: NSObject, UITableViewDataSource,
     }
 
     func getPosts() {
-//        publicationDatamanager.asyncRetrievePost { [weak self] postCopy in
-//            print("received \(postCopy)")
-//
-//            DispatchQueue.main.async {
-//                for post in postCopy {
-//                    self?.publications.append(Publications(id: post.id,
-//                    caption: post.caption, photo: post.photo, date: post.date, isFav: post.isFav))
-//                }
-//                self?.reloadtableView?()
-//            }
-//        }
+        postCopy = profileDatamanager.postsForProfile
+        for post in postCopy {
+            var photoImage: UIImage?
+            if let photoData = post.photo {
+                photoImage = UIImage(data: photoData)
+            }
+            self.publications.append(Publications(id: post.id!,
+                                                   caption: post.caption!,
+                                                   photo: photoImage,
+                                                   date: post.date!,
+                                                   isFav: post.isFav))
+        }
+        DispatchQueue.main.async {
+            self.reloadtableView?()
+        }
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 400
     }
@@ -94,23 +99,25 @@ class PublicationsDataManager: NSObject, UITableViewDataSource,
         alertController.addAction(cancelAction)
         showdeleteOptionTapped?(alertController)
     }
+
     func deletePublication(at index: Int) {
-        let postToDelete = publications[index]
-        self.profileDatamanager.asyncDeletePost(Post(id: postToDelete.id,
-                                                     caption: postToDelete.caption,
-                                                     photo: postToDelete.photo,
-                                                     date: postToDelete.date,
-            isFav: postToDelete.isFav)) { [weak self] success in
+        guard index >= 0, index < postCopy.count else {
+            print("Invalid index")
+            print(postCopy.count)
+                return
+            }
+        let postToDelete = postCopy[index]
+        self.publicationDatamanager.asyncDeletePost(postToDelete) { [weak self] success in
             if success {
                 print("Deletion process successful")
+                self?.postCopy.remove(at: index)
+                self?.publications.remove(at: index)
+                DispatchQueue.main.async {
+                self?.reloadtableView?()
+                }
             } else {
-                print("Process unsuccesful")
+                print("Process unsuccessful")
             }
-            if let indexPoint = self?.publications.firstIndex(where: { $0 == postToDelete }) {
-                self?.publications.remove(at: indexPoint)
-            }
-            self?.reloadtableView!()
-            self!.profileDatamanager.reloadcollectionData!()
         }
     }
 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE1677352AF4B731008663F8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1677342AF4B731008663F8 /* User.swift */; };
 		DE1677372AF4B75D008663F8 /* UserManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1677362AF4B75D008663F8 /* UserManagerProtocol.swift */; };
 		DE16773C2AF4BDCD008663F8 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE16773B2AF4BDCD008663F8 /* UserDataManager.swift */; };
 		DE16773E2AF4BDF7008663F8 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE16773D2AF4BDF7008663F8 /* LoginView.swift */; };
@@ -26,7 +25,6 @@
 		DE2F50E12AEA74C700EFBB4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F50E02AEA74C700EFBB4C /* SceneDelegate.swift */; };
 		DE2F50E82AEA74C900EFBB4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE2F50E72AEA74C900EFBB4C /* Assets.xcassets */; };
 		DE2F50EB2AEA74C900EFBB4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE2F50E92AEA74C900EFBB4C /* LaunchScreen.storyboard */; };
-		DE2F50FD2AEEC74B00EFBB4C /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F50FC2AEEC74B00EFBB4C /* Posts.swift */; };
 		DE2F51012AEECD4800EFBB4C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F51002AEECD4800EFBB4C /* ProfileView.swift */; };
 		DE2F51032AEEDEFC00EFBB4C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F51022AEEDEFC00EFBB4C /* ProfileViewController.swift */; };
 		DE2F51052AEEDFBA00EFBB4C /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F51042AEEDFBA00EFBB4C /* ProfileCollectionViewCell.swift */; };
@@ -59,7 +57,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DE1677342AF4B731008663F8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DE1677362AF4B75D008663F8 /* UserManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerProtocol.swift; sourceTree = "<group>"; };
 		DE16773B2AF4BDCD008663F8 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		DE16773D2AF4BDF7008663F8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -81,7 +78,6 @@
 		DE2F50E72AEA74C900EFBB4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE2F50EA2AEA74C900EFBB4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE2F50EC2AEA74C900EFBB4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DE2F50FC2AEEC74B00EFBB4C /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		DE2F51002AEECD4800EFBB4C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DE2F51022AEEDEFC00EFBB4C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DE2F51042AEEDFBA00EFBB4C /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -215,9 +211,7 @@
 		DE2F50F72AEE832800EFBB4C /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				DE2F50FC2AEEC74B00EFBB4C /* Posts.swift */,
 				DE2F51102AF10AB200EFBB4C /* Publications.swift */,
-				DE1677342AF4B731008663F8 /* User.swift */,
 				DE3EB99D2AF1B3600008CB1B /* DataManagerProtocol.swift */,
 				DE1677362AF4B75D008663F8 /* UserManagerProtocol.swift */,
 				DE1677552AF6C82D008663F8 /* StoryAvatar.swift */,
@@ -408,7 +402,6 @@
 				DE98A6812B25AD1800ED1A18 /* FriendsTableViewCell.swift in Sources */,
 				DE98A67F2B25214200ED1A18 /* User+CoreDataProperties.swift in Sources */,
 				DE1677582AF6C888008663F8 /* StoryDataManager.swift in Sources */,
-				DE1677352AF4B731008663F8 /* User.swift in Sources */,
 				DE2F51052AEEDFBA00EFBB4C /* ProfileCollectionViewCell.swift in Sources */,
 				DE98A6612B22457000ED1A18 /* RegistrationViewController.swift in Sources */,
 				DEF482242B129EFD00593971 /* SettingsView.swift in Sources */,
@@ -428,7 +421,6 @@
 				DE2F510F2AF0F93100EFBB4C /* PublicationsTableViewCell.swift in Sources */,
 				DE98A6632B22458000ED1A18 /* RegistrationDataManager.swift in Sources */,
 				DEF4822B2B12A68D00593971 /* FriendsView.swift in Sources */,
-				DE2F50FD2AEEC74B00EFBB4C /* Posts.swift in Sources */,
 				DE16774F2AF6A727008663F8 /* FeedTableViewCell.swift in Sources */,
 				DE98A6662B231A1100ED1A18 /* CatGramDataModel.xcdatamodeld in Sources */,
 				DE98A67D2B25214200ED1A18 /* Friend+CoreDataProperties.swift in Sources */,

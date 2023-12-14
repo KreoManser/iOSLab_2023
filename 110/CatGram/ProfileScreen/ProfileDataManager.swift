@@ -10,23 +10,9 @@ import UIKit
 
 class ProfileDataManager: NSObject, DataManaging, UICollectionViewDataSource {
 
-    static let shared = ProfileDataManager()
-    var publicationdatamanger =  PublicationsDataManager.shared
-    var coreDataManager = CoreDataManager.shared
-
-    var posts: [Post] = [
-        Post(id: UUID(), caption: "Are you kitten me?",
-             photo: UIImage(named: "whitecat.jpeg"),
-             date: "20th May 2018", isFav: false),
-        Post(id: UUID(), caption: "Putting the fur in furniture",
-             photo: UIImage(named: "greycat.jpeg"),
-             date: "14th Oct 2021", isFav: false),
-        Post(id: UUID(), caption: "Black cats are not evil",
-             photo: UIImage(named: "blackcat.jpeg"),
-             date: "26th Dec 2023", isFav: false)
-    ]
-
-    var postsForProfile: [Posts] = []
+        static let shared = ProfileDataManager()
+        var coreDataManager = CoreDataManager.shared
+        var postsForProfile: [Posts] = []
 
     // MARK: - Respective/Custom queues for all methods
     private let saveQueue = OperationQueue()
@@ -38,93 +24,131 @@ class ProfileDataManager: NSObject, DataManaging, UICollectionViewDataSource {
     var didTapImage: ((_ indexPath: IndexPath) -> Void)?
     var reloadcollectionData: (() -> Void)?
     var userDefaults = UserDefaults.standard
-
     override init() {
         super.init()
+        if postsForProfile.isEmpty {
+            toCreatePosts()
+            print(self.postsForProfile)
+        } else {
+            print("array for posts is empty")
+        }
     }
 
+    // MARK: - Creating new posts
     func createPost(id: UUID, caption: String, photo: UIImage?, date: String, isFav: Bool) {
         let context = coreDataManager.viewContext
-        let newPost = Posts(context: context)
-        newPost.id = id
-        newPost.caption = caption
-        newPost.photo = photo?.pngData()
-        newPost.date = date
-        newPost.isFav = isFav
+        context.perform {
+            let newPost = Posts(context: context)
+            newPost.id = id
+            newPost.caption = caption
+            newPost.photo = photo?.pngData()
+            newPost.date = date
+            newPost.isFav = isFav
 
-        postsForProfile.append(newPost)
-        do {
-            try context.save()
-        } catch {
-            print("error while trying to save the new post \(error)")
+            self.postsForProfile.append(newPost)
+            self.reloadcollectionData?()
+            print(self.postsForProfile)
+            do {
+                try context.save()
+            } catch {
+                print("error while trying to save the new post \(error)")
+            }
         }
+
     }
 
     // MARK: - Updating the post by caption.
     func updatePost(post: Posts, newCaption: String) {
         let context = coreDataManager.viewContext
-        post.caption = newCaption
-        do {
-            try context.save()
-        } catch {
-            print("error while trying to update post caption \(error)")
+        context.perform {
+            post.caption = newCaption
+            do {
+                try context.save()
+            } catch {
+                print("error while trying to update post caption \(error)")
+            }
         }
     }
 
     // MARK: - Deleting posts
     func deletePost(post: Posts) {
         let context = coreDataManager.viewContext
-        context.delete(post)
-        do {
-            try context.save()
-        } catch {
-            print(error)
+        context.perform {
+            context.delete(post)
+            do {
+                try context.save()
+                DispatchQueue.main.async {
+                   self.postsForProfile.removeAll { $0.id == post.id }
+                    self.reloadcollectionData?()
+             }
+            } catch {
+                print(error)
+            }
         }
+
     }
 
     // MARK: - Reading/Fetching posts
+
     func fetchPosts() -> [Posts] {
-        let context = coreDataManager.viewContext
-        let fetchRequest = Posts.fetchRequest()
-        do {
-            return try context.fetch(fetchRequest)
-        } catch {
-            print("Error occurred while fetching posts \(error)")
-            return []
+            let context = coreDataManager.viewContext
+            var fetchedPosts: [Posts] = []
+
+            context.performAndWait {
+                let fetchRequest = Posts.fetchRequest()
+
+                do {
+                    fetchedPosts = try context.fetch(fetchRequest)
+                } catch {
+                    print("Error occurred while fetching posts \(error)")
+                }
+            }
+
+            return fetchedPosts
         }
-    }
 
     func toCreatePosts() {
-        createPost(id: UUID(), caption: "Are you kitten me?", photo: UIImage(named: "whitecat.jpeg"), date: "20th May 2018", isFav: false)
-        createPost(id: UUID(), caption: "Putting the fur in furniture", photo: UIImage(named: "greycat.jpeg"), date: "14th Oct 2021", isFav: false)
-        createPost(id: UUID(), caption: "Black cats are not evil", photo: UIImage(named: "blackcat.jpeg"), date: "26th Dec 2023", isFav: false)
+     createPost(id: UUID(), caption: "Are you kitten me?",
+                   photo: UIImage(named: "whitecat.jpeg"), date: "20th May 2018", isFav: false)
+     createPost(id: UUID(), caption: "Putting the fur in furniture",
+                   photo: UIImage(named: "greycat.jpeg"), date: "14th Oct 2021", isFav: false)
+     createPost(id: UUID(), caption: "Black cats are not evil",
+                   photo: UIImage(named: "blackcat.jpeg"), date: "26th Dec 2023", isFav: false)
     }
 
-
-    func savePost(_ post: Post) {
-        posts.append(post)
-    }
-    func retrievePost() -> [Post] {
-        return posts
-    }
-    func searchPostByCaption(byCaption caption: String) -> [Post] {
-        let filteredPosts = posts.filter { $0.caption.contains(caption)}
-        return filteredPosts
-    }
-    func deletePost(_ post: Post) {
-        if let index = posts.firstIndex(where: { $0.id == post.id}) {
-            posts.remove(at: index)
+    func savePost(_ post: Posts) {
+        let context = coreDataManager.viewContext
+        do {
+            try context.save()
+            postsForProfile.append(post)
+        } catch {
+            print("Problem encountered while trying to save \(error)")
         }
     }
-    func asyncSavePost(_ post: Post, completion: @escaping (Bool) -> Void) {
+
+    func retrievePost() -> [Posts] {
+        return postsForProfile
+    }
+
+    func searchPostByCaption(byCaption caption: String) -> [Posts] {
+        let filteredPosts = self.postsForProfile.filter { $0.caption == caption }
+        return filteredPosts
+    }
+
+    func deletePost(_ post: Posts) {
+        if let index = postsForProfile.firstIndex(where: { $0.id == post.id}) {
+            postsForProfile.remove(at: index)
+        }
+    }
+    func asyncSavePost(_ post: Posts, completion: @escaping (Bool) -> Void) {
         saveQueue.addOperation {
-            self.posts.append(post)
+            self.postsForProfile.append(post)
             completion(true)
         }
     }
-    func asyncSearchPostsByCaption(byCaption caption: String, completion: @escaping (Post?) -> Void) {
+    func asyncSearchPostsByCaption(byCaption caption: String, completion: @escaping (Posts?) -> Void) {
         searchQueue.addOperation {
-            if let filteredPosts = self.posts.first( where: { $0.caption == caption }) {
+            if let filteredPosts = self.postsForProfile.first( where: { $0.caption == caption }) {
                 print("post found!")
                 completion(filteredPosts)
             } else {
@@ -134,42 +158,52 @@ class ProfileDataManager: NSObject, DataManaging, UICollectionViewDataSource {
         }
     }
 
-    func asyncDeletePost(_ post: Post, completion: @escaping (Bool) -> Void) {
+    func asyncDeletePost(_ post: Posts, completion: @escaping (Bool) -> Void) {
         self.deleteQueue.addOperation {
-            if let index = self.posts.firstIndex(where: { $0.id == post.id}) {
-                self.posts.remove(at: index)
+            let context = self.coreDataManager.viewContext
+            context.perform {
+                context.delete(post)
+                print("post deleted")
+                do {
+                    try context.save()
+                    DispatchQueue.main.async {
+                        print("Before removing: \(self.postsForProfile)")
+                        self.postsForProfile.removeAll { $0.id == post.id }
+                        print("After removing: \(self.postsForProfile)")
+                        self.reloadcollectionData?()
+                 }
+                    completion(true)
+                } catch {
+                    print("error while trying to delete post \(error)")
+                    completion(false)
+                }
             }
-            completion(true)
+
         }
     }
 
-    func asyncRetrievePost(completion: @escaping ([Post]) -> Void) {
-            self.retrievePostQueue.addOperation {
-                print("posts retrieved!")
-                completion(self.posts)
+    func asyncRetrievePost(completion: @escaping ([Posts]) -> Void) {
+        self.retrievePostQueue.addOperation {
+            print("posts retrieved!")
+            let context = self.coreDataManager.viewContext
+            let fetchRequest = Posts.fetchRequest()
+            context.perform {
+                do {
+                    let posts = try context.fetch(fetchRequest)
+                    print("posts retrieved!")
+                    completion(posts)
+                } catch {
+                    print("Error occurred while fetching posts \(error)")
+                    completion([])
+                }
             }
         }
-
-//    func asyncRetrievePost(completion: @escaping ([Posts]) -> Void) {
-//        self.retrievePostQueue.addOperation {
-//            print("posts retrieved!")
-//            let context = self.coreDataManager.viewContext
-//            let fetchRequest = Posts.fetchRequest()
-//            do {
-//                let posts = try context.fetch(fetchRequest)
-//                print("posts retrieved!")
-//                completion(posts)
-//            } catch {
-//                print("Error occurred while fetching posts \(error)")
-//                completion([])
-//            }
-//        }
-//    }
+    }
 }
 
 extension ProfileDataManager: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return retrievePost().count
+        return postsForProfile.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
     -> UICollectionViewCell {
@@ -177,7 +211,7 @@ extension ProfileDataManager: UICollectionViewDelegate {
             withReuseIdentifier: ProfileCollectionViewCell.reuseidentifier,
             for: indexPath) as? ProfileCollectionViewCell else {
             return UICollectionViewCell()}
-        let posts = retrievePost()
+        let posts = postsForProfile
         let post = posts[indexPath.row]
         cell.configure(with: post)
         cell.contentMode = .scaleAspectFill

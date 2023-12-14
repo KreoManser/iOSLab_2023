@@ -21,7 +21,8 @@ class FriendsViewController: UIViewController {
         friendsView = FriendsView(frame: view.bounds)
         friendsView?.tableView.delegate = friendsDataManager
         friendsView?.tableView.dataSource = friendsDataManager
-        friendsView?.tableView.register(FriendsTableViewCell.self, forCellReuseIdentifier: FriendsTableViewCell.reuseIdentifierforTableView)
+        friendsView?.tableView.register(FriendsTableViewCell.self,
+                                        forCellReuseIdentifier: FriendsTableViewCell.reuseIdentifierforTableView)
         view = friendsView
     }
 

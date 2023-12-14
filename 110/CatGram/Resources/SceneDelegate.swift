@@ -12,20 +12,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-//        if let currentUser = UserDefaults.standard.value(forKey: Keys.loggedUser) as? User {
-//            FeedDataManager.shared = FeedDataManager(currentUser: currentUser)
-//            let loginViewController = LoginViewController()
-//            let navigationController = UINavigationController(rootViewController: loginViewController)
-//            window = UIWindow(windowScene: windowScene)
-//            window?.rootViewController = navigationController
-//            window?.makeKeyAndVisible()
-//        } else {
             let registrationViewController = RegistrationViewController()
             let navigationController = UINavigationController(rootViewController: registrationViewController)
             window = UIWindow(windowScene: windowScene)
             window?.rootViewController = navigationController
             window?.makeKeyAndVisible()
-        //}
     }
 
         func sceneDidDisconnect(_ scene: UIScene) {

@@ -108,7 +108,6 @@ class PublicationsTableViewCell: UITableViewCell {
     var profiledataManager =  ProfileDataManager.shared
     var likedPosts: [Publications]  =  []
     var doubleTapGesture: UITapGestureRecognizer?
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()

@@ -13,22 +13,12 @@ class UserDataManager: NSObject, UserManaging {
     var feedDataManager: FeedDataManager?
     var coreDataManager: CoreDataManager?
 
-//    var users: [User] = [User(username: "Doosuur14", password: "456",
-//                              interest: "Fashion", friends: ["Lovelycats__", "User1"]), User(username: "Lovelycats__", password: "123",
-//                                                                                             interest: "Animals", friends: ["Doosuur14"]),
-//                         User(username: "User1", password: "1234",
-//                              interest: "Nature", friends: ["Doosuur14", "Lovelycats__"])
-//    ]
-
     let userdefaults = UserDefaults.standard
     var didTapLoginButton: (() -> Void)?
 
     override init() {
         super.init()
-       
-//        if !users.isEmpty {
-//            print(users)
-//        }
+
     }
 
     func asyncRegisterUser(username: String, password: String, interest: String, email: String,
@@ -55,7 +45,6 @@ class UserDataManager: NSObject, UserManaging {
                 newUser.password = password
                 newUser.interest = interest
                 newUser.email = email
-                
                 try context.save()
                 print("registration process successful")
                 completion(.success(newUser))
@@ -89,7 +78,6 @@ class UserDataManager: NSObject, UserManaging {
             }
         }
     }
-    
 //    func asynRetrieveUser(username: String, completinon: @escaping (Result<User, UserError>) -> Void) {
 //        Task {
 //            do {
@@ -125,8 +113,6 @@ class UserDataManager: NSObject, UserManaging {
         }
 
     }
-
-
     func saveUser(_ user: User) {
         guard let context = coreDataManager?.viewContext else {
             print("Context absent")
@@ -136,7 +122,7 @@ class UserDataManager: NSObject, UserManaging {
             try context.save()
             userdefaults.set(true, forKey: Keys.isUserLoggedIn)
             print("user saved to core data")
-        }catch{
+        } catch {
             print("")
         }
     }

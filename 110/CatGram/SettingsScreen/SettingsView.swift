@@ -13,7 +13,6 @@ class SettingsView: UIView {
     lazy var darkThemeSwitch: UISwitch = UISwitch()
     lazy var logoutButton: UIButton = UIButton()
     var logoutTapped: (() -> Void)?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSwitch()

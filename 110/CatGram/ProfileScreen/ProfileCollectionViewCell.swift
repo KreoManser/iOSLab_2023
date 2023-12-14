@@ -17,9 +17,15 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupImageView()
     }
-    func configure(with post: Post) {
-        imageView.image = post.photo
+    func configure(with post: Posts) {
+        if let imageData = post.photo, let image = UIImage(data: imageData) {
+            imageView.image = image
+        } else {
+            print("Failure to load image")
+            imageView.image = nil
+        }
     }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

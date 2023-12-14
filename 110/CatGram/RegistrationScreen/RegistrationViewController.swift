@@ -20,14 +20,18 @@ class RegistrationViewController: UIViewController {
         userDataMananger?.coreDataManager = CoreDataManager.shared
         setUpView()
 
-        registrationView?.registerButton.addTarget(self, action: #selector(registrationButtonTapped), for: .touchUpInside)
-        registrationView?.redirectionButton.addTarget(self, action: #selector(redirectionButtonTapped), for: .touchUpInside)
+        registrationView?.registerButton.addTarget(self,
+                                                   action: #selector(registrationButtonTapped), for: .touchUpInside)
+        registrationView?.redirectionButton.addTarget(self,
+                                                      action: #selector(redirectionButtonTapped), for: .touchUpInside)
 
         registrationDataManager?.didTapRegisterButton = { [weak self] in
-            if let username = self?.registrationView?.usernameTextField.text, let interest = self?.registrationView?.interestTextField.text,
+            if let username = self?.registrationView?.usernameTextField.text,
+               let interest = self?.registrationView?.interestTextField.text,
                let email = self?.registrationView?.emailTextField.text,
-                  let password = self?.registrationView?.passwordTextField.text {
-                self?.userDataMananger?.asyncRegisterUser(username: username, password: password, interest: interest, email: email) { result in
+               let password = self?.registrationView?.passwordTextField.text {
+                self?.userDataMananger?.asyncRegisterUser(username: username,
+                                                          password: password, interest: interest, email: email) { result in
                     switch result {
                     case.success:
                         print("user sucessfully registered")
