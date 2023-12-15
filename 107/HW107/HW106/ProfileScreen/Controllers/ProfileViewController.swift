@@ -1,34 +1,31 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    private var profileView = ProfileView(frame: .zero)
+    private var profileView: ProfileView?
     private let dataSource = ProfileViewDataSource()
-
-    override func loadView() {
-        view = profileView
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        profileView.reloadData()
+        profileView?.reloadData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        profileView.profileViewController = self
-        profileView.setupDataSource(dataSource)
-
-        Task {
-            await profileView.configureProfile(user: LoginDataManager.loginShared.getCurUser())
-        }
+        profileView = ProfileView(frame: view.bounds)
+        view = profileView
+        profileView?.profileViewController = self
+        profileView?.setupDataSource(dataSource)
+        guard let user = CoreDataManager.shared.getCurUser() else { return }
+        profileView?.configureProfile(user: user)
+        print(1)
     }
 }
 
 extension ProfileViewController {
     func postScreen(_ indexPath: IndexPath) {
-        let postController = PostViewController(indexPathToScroll: indexPath)
+        let postController = PostViewController(indexPathToScroll: IndexPath(row: 0, section: 0))
         postController.modalPresentationStyle = .fullScreen
         present(postController, animated: true)
     }

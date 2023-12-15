@@ -8,9 +8,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        print(DataManager.shared.userDefaults?.bool(forKey: "LoggedIn") ?? false)
-//        DataManager.shared.userDefaults?.set(false, forKey: DataManager.shared.loginBoolKey)
-        if DataManager.shared.userDefaults?.bool(forKey: "LoggedIn") ?? false {
+        print(UserDefaults.standard.bool(forKey: "LoggedIn"))
+//        DataManager.shared.userDefaults.set(false, forKey: DataManager.shared.loginBoolKey)
+        if UserDefaults.standard.bool(forKey: "LoggedIn") {
             window?.rootViewController = TabBarViewController()
         } else {
             window?.rootViewController = LoginViewController()
@@ -40,5 +40,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        CoreDataManager.shared.saveContext()
     }
 }

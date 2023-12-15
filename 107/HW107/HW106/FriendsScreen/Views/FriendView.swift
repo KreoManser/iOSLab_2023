@@ -19,7 +19,8 @@ class FriendView: UIView {
         return table
     }()
 
-    weak var friendViewController: FriendViewController?
+    var friendsViewControllerDismiss: (() -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -58,7 +59,7 @@ extension FriendView {
 
     @objc func handleSwipe(_ sender: UISwipeGestureRecognizer) {
         if sender.direction == .right {
-            friendViewController?.dismiss(animated: true)
+            friendsViewControllerDismiss?()
         }
     }
 

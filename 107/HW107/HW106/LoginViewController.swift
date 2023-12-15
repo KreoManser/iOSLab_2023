@@ -8,7 +8,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         loginView.loginViewController = self
-        print(dataManager.userDefaults?.bool(forKey: "LoggedIn") ?? false)
+        print(dataManager.userDefaults.bool(forKey: "LoggedIn"))
     }
 
     override func loadView() {

@@ -3,7 +3,7 @@ import UIKit
 
 class StoriesCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        DataManager.shared.getAllUsersPosts().count
+        DataManager.shared.getAllStories().count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

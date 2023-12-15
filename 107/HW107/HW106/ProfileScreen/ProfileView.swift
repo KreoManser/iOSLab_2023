@@ -47,7 +47,7 @@ class ProfileView: UIView {
     }()
 
     private lazy var publicationsLabel: UILabel = profileInfoLabel("Publications", weight: .regular)
-    private lazy var publicationsCountLabel: UILabel = profileInfoLabel("\(DataManager.shared.syncGetPosts().count)",
+    private lazy var publicationsCountLabel: UILabel = profileInfoLabel("\(String(describing: CoreDataManager.shared.getPostsFromCurUser().count))",
     weight: .medium)
 
     private lazy var publicsStackView: UIStackView = {
@@ -74,7 +74,7 @@ class ProfileView: UIView {
     }()
 
     private lazy var subsLabel: UILabel = profileInfoLabel("Subs", weight: .regular)
-    private lazy var subsCountLabel: UILabel = profileInfoLabel("\(LoginDataManager.loginShared.getCountOfFriends())", weight: .medium)
+    private lazy var subsCountLabel: UILabel = profileInfoLabel("\(CoreDataManager.shared.getFriendsFromCurUser().count)", weight: .medium)
 
     private lazy var subsStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [subsCountLabel, subsLabel])
@@ -182,7 +182,7 @@ extension ProfileView {
 
     func reloadData() {
         profileCollectionView.reloadData()
-        publicationsCountLabel.text = "\(DataManager.shared.syncGetPosts().count)"
+        publicationsCountLabel.text = "\(CoreDataManager.shared.getPostsFromCurUser().count)"
     }
 
     func profileInfoLabel(_ text: String, weight: UIFont.Weight) -> UILabel {
@@ -197,9 +197,9 @@ extension ProfileView {
     func configureProfile(user: User) {
         profileImageView.image = UIImage(named: user.avatarImageName)
         profileNameLabel.text = user.login
-        profileUserInformationLabel.text = user.description
-        subsCountLabel.text = "\(LoginDataManager.loginShared.getCountOfFriends())"
-        followsCountLabel.text = user.followsCount
+        profileUserInformationLabel.text = user.login
+        subsCountLabel.text = "\(CoreDataManager.shared.getFriendsFromCurUser().count)"
+        followsCountLabel.text = "100"
     }
 }
 

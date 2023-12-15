@@ -33,8 +33,8 @@ class PostViewController: UIViewController {
 }
 
 extension PostViewController {
-    func delete(_ indexPath: IndexPath) {
-        DataManager.shared.syncDelete(indexPath.row + 1)
+    func delete(_ id: UUID) {
+        CoreDataManager.shared.deletePostById(id: id)
         postView.reloadData()
     }
 
@@ -43,6 +43,6 @@ extension PostViewController {
     }
 
     func findByName(_ name: String) {
-        DataManager.shared.syncFindByName(name)
+        CoreDataManager.shared.getPostByDescription(description: name)
     }
 }

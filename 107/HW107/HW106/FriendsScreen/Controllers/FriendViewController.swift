@@ -12,6 +12,8 @@ class FriendViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        friendView.friendViewController = self
+        friendView.friendsViewControllerDismiss = { [weak self] in
+            self?.dismiss(animated: true)
+        }
     }
 }

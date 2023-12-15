@@ -4,7 +4,6 @@ class TabBarViewController: UITabBarController {
     let dataManager = DataManager.shared
     override func viewDidLoad() {
         super.viewDidLoad()
-        try? dataManager.checkUser()
         curUserPostScreen()
     }
 }

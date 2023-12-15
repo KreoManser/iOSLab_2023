@@ -84,14 +84,13 @@ class PostTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = .black
         label.textAlignment = .left
-        label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private lazy var postDeleteButton: UIButton = {
         let action = UIAction { [weak self] _ in
             guard let index = self?.getIndexPath() else { return }
-            self?.delegate?.presentAlert(indexPath: (index))
+            self?.presentAlert(indexPath: (index))
         }
         let button = UIButton()
         button.addAction(action, for: .touchUpInside)
@@ -103,13 +102,18 @@ class PostTableViewCell: UITableViewCell {
 
     weak var delegate: PostTableAlertDelegate?
     weak var superView: UITableView?
-    private var isLiked: Bool = false
+    private var isLiked: Bool {
+        get {
+            CoreDataManager.shared.isPostLikedByCurUser(post: self.post ?? Post())
+        }
+        set {}
+    }
     private var post: Post?
+    weak var postViewController: PostViewController?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .white
-
         setupLayouts()
         setupGesture()
     }
@@ -129,32 +133,29 @@ extension PostTableViewCell {
         return String(describing: self)
     }
 
-    func configureCell(_ post: Post, isLiked: Bool) {
+    func configureCell(_ post: Post) {
         postImageView.image = UIImage(named: post.postImageName)
         postDescriptionLabel.text = post.postDescription
         postDateLabel.text = post.postDate
-        Task {
-            let user = await LoginDataManager.loginShared.getCurUser()
-            postNameLabel.text = user.login
-            postAvatarImageView.image = UIImage(named: user.avatarImageName)
-        }
+        guard let user = CoreDataManager.shared.getCurUser() else { return }
+        postNameLabel.text = user.login
+        postAvatarImageView.image = UIImage(named: user.avatarImageName)
         self.post = post
         if isLiked {
             self.isLiked = true
             postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             postLikeButton.tintColor = .red
-            likeCountLabel.isHidden = false
-            guard let user = DataManager.shared.curUser else { return }
-            likeCountLabel.text = "Нравится \(String(describing: user.likedPosts.reduce(0) { $1 == post ? $0 + 1 : $0 }))"
         }
+        likeCountLabel.text = "Нравится \(CoreDataManager.shared.getLikeCount(post: self.post ?? Post()))"
     }
 
-    func configureMainScreenPostCell(_ post: Post, isLiked: Bool) {
+    func configureMainScreenPostCell(_ post: Post) {
         postDeleteButton.isHidden = true
         postImageView.image = UIImage(named: post.postImageName)
         postDescriptionLabel.text = post.postDescription
         postDateLabel.text = post.postDate
-        let index = Int.random(in: 0..<LoginDataManager.loginShared.getUsersName().count)
+        let index = Int.random(in: 0..<CoreDataManager.shared.getAllUsers().count)
+        // переделать логику создания постов
         postAvatarImageView.image = UIImage(named: LoginDataManager.loginShared.getUsersAvatarImageName()[index])
         postNameLabel.text = LoginDataManager.loginShared.getUsersName()[index]
         self.post = post
@@ -162,10 +163,8 @@ extension PostTableViewCell {
             self.isLiked = true
             postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             postLikeButton.tintColor = .red
-            likeCountLabel.isHidden = false
-            guard let user = DataManager.shared.curUser else { return }
-            likeCountLabel.text = "Нравится \(String(describing: user.likedPosts.reduce(0) { $1 == post ? $0 + 1 : $0 }))"
         }
+        likeCountLabel.text = "Нравится \(CoreDataManager.shared.getLikeCount(post: self.post ?? Post()))"
     }
 
     func setupLayouts() {
@@ -239,19 +238,29 @@ extension PostTableViewCell {
     }
 }
 
-extension PostTableViewCell {
+extension PostTableViewCell: PostTableAlertDelegate {
+    func presentAlert(indexPath: IndexPath) {
+        let alert = UIAlertController(title: "",
+        message: "Are you sure you want to delete this post? Access to it will be lost forever!",
+        preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
+            self?.postViewController?.delete(self?.post?.id)
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        postViewController?.present(alert, animated: true)
+    }
+
     private func animateLike() {
         if isLiked {
             UIView.animate(withDuration: 0.2, animations: {
                 self.postLikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 self.postLikeButton.tintColor = .black
-                self.likeCountLabel.isHidden = true
             })
         } else {
             UIView.animate(withDuration: 0.2, animations: {
                 self.postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 self.postLikeButton.tintColor = .red
-                self.likeCountLabel.isHidden = false
             })
         }
     }
@@ -264,14 +273,7 @@ extension PostTableViewCell {
 
     @objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
         animateLike()
-        self.isLiked.toggle()
-        if isLiked {
-            DataManager.shared.saveLikedPost(post: self.post ?? Post(id: -1, postImageName: "", postDescription: "", postDate: ""))
-        } else {
-            DataManager.shared.deleteLikedPost(post: self.post ?? Post(id: -1, postImageName: "", postDescription: "", postDate: ""))
-        }
-        guard let user = DataManager.shared.curUser else { return }
-        likeCountLabel.text = "Нравится \(user.likedPosts.reduce(0) { $1 == post ? $0 + 1 : $0 })"
-        try? DataManager.shared.saveCurrentUser()
+        CoreDataManager.shared.toggleLikeForPost(post: self.post ?? Post())
+        likeCountLabel.text = "Нравится \(CoreDataManager.shared.getLikeCount(post: self.post ?? Post()))"
     }
 }

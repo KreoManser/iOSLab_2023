@@ -59,24 +59,11 @@ extension PostView {
     }
 
     func scrollToPost(_ indexPath: IndexPath) {
-        postTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        postTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
 }
 
-extension PostView: PostTableAlertDelegate {
-    func presentAlert(indexPath: IndexPath) {
-        let alert = UIAlertController(title: "",
-        message: "Are you sure you want to delete this post? Access to it will be lost forever!",
-        preferredStyle: .actionSheet)
-
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
-            self?.postViewController?.delete(indexPath)
-        }))
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        postViewController?.present(alert, animated: true)
-    }
-
+extension PostView {
     func setupSwipeGesture() {
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
 
