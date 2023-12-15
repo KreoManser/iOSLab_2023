@@ -35,6 +35,7 @@ class AuthorizationView: UIView {
     lazy var fieldLogin: UITextField = {
         let field = UITextField()
         field.placeholder = "Phone number, username or email adress"
+        field.autocorrectionType = .no
         field.borderStyle = .roundedRect
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
@@ -44,6 +45,7 @@ class AuthorizationView: UIView {
         field.placeholder = "Password"
         field.borderStyle = .roundedRect
         field.isSecureTextEntry = true
+        field.autocorrectionType = .no
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()

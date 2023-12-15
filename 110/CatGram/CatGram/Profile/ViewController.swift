@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, ProfileViewDelegate {
+class ViewController: UIViewController, ProfileViewDelegate, CreatingPublicationControllerDelegate, DetailDataManagerDelegate {
 
     private var profileView: ProfileView!
     private var profileDataManager: ProfileDataManager!
@@ -26,18 +26,30 @@ class ViewController: UIViewController, ProfileViewDelegate {
         profileDataManager = ProfileDataManager.shared
         setUpSettings()
         setupNavigationBar()
+        profileView?.collectionView.reloadData()
         profileDataManager?.didSelectPublication = { [weak self] indexPath in
             let detailViewController = DetailViewController(indexPath: indexPath)
             self?.navigationController?.pushViewController(detailViewController, animated: true)
+            self?.profileView?.collectionView.reloadData()
         }
         profileView?.collectionView.reloadData()
+        DetailDataManager.shared.reloadData = { [weak self] in
+            self?.profileView?.collectionView.reloadData()
+        }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.profileView?.collectionView.reloadData()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        profileView?.collectionView.reloadData()
+        self.profileView?.collectionView.reloadData()
     }
 
+    func refreshProfile() {
+        self.profileView?.collectionView.reloadData()
+    }
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = profileView?.buttonName
         navigationItem.rightBarButtonItems = [profileView!.buttonSettings, profileView!.addPublication]
@@ -54,6 +66,17 @@ class ViewController: UIViewController, ProfileViewDelegate {
     func goToFollowerController() {
         self.navigationController?.pushViewController(FollowersViewController(), animated: false)
         self.navigationController?.tabBarController?.tabBar.isHidden = true
+        profileView?.collectionView.reloadData()
+    }
+
+    func reloadData() {
+        profileView?.collectionView.reloadData()
+    }
+
+    func addPublication() {
+        let creatingPublicationController = CreatingPublicationController()
+        creatingPublicationController.delegate = self
+        navigationController?.pushViewController(creatingPublicationController, animated: true)
     }
 
     func setUpSettings() {
@@ -67,5 +90,6 @@ class ViewController: UIViewController, ProfileViewDelegate {
         profileView?.collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: ProfileCollectionViewCell.reuseIdentifier)
         profileView?.collectionView.delegate = profileDataManager
         profileView.delegate = self
+        DetailDataManager.shared.delegate = self
     }
 }

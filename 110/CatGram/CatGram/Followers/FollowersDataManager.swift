@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 
-class FollowersDataManager: NSObject, UITableViewDelegate, UITableViewDataSource {
+class FollowersDataManager: NSObject, UITableViewDataSource, UITableViewDelegate {
+
+//    ProfileDataManager.shared.publicationsUsers
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         followers.count
@@ -24,9 +26,9 @@ class FollowersDataManager: NSObject, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         50
     }
-
-    private let followers: [Follower] = Array(
-        repeating: Follower(id: UUID(), avatar: UIImage.profileicon, userName: "Подписчик", status: "Подписан"), count: 54
-    )
-
+    private let followers: [Follower] = [
+        Follower(id: UUID(), avatar: UIImage.badcat1, userName: "BadCat", status: "Подписан"),
+        Follower(id: UUID(), avatar: UIImage.kot3, userName: "Славный_Котик", status: "Подписан"),
+        Follower(id: UUID(), avatar: UIImage.k1, userName: "Kitty", status: "Подписан")
+    ]
 }

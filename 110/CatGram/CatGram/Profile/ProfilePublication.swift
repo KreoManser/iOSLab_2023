@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 struct ProfilePublication {
-    let id: UUID
-    let image: UIImage?
-    let caption: String
-    let date: String
-    let isLiked: Bool
-    let userProfile: (userName: String, avatar: UIImage?)
+    var id: UUID
+    var image: UIImage?
+    var caption: String
+    var date: String
+    var isLiked: Bool
+    var userProfile: (userName: String, avatar: UIImage?)
 }

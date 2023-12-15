@@ -28,6 +28,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
             registraitionEntity.userName = login
             registraitionEntity.password = password
             RegistrationDataManager.shared.saveContext()
+            createListPublicationsForNewUser(userName: registraitionEntity.userName, password: registraitionEntity.password)
             let alert = UIAlertController(
                 title: "Успешно",
                 message: "Ваш логин: \(registraitionEntity.userName)\nВаш пароль: \(registraitionEntity.password)",
@@ -41,6 +42,10 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
             alert.addAction(action)
             self.present(alert, animated: true)
         }
+    }
+
+    func createListPublicationsForNewUser(userName: String, password: String) {
+        ProfileDataManager.shared.publicationsDictionary[userName] = []
     }
 
     func popViewController() {

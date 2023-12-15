@@ -10,6 +10,7 @@ import UIKit
 protocol ProfileViewDelegate: AnyObject {
     func goToSettingsController()
     func goToFollowerController()
+    func addPublication()
 }
 
 class ProfileView: UIView {
@@ -23,7 +24,8 @@ class ProfileView: UIView {
     }()
 
     lazy var addPublication: UIBarButtonItem = {
-        let button = UIBarButtonItem(systemItem: .add)
+        let action = UIAction { _ in self.delegate?.addPublication() }
+        let button = UIBarButtonItem(systemItem: .add, primaryAction: action)
         button.tintColor = .black
         return button
     }()

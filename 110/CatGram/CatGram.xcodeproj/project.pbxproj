@@ -14,6 +14,8 @@
 		7C007BC12AFD2BC1001C4F3E /* AuthorizationDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C007BC02AFD2BC1001C4F3E /* AuthorizationDataManagerProtocol.swift */; };
 		7C007BC52AFD2DAF001C4F3E /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C007BC42AFD2DAF001C4F3E /* UserLogin.swift */; };
 		7C1B1ECB2B26030500E5B30E /* CatGramData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7C1B1EC92B26030500E5B30E /* CatGramData.xcdatamodeld */; };
+		7C3AD3FA2B29D3CD00435406 /* CreatingPublicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AD3F92B29D3CD00435406 /* CreatingPublicationController.swift */; };
+		7C3AD3FC2B29D3F800435406 /* CreatingPublicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AD3FB2B29D3F800435406 /* CreatingPublicationView.swift */; };
 		7C3E3DD42AE9740D00603C03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3E3DD32AE9740D00603C03 /* AppDelegate.swift */; };
 		7C3E3DD62AE9740D00603C03 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3E3DD52AE9740D00603C03 /* SceneDelegate.swift */; };
 		7C3E3DD82AE9740D00603C03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3E3DD72AE9740D00603C03 /* ViewController.swift */; };
@@ -22,6 +24,7 @@
 		7C4D85AC2B2612DB0001493A /* RegistraitionEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4D85AA2B2612DB0001493A /* RegistraitionEntity+CoreDataClass.swift */; };
 		7C4D85AD2B2612DB0001493A /* RegistraitionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4D85AB2B2612DB0001493A /* RegistraitionEntity+CoreDataProperties.swift */; };
 		7C4D85B22B261D7E0001493A /* RegistrationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4D85B12B261D7E0001493A /* RegistrationDataManager.swift */; };
+		7C4EC0D12B2C939C007B6320 /* UpdatePublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4EC0D02B2C939C007B6320 /* UpdatePublicationViewController.swift */; };
 		7C8011032B22417000906E8D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8011022B22417000906E8D /* RegistrationViewController.swift */; };
 		7C8011052B2241EE00906E8D /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8011042B2241EE00906E8D /* RegistrationView.swift */; };
 		7C8D57212AE992AC00DD0A07 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8D57202AE992AC00DD0A07 /* ProfileView.swift */; };
@@ -51,6 +54,8 @@
 		7C007BC02AFD2BC1001C4F3E /* AuthorizationDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDataManagerProtocol.swift; sourceTree = "<group>"; };
 		7C007BC42AFD2DAF001C4F3E /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
 		7C1B1ECA2B26030500E5B30E /* CatGramData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CatGramData.xcdatamodel; sourceTree = "<group>"; };
+		7C3AD3F92B29D3CD00435406 /* CreatingPublicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingPublicationController.swift; sourceTree = "<group>"; };
+		7C3AD3FB2B29D3F800435406 /* CreatingPublicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingPublicationView.swift; sourceTree = "<group>"; };
 		7C3E3DD02AE9740D00603C03 /* CatGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C3E3DD32AE9740D00603C03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C3E3DD52AE9740D00603C03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +66,7 @@
 		7C4D85AA2B2612DB0001493A /* RegistraitionEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegistraitionEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		7C4D85AB2B2612DB0001493A /* RegistraitionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegistraitionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7C4D85B12B261D7E0001493A /* RegistrationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDataManager.swift; sourceTree = "<group>"; };
+		7C4EC0D02B2C939C007B6320 /* UpdatePublicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePublicationViewController.swift; sourceTree = "<group>"; };
 		7C8011022B22417000906E8D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		7C8011042B2241EE00906E8D /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		7C8D57202AE992AC00DD0A07 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -111,6 +117,16 @@
 				7C007BB92AFCFFE3001C4F3E /* DancingScript-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		7C3AD3F82B29D33900435406 /* CreatingPublication */ = {
+			isa = PBXGroup;
+			children = (
+				7C3AD3F92B29D3CD00435406 /* CreatingPublicationController.swift */,
+				7C3AD3FB2B29D3F800435406 /* CreatingPublicationView.swift */,
+				7C4EC0D02B2C939C007B6320 /* UpdatePublicationViewController.swift */,
+			);
+			path = CreatingPublication;
 			sourceTree = "<group>";
 		};
 		7C3E3DC72AE9740D00603C03 = {
@@ -198,6 +214,7 @@
 				7C8D57242AEFEFC500DD0A07 /* ProfileCollectionViewCell.swift */,
 				7C8D57202AE992AC00DD0A07 /* ProfileView.swift */,
 				7C3E3DD72AE9740D00603C03 /* ViewController.swift */,
+				7C3AD3F82B29D33900435406 /* CreatingPublication */,
 				7CA1DE0C2B1227F90045E67B /* Settings */,
 			);
 			path = Profile;
@@ -327,6 +344,7 @@
 			files = (
 				7CA1DE182B1291EF0045E67B /* FollowersCell.swift in Sources */,
 				7C3E3DD82AE9740D00603C03 /* ViewController.swift in Sources */,
+				7C4EC0D12B2C939C007B6320 /* UpdatePublicationViewController.swift in Sources */,
 				7C8D57292AF02A2100DD0A07 /* DetailViewController.swift in Sources */,
 				7CC8E0072AF41197005E2B8E /* ProfilePublication.swift in Sources */,
 				7C007BB02AFC14FF001C4F3E /* AuthorizationViewController.swift in Sources */,
@@ -342,6 +360,7 @@
 				7C007BC12AFD2BC1001C4F3E /* AuthorizationDataManagerProtocol.swift in Sources */,
 				7C4D85AD2B2612DB0001493A /* RegistraitionEntity+CoreDataProperties.swift in Sources */,
 				7C8011052B2241EE00906E8D /* RegistrationView.swift in Sources */,
+				7C3AD3FA2B29D3CD00435406 /* CreatingPublicationController.swift in Sources */,
 				7CA1DE162B128F870045E67B /* FollowersView.swift in Sources */,
 				7C1B1ECB2B26030500E5B30E /* CatGramData.xcdatamodeld in Sources */,
 				7CA1DE1C2B1293A30045E67B /* FollowersDataManager.swift in Sources */,
@@ -350,6 +369,7 @@
 				7C8D57212AE992AC00DD0A07 /* ProfileView.swift in Sources */,
 				7CC8E0112AF4328F005E2B8E /* DetailDataManager.swift in Sources */,
 				7CA1DE1A2B1292030045E67B /* Follower.swift in Sources */,
+				7C3AD3FC2B29D3F800435406 /* CreatingPublicationView.swift in Sources */,
 				7C4D85B22B261D7E0001493A /* RegistrationDataManager.swift in Sources */,
 				7C007BBF2AFD2783001C4F3E /* AuthorizationDataManager.swift in Sources */,
 				7C4D85AC2B2612DB0001493A /* RegistraitionEntity+CoreDataClass.swift in Sources */,

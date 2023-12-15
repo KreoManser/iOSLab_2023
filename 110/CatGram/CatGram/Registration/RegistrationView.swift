@@ -44,6 +44,7 @@ class RegistrationView: UIView {
         field.placeholder = "Phone number, username or email adress"
         field.borderStyle = .roundedRect
         field.translatesAutoresizingMaskIntoConstraints = false
+        field.autocorrectionType = .no
         return field
     }()
 
@@ -52,6 +53,7 @@ class RegistrationView: UIView {
         field.placeholder = "Password"
         field.borderStyle = .roundedRect
         field.isSecureTextEntry = true
+        field.autocorrectionType = .no
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -61,6 +63,7 @@ class RegistrationView: UIView {
         field.placeholder = "Duplicate password"
         field.borderStyle = .roundedRect
         field.isSecureTextEntry = true
+        field.autocorrectionType = .no
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()

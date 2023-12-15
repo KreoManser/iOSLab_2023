@@ -29,7 +29,7 @@ class AuthorizationDataManager: NSObject, AuthorizationDataManagerProtocol {
 
     func checkLoginAndPassword(userName: String, password: String) async -> UserLogin? {
         if let credentials = fetchCredentials(userName, password) {
-            var newUser = UserLogin(id: UUID(), login: credentials.userName, password: credentials.password, avatar: UIImage.iconProfile)
+            let newUser = UserLogin(id: UUID(), login: credentials.userName, password: credentials.password, avatar: UIImage.iconProfile)
             guard self.users.contains(where: { user in
                 user.login == newUser.login
             }) else { self.users.append(newUser); return newUser }
@@ -47,7 +47,7 @@ class AuthorizationDataManager: NSObject, AuthorizationDataManagerProtocol {
         let fetchRequest: NSFetchRequest<RegistraitionEntity> = RegistraitionEntity.fetchRequest()
         do {
             let credentials = try context.fetch(fetchRequest)
-            if (credentials.first(where: { $0.userName == userName && $0.password == password }) != nil) {
+            if credentials.first(where: { $0.userName == userName && $0.password == password }) != nil {
                 return credentials.first(where: { $0.userName == userName && $0.password == password })
             }
         } catch {

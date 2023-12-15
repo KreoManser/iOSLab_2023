@@ -11,9 +11,9 @@ import UIKit
 class ProfileDataManager: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, DataManagerProtocol {
 
     var didSelectPublication: ((_ indexPath: IndexPath) -> Void)?
-    static let shared = ProfileDataManager()
+    static var shared = ProfileDataManager()
     var publicationsUsers: [ProfilePublication] = []
-    private var publicationsDictionary: [String: [ProfilePublication]] = [:]
+    var publicationsDictionary: [String: [ProfilePublication]] = [:]
 
     private let usesrsDefualt = UserDefaults(suiteName: "PublicationsProfile")
     private let publicationsKey = "publicationsKey"
@@ -24,8 +24,8 @@ class ProfileDataManager: NSObject, UICollectionViewDataSource, UICollectionView
             publicationsDictionary["Славный_Котик"] = slavnyyPublications
             publicationsDictionary["Kitty"] = kittyPublications
             publicationsDictionary["Bad_Cat"] = badCatPublications
+            self.setAllPublications()
         }
-        self.setAllPublications()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -114,7 +114,9 @@ class ProfileDataManager: NSObject, UICollectionViewDataSource, UICollectionView
 
     private func setAllPublications() {
         for publications in publicationsDictionary {
+            print(publications.key)
             for publication in publications.value {
+                print(publication.image ?? UIImage.addPhoto)
                 self.publicationsUsers.append(publication)
             }
         }
