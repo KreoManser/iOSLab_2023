@@ -43,6 +43,10 @@
 		CEDFCF1C2B26B74900F9405F /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEDFCF1A2B26B74900F9405F /* CoreData.xcdatamodeld */; };
 		CEDFCF6B2B26C4BB00F9405F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDFCF6A2B26C4BB00F9405F /* SignUpView.swift */; };
 		CEDFCF6D2B26C77700F9405F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDFCF6C2B26C77700F9405F /* SignUpViewController.swift */; };
+		CEEB5A542B2F54E1002DF90B /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB5A532B2F54E1002DF90B /* UsersView.swift */; };
+		CEEB5A562B2F5501002DF90B /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB5A552B2F5501002DF90B /* UserTableViewCell.swift */; };
+		CEEB5A582B2F67B0002DF90B /* UsersTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB5A572B2F67B0002DF90B /* UsersTableViewDataSource.swift */; };
+		CEEB5A5A2B2F68B9002DF90B /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB5A592B2F68B9002DF90B /* UsersViewController.swift */; };
 		CEFDBDE32B146218009C0806 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDE22B146218009C0806 /* TabBarViewController.swift */; };
 		CEFDBDEB2B14848B009C0806 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDEA2B14848B009C0806 /* SettingsViewController.swift */; };
 		CEFDBDED2B14851D009C0806 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFDBDEC2B14851D009C0806 /* SettingsView.swift */; };
@@ -89,6 +93,10 @@
 		CEDFCF1B2B26B74900F9405F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		CEDFCF6A2B26C4BB00F9405F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		CEDFCF6C2B26C77700F9405F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		CEEB5A532B2F54E1002DF90B /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
+		CEEB5A552B2F5501002DF90B /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		CEEB5A572B2F67B0002DF90B /* UsersTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewDataSource.swift; sourceTree = "<group>"; };
+		CEEB5A592B2F68B9002DF90B /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		CEFDBDE22B146218009C0806 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CEFDBDEA2B14848B009C0806 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CEFDBDEC2B14851D009C0806 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -250,6 +258,7 @@
 		CE5B3CB02AEED5ED00911C77 /* HW106 */ = {
 			isa = PBXGroup;
 			children = (
+				CEEB5A4F2B2F5454002DF90B /* UsersScreen */,
 				CEDFCF2D2B26BE8900F9405F /* CoreDataModels */,
 				CEDFCF662B26C44500F9405F /* SignUpScreen */,
 				CE03E7912B179B210094FB8E /* FriendsScreen */,
@@ -324,6 +333,41 @@
 				CEDFCF6C2B26C77700F9405F /* SignUpViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CEEB5A4F2B2F5454002DF90B /* UsersScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CEEB5A522B2F54C4002DF90B /* Views */,
+				CEEB5A512B2F54BA002DF90B /* Controllers */,
+				CEEB5A502B2F54B1002DF90B /* Models */,
+			);
+			path = UsersScreen;
+			sourceTree = "<group>";
+		};
+		CEEB5A502B2F54B1002DF90B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CEEB5A572B2F67B0002DF90B /* UsersTableViewDataSource.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CEEB5A512B2F54BA002DF90B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEEB5A592B2F68B9002DF90B /* UsersViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CEEB5A522B2F54C4002DF90B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEEB5A532B2F54E1002DF90B /* UsersView.swift */,
+				CEEB5A552B2F5501002DF90B /* UserTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CEFDBDE62B14714A009C0806 /* SettingsScreen */ = {
@@ -528,7 +572,10 @@
 				CE49C2882B2A27FB00349011 /* User+CoreDataProperties.swift in Sources */,
 				CE1CE4062AFA4FF200258F0D /* Story.swift in Sources */,
 				CE49C2902B2A4D0C00349011 /* Friend+CoreDataProperties.swift in Sources */,
+				CEEB5A5A2B2F68B9002DF90B /* UsersViewController.swift in Sources */,
+				CEEB5A562B2F5501002DF90B /* UserTableViewCell.swift in Sources */,
 				CE03E7962B179B5E0094FB8E /* FriendTableViewCell.swift in Sources */,
+				CEEB5A542B2F54E1002DF90B /* UsersView.swift in Sources */,
 				CEDFCF6D2B26C77700F9405F /* SignUpViewController.swift in Sources */,
 				CE1CE4D52AFAFC9D00258F0D /* DataManager.swift in Sources */,
 				CE1CE4E52AFAFE6E00258F0D /* MainViewController.swift in Sources */,
@@ -545,6 +592,7 @@
 				CEFDBDED2B14851D009C0806 /* SettingsView.swift in Sources */,
 				CE1CE4E92AFAFEE700258F0D /* MainTableViewDataSource.swift in Sources */,
 				CEFDBDE32B146218009C0806 /* TabBarViewController.swift in Sources */,
+				CEEB5A582B2F67B0002DF90B /* UsersTableViewDataSource.swift in Sources */,
 				CE1CE4D32AFAFC5700258F0D /* ProfileViewDataSource.swift in Sources */,
 				CE1CE4D12AFAFC2600258F0D /* LoginDataManager.swift in Sources */,
 				CE1CE4E22AFAFE1700258F0D /* PostTableViewDataSource.swift in Sources */,

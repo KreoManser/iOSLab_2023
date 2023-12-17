@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class MainPostsTableViewDataSource: NSObject, UITableViewDataSource {
-    private let posts = CoreDataManager.shared.getAllPosts()
+    private let posts = CoreDataManager.shared.getAllPostForCurUserFriends()
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }

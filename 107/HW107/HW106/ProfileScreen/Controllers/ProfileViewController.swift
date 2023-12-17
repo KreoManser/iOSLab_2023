@@ -19,7 +19,6 @@ class ProfileViewController: UIViewController {
         profileView?.setupDataSource(dataSource)
         guard let user = CoreDataManager.shared.getCurUser() else { return }
         profileView?.configureProfile(user: user)
-        print(1)
     }
 }
 

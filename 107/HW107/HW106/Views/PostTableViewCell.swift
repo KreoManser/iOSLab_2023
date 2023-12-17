@@ -146,7 +146,7 @@ extension PostTableViewCell {
             postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             postLikeButton.tintColor = .red
         }
-        likeCountLabel.text = "Нравится \(CoreDataManager.shared.getLikeCount(post: self.post ?? Post()))"
+        likeCountLabel.text = "Нравится \(CoreDataManager.shared.getLikeCount(post: post))"
     }
 
     func configureMainScreenPostCell(_ post: Post) {
@@ -154,17 +154,17 @@ extension PostTableViewCell {
         postImageView.image = UIImage(named: post.postImageName)
         postDescriptionLabel.text = post.postDescription
         postDateLabel.text = post.postDate
-        let index = Int.random(in: 0..<CoreDataManager.shared.getAllUsers().count)
-        // переделать логику создания постов
-        postAvatarImageView.image = UIImage(named: LoginDataManager.loginShared.getUsersAvatarImageName()[index])
-        postNameLabel.text = LoginDataManager.loginShared.getUsersName()[index]
+        guard let user = post.user else { return }
+        postAvatarImageView.image = UIImage(named: CoreDataManager.shared.getAvatarNameByUser(user: user))
+        postNameLabel.text = user.login
         self.post = post
+        isLiked = CoreDataManager.shared.isPostLikedByCurUser(post: post)
         if isLiked {
             self.isLiked = true
             postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             postLikeButton.tintColor = .red
         }
-        likeCountLabel.text = "Нравится \(CoreDataManager.shared.getLikeCount(post: self.post ?? Post()))"
+        likeCountLabel.text = "Нравится \(CoreDataManager.shared.getLikeCount(post: post))"
     }
 
     func setupLayouts() {

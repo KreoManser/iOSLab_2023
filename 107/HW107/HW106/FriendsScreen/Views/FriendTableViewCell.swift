@@ -55,6 +55,5 @@ extension FriendTableViewCell {
     func configure(user: User) {
         friendsNameLabel.text = user.login
         friendsAvatarImageView.image = UIImage(named: user.avatarImageName)
-        print(1)
     }
 }

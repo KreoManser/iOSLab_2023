@@ -14,12 +14,16 @@ extension TabBarViewController {
         let mainTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "house.fill"), selectedImage: nil)
         mainViewController.tabBarItem = mainTabBarItem
 
+        let usersViewController = UsersViewController()
+        let usersTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person.fill"), selectedImage: nil)
+        usersViewController.tabBarItem = usersTabBarItem
+
         let profileViewController = ProfileViewController()
         let profileTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person.fill"),
             selectedImage: nil)
         profileViewController.tabBarItem = profileTabBarItem
 
-        setViewControllers([mainViewController, profileViewController], animated: true)
-        selectedIndex = 1
+        setViewControllers([mainViewController, usersViewController, profileViewController], animated: true)
+        selectedIndex = 2
     }
 }

@@ -98,10 +98,16 @@ extension CoreDataManager {
         return result ?? []
     }
 
+    func getAllPostForCurUserFriends() -> [Post] {
+        let posts = getAllPosts()
+        let friends = getFriendsFromCurUser()
+        return posts.filter({ friends.contains($0.user ?? User()) })
+    }
+
     func getPostById(id: UUID) -> Post? { getAllPosts().first(where: { $0.id == id }) }
 
     func getPostByDescription(description: String) {
-        searchedPosts = getAllPosts().filter({ $0.postDescription == description })
+        searchedPosts = getPostsFromCurUser().filter({ $0.postDescription.contains(description) })
     }
 
     func getSearchedPosts() -> [Post] { searchedPosts }
@@ -155,8 +161,45 @@ extension CoreDataManager {
         saveContext()
     }
 
+    func toggleCurUserSubs(user: User) {
+        guard let curUser = getCurUser() else { return }
+        if isCurUserSubToUser(user: user) {
+            let friends = curUser.friends?.allObjects as? [Friend] ?? []
+            guard let friendship = friends.first(where: { $0.friendUserEntity.id == user.id }) else { return }
+            curUser.removeFromFriends(friendship)
+            viewContext.delete(friendship)
+            print(0)
+        } else {
+            let friendship = Friend(context: viewContext)
+            friendship.id = UUID()
+            friendship.user = curUser
+            friendship.friendUserEntity = user
+            curUser.addToFriends(friendship)
+            print(1)
+        }
+        saveContext()
+    }
+
+    func isCurUserSubToUser(user: User) -> Bool {
+        let friends = CoreDataManager.shared.getFriendsFromCurUser()
+        return friends.contains(where: { $0.id == user.id })
+    }
+
     func getLikeCount(post: Post) -> Int {
         return post.liked?.count ?? 0
+    }
+
+    func getAvatarNameByUser(user: User) -> String {
+        switch user.login {
+        case "Timerglot":
+            return "avatar1"
+        case "Giga_chad":
+            return "avatar2"
+        case "The_benko":
+            return "avatar3"
+        default:
+            return "defaultUser"
+        }
     }
 
     func setDefaultUsers() {

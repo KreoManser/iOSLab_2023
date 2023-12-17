@@ -64,14 +64,12 @@ class DataManager: DataManagerProtocol {
 //    postDescription: "My fourth post", postDate: "09.04.2023")
     ]
     private var postDict: [String: [Post]] = [:]
-    lazy var posts: [Post] = CoreDataManager.shared.getAllPosts()
+    lazy var posts: [Post] = CoreDataManager.shared.getAllPostForCurUserFriends()
     private var allStories: [Story] = []
     private init() {
         for post in self.posts {
             guard let user = post.user else { return }
-            if (user.id != CoreDataManager.shared.getCurUser()?.id) {
-                self.allStories.append(Story(userName: user.login, imageName: post.postImageName))
-            }
+            self.allStories.append(Story(userName: user.login, imageName: post.postImageName))
         }
     }
     private var searchedPosts: [Post] = []
