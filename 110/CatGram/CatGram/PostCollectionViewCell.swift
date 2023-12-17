@@ -23,7 +23,10 @@ class PostCollectionViewCell: UICollectionViewCell {
     }
 
     func configureCell(with post: Post) {
-        imageView.image = post.image
+        if let imagePostData = post.image, let conImagePost = UIImage(data: imagePostData) {
+            imageView.image = conImagePost
+        }
+//        imageView.image = post.image
     }
 
     func setupLayout() {

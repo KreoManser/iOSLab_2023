@@ -17,11 +17,12 @@ class AuthorizationViewController: UIViewController, UITextFieldDelegate {
     var signUpButton: UIButton = {
         let button = UIButton()
         button.setTitle("Create an account", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.backgroundColor = .clear
-        button.contentHorizontalAlignment = .center
-        button.tintColor = .black
-        button.setTitleColor(.black, for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//        button.backgroundColor = .clear
+        button.backgroundColor = .black
+//        button.contentHorizontalAlignment = .center
+//        button.tintColor = .black
+//        button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -54,7 +55,7 @@ class AuthorizationViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        users = dataManager.getUsers()
+        users = coreDataManager.obtainSavedUsers()
 
         view.backgroundColor = .white
 

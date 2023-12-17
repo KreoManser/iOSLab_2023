@@ -18,13 +18,18 @@ class DataManager: DataManagerProtocol {
     lazy var coreDataManager = CoreDataManager.shared
 
     private var users = [User] ()
-    private var posts: [Post]
+    private var posts = [Post] ()
 
     init() {
-        self.posts = []
-        self.users = []
-        self.initPosts()
-        self.users = coreDataManager.initUsers()
+//        self.posts = []
+//        self.users = []
+//        self.initPosts()
+//        self.users = coreDataManager.initUsers()
+        self.users = coreDataManager.obtainSavedUsers()
+//        coreDataManager.initPosts()
+        self.posts = coreDataManager.getCurrentUserPosts()
+//        print(posts)
+
 //        self.initUsers()
     }
 
@@ -40,17 +45,17 @@ class DataManager: DataManagerProtocol {
     private let searchQueue = OperationQueue()
     private let getUsersQueue = OperationQueue()
 
-    func initPosts() {
-        if let image1 = UIImage(named: "miniCat") {
-            posts.append(Post(id: 1, image: image1, caption: "The mini Cat", date: Date(), countOfLikes: 5))
-        }
-        if let image2 = UIImage(named: "3in1Cats") {
-            posts.append(Post(id: 2, image: image2, caption: "With bro", date: Date(), countOfLikes: 11))
-        }
-        if let image3 = UIImage(named: "mrCat") {
-            posts.append(Post(id: 3, image: image3, caption: "Mr Cat", date: Date(), countOfLikes: 7))
-        }
-    }
+//    func initPosts() {
+//        if let image1 = UIImage(named: "miniCat") {
+//            posts.append(Post(id: 1, image: image1, caption: "The mini Cat", date: Date(), countOfLikes: 5))
+//        }
+//        if let image2 = UIImage(named: "3in1Cats") {
+//            posts.append(Post(id: 2, image: image2, caption: "With bro", date: Date(), countOfLikes: 11))
+//        }
+//        if let image3 = UIImage(named: "mrCat") {
+//            posts.append(Post(id: 3, image: image3, caption: "Mr Cat", date: Date(), countOfLikes: 7))
+//        }
+//    }
 
     //    функции кэширования 
     func loginDefaults() {
@@ -59,37 +64,39 @@ class DataManager: DataManagerProtocol {
     func logOutDefaults() {
         self.userDefaults.setValue(false, forKey: "logged_in")
     }
+//    сохраняем текущего пользователя (временно пока вошел в аккаунт)
     func saveUserByLogin(_ user: User) {
         let login = user.login
         userDefaults.setValue(login, forKey: usersKey)
     }
+//    получение текущего пользователя
     func obtainUserByLogin() -> User? {
         guard let log = userDefaults.string(forKey: usersKey) else { return nil }
         return users.first(where: { $0.login == log })
     }
 
 //    функция для лайка
-    func toLikePost(post: Post) {
-        userDefaults.setValue(true, forKey: String(post.id))
-        for index in posts.indices {
-            if posts[index] == post {
-                posts[index].countOfLikes += 1
-                print("count of posts in data manager\(posts)")
-                profileDelegate?.reloadArrayAfterLiking(self)
-                feedDelegate?.reloadArrayAfterLiking(self)
-            }
-        }
-    }
-    func toUnlikePost(post: Post) {
-        userDefaults.setValue(false, forKey: String(post.id))
-        for index in posts.indices {
-            if posts[index] == post {
-                posts[index].countOfLikes -= 1
-                profileDelegate?.reloadArrayAfterLiking(self)
-                feedDelegate?.reloadArrayAfterLiking(self)
-            }
-        }
-    }
+//    func toLikePost(post: Post) {
+//        userDefaults.setValue(true, forKey: String(post.id))
+//        for index in posts.indices {
+//            if posts[index] == post {
+//                posts[index].countOfLikes += 1
+//                print("count of posts in data manager\(posts)")
+//                profileDelegate?.reloadArrayAfterLiking(self)
+//                feedDelegate?.reloadArrayAfterLiking(self)
+//            }
+//        }
+//    }
+//    func toUnlikePost(post: Post) {
+//        userDefaults.setValue(false, forKey: String(post.id))
+//        for index in posts.indices {
+//            if posts[index] == post {
+//                posts[index].countOfLikes -= 1
+//                profileDelegate?.reloadArrayAfterLiking(self)
+//                feedDelegate?.reloadArrayAfterLiking(self)
+//            }
+//        }
+//    }
 
     func addNewUser(user: User) {
         users.append(user)
@@ -203,21 +210,21 @@ class DataManager: DataManagerProtocol {
 //        deleteQueue.addOperation(deleteOperation)
 //    }
 
-    func syncSearchPostById(byId id: Int) -> Post? {
-        searchSemaphore.wait()
-        let foundPost = posts.first(where: { $0.id == id })
-        searchSemaphore.signal()
-        return foundPost
-    }
-    func asyncSearchPostById(byId id: Int) async -> Post? {
-        return await withCheckedContinuation { continuation in
-            let searchOperation = BlockOperation {
-                let foundPost = self.posts.first(where: { $0.id == id })
-                continuation.resume(returning: foundPost)
-            }
-            searchQueue.addOperation(searchOperation)
-        }
-    }
+//    func syncSearchPostById(byId id: Int) -> Post? {
+//        searchSemaphore.wait()
+//        let foundPost = posts.first(where: { $0.id == id })
+//        searchSemaphore.signal()
+//        return foundPost
+//    }
+//    func asyncSearchPostById(byId id: Int) async -> Post? {
+//        return await withCheckedContinuation { continuation in
+//            let searchOperation = BlockOperation {
+//                let foundPost = self.posts.first(where: { $0.id == id })
+//                continuation.resume(returning: foundPost)
+//            }
+//            searchQueue.addOperation(searchOperation)
+//        }
+//    }
     //    func asyncSearchPostById(byId id: Int, completion: @escaping (Post?) -> Void) {
     //        let searchOperation = BlockOperation {
     //            var foundPost: Post?

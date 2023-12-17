@@ -17,8 +17,8 @@ protocol DataManagerProtocol {
     func asyncDelete(post: Post) async -> Bool
 //    func asyncDelete(post: Post, completion: @escaping (Bool) -> Void)
 
-    func syncSearchPostById(byId id: Int) -> Post?
-    func asyncSearchPostById(byId id: Int) async -> Post?
+//    func syncSearchPostById(byId id: Int) -> Post?
+//    func asyncSearchPostById(byId id: Int) async -> Post?
 //    func asyncSearchPostById(byId id: Int, completion: @escaping (Post?) -> Void)
 
 }

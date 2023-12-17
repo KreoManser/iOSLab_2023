@@ -3,6 +3,7 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     var posts: [Post] = []
+    var followingUsers: [User] = []
     var user: User?
     private var dataManager = DataManager()
     let feedVC = FeedViewController()
@@ -26,7 +27,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 15)
-        label.text = user?.description
+        label.text = user?.accountDescription
         label.numberOfLines = 2
         return label
     }()
@@ -36,7 +37,6 @@ class ProfileViewController: UIViewController {
         if let imageData = user?.profileImage, let conImage = UIImage(data: imageData) {
             image.image = conImage
         }
-//        image.image = user?.profileImage
         image.layer.cornerRadius = 80 / 2
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
@@ -56,7 +56,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
     func settingsButtonOptions() {
-        let alertController = UIAlertController(title: "Настройки", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Выход из аккаунта", message: nil, preferredStyle: .alert)
 
         let exitAction = UIAlertAction(title: "Выйти", style: .default) { _ in
             self.dataManager.logOutDefaults()
@@ -78,6 +78,42 @@ class ProfileViewController: UIViewController {
 
         present(alertController, animated: true, completion: nil)
     }
+
+    lazy var followingLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.text = String(followingUsers.count)
+        label.numberOfLines = 1
+        return label
+    }()
+    lazy var followingButton: UIButton = {
+        let action = UIAction { [weak self] _ in
+            let followingTableVC = FollowingTableViewController()
+            self?.navigationController?.pushViewController(followingTableVC, animated: true)
+        }
+        let button = UIButton(configuration: .plain(), primaryAction: action)
+        button.setTitle("Following", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.backgroundColor = .clear
+        button.contentHorizontalAlignment = .center
+        return button
+    }()
+//    lazy var followersButton: UIButton = {
+//        let action = UIAction { [weak self] _ in
+////            let listOfPostsDetailVC = ListOfPostsViewController(index: indexPath, user: selectedUser, posts: posts)
+////            navigationController?.pushViewController(listOfPostsDetailVC, animated: true)
+//        }
+//        let button = UIButton(configuration: .plain(), primaryAction: action)
+//        button.setTitle("Followers", for: .normal)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.backgroundColor = .white
+//        button.setTitleColor(.black, for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+//        return button
+//    }()
 // collectionView для отображения постов в profile
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -97,6 +133,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         posts = dataManager.syncGetPosts()
+        followingUsers = dataManager.getUsers()
         setupLayout()
         collectionView.reloadData()
     }
@@ -109,6 +146,8 @@ class ProfileViewController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(avatarImageView)
         view.addSubview(settingsButton)
+        view.addSubview(followingButton)
+        view.addSubview(followingLabel)
 
         NSLayoutConstraint.activate([
             usernameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -122,7 +161,7 @@ class ProfileViewController: UIViewController {
             avatarImageView.heightAnchor.constraint(equalToConstant: 80),
 
             descriptionLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 2),
-            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             descriptionLabel.widthAnchor.constraint(equalToConstant: 100),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 70),
 
@@ -132,9 +171,20 @@ class ProfileViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
             settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            settingsButton.widthAnchor.constraint(equalToConstant: 80),
-            settingsButton.heightAnchor.constraint(equalToConstant: 50)
+            settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            settingsButton.widthAnchor.constraint(equalToConstant: 40),
+            settingsButton.heightAnchor.constraint(equalToConstant: 25),
+
+            followingLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45),
+            followingLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
+            followingLabel.widthAnchor.constraint(equalToConstant: 30.0),
+            followingLabel.heightAnchor.constraint(equalToConstant: 20.0),
+
+            followingButton.topAnchor.constraint(equalTo: followingLabel.bottomAnchor, constant: 2),
+            followingButton.centerXAnchor.constraint(equalTo: followingLabel.centerXAnchor),
+            followingButton.widthAnchor.constraint(equalToConstant: 100.0),
+            followingButton.heightAnchor.constraint(equalToConstant: 20.0)
+
         ])
     }
 }

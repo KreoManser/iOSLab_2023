@@ -110,14 +110,14 @@ class FeedTableViewCell: UITableViewCell {
             UIView.animate(withDuration: 0.3, animations: {
                 self.likeImageView.image = UIImage(named: "afterLike")
             }, completion: { _ in
-                self.dataManager.toLikePost(post: unrPost)
+//                self.dataManager.toLikePost(post: unrPost)
                 print("from feed table view cell")}
             )
         } else {
             UIView.animate(withDuration: 0.3, animations: {
                 self.likeImageView.image = UIImage(named: "beforeLike")
             }, completion: { _ in
-                self.dataManager.toUnlikePost(post: unrPost)
+//                self.dataManager.toUnlikePost(post: unrPost)
                 print("from feed table view cell")}
             )
         }
@@ -144,7 +144,10 @@ class FeedTableViewCell: UITableViewCell {
         if let imageData = user.profileImage, let image = UIImage(data: imageData) {
             avatarImageView.image = image
         }
-        postImageView.image = post.image
+        if let imagePostData = post.image, let conImagePost = UIImage(data: imagePostData) {
+            postImageView.image = conImagePost
+        }
+//        postImageView.image = post.image
         countOfLikesLabel.text = String(post.countOfLikes) + " likes"
         dateLabel.text = dateFormatter.string(from: post.date)
     }
