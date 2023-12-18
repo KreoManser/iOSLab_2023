@@ -74,7 +74,7 @@ class ProfileView: UIView {
     }()
 
     private lazy var subsLabel: UILabel = profileInfoLabel("Subs", weight: .regular)
-    private lazy var subsCountLabel: UILabel = profileInfoLabel("\(CoreDataManager.shared.getFriendsFromCurUser().count)", weight: .medium)
+    lazy var subsCountLabel: UILabel = profileInfoLabel("\(CoreDataManager.shared.getFriendsFromCurUser().count)", weight: .medium)
 
     private lazy var subsStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [subsCountLabel, subsLabel])
@@ -183,6 +183,7 @@ extension ProfileView {
     func reloadData() {
         profileCollectionView.reloadData()
         publicationsCountLabel.text = "\(CoreDataManager.shared.getPostsFromCurUser().count)"
+        subsCountLabel.text = "\(CoreDataManager.shared.getCurUserSubsCount())"
     }
 
     func profileInfoLabel(_ text: String, weight: UIFont.Weight) -> UILabel {

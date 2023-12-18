@@ -6,10 +6,12 @@ class UsersViewController: UIViewController {
 
     override func loadView() {
         view = usersView
+        usersDataSource.updateTableWithCachedData()
         usersView.setupDataSource(usersDataSource)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        usersDataSource.updateTableWithCachedData()
+        usersView.reloadData()
     }
 }

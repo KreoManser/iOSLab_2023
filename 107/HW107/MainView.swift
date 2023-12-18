@@ -58,6 +58,18 @@ extension MainView {
         postTableView.dataSource = dataSource
     }
 
+    func reloadPosts() {
+        postTableView.reloadData()
+    }
+
+    func reloadStories() {
+        storiesCollectionView.reloadData()
+    }
+
+    func reloadData() {
+        reloadPosts()
+        reloadStories()
+    }
     func setupStoriesCollectionViewDataSource(_ dataSource: UICollectionViewDataSource) {
         storiesCollectionView.dataSource = dataSource
     }

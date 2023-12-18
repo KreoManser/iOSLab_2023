@@ -67,10 +67,7 @@ class DataManager: DataManagerProtocol {
     lazy var posts: [Post] = CoreDataManager.shared.getAllPostForCurUserFriends()
     private var allStories: [Story] = []
     private init() {
-        for post in self.posts {
-            guard let user = post.user else { return }
-            self.allStories.append(Story(userName: user.login, imageName: post.postImageName))
-        }
+        updateStories()
     }
     private var searchedPosts: [Post] = []
     static let shared = DataManager()
@@ -196,7 +193,17 @@ class DataManager: DataManagerProtocol {
     }
 
     func getAllStories() -> [Story] {
+        updateStories()
         return allStories
+    }
+
+    func updateStories() {
+        self.allStories = []
+        let posts = CoreDataManager.shared.getAllPostForCurUserFriends()
+        for post in posts {
+            guard let user = post.user else { return }
+            self.allStories.append(Story(userName: user.login, imageName: post.postImageName))
+        }
     }
 }
 

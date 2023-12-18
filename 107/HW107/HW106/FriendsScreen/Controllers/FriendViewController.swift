@@ -9,6 +9,11 @@ class FriendViewController: UIViewController {
         friendView.setupDataSource(friendsDataSource)
     }
 
+//    override func viewWillAppear(_ animated: Bool) {
+//        friendsDataSource.updateTableWithCachedData()
+//        friendView.reloadData()
+//    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -93,6 +93,8 @@ extension CoreDataManager {
 
     func getAllPosts() -> [Post] {
         let userFetchRequest = Post.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "postDate", ascending: true)
+        userFetchRequest.sortDescriptors = [sortDescriptor]
 
         let result = try? viewContext.fetch(userFetchRequest)
         return result ?? []
@@ -189,6 +191,10 @@ extension CoreDataManager {
         return post.liked?.count ?? 0
     }
 
+    func getCurUserSubsCount() -> Int {
+        return getFriendsFromCurUser().count
+    }
+
     func getAvatarNameByUser(user: User) -> String {
         switch user.login {
         case "Timerglot":
@@ -200,6 +206,22 @@ extension CoreDataManager {
         default:
             return "defaultUser"
         }
+    }
+
+    func createUsersFetchResultController() -> NSFetchedResultsController<User> {
+        guard let user = getCurUser() else { return NSFetchedResultsController() }
+        let userFetchRequest = User.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "login", ascending: true)
+        userFetchRequest.sortDescriptors = [sortDescriptor]
+        userFetchRequest.predicate = NSPredicate(format: "id != %@", user.id as CVarArg)
+
+        let resultController = NSFetchedResultsController(
+            fetchRequest: userFetchRequest,
+            managedObjectContext: viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+
+        return resultController
     }
 
     func setDefaultUsers() {
@@ -269,14 +291,14 @@ extension CoreDataManager {
         let post1 = Post(context: viewContext)
         post1.id = UUID()
         post1.postDescription = "First post"
-        post1.postDate = "15.03.2023"
+        post1.postDate = "09.03.2023"
         post1.postImageName = "image_1"
         post1.user = users.first(where: { $0.login == "Timerglot" })
 
         let post2 = Post(context: viewContext)
         post2.id = UUID()
         post2.postDescription = "Second post"
-        post2.postDate = "07.05.2023"
+        post2.postDate = "12.05.2023"
         post2.postImageName = "image_2"
         post2.user = users.first(where: { $0.login == "Timerglot" })
 
@@ -290,14 +312,14 @@ extension CoreDataManager {
         let post4 = Post(context: viewContext)
         post4.id = UUID()
         post4.postDescription = "First post"
-        post4.postDate = "15.01.2023"
+        post4.postDate = "03.01.2023"
         post4.postImageName = "image_4"
         post4.user = users.first(where: { $0.login == "Giga_chad" })
 
         let post5 = Post(context: viewContext)
         post5.id = UUID()
         post5.postDescription = "Second post"
-        post5.postDate = "15.04.2023"
+        post5.postDate = "11.04.2023"
         post5.postImageName = "image_5"
         post5.user = users.first(where: { $0.login == "Giga_chad" })
 
@@ -311,35 +333,35 @@ extension CoreDataManager {
         let post7 = Post(context: viewContext)
         post7.id = UUID()
         post7.postDescription = "First post"
-        post7.postDate = "07.01.2023"
+        post7.postDate = "05.01.2023"
         post7.postImageName = "image_7"
         post7.user = users.first(where: { $0.login == "The_benko" })
 
         let post8 = Post(context: viewContext)
         post8.id = UUID()
         post8.postDescription = "Second post"
-        post8.postDate = "21.02.2023"
+        post8.postDate = "07.02.2023"
         post8.postImageName = "image_1"
         post8.user = users.first(where: { $0.login == "The_benko" })
 
         let post9 = Post(context: viewContext)
         post9.id = UUID()
         post9.postDescription = "Third post"
-        post9.postDate = "15.03.2023"
+        post9.postDate = "10.03.2023"
         post9.postImageName = "image_4"
         post9.user = users.first(where: { $0.login == "The_benko" })
 
         let post10 = Post(context: viewContext)
         post10.id = UUID()
         post10.postDescription = "Fourth post"
-        post10.postDate = "15.04.2023"
+        post10.postDate = "11.04.2023"
         post10.postImageName = "image_5"
         post10.user = users.first(where: { $0.login == "The_benko" })
 
         let post11 = Post(context: viewContext)
         post11.id = UUID()
         post11.postDescription = "Third post"
-        post11.postDate = "10.07.2023"
+        post11.postDate = "25.07.2023"
         post11.postImageName = "image_6"
         post11.user = users.first(where: { $0.login == "The_benko" })
 

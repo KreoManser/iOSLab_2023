@@ -9,6 +9,9 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        mainView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
