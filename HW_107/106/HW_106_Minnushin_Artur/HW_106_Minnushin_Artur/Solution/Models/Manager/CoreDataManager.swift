@@ -277,4 +277,28 @@ class CoreDataManager {
             }
         }
     }
+    func createPreparedFetchedUserResultController() -> NSFetchedResultsController<User> {
+        let userFetchRequest = User.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "userName", ascending: true)
+        userFetchRequest.sortDescriptors = [sortDescriptor]
+        let resultController = NSFetchedResultsController(
+            fetchRequest: userFetchRequest,
+            managedObjectContext: viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return resultController
+    }
+    func createPreparedFetchedPostResultController() -> NSFetchedResultsController<Post> {
+        let userFetchRequest = Post.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "postDate", ascending: true)
+        userFetchRequest.sortDescriptors = [sortDescriptor]
+        let resultController = NSFetchedResultsController(
+            fetchRequest: userFetchRequest,
+            managedObjectContext: viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return resultController
+    }
 }

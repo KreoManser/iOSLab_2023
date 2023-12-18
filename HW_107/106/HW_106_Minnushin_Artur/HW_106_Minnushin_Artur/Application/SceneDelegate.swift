@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let data = CoreDataManager.shared
         let users = CoreDataManager.shared.obtaineSavedData()
         var checker = false
+
         users.forEach { user in
             if UserDefaults.standard.bool(forKey: user.userName) {
                 data.updateAuthorizationUser(user: user)

@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class NewsLineView: UIView {
     weak var newsLineVC: NewsLineViewController?
-    let dataManager = DataManager.sigelton
     let coreDataManager = CoreDataManager.shared
+    var fetchedResultController: NSFetchedResultsController<Post>!
     lazy var newsLineLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -36,6 +37,7 @@ class NewsLineView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
+        fetchedResultController.delegate = self
         addSubview(newsLineLabel)
         addSubview(newsLineCollectionView)
         addSubview(newsLineTablewView)
@@ -68,6 +70,16 @@ class NewsLineView: UIView {
     }
     func reloadData() {
         newsLineTablewView.reloadData()
+    }
+}
+extension NewsLineView: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .delete:
+            newsLineTablewView.deleteRows(at: [indexPath!], with: .automatic)
+        default :
+            break
+        }
     }
 }
 

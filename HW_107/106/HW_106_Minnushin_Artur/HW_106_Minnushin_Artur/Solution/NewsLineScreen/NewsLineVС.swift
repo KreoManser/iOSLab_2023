@@ -6,25 +6,24 @@
 //
 
 import UIKit
+import CoreData
 
 class NewsLineViewController: UIViewController {
     let newsLineView = NewsLineView(frame: .zero)
     let newsLineCollDataSoutce = NewsLineCollectionDataSource()
     let newsLineTableDataSoutce = NewsLineTableDataSource()
+    var fetchedResultController: NSFetchedResultsController<Post>!
     let coreDataManager = CoreDataManager.shared
     var delegate: UpdateData?
-    var myTimer: Timer!
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchedResultController = coreDataManager.createPreparedFetchedPostResultController()
+        newsLineTableDataSoutce.setupFetchedResultController(fetchedResultController: fetchedResultController)
+        newsLineView.fetchedResultController = fetchedResultController
         newsLineView.newsLineVC = self
         newsLineView.setupDataSourse(
             collectiondataSource: newsLineCollDataSoutce,
             tableDataSource: newsLineTableDataSoutce)
-        self.myTimer = Timer(timeInterval: 1.0,
-                             target: self,
-                             selector: #selector(refresh),
-                             userInfo: nil, repeats: true)
-                RunLoop.main.add(self.myTimer, forMode: .default)
     }
     override func loadView() {
         view = newsLineView

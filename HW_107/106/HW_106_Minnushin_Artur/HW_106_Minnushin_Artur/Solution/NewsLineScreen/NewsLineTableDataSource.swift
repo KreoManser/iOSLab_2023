@@ -6,17 +6,26 @@
 //
 
 import UIKit
+import CoreData
 
 class NewsLineTableDataSource: NSObject, UITableViewDelegate, UITableViewDataSource {
     let coreDataManager = CoreDataManager.shared
+    var fetchedResultController: NSFetchedResultsController<Post>!
+    func setupFetchedResultController(
+        fetchedResultController: NSFetchedResultsController<Post>) {
+        self.fetchedResultController = fetchedResultController
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return coreDataManager.getAllPost().count
+        guard let section = fetchedResultController.sections?[section] else {
+            return 0
+        }
+        return section.numberOfObjects
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "newsLineTableCell",
             for: indexPath) as? NewsLineTableViewCell else { return UITableViewCell() }
-        let item = coreDataManager.getAllPost()[indexPath.row]
+        let item = fetchedResultController.object(at: indexPath)
         let user = coreDataManager.obtaineSavedData().first(where: {$0.userId == item.userPostId})
         cell.postID = Int(item.postID)
         cell.postUserID = Int(item.userPostId)
