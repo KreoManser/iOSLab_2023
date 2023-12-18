@@ -170,14 +170,12 @@ extension CoreDataManager {
             guard let friendship = friends.first(where: { $0.friendUserEntity.id == user.id }) else { return }
             curUser.removeFromFriends(friendship)
             viewContext.delete(friendship)
-            print(0)
         } else {
             let friendship = Friend(context: viewContext)
             friendship.id = UUID()
             friendship.user = curUser
             friendship.friendUserEntity = user
             curUser.addToFriends(friendship)
-            print(1)
         }
         saveContext()
     }

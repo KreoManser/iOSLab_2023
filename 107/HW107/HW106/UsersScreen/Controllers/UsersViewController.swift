@@ -12,6 +12,5 @@ class UsersViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         usersDataSource.updateTableWithCachedData()
-        usersView.reloadData()
     }
 }

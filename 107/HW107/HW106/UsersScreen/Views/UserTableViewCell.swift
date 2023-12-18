@@ -85,11 +85,9 @@ extension UserTableViewCell {
                 if CoreDataManager.shared.isCurUserSubToUser(user: user) {
                     self?.subsButton.setTitle("Subscribed", for: .normal)
                     self?.subsButton.backgroundColor = .lightGray
-                    print("yes")
                 } else {
                     self?.subsButton.setTitle("Subscribe", for: .normal)
                     self?.subsButton.backgroundColor = .systemBlue
-                    print("no")
                 }
             }
             subsButton.addAction(action, for: .touchUpInside)
