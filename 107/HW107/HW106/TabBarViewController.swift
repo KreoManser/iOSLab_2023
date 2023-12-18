@@ -15,7 +15,7 @@ extension TabBarViewController {
         mainViewController.tabBarItem = mainTabBarItem
 
         let usersViewController = UsersViewController()
-        let usersTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person.fill"), selectedImage: nil)
+        let usersTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person.2.fill"), selectedImage: nil)
         usersViewController.tabBarItem = usersTabBarItem
 
         let profileViewController = ProfileViewController()
