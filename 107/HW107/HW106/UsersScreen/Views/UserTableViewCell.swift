@@ -27,6 +27,7 @@ class UserTableViewCell: UITableViewCell {
         return button
     }()
 
+    private var flag = true
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -76,19 +77,23 @@ extension UserTableViewCell {
             subsButton.backgroundColor = .lightGray
         } else {
             subsButton.setTitle("Subscribe", for: .normal)
+            subsButton.backgroundColor = .systemBlue
         }
-        let action = UIAction { [weak self] _ in
-            CoreDataManager.shared.toggleCurUserSubs(user: user)
-            if !CoreDataManager.shared.isCurUserSubToUser(user: user) {
-                self?.subsButton.setTitle("Subscribed", for: .normal)
-                self?.subsButton.backgroundColor = .lightGray
-                print("yes")
-            } else {
-                self?.subsButton.setTitle("Subscribe", for: .normal)
-                self?.subsButton.backgroundColor = .systemBlue
-                print("no")
+        if flag {
+            let action = UIAction { [weak self] _ in
+                CoreDataManager.shared.toggleCurUserSubs(user: user)
+                if CoreDataManager.shared.isCurUserSubToUser(user: user) {
+                    self?.subsButton.setTitle("Subscribed", for: .normal)
+                    self?.subsButton.backgroundColor = .lightGray
+                    print("yes")
+                } else {
+                    self?.subsButton.setTitle("Subscribe", for: .normal)
+                    self?.subsButton.backgroundColor = .systemBlue
+                    print("no")
+                }
             }
+            subsButton.addAction(action, for: .touchUpInside)
+            flag = false
         }
-        subsButton.addAction(action, for: .touchUpInside)
     }
 }

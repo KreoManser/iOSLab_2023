@@ -3,7 +3,7 @@ import UIKit
 import CoreData
 
 class UsersTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
-//    private let users = CoreDataManager.shared.getAllUsers().filter({ $0.id != CoreDataManager.shared.getCurUser()?.id })
+    private let users = CoreDataManager.shared.getAllUsers().filter({ $0.id != CoreDataManager.shared.getCurUser()?.id })
     private var fetchedResultController = CoreDataManager.shared.createUsersFetchResultController()
     func updateTableWithCachedData() {
         do {
