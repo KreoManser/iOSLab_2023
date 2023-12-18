@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        
 //        _ = UINavigationController(rootViewController: PublicationViewController())
         self.window = UIWindow(windowScene: windowScene)
-        self.window?.rootViewController = PublicationViewController()
+        self.window?.rootViewController = UINavigationController(rootViewController: PublicationViewController()) 
         self.window?.makeKeyAndVisible()
     }
     func sceneDidDisconnect(_ scene: UIScene) {
