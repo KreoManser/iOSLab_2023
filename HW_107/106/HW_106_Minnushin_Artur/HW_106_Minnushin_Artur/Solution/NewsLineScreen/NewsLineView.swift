@@ -36,8 +36,9 @@ class NewsLineView: UIView {
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
+        fetchedResultController = NSFetchedResultsController()
         fetchedResultController.delegate = self
+        self.backgroundColor = .white
         addSubview(newsLineLabel)
         addSubview(newsLineCollectionView)
         addSubview(newsLineTablewView)
@@ -45,6 +46,14 @@ class NewsLineView: UIView {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func updateTableWithCachedData() {
+        do {
+            try fetchedResultController.performFetch()
+            newsLineTablewView.reloadData()
+        } catch {
+            print("Fetch request failed with error: \(error)")
+        }
     }
     func setupLayout() {
         NSLayoutConstraint.activate([
@@ -73,11 +82,17 @@ class NewsLineView: UIView {
     }
 }
 extension NewsLineView: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
         switch type {
         case .delete:
             newsLineTablewView.deleteRows(at: [indexPath!], with: .automatic)
-        default :
+        case .update:
+            newsLineTablewView.reloadRows(at: [indexPath!], with: .automatic)
+        default:
             break
         }
     }

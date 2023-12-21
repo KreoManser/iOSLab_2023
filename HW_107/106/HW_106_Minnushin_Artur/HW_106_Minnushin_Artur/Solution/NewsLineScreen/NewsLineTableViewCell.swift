@@ -114,13 +114,11 @@ class NewsLineTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func setUpLikeButton(cheker: Bool) {
-        if cheker == true {
+    func setUpLikeButton() {
+        if isLikedCheker == true {
             postLikeButton.setImage(UIImage(named: "isLikeIcon"), for: .normal)
-            isLikedCheker = true
         } else {
             postLikeButton.setImage(UIImage(named: "LikeIcon"), for: .normal)
-            isLikedCheker = false
         }
     }
     func setupLayout() {

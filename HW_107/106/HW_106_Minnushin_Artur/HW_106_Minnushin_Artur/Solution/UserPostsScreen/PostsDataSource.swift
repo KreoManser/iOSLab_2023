@@ -20,7 +20,7 @@ class PostsDataSource: NSObject, UITableViewDelegate, UITableViewDataSource {
         let user = dataManager.getAuthorizationUser()
         cell.userId = Int(user.userId)
         cell.postId = Int(item.postID)
-        cell.postAvatarImageView.image = UIImage(named: user.userAvatarImageName!)
+        cell.postAvatarImageView.image = UIImage(named: user.userAvatarImageName)
         cell.postNameLabel.text = (user.userName)
         cell.postPhotoImageView.image = UIImage(named: item.postPhotoNmae!)
         cell.postCommentLabel.text = "\(cell.postNameLabel.text ?? ""): \(item.postComment ?? "" )"

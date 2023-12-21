@@ -11,9 +11,8 @@ import CoreData
 class NewsLineTableDataSource: NSObject, UITableViewDelegate, UITableViewDataSource {
     let coreDataManager = CoreDataManager.shared
     var fetchedResultController: NSFetchedResultsController<Post>!
-    func setupFetchedResultController(
-        fetchedResultController: NSFetchedResultsController<Post>) {
-        self.fetchedResultController = fetchedResultController
+    init(controller: NSFetchedResultsController<Post>) {
+        self.fetchedResultController = controller
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let section = fetchedResultController.sections?[section] else {
@@ -26,10 +25,10 @@ class NewsLineTableDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
             withIdentifier: "newsLineTableCell",
             for: indexPath) as? NewsLineTableViewCell else { return UITableViewCell() }
         let item = fetchedResultController.object(at: indexPath)
-        let user = coreDataManager.obtaineSavedData().first(where: {$0.userId == item.userPostId})
+        let user = coreDataManager.obtaineSavedUser().first(where: {$0.userId == item.userPostId})
         cell.postID = Int(item.postID)
         cell.postUserID = Int(item.userPostId)
-        cell.postAvatarImageView.image = UIImage(named: user!.userAvatarImageName ?? "" )
+        cell.postAvatarImageView.image = UIImage(named: user!.userAvatarImageName )
         cell.postNameLabel.text = (user!.userName )
         cell.postPhotoImageView.image = UIImage(named: item.postPhotoNmae!)
         cell.postCommentLabel.text = "\(cell.postNameLabel.text ?? ""): \(item.postComment ?? "" )"
@@ -37,9 +36,10 @@ class NewsLineTableDataSource: NSObject, UITableViewDelegate, UITableViewDataSou
         dateFormatter.dateFormat = "dd.MM.yyyy"
         cell.postDateLabel.text = dateFormatter.string(from: item.postDate)
         cell.postLikeCountLabel.text = "Лайков: \(item.counterLikes)"
+        cell.isLikedCheker = coreDataManager.checkLiked(userId: Int(item.userPostId), postId: Int(item.postID))
         cell.delegate = tableView.superview as? any AllertConnectionNewsLine
         cell.superView = tableView
-        cell.setUpLikeButton(cheker: item.isLiked)
+        cell.setUpLikeButton()
         return cell
     }
 }

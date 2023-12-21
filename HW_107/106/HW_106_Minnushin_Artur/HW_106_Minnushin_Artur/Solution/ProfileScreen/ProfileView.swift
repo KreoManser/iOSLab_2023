@@ -107,7 +107,7 @@ class ProfileView: UIView {
         imageCollection.reloadData()
     }
     func configureUserProfile() {
-        avatarImage.image = UIImage(named: "\(user.userAvatarImageName!)")
+        avatarImage.image = UIImage(named: "\(user.userAvatarImageName)")
         countPostLabel.text = "\(String(describing: user.userCountPosts))"
         countFollowersLabel.text = "\(String(describing: user.userCountFolowers))"
         countFollowingLabel.text = "\(String(describing: user.userCountFolowing))"

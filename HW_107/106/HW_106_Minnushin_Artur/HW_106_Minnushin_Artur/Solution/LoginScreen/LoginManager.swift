@@ -20,7 +20,7 @@ class LoginManager: LoginManagerProtocol {
     async -> (cheker: Bool, item: User) {
         return await withCheckedContinuation {continuation in
             DispatchQueue.global().asyncAfter(deadline: .now()) {
-                let users = self.coreDataManager.obtaineSavedData()
+                let users = self.coreDataManager.obtaineSavedUser()
                 var cheker: Bool = false
                 for item in 0...users.count - 1 where users[item].userLogin == login
                 && users[item].userPassword == password {

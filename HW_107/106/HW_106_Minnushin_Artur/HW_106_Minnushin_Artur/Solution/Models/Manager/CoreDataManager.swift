@@ -36,91 +36,6 @@ class CoreDataManager {
             }
         }
     }
-    func obtainDefaultData() -> [User] {
-        var users = [User]()
-        let user1 = User(context: viewContext)
-        user1.userLogin = "1"
-        user1.userPassword = "1"
-        user1.userId = 1
-        user1.userName = "Artur Minnushin"
-        user1.userAvatarImageName = "avatar1"
-        user1.userCountPosts = 10
-        user1.userCountFolowing = 10
-        user1.userCountFolowers = 10
-        user1.userDescription = "Я iOS разработчик и кот :)"
-        for counter in 1..<9 {
-            let post = Post(context: viewContext)
-            post.postID = Int64(counter)
-            post.userPostId = user1.userId
-            post.isLiked = false
-            post.counterLikes = 0
-            post.postPhotoNmae = "Photo1"
-            post.postComment = "Пост: \(counter)"
-            var dateComponents = DateComponents()
-            dateComponents.year = Int.random(in: 2000..<2024)
-            dateComponents.month = Int.random(in: 1..<13)
-            dateComponents.day = Int.random(in: 1..<32)
-            post.postDate = Calendar.current.date(from: dateComponents)!
-            user1.addToPosts(post)
-        }
-        user1.likedPost = []
-        let user2 = User(context: viewContext)
-        user2.userLogin = "2"
-        user2.userPassword = "2"
-        user2.userId = 2
-        user2.userName = "Timofei Brisovix"
-        user2.userAvatarImageName = "avatar2"
-        user2.userCountPosts = 10
-        user2.userCountFolowing = 10
-        user2.userCountFolowers = 10
-        user2.userDescription = "Я кот и что :)"
-        user2.likedPost = []
-        for counter in 1..<9 {
-            let post = Post(context: viewContext)
-            post.postID = Int64(counter)
-            post.userPostId = user2.userId
-            post.isLiked = false
-            post.counterLikes = 0
-            post.postPhotoNmae = "Photo2"
-            post.postComment = "Пост: \(counter)"
-            var dateComponents = DateComponents()
-            dateComponents.year = Int.random(in: 2000..<2024)
-            dateComponents.month = Int.random(in: 1..<13)
-            dateComponents.day = Int.random(in: 1..<32)
-            post.postDate = Calendar.current.date(from: dateComponents)!
-            user2.addToPosts(post)
-        }
-        let user3 = User(context: viewContext)
-        user3.userLogin = "3"
-        user3.userPassword = "3"
-        user3.userId = 3
-        user3.userName = "Bond, Cat Bond"
-        user3.userAvatarImageName = "avatar3"
-        user3.userCountPosts = 10
-        user3.userCountFolowing = 10
-        user3.userCountFolowers = 10
-        user3.userDescription = "Меня сложно найти, легко потерять и невозможно убить. Я Bond, Cat Bond"
-        user3.likedPost = []
-        for counter in 1..<9 {
-            let post = Post(context: viewContext)
-            post.postID = Int64(counter)
-            post.userPostId = user3.userId
-            post.isLiked = false
-            post.counterLikes = 0
-            post.postPhotoNmae = "Photo3"
-            post.postComment = "Пост: \(counter)"
-            var dateComponents = DateComponents()
-            dateComponents.year = Int.random(in: 2000..<2024)
-            dateComponents.month = Int.random(in: 1..<13)
-            dateComponents.day = Int.random(in: 1..<32)
-            post.postDate = Calendar.current.date(from: dateComponents)!
-            user3.addToPosts(post)
-        }
-        users.append(user1)
-        users.append(user2)
-        users.append(user3)
-        return users
-    }
     func addNewUser(login: String, password: String, name: String, subscription: String, avatarNmae: String) {
         let user = User(context: viewContext)
         user.userLogin = login
@@ -129,7 +44,7 @@ class CoreDataManager {
         user.userDescription = subscription
         user.userAvatarImageName = avatarNmae
         let newID = Int64.random(in: 1..<100000)
-        for userObj in obtaineSavedData() where userObj.userId != newID {
+        for userObj in obtaineSavedUser() where userObj.userId != newID {
             user.userId = newID
             break
         }
@@ -144,7 +59,7 @@ class CoreDataManager {
         }
     }
     func deletePost(userId: Int, postId: Int) {
-        if let user = obtaineSavedData().first(where: {$0.userId == userId}) {
+        if let user = obtaineSavedUser().first(where: {$0.userId == userId}) {
             if let post = user.posts.first(where: {$0.postID == postId}) {
                 viewContext.delete(post)
                 try? viewContext.save()
@@ -157,7 +72,7 @@ class CoreDataManager {
                  postDay: Int,
                  postMounth: Int,
                  postYear: Int) {
-        if let user = obtaineSavedData().first(where: {$0.userId == userId}) {
+        if let user = obtaineSavedUser().first(where: {$0.userId == userId}) {
             let post = Post(context: viewContext)
             var newID = Int64.random(in: 1..<100000)
             var flag = false
@@ -185,21 +100,42 @@ class CoreDataManager {
         }
     }
     func deleteUser(id: Int) {
-        let user = obtaineSavedData().first(where: {$0.userId == id})
+        let user = obtaineSavedUser().first(where: {$0.userId == id})
         viewContext.delete(user!)
         try? viewContext.save()
     }
-    func obtaineSavedData() -> [User] {
+    func obtaineSavedUser() -> [User] {
         let userFetchRequest = User.fetchRequest()
         let sortDescriptors = NSSortDescriptor(key: "userName", ascending: true)
         userFetchRequest.sortDescriptors = [sortDescriptors]
         let result = try? viewContext.fetch(userFetchRequest)
         return result ?? []
     }
+    func obtaineSavedPost() -> [Post] {
+        let postFetchRequest = Post.fetchRequest()
+        let sortDescriptors = NSSortDescriptor(key: "postDate", ascending: true)
+        postFetchRequest.sortDescriptors = [sortDescriptors]
+        let result = try? viewContext.fetch(postFetchRequest)
+        return result ?? []
+    }
+    func obtaineSavedLikedPost() -> [LikedPost] {
+        let likedPostFetchRequest = LikedPost.fetchRequest()
+        let sortDescriptors = NSSortDescriptor(key: "userPostId", ascending: true)
+        likedPostFetchRequest.sortDescriptors = [sortDescriptors]
+        let result = try? viewContext.fetch(likedPostFetchRequest)
+        return result ?? []
+    }
+    func obtaineSavedFriend() -> [Friends] {
+        let likedPostFetchRequest = Friends.fetchRequest()
+        let sortDescriptors = NSSortDescriptor(key: "userPostId", ascending: true)
+        likedPostFetchRequest.sortDescriptors = [sortDescriptors]
+        let result = try? viewContext.fetch(likedPostFetchRequest)
+        return result ?? []
+    }
     func checkAuth(login: String, password: String) -> Bool {
         var users: [User]
-        if !obtaineSavedData().isEmpty {
-            users = obtaineSavedData()
+        if !obtainDefaultData().isEmpty {
+            users = obtaineSavedUser()
         } else {
             users = obtainDefaultData()
         }
@@ -215,7 +151,7 @@ class CoreDataManager {
     }
     func getAllPost() -> [Post] {
         var posts: [Post] = []
-        for user in obtaineSavedData() {
+        for user in obtaineSavedUser() {
             posts.append(contentsOf: user.posts)
         }
         posts.sort {$0.postDate > $1.postDate}
@@ -233,7 +169,7 @@ class CoreDataManager {
         return posts
     }
     func deletePostById(userId: Int, postId: Int) {
-        if let user = obtaineSavedData().first(where: {$0.userId == userId}) {
+        if let user = obtaineSavedUser().first(where: {$0.userId == userId}) {
             if let post = user.posts.first(where: {$0.postID == postId}) {
                 viewContext.delete(post)
                 if viewContext.hasChanges {
@@ -243,29 +179,73 @@ class CoreDataManager {
         }
     }
     func loginCheck(login: String) -> Bool {
-        for user in obtaineSavedData() where user.userLogin == login {
+        for user in obtaineSavedUser() where user.userLogin == login {
+            print(user.userLogin)
+            print(login)
             return true
         }
         return false
     }
+    func checkLiked(userId: Int, postId: Int) -> Bool {
+        for post in authorizationUser!.likedPost
+        where post.userPostId == userId && post.postID == postId && post.user == authorizationUser {
+            return true
+        }
+        return false
+    }
+    func checkFriended(userId: Int) -> Bool {
+        for friend in authorizationUser!.friends where friend.userID == userId {
+            return true
+        }
+        return false
+    }
+    func updateFriends(userID: Int) {
+        if checkFriended(userId: userID) {
+            let friend = (authorizationUser?.friends.first(where: {$0.userID == userID})!)!
+            obtaineSavedUser().first(where: {$0.userId == userID})?.userCountFolowers -= 1
+            viewContext.delete(friend)
+        } else {
+            let friend = Friends(context: viewContext)
+            friend.userID = Int32(userID)
+            obtaineSavedUser().first(where: {$0.userId == userID})?.userCountFolowers += 1
+            authorizationUser?.addToFriends(friend)
+        }
+        if viewContext.hasChanges {
+            try? viewContext.save()
+        }
+        print(authorizationUser?.friends.count)
+    }
+    func updateLikedPost(userId: Int, postId: Int) {
+        if checkLiked(userId: userId, postId: postId) {
+            let likedPost = obtaineSavedLikedPost().first(where: {
+                $0.userPostId == Int64(userId) && $0.postID == Int64(postId)
+            })!
+            obtaineSavedPost().first(where: {
+                $0.userPostId == Int64(userId) && $0.postID == Int64(postId)})!.counterLikes -= 1
+            viewContext.delete(likedPost)
+        } else {
+            let likedPost = LikedPost(context: viewContext)
+            likedPost.postID = Int64(postId)
+            likedPost.userPostId = Int64(userId)
+            obtaineSavedPost().first(where: {
+                $0.userPostId == Int64(userId) && $0.postID == Int64(postId)})!.counterLikes += 1
+            authorizationUser!.addToLikedPost(likedPost)
+        }
+        if viewContext.hasChanges {
+            try? viewContext.save()
+        }
+    }
     func tapLikeButtonFunc(userId: Int, postId: Int) {
-        if let user = obtaineSavedData().first(where: {$0.userId == userId}) {
+        if let user = obtaineSavedUser().first(where: {$0.userId == userId}) {
             if let post = user.posts.first(where: {$0.postID == postId}) {
                 if post.isLiked == false {
                     post.counterLikes += 1
-                    post.isLiked = true
                     let likedPost = LikedPost(context: viewContext)
                     likedPost.postID = post.postID
                     likedPost.userPostId = user.userId
-                    likedPost.isLiked = post.isLiked
-                    likedPost.counterLikes = post.counterLikes
-                    likedPost.postPhotoNmae = post.postPhotoNmae
-                    likedPost.postComment = post.postComment
-                    likedPost.postDate = post.postDate
                     user.addToLikedPost(likedPost)
                 } else {
                     post.counterLikes -= 1
-                    post.isLiked = false
                     if let deleteLikedPost = user.likedPost.first(where: {$0.postID == post.postID}) {
                         user.removeFromLikedPost(deleteLikedPost)
                         viewContext.delete(deleteLikedPost)
@@ -278,7 +258,7 @@ class CoreDataManager {
         }
     }
     func createPreparedFetchedUserResultController() -> NSFetchedResultsController<User> {
-        let userFetchRequest = User.fetchRequest()
+        var userFetchRequest = User.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "userName", ascending: true)
         userFetchRequest.sortDescriptors = [sortDescriptor]
         let resultController = NSFetchedResultsController(
@@ -286,19 +266,119 @@ class CoreDataManager {
             managedObjectContext: viewContext,
             sectionNameKeyPath: nil,
             cacheName: nil)
-        
         return resultController
     }
     func createPreparedFetchedPostResultController() -> NSFetchedResultsController<Post> {
         let userFetchRequest = Post.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "postDate", ascending: true)
+        var idList: [Int64] = []
+        for friend in authorizationUser!.friends {
+            idList.append(Int64(friend.userID))
+        }
+        let sortDescriptor = NSSortDescriptor(key: "postDate", ascending: false)
+        userFetchRequest.predicate = NSPredicate(format: "userPostId IN %@", idList)
         userFetchRequest.sortDescriptors = [sortDescriptor]
         let resultController = NSFetchedResultsController(
             fetchRequest: userFetchRequest,
             managedObjectContext: viewContext,
             sectionNameKeyPath: nil,
             cacheName: nil)
-        
         return resultController
     }
+    func deleteLike() {
+        for likedPost in obtaineSavedLikedPost() {
+            viewContext.delete(likedPost)
+        }
+        try? viewContext.save()
+        for post in obtaineSavedPost() {
+            post.counterLikes = 0
+        }
+    }
+}
+
+extension CoreDataManager {
+    func obtainDefaultData() -> [User] {
+            var users = [User]()
+            let user1 = User(context: viewContext)
+            user1.userLogin = "1"
+            user1.userPassword = "1"
+            user1.userId = 1
+            user1.userName = "Artur Minnushin"
+            user1.userAvatarImageName = "avatar1"
+            user1.userCountPosts = 10
+            user1.userCountFolowing = 10
+            user1.userCountFolowers = 10
+            user1.userDescription = "Я iOS разработчик и кот :)"
+            for counter in 1..<9 {
+                let post = Post(context: viewContext)
+                post.postID = Int64(counter)
+                post.userPostId = user1.userId
+                post.isLiked = false
+                post.counterLikes = 0
+                post.postPhotoNmae = "Photo1"
+                post.postComment = "Пост: \(counter)"
+                var dateComponents = DateComponents()
+                dateComponents.year = Int.random(in: 2000..<2024)
+                dateComponents.month = Int.random(in: 1..<13)
+                dateComponents.day = Int.random(in: 1..<32)
+                post.postDate = Calendar.current.date(from: dateComponents)!
+                user1.addToPosts(post)
+            }
+            user1.likedPost = []
+            let user2 = User(context: viewContext)
+            user2.userLogin = "2"
+            user2.userPassword = "2"
+            user2.userId = 2
+            user2.userName = "Timofei Brisovix"
+            user2.userAvatarImageName = "avatar2"
+            user2.userCountPosts = 10
+            user2.userCountFolowing = 10
+            user2.userCountFolowers = 10
+            user2.userDescription = "Я кот и что :)"
+            user2.likedPost = []
+            for counter in 1..<9 {
+                let post = Post(context: viewContext)
+                post.postID = Int64(counter)
+                post.userPostId = user2.userId
+                post.isLiked = false
+                post.counterLikes = 0
+                post.postPhotoNmae = "Photo2"
+                post.postComment = "Пост: \(counter)"
+                var dateComponents = DateComponents()
+                dateComponents.year = Int.random(in: 2000..<2024)
+                dateComponents.month = Int.random(in: 1..<13)
+                dateComponents.day = Int.random(in: 1..<32)
+                post.postDate = Calendar.current.date(from: dateComponents)!
+                user2.addToPosts(post)
+            }
+            let user3 = User(context: viewContext)
+            user3.userLogin = "3"
+            user3.userPassword = "3"
+            user3.userId = 3
+            user3.userName = "Bond, Cat Bond"
+            user3.userAvatarImageName = "avatar3"
+            user3.userCountPosts = 10
+            user3.userCountFolowing = 10
+            user3.userCountFolowers = 10
+            user3.userDescription = "Меня сложно найти, легко потерять и невозможно убить. Я Bond, Cat Bond"
+            user3.likedPost = []
+            for counter in 1..<9 {
+                let post = Post(context: viewContext)
+                post.postID = Int64(counter)
+                post.userPostId = user3.userId
+                post.isLiked = false
+                post.counterLikes = 0
+                post.postPhotoNmae = "Photo3"
+                post.postComment = "Пост: \(counter)"
+                var dateComponents = DateComponents()
+                dateComponents.year = Int.random(in: 2000..<2024)
+                dateComponents.month = Int.random(in: 1..<13)
+                dateComponents.day = Int.random(in: 1..<32)
+                post.postDate = Calendar.current.date(from: dateComponents)!
+                user3.addToPosts(post)
+            }
+            users.append(user1)
+            users.append(user2)
+            users.append(user3)
+            return users
+        }
 }

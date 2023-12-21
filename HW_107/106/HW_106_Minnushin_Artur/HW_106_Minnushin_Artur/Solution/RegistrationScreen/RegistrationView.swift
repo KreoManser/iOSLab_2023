@@ -8,7 +8,7 @@
 import UIKit
 
 class RegistrationView: UIView {
-    weak var registratioVC: RegistrationViewController?
+    weak var registratioVC: RegistrationViewController!
     lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +108,7 @@ class RegistrationView: UIView {
             setupAlertVC(subscription: "Описание должен быть!")
             return
         }
-        if registratioVC?.checkLogin(login: loginTextField.text!) != nil {
+        if registratioVC.checkLogin(login: loginTextField.text!) {
             setupAlertVC(subscription: "Такой котик уже есть!")
             return
         }

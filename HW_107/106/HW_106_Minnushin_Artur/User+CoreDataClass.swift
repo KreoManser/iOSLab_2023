@@ -2,7 +2,7 @@
 //  User+CoreDataClass.swift
 //  HW_106_Minnushin_Artur
 //
-//  Created by Артур Миннушин on 10.12.2023.
+//  Created by Артур Миннушин on 21.12.2023.
 //
 //
 

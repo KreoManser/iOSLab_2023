@@ -11,19 +11,22 @@ import CoreData
 class NewsLineViewController: UIViewController {
     let newsLineView = NewsLineView(frame: .zero)
     let newsLineCollDataSoutce = NewsLineCollectionDataSource()
-    let newsLineTableDataSoutce = NewsLineTableDataSource()
+    var newsLineTableDataSoutce: NewsLineTableDataSource!
     var fetchedResultController: NSFetchedResultsController<Post>!
     let coreDataManager = CoreDataManager.shared
     var delegate: UpdateData?
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchedResultController = coreDataManager.createPreparedFetchedPostResultController()
-        newsLineTableDataSoutce.setupFetchedResultController(fetchedResultController: fetchedResultController)
+        newsLineTableDataSoutce = NewsLineTableDataSource(controller: fetchedResultController)
         newsLineView.fetchedResultController = fetchedResultController
         newsLineView.newsLineVC = self
         newsLineView.setupDataSourse(
             collectiondataSource: newsLineCollDataSoutce,
             tableDataSource: newsLineTableDataSoutce)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        newsLineView.updateTableWithCachedData()
     }
     override func loadView() {
         view = newsLineView
@@ -34,10 +37,6 @@ class NewsLineViewController: UIViewController {
         delegate?.updateData()
     }
     func tapLikeButton(postId: Int, userId: Int) {
-        coreDataManager.tapLikeButtonFunc(userId: userId, postId: postId)
-    }
-    @objc
-    func refresh() {
-        newsLineView.reloadData()
+        coreDataManager.updateLikedPost(userId: userId, postId: postId)
     }
 }
