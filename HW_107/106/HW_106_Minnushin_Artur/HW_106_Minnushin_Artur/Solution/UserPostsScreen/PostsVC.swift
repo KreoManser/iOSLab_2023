@@ -42,6 +42,6 @@ class PostsViewController: UIViewController {
         deleagte?.updateData()
     }
     func tapLikeButton(postId: Int, userId: Int) {
-        coreDataManager.tapLikeButtonFunc(userId: userId, postId: postId)
+        coreDataManager.updateLikedPost(userId: userId, postId: postId)
     }
 }

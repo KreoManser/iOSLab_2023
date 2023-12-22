@@ -171,7 +171,6 @@ class NewsLineTableViewCell: UITableViewCell {
 extension NewsLineTableViewCell {
     func likeAnimation(indexPath: IndexPath) {
         if isLikedCheker == false {
-            self.isLikedCheker = true
             self.postLikeButton.setImage(UIImage(named: "isLikeIcon"), for: .normal)
             let likeImageViewAnimate: UIImageView = {
                 let posX = self.postLikeButton.frame.origin.x

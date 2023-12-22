@@ -110,8 +110,8 @@ class PostsTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func setUpLikeButton(cheker: Bool) {
-        if cheker == true {
+    func setUpLikeButton() {
+        if isLikedCheker == true {
             postLikeButton.setImage(UIImage(named: "isLikeIcon"), for: .normal)
             isLikedCheker = true
         } else {
@@ -169,7 +169,6 @@ class PostsTableViewCell: UITableViewCell {
 extension PostsTableViewCell {
     func likeAnimation() {
         if isLikedCheker == false {
-            self.isLikedCheker = true
             self.postLikeButton.setImage(UIImage(named: "isLikeIcon"), for: .normal)
             let likeImageViewAnimate: UIImageView = {
                 let posX = self.postLikeButton.frame.origin.x
