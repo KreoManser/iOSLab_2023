@@ -135,6 +135,11 @@ class CoreDataManager {
     func checkAuth(login: String, password: String) -> Bool {
         var users: [User]
         users = obtaineSavedUser()
+        if users.isEmpty {
+            users = obtainDefaultData()
+        } else {
+            users = obtaineSavedUser()
+        }
         authorizationUser = users.first(where: {$0.userLogin == login && $0.userPassword == password})
         if authorizationUser != nil {
             return true
