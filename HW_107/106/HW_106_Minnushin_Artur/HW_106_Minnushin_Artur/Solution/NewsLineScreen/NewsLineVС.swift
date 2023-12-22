@@ -19,7 +19,7 @@ class NewsLineViewController: UIViewController {
         super.viewDidLoad()
         fetchedResultController = coreDataManager.createPreparedFetchedPostResultController()
         newsLineTableDataSoutce = NewsLineTableDataSource(controller: fetchedResultController)
-        newsLineView.fetchedResultController = fetchedResultController
+        newsLineView.setupFetchController(controller: fetchedResultController)
         newsLineView.newsLineVC = self
         newsLineView.setupDataSourse(
             collectiondataSource: newsLineCollDataSoutce,
@@ -30,6 +30,9 @@ class NewsLineViewController: UIViewController {
     }
     override func loadView() {
         view = newsLineView
+    }
+    func updateController() {
+        newsLineView.updateTableWithCachedData()
     }
     func deletePost(postId: Int, postUserId: Int) {
         coreDataManager.deletePostById(userId: postUserId, postId: postId)

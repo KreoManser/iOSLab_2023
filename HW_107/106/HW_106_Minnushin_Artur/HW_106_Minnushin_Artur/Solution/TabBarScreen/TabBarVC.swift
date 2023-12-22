@@ -20,6 +20,7 @@ class TabBarViewController: UITabBarController {
         newsLineVC.tabBarItem.image = UIImage(systemName: "square.and.pencil")
         peopleAccounts.tabBarItem.title = "Поиск людей"
         peopleAccounts.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        peopleAccounts.newsLineVC = newsLineVC
         newsLineVC.delegate = profileVC
         modalPresentationStyle = .overFullScreen
         self.viewControllers = [

@@ -134,11 +134,7 @@ class CoreDataManager {
     }
     func checkAuth(login: String, password: String) -> Bool {
         var users: [User]
-        if !obtainDefaultData().isEmpty {
-            users = obtaineSavedUser()
-        } else {
-            users = obtainDefaultData()
-        }
+        users = obtaineSavedUser()
         authorizationUser = users.first(where: {$0.userLogin == login && $0.userPassword == password})
         if authorizationUser != nil {
             return true
@@ -172,10 +168,10 @@ class CoreDataManager {
         if let user = obtaineSavedUser().first(where: {$0.userId == userId}) {
             if let post = user.posts.first(where: {$0.postID == postId}) {
                 viewContext.delete(post)
-                if viewContext.hasChanges {
-                    try? viewContext.save()
-                }
             }
+        }
+        if viewContext.hasChanges {
+            try? viewContext.save()
         }
     }
     func loginCheck(login: String) -> Bool {
@@ -213,7 +209,6 @@ class CoreDataManager {
         if viewContext.hasChanges {
             try? viewContext.save()
         }
-        print(authorizationUser?.friends.count)
     }
     func updateLikedPost(userId: Int, postId: Int) {
         if checkLiked(userId: userId, postId: postId) {
@@ -251,14 +246,14 @@ class CoreDataManager {
                         viewContext.delete(deleteLikedPost)
                     }
                 }
-                if viewContext.hasChanges {
-                    try? viewContext.save()
-                }
             }
+        }
+        if viewContext.hasChanges {
+            try? viewContext.save()
         }
     }
     func createPreparedFetchedUserResultController() -> NSFetchedResultsController<User> {
-        var userFetchRequest = User.fetchRequest()
+        let userFetchRequest = User.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "userName", ascending: true)
         userFetchRequest.sortDescriptors = [sortDescriptor]
         let resultController = NSFetchedResultsController(

@@ -41,8 +41,6 @@ class PeopleAccountsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        fetchedResultController = NSFetchedResultsController()
-        fetchedResultController.delegate = self
         addSubview(nameLabel)
         addSubview(searchLabel)
         addSubview(underLineLabel)
@@ -59,6 +57,10 @@ class PeopleAccountsView: UIView {
         } catch {
             print("Fetch request failed with error: \(error)")
         }
+    }
+    func setupFecthController(controller: NSFetchedResultsController<User>) {
+        fetchedResultController = controller
+        fetchedResultController.delegate = self
     }
     func setupLayout() {
         NSLayoutConstraint.activate([

@@ -36,8 +36,6 @@ class NewsLineView: UIView {
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        fetchedResultController = NSFetchedResultsController()
-        fetchedResultController.delegate = self
         self.backgroundColor = .white
         addSubview(newsLineLabel)
         addSubview(newsLineCollectionView)
@@ -54,6 +52,10 @@ class NewsLineView: UIView {
         } catch {
             print("Fetch request failed with error: \(error)")
         }
+    }
+    func setupFetchController(controller: NSFetchedResultsController<Post>) {
+        fetchedResultController = controller
+        fetchedResultController.delegate = self
     }
     func setupLayout() {
         NSLayoutConstraint.activate([
@@ -114,7 +116,6 @@ extension NewsLineView: UICollectionViewDelegateFlowLayout, UICollectionViewDele
 extension NewsLineView: AllertConnectionNewsLine {
     func tapLikeButton(postId: Int, userId: Int) {
         self.newsLineVC?.tapLikeButton(postId: postId, userId: userId)
-        self.reloadData()
     }
     func presentAllertVC(postId: Int, postUserId: Int) {
         if postUserId == coreDataManager.getAuthorizationUser().userId {
@@ -124,8 +125,7 @@ extension NewsLineView: AllertConnectionNewsLine {
             let deleteAlertButton = UIAlertAction(title: "Удалить",
                 style: .destructive, handler: { [weak self] _ in
                     self?.newsLineVC?.deletePost(postId: postId,
-                                                 postUserId: postUserId)
-                    self?.reloadData()})
+                                                 postUserId: postUserId)})
             let cancelAlertButton = UIAlertAction(title: "Отмена", style: .cancel)
             alertVC.addAction(deleteAlertButton)
             alertVC.addAction(cancelAlertButton)

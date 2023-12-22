@@ -12,12 +12,13 @@ class PeopleAccuntsViewController: UIViewController {
     let peopleAccountView = PeopleAccountsView(frame: .zero)
     let coreDataManager = CoreDataManager.shared
     var peopleAccountDataSource: PeopleAccountsTableViewDataSource!
+    var newsLineVC: NewsLineViewController!
     var fetchResoultController: NSFetchedResultsController<User>!
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchResoultController = coreDataManager.createPreparedFetchedUserResultController()
         peopleAccountDataSource = PeopleAccountsTableViewDataSource(controller: fetchResoultController)
-        peopleAccountView.fetchedResultController = fetchResoultController
+        peopleAccountView.setupFecthController(controller: fetchResoultController)
         peopleAccountView.peopleAccountVC = self
         peopleAccountView.setupDataSource(dataSource: peopleAccountDataSource)
     }
@@ -29,6 +30,5 @@ class PeopleAccuntsViewController: UIViewController {
     }
     func updateFriend(userId: Int) {
         coreDataManager.updateFriends(userID: userId)
-        peopleAccountView.updateTableWithCachedData()
     }
 }
