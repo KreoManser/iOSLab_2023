@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E252" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Post" representedClassName="Post" syncable="YES">
+        <attribute name="avatarImageView" optional="YES" attributeType="Binary"/>
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="inscription" optional="YES" attributeType="String"/>
+        <attribute name="login" optional="YES" attributeType="String"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserRegistration" inverseName="posts" inverseEntity="UserRegistration"/>
+    </entity>
+    <entity name="UserRegistration" representedClassName="UserRegistration" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
+        <relationship name="follows" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserRegistration" inverseName="follows" inverseEntity="UserRegistration"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Post" inverseName="user" inverseEntity="Post"/>
+    </entity>
+</model>
