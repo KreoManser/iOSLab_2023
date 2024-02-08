@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  HomeWork102
+//  HW105
 //
-//  Created by Ильмир Шарафутдинов on 24.12.2023.
+//  Created by Ильмир Шарафутдинов on 27.01.2024.
 //
 
 import UIKit

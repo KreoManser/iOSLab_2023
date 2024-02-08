@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  HomeWork102
+//  HW105
 //
-//  Created by Ильмир Шарафутдинов on 24.12.2023.
+//  Created by Ильмир Шарафутдинов on 27.01.2024.
 //
 
 import UIKit
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "HomeWork102")
+        let container = NSPersistentContainer(name: "HW105")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
